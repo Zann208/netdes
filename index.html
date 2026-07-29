@@ -371,6 +371,41 @@ body.hasrail .item,body.hasrail .panel{scroll-margin-top:112px}
 .rbtns button.on{background:var(--cy);border-color:var(--cy);color:var(--bg)}
 body.light .rbtns button.on{color:#fff}
 
+
+/* COURSE SWITCHER */
+.logo{position:relative}
+.logo::after{content:"▾";font-family:var(--mono);font-size:9px;color:var(--faint);margin-left:1px;transition:.15s}
+.logo:hover::after{color:var(--cy)}
+#csWrap{position:relative;flex:0 0 auto}
+#csPop{position:absolute;top:calc(100% + 10px);left:0;width:min(92vw,340px);background:var(--panel);
+  border:1px solid var(--line2);border-radius:14px;padding:9px;z-index:95;display:none;
+  box-shadow:0 24px 60px rgba(0,0,0,.55)}
+.light #csPop{box-shadow:0 24px 60px rgba(15,27,45,.2)}
+#csPop.on{display:block}
+.cshd{font-family:var(--mono);font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);padding:6px 10px 8px;
+  display:flex;justify-content:space-between;align-items:center}
+.cshd b{color:var(--gr)}
+.csi{display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:1px solid transparent;background:none;
+  border-radius:10px;padding:10px 11px;cursor:pointer;font-family:inherit;color:var(--ink);transition:.14s;text-decoration:none}
+.csi:hover{background:var(--panel2);border-color:var(--line2);text-decoration:none}
+.csi.cur{background:var(--panel2);border-color:color-mix(in srgb,var(--cy) 45%,transparent)}
+.csmk{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  font-family:var(--mono);font-weight:800;font-size:11px;border:1px solid}
+.csmk.c1{background:color-mix(in srgb,#22d3ee 14%,transparent);border-color:#22d3ee;color:#22d3ee}
+.csmk.c2{background:color-mix(in srgb,#a78bfa 14%,transparent);border-color:#a78bfa;color:#a78bfa}
+.csmk.c3{background:color-mix(in srgb,#fbbf24 14%,transparent);border-color:#fbbf24;color:#fbbf24}
+.cstx{flex:1;min-width:0}
+.cstx b{display:block;font-size:14px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cstx span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.csnow{font-family:var(--mono);font-size:8.5px;letter-spacing:1px;color:var(--cy);border:1px solid var(--cy);
+  border-radius:4px;padding:2px 5px;flex:0 0 auto}
+.cssoon{font-family:var(--mono);font-size:8.5px;letter-spacing:1px;color:var(--faint);border:1px solid var(--line2);
+  border-radius:4px;padding:2px 5px;flex:0 0 auto}
+.csft{border-top:1px solid var(--line);margin-top:7px;padding:9px 11px 4px;display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:10px;color:var(--faint)}
+.csft a{color:var(--faint)}
+.csft a:hover{color:var(--cy)}
 /* LIGHT MODE POLISH */
 html.light{background-image:linear-gradient(rgba(15,27,45,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(15,27,45,.05) 1px,transparent 1px)}
 .light nav{background:color-mix(in srgb,#ffffff 88%,transparent)}
@@ -476,7 +511,8 @@ body.light .bpmap .hot text{fill:#4f6180}
 <canvas id="fx"></canvas>
 
 <nav><div class="navin">
-  <button class="logo" id="logoBtn" title="Home" aria-label="Home">
+  <div id="csWrap">
+  <button class="logo" id="logoBtn" title="Switch course" aria-label="Switch course" aria-haspopup="true" aria-expanded="false">
     <span class="lmark"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
       <line x1="8" y1="3.5" x2="3.5" y2="12" stroke="currentColor" stroke-width="1.1" opacity=".55"/>
       <line x1="8" y1="3.5" x2="12.5" y2="12" stroke="currentColor" stroke-width="1.1" opacity=".55"/>
@@ -490,6 +526,26 @@ body.light .bpmap .hot text{fill:#4f6180}
       <span class="lby">by <b>ZANN</b></span>
     </span>
   </button>
+  <div id="csPop" role="menu">
+    <div class="cshd"><span>Semester consoles</span><b>3</b></div>
+    <a class="csi cur" href="#" data-cs="self" role="menuitem">
+      <span class="csmk c1">NET</span>
+      <span class="cstx"><b>Network Design &amp; Management</b><span>261434 · CPE434</span></span>
+      <span class="csnow">HERE</span>
+    </a>
+    <a class="csi" href="https://zann208.github.io/wnet/" role="menuitem">
+      <span class="csmk c2">WLN</span>
+      <span class="cstx"><b>Wireless Networks</b><span>269430</span></span>
+      <span class="cssoon">OPEN ↗</span>
+    </a>
+    <a class="csi" href="https://zann208.github.io/algo/" role="menuitem">
+      <span class="csmk c3">ALG</span>
+      <span class="cstx"><b>Algorithms for iSNE</b><span>269202 · ISNE</span></span>
+      <span class="cssoon">OPEN ↗</span>
+    </a>
+    <div class="csft"><span>SEM 1 · 2026</span><a href="https://zann208.github.io" target="_blank" rel="noopener">portfolio ↗</a></div>
+  </div>
+  </div>
   <div class="tabstrip">
   <button class="tabbtn on" data-th="หน้าแรก" data-tab="home">HOME</button>
   <button class="tabbtn" data-th="ภาพรวม" data-tab="blueprint">BLUEPRINT</button>
@@ -4475,7 +4531,17 @@ function boom(){
   document.addEventListener("keydown",function(e){if(e.key==="Escape")list.classList.remove("on")});
   var rt=null;
   window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(reflow,120)});
-  document.getElementById("logoBtn").addEventListener("click",function(){
+  var csPop=document.getElementById("csPop"),logoB=document.getElementById("logoBtn");
+  logoB.addEventListener("click",function(e){
+    e.stopPropagation();
+    var on=csPop.classList.toggle("on");
+    logoB.setAttribute("aria-expanded",on?"true":"false");
+  });
+  document.addEventListener("click",function(){csPop.classList.remove("on");logoB.setAttribute("aria-expanded","false")});
+  csPop.addEventListener("click",function(e){e.stopPropagation()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")csPop.classList.remove("on")});
+  csPop.querySelector('[data-cs="self"]').addEventListener("click",function(e){
+    e.preventDefault();csPop.classList.remove("on");
     showTab("home",true);store.set("lastTab","home");
   });
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(reflow);
