@@ -10,7 +10,7 @@ One HTML file. No framework, no build step, no dependencies, no network calls. O
 
 ## Why I built it
 
-Course material arrives as a pile of PDFs: 16 lecture decks, 9 lab sheets, and a separate quiz on the university LMS for each lab. Nothing links to anything. Revising means opening six files and holding the connections in your head.
+Course material arrives as a pile of PDFs: 16 lecture decks, 10 lab sheets, and a separate quiz on the university LMS for each lab. Nothing links to anything. Revising means opening six files and holding the connections in your head.
 
 So I built the thing I wanted: every topic in one place, cross-linked, with the theory wired to the lab that tests it — plus a trainer that generates unlimited practice problems instead of the handful in the slides.
 
@@ -23,7 +23,7 @@ So I built the thing I wanted: every topic in one place, cross-linked, with the 
 | **Blueprint** | Every topic mapped onto one campus network diagram with clickable hotspots, plus a 17-step problem→solution chain explaining why the syllabus is ordered the way it is |
 | **Flow** | The course pipeline — lecture → lab → graded quiz — and which lab maps to which lecture |
 | **Lectures** | 16 decks rewritten for comprehension: mechanism first, then tables, worked sequences, commands and exam traps |
-| **Labs** | All 9 labs with topology, steps, full configs and predicted quiz questions |
+| **Labs** | All 10 labs as a full manual — objective, addressing table, every numbered step from the sheet, complete per-device configs, annotated `show` output telling you which line proves it worked, and solved keys for the four STP labs |
 | **Drills** | 152 flashcards with a weak-card filter, an 88-question mock exam, and three infinite generators |
 | **Exam** | Timed simulator with a per-topic report, weak-point radar, and the port-role solver |
 | **Cheatsheet / Terms** | Every number and table; 40 acronyms, searchable |
