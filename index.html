@@ -2272,13 +2272,13 @@ show spanning-tree summary</pre></div></details>
 
 <!-- ============ LABS ============ -->
 <section class="tab" id="labs"><div class="wrap">
-  <h1 data-th="10 แล็บ เรียงตามลำดับการสร้างจริง"><span class="pre">// LAB WORKBENCH</span>10 labs, build order</h1>
+  <h1 data-th="12 แล็บ เรียงตามลำดับการสร้างจริง"><span class="pre">// LAB WORKBENCH</span>12 labs, build order</h1>
   <div class="box trap" style="margin-top:14px"><b>Note on the worked answers</b>
   These are my own revision records for labs I have already completed and submitted. They are published to show the
   <b>reasoning method</b> — how root election, path cost and tie-breaks resolve — not as a shortcut for anyone else's
   coursework. If you are taking 261434 now, work the topology out yourself first; the port-role solver in the
   <b>Exam</b> tab generates unlimited fresh scenarios for exactly that purpose.</div>
-  <p class="lede" data-th="แต่ละแล็บ: เป้าหมาย ตารางที่อยู่ ทุกขั้นตอน คอนฟิกเต็ม การตรวจสอบ และเฉลยที่ยืนยันแล้ว">Each lab: objective, addressing table, every step from the sheet, complete configs, what to read in the verification output, and the traps. Labs 07–10 carry full solved keys.</p>
+  <p class="lede" data-th="แต่ละแล็บ: เป้าหมาย ตารางที่อยู่ ทุกขั้นตอน คอนฟิกเต็ม การตรวจสอบ และเฉลยที่ยืนยันแล้ว">Each lab: objective, addressing table, every step from the sheet, complete configs, what to read in the verification output, and the traps. Labs 07–10 carry full solved keys; 11–12 carry worked predictions.</p>
 
   <div class="tscroll" style="margin-top:16px"><table>
     <tr><th>Lab</th><th>Topic</th><th>Kit</th><th>Lecture</th><th data-th="คะแนน">Score</th></tr>
@@ -2292,6 +2292,8 @@ show spanning-tree summary</pre></div></details>
     <tr><td class="mono">08</td><td>Verifying spanning tree</td><td>4 × 2960</td><td>10</td><td class="ok">30 / 30</td></tr>
     <tr><td class="mono">09</td><td>Configuring STP priorities</td><td>4 × 2960</td><td>10 · 11</td><td class="ok">31 / 31</td></tr>
     <tr><td class="mono">10</td><td>STP with topology changes</td><td>4 × 2960</td><td>10 · 11</td><td class="ok">14 / 14</td></tr>
+    <tr><td class="mono">11</td><td>Rapid STP + backward compatibility</td><td>4 × 2960</td><td>13 · 14</td><td class="sub2">in progress</td></tr>
+    <tr><td class="mono">12</td><td>MST — regions and instances</td><td>4 × IOU · GNS3</td><td>15</td><td class="sub2">in progress</td></tr>
   </table></div>
 
   <!-- L00 -->
@@ -3239,6 +3241,195 @@ copy running-config startup-config</pre></div></details>
 
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L10"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t13">lecture 13 →</button></div>
   </article>
+
+  <!-- L11 -->
+  <article class="item lab" id="L11">
+    <div class="ph"><span class="badge gr">LAB 11</span><h3 data-th="RSTP และความเข้ากันได้ย้อนหลัง">Configuring Rapid Spanning Tree</h3><span class="tag">lectures 13 · 14</span></div>
+    <p class="tldr" data-th="ทำให้ลิงก์ล้มแบบเดียวกันสี่ครั้ง เปลี่ยนแค่โปรโตคอล แล้ววัดเวลาฟื้นตัว 30 วินาที เทียบกับทันที">Same link failure, four times over, changing only the protocol. Watch 30 seconds of outage collapse to nothing — and see what happens when only half the network has been upgraded.</p>
+
+    <h4 data-th="เป้าหมาย">Objective</h4>
+    <p>Verify that RSTP is backward compatible with IEEE 802.1D, and compare the convergence time of the two. This is the lab that makes the case for 802.1w with a stopwatch instead of a slide.</p>
+
+    <div class="box trap"><b data-th="หมายเหตุ">Note on the lab sheet</b>The title slide reads "Lab 10 — Configure Rapid Spanning Tree". That is a typo carried over from the previous deck; Section 1 says "From Lab 10", so this is <b>Lab 11</b>.</div>
+
+    <h4 data-th="ตั้งต้น">Setup — carried straight from Lab 10</h4>
+    <p class="mono" style="color:var(--dim)">SW1 20480 · <b>SW2 16384 (root)</b> · SW3 32768 · SW4 40960 · PCA on SW3 Fa0/11 · PCB on SW4 Fa0/12</p>
+    <p class="sub2">Open the file you saved at the end of Lab 10. <b>Make sure no interface is left shut down</b> — Lab 10 finished with a shut/no-shut cycle on SW4 Fa0/9. Wait a minute, then re-verify all four priorities against the figure.</p>
+
+    <h4 data-th="สถานะตั้งต้นบน SW1">Baseline on SW1 — this is what Section 1 asks about</h4>
+    <pre>SW1# show spanning-tree vlan 10
+
+VLAN0010
+  Spanning tree enabled protocol <b>ieee</b>          <span class="c">! "ieee" = classic 802.1D / PVST+</span>
+  Root ID    Priority    16394
+             Address     0040.0B0B.0AB7           <span class="c">! SW2</span>
+             Cost        19
+             Port        2(FastEthernet0/2)
+
+Interface   Role Sts Cost   Prio.Nbr  Type
+Fa0/1       Altn BLK 19     128.1     P2p       <span class="c">! loser of the tie</span>
+Fa0/2       Root FWD 19     128.2     P2p       <span class="c">! sender SW2 Fa0/3 = 128.3 beats Fa0/4 = 128.4</span></pre>
+    <p class="sub2">SW1 has two equal-cost links to the root, so the tie is settled by the <b>sender's</b> port ID. SW2's Fa0/3 (128.3) beats its Fa0/4 (128.4), and Fa0/3 lands on SW1's Fa0/2 — so <b>Fa0/2 is the root port and Fa0/1 is the alternate</b>. Every experiment below kills Fa0/2 and watches Fa0/1 take over.</p>
+
+    <h4 data-th="ห้าช่วงของแล็บ">The five sections</h4>
+    <div class="tscroll"><table>
+      <tr><th data-th="ช่วง">§</th><th data-th="ใครรัน RSTP">Running RSTP</th><th data-th="ทำอะไร">Event</th><th data-th="อ่านที่">Read on</th><th>Q</th></tr>
+      <tr><td class="mono">1</td><td>nobody</td><td>baseline, nothing changed</td><td class="mono">SW1</td><td class="mono">1–3</td></tr>
+      <tr><td class="mono">2</td><td class="mono">SW2 only</td><td><code>shutdown</code> SW1 Fa0/2</td><td class="mono">SW1</td><td class="mono">4–5</td></tr>
+      <tr><td class="mono">3</td><td class="mono">SW2 only</td><td><code>no shutdown</code> SW1 Fa0/2</td><td class="mono">SW1</td><td class="mono">6</td></tr>
+      <tr><td class="mono">4</td><td class="ok">all four</td><td><code>shutdown</code> SW1 Fa0/2</td><td class="mono">SW1</td><td class="mono">7</td></tr>
+      <tr><td class="mono">5</td><td class="ok">all four</td><td><code>no shutdown</code> SW1 Fa0/2</td><td class="mono">SW1</td><td class="mono">8</td></tr>
+    </table></div>
+    <p class="sub2">Every reading is taken <b>within the first 29 seconds</b> of the event, on <b>SW1</b>, for <b>VLAN 10</b>. Wait a full minute between sections.</p>
+
+    <details><summary data-th="▸ คำสั่ง">▸ commands</summary><div class="dbody"><pre><span class="c">! --- section 2: only SW2 changes protocol ---</span>
+SW2(config)# spanning-tree mode rapid-pvst
+
+<span class="c">! --- the event, run from SW1, stay in config mode ---</span>
+SW1(config)# interface FastEthernet0/2
+SW1(config-if)# shutdown
+SW1(config-if)# do show spanning-tree vlan 10
+SW1(config-if)# no shutdown
+SW1(config-if)# do show spanning-tree vlan 10     <span class="c">! wait ~5 s after no shut</span>
+
+<span class="c">! --- section 4: bring the rest across ---</span>
+SW1(config)# spanning-tree mode rapid-pvst
+SW3(config)# spanning-tree mode rapid-pvst
+SW4(config)# spanning-tree mode rapid-pvst
+
+<span class="c">! --- useful checks ---</span>
+show spanning-tree vlan 10          <span class="c">! the "protocol" word tells you the mode</span>
+show spanning-tree summary          <span class="c">! one line: which mode this switch is in</span>
+<span class="c">! spanning-tree mode pvst   <- returns a switch to classic 802.1D</span></pre></div></details>
+
+    <div class="box rl"><b data-th="ผลที่ควรได้ ทั้งแล็บในตารางเดียว">Predicted results — the whole lab in one table</b>
+    <div class="tscroll" style="margin-top:8px"><table>
+      <tr><th>§</th><th data-th="เหตุการณ์">Event</th><th data-th="ภายใน 29 วินาที">SW1 within 29 s</th><th data-th="เวลาฟื้น">Recovery</th></tr>
+      <tr><td class="mono">1</td><td>baseline</td><td class="mono">Fa0/1 Altn BLK · Fa0/2 Root FWD · protocol <b>ieee</b></td><td>—</td></tr>
+      <tr><td class="mono">2</td><td>shut Fa0/2</td><td class="mono">Fa0/1 <b>Root</b> · <b>LIS → LRN</b></td><td style="color:var(--rd)"><b>~30 s</b></td></tr>
+      <tr><td class="mono">3</td><td>no shut Fa0/2</td><td class="mono">Fa0/2 <b>Root LIS → LRN</b> · Fa0/1 back to Altn BLK</td><td style="color:var(--rd)"><b>~30 s</b></td></tr>
+      <tr><td class="mono">4</td><td>shut Fa0/2</td><td class="mono ok">Fa0/1 <b>Root FWD</b> — already forwarding</td><td class="ok"><b>sub-second</b></td></tr>
+      <tr><td class="mono">5</td><td>no shut Fa0/2</td><td class="mono ok">Fa0/2 <b>Root FWD</b> · Fa0/1 Altn BLK</td><td class="ok"><b>sub-second</b></td></tr>
+    </table></div>
+    <p class="sub2" style="margin-top:8px">Sections 2 and 3 are the backward-compatibility half: SW2 speaks 802.1w, but SW1 does not, so <b>SW2 falls back to legacy timers on that link</b> and nothing gets faster. Sections 4 and 5 are the payoff — once every switch runs RSTP, the alternate port is promoted and forwards immediately. These are my worked predictions from the protocol rules, not a graded key; send me your captures and I will check them against the output.</p></div>
+
+    <h4 data-th="ทำไม RSTP ถึงเร็ว">Why RSTP is instant — the two mechanisms</h4>
+    <div class="tscroll"><table>
+      <tr><th data-th="สถานการณ์">Situation</th><th>802.1D</th><th>802.1w</th></tr>
+      <tr><td>Root port dies, alternate available <span class="sub2">(§2 vs §4)</span></td><td>Alternate walks LIS 15 s + LRN 15 s</td><td class="ok"><b>Alternate is a pre-computed backup</b> and switches to forwarding at once — the BPDU it already stored proves the path is loop-free</td></tr>
+      <tr><td>New link comes up <span class="sub2">(§3 vs §5)</span></td><td>Every port serves the same 30 s</td><td class="ok"><b>Proposal / agreement handshake</b> across the point-to-point link: one exchange, then forward</td></tr>
+    </table></div>
+
+    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+      <li>The mode word in the output: <b><code>ieee</code></b> = 802.1D/PVST+, <b><code>rstp</code></b> = rapid-PVST. That single word answers "which protocol is this switch running".</li>
+      <li>The Cisco command is <code>spanning-tree mode <b>rapid-pvst</b></code> — not "rstp".</li>
+      <li><b>Backward compatibility is per port, not per switch.</b> An RSTP bridge that hears a legacy BPDU on one port drops to 802.1D <i>on that port only</i>. Cisco marks it in the Type column as <code>P2p <b>Peer(STP)</b></code>.</li>
+      <li>Which means <b>a half-upgraded network is as slow as the old one</b> on the mixed links. That is the entire point of sections 2 and 3.</li>
+      <li>RSTP has three states — <b>Discarding, Learning, Forwarding</b> — but Cisco still prints <code>BLK</code> for discarding in the Sts column, so the output looks familiar.</li>
+      <li>RSTP port roles add <b>Backup</b> (a second port onto the same segment) alongside Root, Designated and Alternate.</li>
+      <li>Rapid transition needs a <b>point-to-point</b> link, which Cisco infers from full duplex. A half-duplex or shared link falls back to timers even under RSTP.</li>
+    </ul></div>
+
+    <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>Nobody runs 802.1D by choice any more — but plenty of campuses run a mix, because one forgotten access switch never got its mode changed. This lab shows you exactly what that costs: the upgrade buys nothing until the <i>last</i> switch on the path is converted.</div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L11"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t13">lecture 13 →</button></div>
+  </article>
+
+  <!-- L12 -->
+  <article class="item lab" id="L12">
+    <div class="ph"><span class="badge gr">LAB 12</span><h3 data-th="MST — 20 VLAN แต่เหลือแค่ 2 ต้นไม้">Configuring MST</h3><span class="tag">lecture 15 · GNS3, not Packet Tracer</span></div>
+    <p class="tldr" data-th="20 VLAN ถ้าใช้ PVST+ ก็ต้องคำนวณ 20 ต้นไม้ MST ยุบเหลือ 2 แล้วยังแบ่งโหลดได้">Twenty VLANs. PVST+ would compute twenty separate spanning trees. MST collapses them into two — and lets you send each half of the network a different way.</p>
+
+    <h4 data-th="เป้าหมาย">Objective</h4>
+    <p>Configure MST and verify it. Along the way: build a region, map VLANs to instances, elect a different root per instance, and steer one instance off a link with a per-instance cost.</p>
+
+    <div class="box trap"><b data-th="ต้องใช้เครื่องมือคนละตัว">This lab needs different tools</b>
+    <b>GNS3 + the GNS3 VM + Cisco IOU Layer 2 switches.</b> Packet Tracer is not used and its 2960 image does not support MST properly.
+    <br><br>Add the switches <b>in order, IOU1 through IOU4</b>. If you added them correctly they will have these MAC addresses — check before you configure anything, because the root elections depend on them:
+    <br><span class="mono">IOU1 aabb.cc00.<b>0100</b> · IOU2 aabb.cc00.<b>0200</b> · IOU3 aabb.cc00.<b>0300</b> · IOU4 aabb.cc00.<b>0400</b></span>
+    <br>If they do not match, delete the project and add them again in order. There is no way to fix it afterwards.</div>
+
+    <h4 data-th="ผังการเชื่อมต่อ">Topology — a square with one diagonal</h4>
+    <p class="mono" style="color:var(--dim)">IOU1 top · IOU2 left · IOU4 right · IOU3 bottom · plus a diagonal IOU2 ↔ IOU4</p>
+    <div class="tscroll"><table>
+      <tr><th data-th="ลิงก์">Link</th><th data-th="ปลายทาง A">End A</th><th data-th="ปลายทาง B">End B</th></tr>
+      <tr><td>top-left</td><td class="mono">IOU1 e0/0</td><td class="mono">IOU2 e0/1</td></tr>
+      <tr><td>top-right</td><td class="mono">IOU1 e1/3</td><td class="mono">IOU4 e1/2</td></tr>
+      <tr><td>bottom-left</td><td class="mono">IOU2 e0/2</td><td class="mono">IOU3 e0/3</td></tr>
+      <tr><td>bottom-right</td><td class="mono">IOU3 e1/0</td><td class="mono">IOU4 e1/1</td></tr>
+      <tr><td><b>diagonal</b> <span class="sub2">— the one step 6 cripples</span></td><td class="mono"><b>IOU2 e2/0</b></td><td class="mono"><b>IOU4 e2/1</b></td></tr>
+    </table></div>
+    <p class="sub2">5 switch-to-switch links, 4 switches → <b>2 blocked ports per instance</b>. Same arithmetic as every STP lab: links − (switches − 1).</p>
+
+    <h4 data-th="ขั้นตอนตามใบแล็บ">Steps, as the sheet numbers them</h4>
+    <ol class="steps">
+      <li>Create <b>VLANs 51–70</b> on all four switches.</li>
+      <li>Configure every inter-switch link as a <b>trunk</b>, with dot1q encapsulation if the command exists.</li>
+      <li>Configure MST on all four with <b>name <code>netdes</code></b>, <b>revision 1</b>, <b>instance 1 = VLANs 51–60</b>, <b>instance 2 = VLANs 61–70</b>.</li>
+      <li><b>IOU2</b> becomes root for <b>instance 1</b>.</li>
+      <li><b>IOU4</b> becomes root for <b>instance 2</b>.</li>
+      <li>Set the <b>instance 2</b> path cost of <b>IOU2 e2/0</b> and <b>IOU4 e2/1</b> to <b>10,000,000</b>.</li>
+      <li>Answer the questions.</li>
+    </ol>
+
+    <details><summary data-th="▸ คอนฟิกเต็ม">▸ complete config</summary><div class="dbody"><pre><span class="c">! ===== ALL FOUR SWITCHES — identical, character for character =====</span>
+vlan 51-70
+!
+interface range Ethernet0/0 - 3 , Ethernet1/0 - 3 , Ethernet2/0 - 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+spanning-tree mode mst
+!
+spanning-tree mst configuration
+ name netdes                  <span class="c">! case-sensitive</span>
+ revision 1
+ instance 1 vlan 51-60
+ instance 2 vlan 61-70
+ exit                         <span class="c">! config is staged until you exit — nothing applies before this</span>
+
+<span class="c">! ===== IOU2 only =====</span>
+spanning-tree mst 1 root primary
+interface Ethernet2/0
+ spanning-tree mst 2 cost 10000000
+
+<span class="c">! ===== IOU4 only =====</span>
+spanning-tree mst 2 root primary
+interface Ethernet2/1
+ spanning-tree mst 2 cost 10000000</pre></div></details>
+
+    <h4 data-th="ตรวจสอบ">Verify — in this order</h4>
+    <div class="tscroll"><table>
+      <tr><th data-th="คำสั่ง">Command</th><th data-th="มองหา">What proves it worked</th></tr>
+      <tr><td class="mono">show spanning-tree mst configuration</td><td><b>Run this first, on all four.</b> Name, revision and the VLAN-to-instance map must be <b>byte-identical</b>. One character different and that switch is its own region.</td></tr>
+      <tr><td class="mono">show spanning-tree mst</td><td>All three instances at a glance — <b>MST0</b> (the IST), <b>MST1</b>, <b>MST2</b> — with the root and each port's role.</td></tr>
+      <tr><td class="mono">show spanning-tree mst 1</td><td>Root should be <b>IOU2</b>. Look for <code>This bridge is the root</code>.</td></tr>
+      <tr><td class="mono">show spanning-tree mst 2</td><td>Root should be <b>IOU4</b>, and the diagonal should <b>not</b> be carrying instance 2 after step 6.</td></tr>
+      <tr><td class="mono">show spanning-tree mst interface e2/0</td><td>The same port, listed once per instance, with a <b>different cost and possibly a different role in each</b>. This one command is the whole idea of MST.</td></tr>
+      <tr><td class="mono">show spanning-tree mst 2 detail</td><td>Confirms the 10,000,000 cost actually took.</td></tr>
+    </table></div>
+
+    <div class="box rl"><b data-th="สิ่งที่ควรเห็น">What you should see, and why</b>
+    <p style="margin-top:6px"><b>Three instances exist, not twenty.</b> MST0 is the <b>IST</b> — it always exists and carries every VLAN you did not map, including VLANs 1–50 and 71–4094. MST1 carries 51–60, MST2 carries 61–70. Twenty VLANs, two trees plus the IST, instead of twenty independent computations.</p>
+    <p><b>Two different roots on one physical topology.</b> Instance 1 folds toward IOU2, instance 2 folds toward IOU4. VLANs 51–60 and VLANs 61–70 take genuinely different paths across the same cables — that is <b>load sharing</b>, and it is the reason anyone bothers with MST instead of a single common tree.</p>
+    <p><b>Step 6 is the demonstration.</b> The IOU2–IOU4 diagonal is the shortest hop between the two roots. Setting its instance-2 cost to <b>10,000,000</b> — far above any default long-path cost — forces instance 2 to reroute through IOU1 or IOU3, while <b>instance 1 keeps using the diagonal at its normal cost</b>. One cable, two costs, two behaviours, decided per instance.</p>
+    <p class="sub2">Cost is set on <b>both</b> ends because path cost is evaluated on the receiving side; leaving one end cheap makes the two switches disagree about the diagonal.</p></div>
+
+    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+      <li><b>What makes a region.</b> Three things must match exactly on every switch: <b>name</b>, <b>revision number</b>, and the <b>VLAN-to-instance map</b>. Not the priorities, not the costs. Mistype <code>netdes</code> as <code>Netdes</code> and you have two regions that talk to each other as if through plain 802.1D.</li>
+      <li><b>Instance 0 is the IST</b> and cannot be deleted. Every unmapped VLAN rides it.</li>
+      <li>MST is built on <b>RSTP</b>, so it inherits the rapid transitions from Lab 11 — proposal/agreement, alternate ports promoted instantly.</li>
+      <li>The MST config is <b>staged</b>: your <code>instance</code> lines do nothing until you leave <code>spanning-tree mst configuration</code> mode. Then all of them apply at once and the tree re-converges.</li>
+      <li>Root election is per instance: <code>spanning-tree <b>mst 1</b> root primary</code> touches instance 1 only.</li>
+      <li>Path cost is per instance too: <code>spanning-tree <b>mst 2</b> cost 10000000</code> leaves instance 1 alone on the same interface.</li>
+      <li>MST uses the <b>long (32-bit) path cost</b> method by default, which is why 10,000,000 is a plausible number here — under the old 16-bit short costs the maximum was 65,535.</li>
+      <li>Outside the region, the whole region looks like <b>one single bridge</b> to the rest of the network.</li>
+    </ul></div>
+
+    <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>A data-centre with 500 VLANs running PVST+ is running 500 spanning-tree processes, and the switch CPU feels every one. MST is how you get that down to two or three trees while still using both uplinks — half the VLANs left, half the VLANs right, nothing idle. The cost is that every switch in the region must be configured identically, which is exactly the failure this lab teaches you to check for first.</div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L12"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t15">lecture 15 →</button></div>
+  </article>
 </div></section>
 <!-- ============ DRILLS ============ -->
 <section class="tab" id="drills"><div class="wrap">
@@ -3773,7 +3964,9 @@ var LABS={
  "L07":["Determine STP","on paper","10"],
  "L08":["Verifying STP","key solved","10"],
  "L09":["Configure STP","key solved","11"],
- "L10":["STP Changes","PortFast proof","11"]};
+ "L10":["STP Changes","PortFast proof","11"],
+ "L11":["Rapid STP","802.1w vs 802.1D","13"],
+ "L12":["MST","regions + instances","15"]};
 
 var CARDS=[];function C(t,q,a){CARDS.push({t:t,q:q,a:a})}
 C("01","The 3 layers of the Cisco campus model?","Access, Distribution, Core.");
