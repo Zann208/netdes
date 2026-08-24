@@ -1,88 +1,110 @@
 # NETDES — Network Design Study Console
 
-An offline-first, single-file study console for **261434 Computer Network Design and Management** (CPE434) at Chiang Mai University.
+An offline-first study console for **261434 Computer Network Design and Management (CPE434)** at Chiang Mai University.
 
-**→ [Live demo](https://zann208.github.io/netdes/)**
+**[Case study](https://zann208.github.io/projects/netdes/)** · **[Live console](https://zann208.github.io/netdes/)**
 
-One HTML file. No framework, no build step, no dependencies, no network calls. Open it and it works — on a laptop with no internet, in an exam hall, on a phone.
-
----
+The project is intentionally simple to run: the console lives in one `index.html` file with no framework or build step.
 
 ## Why I built it
 
-Course material arrives as a pile of PDFs: 16 lecture decks, 12 lab sheets, and a separate quiz on the university LMS for each lab. Nothing links to anything. Revising means opening six files and holding the connections in your head.
+The course material is spread across lecture decks, lab sheets and quiz material. The useful connections are not always in the same file. A lecture may explain a rule, a lab turns it into Cisco IOS commands, and the evidence that the configuration worked appears later in verification output.
 
-So I built the thing I wanted: every topic in one place, cross-linked, with the theory wired to the lab that tests it — plus a trainer that generates unlimited practice problems instead of the handful in the slides.
+NETDES keeps those parts together. The main study pattern is:
 
----
+**concept → configuration → verification → practice**
 
-## What's inside
+## What is inside
 
-| Section | What it does |
+| Section | Purpose |
 |---|---|
-| **Blueprint** | Every topic mapped onto one campus network diagram with clickable hotspots, plus a 17-step problem→solution chain explaining why the syllabus is ordered the way it is |
-| **Flow** | The course pipeline — lecture → lab → graded quiz — and which lab maps to which lecture |
-| **Lectures** | 16 decks rewritten for comprehension: mechanism first, then tables, worked sequences, commands and exam traps |
-| **Labs** | All 12 labs as a full manual — objective, addressing table, every numbered step from the sheet, complete per-device configs, annotated `show` output telling you which line proves it worked, and solved keys for the four STP labs |
-| **Drills** | 152 flashcards with a weak-card filter, an 88-question mock exam, and three infinite generators |
-| **Exam** | Timed simulator with a per-topic report, weak-point radar, and the port-role solver |
-| **Cheatsheet / Terms** | Every number and table; 40 acronyms, searchable |
+| **Blueprint** | Shows how the main course topics depend on each other |
+| **Flow** | Connects lecture topics to their lab work |
+| **Lectures** | Course notes rewritten for revision and comprehension |
+| **Labs** | Objectives, addressing, configurations, verification output and worked reasoning |
+| **Drills** | Flashcards, quiz questions and generated practice |
+| **Exam** | Timed review, weak-point tracking and the STP port-role solver |
+| **Cheatsheet / Terms** | Compact reference tables and terminology |
 
----
+The current lab workbench covers material from subnetting and switch setup through VLANs, inter-VLAN routing, STP, RSTP and MST. Lab 12 is still marked in progress in the console.
 
-## Engineering highlights
+## Network topics covered
 
-**A working STP implementation.** The port-role solver isn't a lookup table — it runs the real 802.1D algorithm: root election by Bridge ID, Dijkstra for path cost, then the four-step tie-break (cost → sender BID → sender port priority → sender port number). It generates a random scenario, grades your answer and explains the resolution.
+- IPv4/IPv6 addressing and subnetting
+- Basic switch setup, SSH and port security
+- VLANs and 802.1Q trunking
+- VTP concepts
+- EtherChannel
+- Router-on-a-stick and Layer 3 switching
+- Private VLANs
+- STP / PVST+
+- RSTP / Rapid PVST+
+- MST concepts
 
-Validated against all four hand-solved lab answers, then fuzzed with **20,000 randomised scenarios** — zero violations of the invariants (exactly 2 blocked ports, 3 root ports, one designated end per link).
+## STP port-role solver
 
+The console includes an educational IEEE 802.1D port-role solver. It is designed to make the decision process visible rather than hide it behind a final answer.
+
+The solver works through:
+
+1. root bridge election using Bridge ID
+2. root-path selection using path cost and tie-break values
+3. designated-port selection per segment
+4. blocked-port classification for the remaining ports
+
+The implementation compares path cost, Bridge IDs and port IDs. Root-path values are updated repeatedly until no better candidate is found; the source describes this as a Bellman-Ford-style convergence step.
+
+The console also contains worked STP scenarios from the course labs. Standalone automated test files referenced by an earlier version of this README are not currently present in the repository, so I do not treat the old fuzz-test figures as reproducible evidence here.
+
+## Configuration and verification
+
+A main goal of the lab pages is to keep configuration next to the commands used to check it. For example, a VLAN access-port workflow pairs configuration such as:
+
+```text
+vlan 10
+ name STUDENTS
+!
+interface Fa0/1
+ switchport mode access
+ switchport access vlan 10
 ```
-PASS Lab09 priorities      | root SW1 | blocked 2 | rootports 3
-PASS Lab09 root primary    | root SW2 | blocked 2 | rootports 3
-PASS Lab08 VLAN1 default   | root SW1 | blocked 2 | rootports 3
-PASS Lab08 VLAN10 raised   | root SW4 | blocked 2 | rootports 3
-20000 random scenarios (7998 with tied priorities) — violations: 0
+
+with checks such as:
+
+```text
+show vlan brief
+show interfaces status
+show interfaces fa0/1 switchport
 ```
 
-**Canvas background that teaches.** Three switchable visualisations rendered only in the page margins, so they never sit behind text and auto-disable below 1100px. One of them animates the actual 802.1D state machine — blocking (20s) → listening (15s) → learning (15s) → forwarding — with port role tags and hello BPDUs propagating from the root every 2 seconds.
+That is the part of the project I find most useful: it makes the expected network state explicit and gives a concrete way to verify it.
 
-**Adaptive navigation.** A priority+ overflow menu measures the header and moves the least-used tabs into a dropdown when space runs short, recalculating on resize, font load and language switch.
+## Implementation
 
-**Bilingual EN/TH.** ~310 translated nodes with technical terms deliberately left in English — *"ตัดการรอ Max Age 20 วินาที เมื่อเกิด indirect failure"* — which is how Thai network engineers actually write.
+- Vanilla HTML, CSS and JavaScript
+- Canvas 2D visualisations
+- `localStorage` for progress and preferences
+- inline SVG
+- no framework or bundler
 
-**Everything persists.** Progress, mastered cards, quiz history, answer accuracy per topic, theme, language and scroll position per section, all in `localStorage`.
-
----
-
-## Tech
-
-Vanilla HTML · CSS custom properties for theming · plain JavaScript · Canvas 2D · localStorage · inline SVG
-
-No React, no Tailwind, no bundler. 329 KB, one file, zero dependencies.
-
-## Run it
+## Run locally
 
 ```bash
 git clone https://github.com/Zann208/netdes.git
 cd netdes
-open index.html          # that's it
+open index.html
 ```
+
+Or simply open `index.html` in a browser.
 
 ## Accessibility
 
-Skip link, `<main>` landmark, visible focus rings, full keyboard navigation (`Ctrl K` search, `J`/`K` between topics, `?` for shortcuts), `prefers-reduced-motion` respected by every animation, and a light theme with contrast-checked pairs.
+The console includes keyboard navigation, visible focus states, reduced-motion handling, a light theme and a skip link.
 
----
+## Note on course content
 
-## Note on content
+The notes are my own revision material and restatement of course concepts. Lecture slides, lab sheets and original figures remain the property of the course instructor and are not redistributed here.
 
-The notes are my own restatement of course concepts, written for comprehension rather than transcription. Lecture slides, lab sheets and figures remain the property of the course instructor and are not redistributed here.
+Built by **Thu Htoo Zan** — Information Systems & Network Engineering, Chiang Mai University
 
-## License
-
-Code is [MIT](LICENSE). Course-derived study notes are shared for educational use.
-
----
-
-Built by **Zann** — Computer Engineering, Chiang Mai University
-[Portfolio](https://zann208.github.io) · [Email](mailto:thuhtoozan_1@cmu.ac.th)
+[Portfolio](https://zann208.github.io/) · [LinkedIn](https://www.linkedin.com/in/thu-htoo-zan-8866ab377/) · [Email](mailto:thuhtoozan_1@cmu.ac.th)
