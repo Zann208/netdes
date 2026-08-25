@@ -1,0 +1,71 @@
+name: Repair console
+
+on:
+  push:
+    paths:
+      - '.github/workflows/repair-console.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore working console and hide course codes in UI
+        shell: bash
+        run: |
+          git show 294415899367982d744bcf9280d795283db23dcb:index.html > index.html
+          cat > course-code-sanitize.js <<'EOF'
+          "use strict";
+          (function(){
+            var codes=["261434","CPE434","269430","269202","269497","261305"];
+            function clean(s){
+              var out=String(s==null?"":s);
+              codes.forEach(function(code){
+                out=out.replace(new RegExp("\\s*[·:/-]*\\s*"+code+"\\b","g"),"");
+              });
+              return out.replace(/\s{2,}/g," ").trim();
+            }
+            function apply(){
+              document.title=clean(document.title)||"Network Design Console";
+              var root=document.body||document.documentElement;
+              if(!root)return;
+              var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+              var nodes=[],n;
+              while((n=walker.nextNode()))nodes.push(n);
+              nodes.forEach(function(node){
+                var p=node.parentElement;
+                if(!p||/^(SCRIPT|STYLE|PRE|CODE|TEXTAREA)$/i.test(p.tagName))return;
+                var value=node.nodeValue, next=clean(value);
+                if(next!==value)node.nodeValue=next;
+              });
+              document.querySelectorAll('[title],[aria-label]').forEach(function(el){
+                ['title','aria-label'].forEach(function(a){if(el.hasAttribute(a))el.setAttribute(a,clean(el.getAttribute(a)));});
+              });
+            }
+            if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
+            setTimeout(apply,300);
+          })();
+          EOF
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          s=s.replace('<title>NETDES // CPE434 Ops Console</title>','<title>Network Design Console</title>')
+          tag='<script src="./course-code-sanitize.js?v=20260825-fix"></script>'
+          if tag not in s:
+              s=s.replace('</body>',tag+'\n</body>')
+          p.write_text(s)
+          PY
+      - name: Commit repair
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html course-code-sanitize.js
+          git commit -m "Repair Network Design console loading" || exit 0
+          git push
