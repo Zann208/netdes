@@ -1,0 +1,52 @@
+name: Apply Study Console UI
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-study-console-ui.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply presentation-only Study Console shell
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          repo_id='netdes'
+          repo_name='Network Design & Troubleshooting'
+          paths=['index.html']
+          css='''<link rel="stylesheet" href="https://zann208.github.io/study/shared/v1/study-system.css">\n<link rel="stylesheet" href="https://zann208.github.io/study/shared/v1/legacy-console.css">\n<link rel="stylesheet" href="./study-console-adapter.css">\n'''
+          js='<script src="https://zann208.github.io/study/shared/v1/study-system.js"></script>\n'
+          for name in paths:
+              p=Path(name)
+              s=p.read_bytes().decode('utf-8')
+              if f'data-study-console="{repo_id}"' in s:
+                  continue
+              s=s.replace('</head>',css+'</head>',1)
+              m=re.search(r'<body\b([^>]*)>',s,re.I)
+              if not m:
+                  raise RuntimeError(f'No body tag in {name}')
+              body=m.group(0)
+              new=body[:-1]+f' data-study-console="{repo_id}" data-console-id="{repo_id}" data-console-name="{repo_name}">'
+              s=s[:m.start()]+new+s[m.end():]
+              s=s.replace('</body>',js+'</body>',1)
+              p.write_bytes(s.encode('utf-8'))
+          PY
+      - name: Commit UI migration
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "Already migrated"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Unify NETDES with Study Console UI"
+          git push
