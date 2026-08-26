@@ -1,0 +1,13 @@
+body[data-study-console="netdes"]{background-image:none!important}
+body[data-study-console="netdes"] #fx{display:none!important}
+body[data-study-console="netdes"] .sc-legacy-coursebar .morewrap{margin-left:auto}
+body[data-study-console="netdes"] #sb{background:var(--sc-surface)!important;border-color:var(--sc-line)!important}
+body[data-study-console="netdes"] #sb .sbh{font-family:inherit!important;color:var(--sc-muted)!important}
+body[data-study-console="netdes"] #sbT{background:var(--sc-surface)!important;color:var(--sc-text)!important;border-color:var(--sc-line)!important}
+body[data-study-console="netdes"] .wrap{width:min(100% - 32px,1120px)!important;max-width:1120px!important}
+body[data-study-console="netdes"] .ph{background:var(--sc-surface-2)!important;border-color:var(--sc-line)!important}
+body[data-study-console="netdes"] .sub2{color:var(--sc-muted)!important}
+body[data-study-console="netdes"] .tldr,body[data-study-console="netdes"] .trap{border-color:var(--sc-line)!important}
+body[data-study-console="netdes"] .panel,body[data-study-console="netdes"] .item{margin-block:16px!important}
+body[data-study-console="netdes"] #pal .palbox,body[data-study-console="netdes"] .modbox{background:var(--sc-surface)!important;border-color:var(--sc-line)!important;box-shadow:0 18px 50px rgba(0,0,0,.18)!important}
+@media(max-width:760px){body[data-study-console="netdes"] .wrap{width:calc(100% - 20px)!important}body[data-study-console="netdes"] #sbT{min-height:44px!important}}
