@@ -508,8 +508,11 @@ body.light .bpmap .hot text{fill:#4f6180}
 @media(max-width:600px){.panel,.item{padding:16px}.tag{display:none}}
 @media print{nav,#sbT,#sb,#sbB,.copy,.btn,.chk,.row{display:none!important}section.tab{display:block!important}body{background:#fff;color:#000}}
 </style>
+<link rel="stylesheet" href="https://zann208.github.io/study/shared/v1/study-system.css">
+<link rel="stylesheet" href="https://zann208.github.io/study/shared/v1/legacy-console.css">
+<link rel="stylesheet" href="./study-console-adapter.css">
 </head>
-<body>
+<body data-study-console="netdes" data-console-id="netdes" data-console-name="Network Design & Troubleshooting">
 <a class="skip" href="#main">skip to content</a>
 <canvas id="fx"></canvas>
 
@@ -5877,5 +5880,6 @@ document.addEventListener("keydown",function(e){
 showTab(store.get("lastTab","home"));
 tabs.forEach(function(b){b.addEventListener("click",function(){store.set("lastTab",b.dataset.tab)})});
 </script>
+<script src="https://zann208.github.io/study/shared/v1/study-system.js"></script>
 </body>
 </html>
