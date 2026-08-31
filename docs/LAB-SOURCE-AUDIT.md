@@ -10,6 +10,12 @@ This audit records how the LAB 01–LAB 13 workbench was reconciled with the new
 - Course identity, institutional branding, lecture labels beside labs, grading metadata, and LMS references were removed.
 - Technical filenames, device names, passwords, addresses, VLAN names, and other values are retained when required to perform a lab.
 
+## Topology fidelity rule
+
+The supplied lab figure is both the technical and visual reference for each topology. NETDES redraws the figure as responsive SVG rather than reinterpreting it. A redraw should preserve the source figure's relative device placement, interface/link mapping, VLAN or subnet grouping, room/floor grouping, important color-separated regions, and STP/MST relationship cues. Styling may be cleaned up for readability, responsiveness, and dark/light themes, but the learner's mental map must stay recognizable against the original lab figure.
+
+When a future edit changes a lab topology, compare it against the supplied figure before publishing. Do not rearrange a technically equivalent network merely to make the SVG look more symmetrical.
+
 ## Per-lab reconciliation
 
 | Console lab | Supplied source | Technical anchors checked | Result |
