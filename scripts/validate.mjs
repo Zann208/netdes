@@ -4,6 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+const workbenchCssPath = path.join(root, "lab-workbench.css");
+const workbenchJsPath = path.join(root, "lab-workbench.js");
 const failures = [];
 
 function check(condition, message) {
@@ -47,9 +49,43 @@ for (const asset of [
   "https://zann208.github.io/study/shared/v1/study-system.css",
   "https://zann208.github.io/study/shared/v1/legacy-console.css",
   "./study-console-adapter.css",
+  "./lab-workbench.css",
   "https://zann208.github.io/study/shared/v1/study-system.js",
+  "./lab-workbench.js",
 ]) {
   check(html.includes(asset), "missing shared Study Console asset: " + asset);
+}
+
+for (const [label, file] of [
+  ["lab workbench stylesheet", workbenchCssPath],
+  ["lab workbench script", workbenchJsPath],
+]) {
+  check(fs.existsSync(file), "missing " + label);
+}
+
+if (fs.existsSync(workbenchJsPath)) {
+  const workbenchJs = fs.readFileSync(workbenchJsPath, "utf8");
+  try {
+    new Function(workbenchJs);
+  } catch (error) {
+    failures.push("lab workbench script has invalid JavaScript: " + error.message);
+  }
+  for (const id of expectedLabs) {
+    check(
+      workbenchJs.includes(id + ":{practice:"),
+      "lab workbench is missing practice data for " + id,
+    );
+  }
+  for (const fragment of [
+    "function makeTopology",
+    "function wrapPhase",
+    "What you will practice",
+    "Practice",
+    "Reset lab",
+    "Interactive STP topology",
+  ]) {
+    check(workbenchJs.includes(fragment), "lab workbench feature is missing: " + fragment);
+  }
 }
 
 const ids = matches(/\bid="([^"]+)"/g);

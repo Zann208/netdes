@@ -40,6 +40,8 @@ This audit records how the LAB 01–LAB 13 workbench was reconciled with the new
 - Stale stored `L00` completion state is filtered out automatically.
 - Static study counts now match the data banks: 151 flashcards and 87 practice questions.
 - The shared Study Console styles, adapter, script, course switcher, keyboard controls, local progress, drills, and STP simulator remain intact.
+- Every LAB 01–LAB 13 article receives a responsive SVG topology, a compact practice checklist, phase completion markers, and optional solution-reveal controls from the local lab-workbench layer. LAB 07 is intentionally diagrammed as the supplied four-switch manual-calculation topology; PCA begins with LAB 08, and PCB begins with LAB 10.
+- The existing interactive STP simulator is retained and placed with LAB 07 so the manual topology, role reasoning, and scenario controls remain together.
 
 ## Verification
 

@@ -6,6 +6,8 @@ on:
     paths:
       - "index.html"
       - "study-console-adapter.css"
+      - "lab-workbench.css"
+      - "lab-workbench.js"
       - "scripts/**"
       - "docs/**"
       - "README.md"
@@ -15,6 +17,8 @@ on:
     paths:
       - "index.html"
       - "study-console-adapter.css"
+      - "lab-workbench.css"
+      - "lab-workbench.js"
       - "scripts/**"
       - "docs/**"
       - "README.md"

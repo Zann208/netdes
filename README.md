@@ -38,14 +38,23 @@ The current workbench includes:
 - LAB 12 — Configuring Multiple Spanning Tree
 - LAB 13 — DHCP
 
-Each lab keeps the topology, device names, interfaces, addresses, VLAN values, protocol-specific settings, configuration order, expected behavior, verification, troubleshooting, and source questions needed to perform it.
+Each lab now opens as a structured workbench:
+
+- A short **What you will practice** checklist
+- A responsive, source-matched topology diagram with device and interface labels
+- The existing addressing/VLAN plan and platform notes
+- Focused configuration phases with per-phase completion markers
+- Clearly separated commands, verification evidence, expected results, and troubleshooting
+- A **Practice** mode that hides hints, solution commands, and expected results until you choose to reveal them
+
+The diagrams are presentation aids built from the authoritative topology data. The original tables and command sequences remain the detailed source inside each lab.
 
 ## Implementation
 
 - Vanilla HTML, CSS, and JavaScript
-- Shared Study Console shell plus a NETDES adapter stylesheet
+- Shared Study Console shell plus NETDES adapter and lab-workbench stylesheets
 - Inline SVG and Canvas 2D visualizations
-- `localStorage` for progress and preferences
+- `localStorage` for lab, phase, and preference progress
 - GitHub Pages deployment from `main`
 
 ## Validate
@@ -56,7 +65,7 @@ Run the repository validator before publishing:
 node scripts/validate.mjs
 ```
 
-The validator checks the shared shell contract, HTML IDs and navigation targets, JavaScript syntax, exact LAB 01–LAB 13 membership, dynamic data keys, study-item counts, retired metadata, and critical technical anchors from every source lab.
+The validator checks the shared shell contract, HTML IDs and navigation targets, JavaScript syntax, exact LAB 01–LAB 13 membership, workbench coverage, dynamic data keys, study-item counts, retired metadata, and critical technical anchors from every source lab.
 
 ## Run locally
 
@@ -71,4 +80,4 @@ You can also serve the folder with any static HTTP server.
 
 ## Accessibility
 
-The console includes keyboard navigation, visible focus states, reduced-motion handling, a light theme, a skip link, and responsive navigation.
+The console includes keyboard navigation, visible focus states, reduced-motion handling, a light theme, a skip link, responsive navigation, scalable topology SVGs, and accessible Study/Practice controls.
