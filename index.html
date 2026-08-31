@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NETDES // CPE434 Ops Console</title>
+<title>NETDES // Network Engineering Study Console</title>
 <meta name="theme-color" content="#070b14">
 <style>
 :root{
@@ -518,7 +518,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 <nav><div class="navin">
   <div id="csWrap">
-  <button class="logo" id="logoBtn" title="Switch course" aria-label="Switch course" aria-haspopup="true" aria-expanded="false">
+  <button class="logo" id="logoBtn" title="Switch study console" aria-label="Switch study console" aria-haspopup="true" aria-expanded="false">
     <span class="lmark"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
       <line x1="8" y1="3.5" x2="3.5" y2="12" stroke="currentColor" stroke-width="1.1" opacity=".55"/>
       <line x1="8" y1="3.5" x2="12.5" y2="12" stroke="currentColor" stroke-width="1.1" opacity=".55"/>
@@ -528,37 +528,37 @@ body.light .bpmap .hot text{fill:#4f6180}
       <circle cx="12.5" cy="12" r="1.7" fill="#22d3ee"/>
     </svg></span>
     <span class="lcol">
-      <span class="ltext">NET<b>DES</b><i>://261434</i></span>
+      <span class="ltext">NET<b>DES</b><i>://LABS</i></span>
       <span class="lby">by <b>ZANN</b></span>
     </span>
   </button>
   <div id="csPop" role="menu">
-    <div class="cshd"><span>Semester consoles</span><span>5</span></div>
+    <div class="cshd"><span>Study consoles</span><span>5</span></div>
       <a class="csi hub" href="https://zann208.github.io/study/" role="menuitem">
         <span class="csmk c0">ALL</span>
-        <span class="cstx"><b>All courses</b><span>semester overview</span></span>
+        <span class="cstx"><b>All consoles</b><span>study overview</span></span>
         <span class="cssoon">HOME ↗</span></a>
     <a class="csi cur" href="#" data-cs="self" role="menuitem">
       <span class="csmk c1">NET</span>
-      <span class="cstx"><b>Network Design</b><span>261434 · CPE434</span></span>
+      <span class="cstx"><b>Network Engineering</b><span>switching · routing</span></span>
       <span class="csnow">HERE</span></a>
     <a class="csi" href="https://zann208.github.io/wnet/" role="menuitem">
       <span class="csmk c2">WLN</span>
-      <span class="cstx"><b>Wireless Networks</b><span>269430</span></span>
+      <span class="cstx"><b>Wireless Networks</b><span>wireless systems</span></span>
       <span class="cssoon">OPEN ↗</span></a>
     <a class="csi" href="https://zann208.github.io/algo/" role="menuitem">
       <span class="csmk c3">ALG</span>
-      <span class="cstx"><b>Algorithms for iSNE</b><span>269202 · ISNE</span></span>
+      <span class="cstx"><b>Algorithms</b><span>design · analysis</span></span>
       <span class="cssoon">OPEN ↗</span></a>
     <a class="csi" href="https://zann208.github.io/privacy/" role="menuitem">
       <span class="csmk c4">PRV</span>
-      <span class="cstx"><b>Privacy Technologies</b><span>269497 · ISNE</span></span>
+      <span class="cstx"><b>Privacy Technologies</b><span>privacy engineering</span></span>
       <span class="cssoon">OPEN &#8599;</span></a>
     <a class="csi" href="https://zann208.github.io/os/" role="menuitem">
       <span class="csmk c5">OS</span>
-      <span class="cstx"><b>Operating Systems</b><span>261305</span></span>
+      <span class="cstx"><b>Operating Systems</b><span>systems fundamentals</span></span>
       <span class="cssoon">OPEN &#8599;</span></a>
-    <div class="csft"><span>SEM 1 · 2026</span><a href="https://zann208.github.io" target="_blank" rel="noopener">portfolio ↗</a></div>
+    <div class="csft"><span>STUDY CONSOLE</span><a href="https://zann208.github.io" target="_blank" rel="noopener">portfolio ↗</a></div>
   </div>
   </div>
   <div class="tabstrip">
@@ -566,16 +566,16 @@ body.light .bpmap .hot text{fill:#4f6180}
   <button class="tabbtn" data-th="ภาพรวม" data-tab="blueprint">BLUEPRINT</button>
   <button class="tabbtn" data-th="ลำดับเรียน" data-tab="flow">FLOW</button>
   <span class="navsep"></span>
-  <button class="tabbtn" data-th="บทเรียน" data-tab="notes">LECTURES</button>
+  <button class="tabbtn" data-th="หัวข้อ" data-tab="notes">TOPICS</button>
   <button class="tabbtn" data-th="แล็บ" data-tab="labs">LABS</button>
   <span class="navsep"></span>
   <button class="tabbtn" data-th="แบบฝึก" data-tab="drills">DRILLS</button>
-  <button class="tabbtn" data-th="ติวเข้ม" data-tab="intensive">EXAM</button>
+  <button class="tabbtn" data-th="ฝึกเข้ม" data-tab="intensive">PRACTICE</button>
   <span class="navsep"></span>
   <button class="tabbtn" data-th="สรุปย่อ" data-tab="cheat">CHEATSHEET</button>
   <button class="tabbtn" data-th="คำศัพท์" data-tab="terms">TERMS</button>
   <span class="navsep"></span>
-  <button class="tabbtn" data-th="ผู้จัดทำ" data-tab="author">AUTHOR</button>
+  <button class="tabbtn" data-th="เกี่ยวกับ" data-tab="author">ABOUT</button>
   </div>
   <div class="morewrap" id="moreWrap">
     <button id="moreBtn" aria-haspopup="true" aria-expanded="false">MORE ▾</button>
@@ -599,7 +599,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 <button id="sbT">☰ INDEX</button>
 <div id="pal" role="dialog" aria-label="Search">
   <div class="palbox">
-    <input id="palIn" placeholder="Search lectures, labs, commands, terms…" autocomplete="off" spellcheck="false">
+    <input id="palIn" placeholder="Search topics, labs, commands, terms…" autocomplete="off" spellcheck="false">
     <div id="palList"></div>
     <div class="palfoot"><span>↑↓ move</span><span>⏎ open</span><span>esc close</span></div>
   </div>
@@ -607,12 +607,12 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 <div id="welcome" class="mod" role="dialog" aria-label="Welcome">
   <div class="modbox">
-    <span class="badge cy">261434 · CPE434</span>
-    <h2 style="margin-top:11px">Your Network Design study console</h2>
-    <p style="color:var(--dim);margin-top:8px;font-size:15px">Everything for this course in one offline page — 16 lecture decks, 9 labs, solved answer keys, and an exam trainer. Progress saves in this browser.</p>
+    <span class="badge cy">NETWORK ENGINEERING</span>
+    <h2 style="margin-top:11px">Your NETDES study console</h2>
+    <p style="color:var(--dim);margin-top:8px;font-size:15px">Sixteen technical topics, all thirteen original labs, verified walkthroughs, and focused practice in one console. Progress saves in this browser.</p>
     <div class="pathgrid">
-      <button class="path" data-w="blueprint"><span class="ic">[1]</span><b>Understand</b><span>See the whole course as one network, and why topics come in this order</span></button>
-      <button class="path" data-w="notes"><span class="ic">[2]</span><b>Study</b><span>16 lectures rewritten for comprehension, plus every lab worked out</span></button>
+      <button class="path" data-w="blueprint"><span class="ic">[1]</span><b>Understand</b><span>See the switching system as one network and connect the concepts</span></button>
+      <button class="path" data-w="notes"><span class="ic">[2]</span><b>Study</b><span>Review 16 technical topics and every numbered lab</span></button>
       <button class="path" data-w="intensive"><span class="ic">[3]</span><b>Perform</b><span>Timed exams, a weak-point radar and the port-role solver</span></button>
     </div>
     <div class="row" style="margin-top:18px">
@@ -628,7 +628,7 @@ body.light .bpmap .hot text{fill:#4f6180}
     <h2>Keyboard shortcuts</h2>
     <div class="kbdlist">
       <kbd>Ctrl K</kbd><span>Open search</span>
-      <kbd>J / K</kbd><span>Next / previous lecture or lab</span>
+      <kbd>J / K</kbd><span>Next / previous topic or lab</span>
       <kbd>Space</kbd><span>Flip flashcard</span>
       <kbd>← →</kbd><span>Previous / next flashcard</span>
       <kbd>G</kbd><span>Mark card as known</span>
@@ -640,19 +640,18 @@ body.light .bpmap .hot text{fill:#4f6180}
   </div>
 </div>
 
-<a id="wm" href="#" title="About the author"><span class="mk">Z</span><span class="nm">ZANN</span></a>
+<a id="wm" href="#" title="About NETDES"><span class="mk">N</span><span class="nm">ABOUT</span></a>
 <main id="main">
 <!-- ============ HOME ============ -->
 <section class="tab on" id="home"><div class="wrap">
-  <h1 data-th="ทุกอย่างสำหรับสอบกลางภาค รวมไว้ในหน้าเดียว"><span class="pre">// COMPUTER NETWORK DESIGN &amp; MANAGEMENT</span>Everything for the midterm. One console.</h1>
-  <p class="lede" data-th="คอนโซลทบทวนวิชา 261434 แบบออฟไลน์ทั้งหมด สร้างจากสไลด์และใบงานของวิชานี้โดยตรง — 16 ชุดสไลด์ 9 แล็บ เฉลย 2 ชุด การ์ด 152 ใบ และคำถาม 88 ข้อ">A complete offline study console for 261434, built from the course's own material — 16 lecture decks, 9 labs, 2 solved answer keys, 152 cards and 88 quiz questions.</p>
+  <h1><span class="pre">// NETWORK ENGINEERING STUDY CONSOLE</span>Build, verify, troubleshoot. One console.</h1>
+  <p class="lede">An independent switching and routing workspace with 16 study topics, the authoritative LAB 01–LAB 13 sequence, 151 flashcards, and 87 practice questions.</p>
 
   <div class="stats">
-    <div class="stat"><b>16</b><span>Lecture decks</span></div>
-    <div class="stat g"><b>9</b><span>Labs</span></div>
-    <div class="stat a"><b>35%</b><span>Midterm</span></div>
-    <div class="stat v"><b>152</b><span>Cards</span></div>
-    <div class="stat"><b>88</b><span>Quiz Qs</span></div>
+    <div class="stat"><b>16</b><span>Topics</span></div>
+    <div class="stat g"><b>13</b><span>Labs</span></div>
+    <div class="stat v"><b>151</b><span>Cards</span></div>
+    <div class="stat"><b>87</b><span>Practice Qs</span></div>
   </div>
 
   <div class="panel pv">
@@ -663,43 +662,43 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div class="row" style="align-items:flex-start;gap:24px">
       <div class="ringwrap"><svg class="ring" viewBox="0 0 110 110"><circle class="rbg" cx="55" cy="55" r="50"/><circle class="rfg" id="ringFg" cx="55" cy="55" r="50"/></svg><div class="rtx" id="readyPct">0%</div></div>
       <div class="bars">
-        <div class="bar"><span class="bl">LECTURES</span><span class="bt"><i id="bTop"></i></span><span class="bv" id="vTop">0/15</span></div>
-        <div class="bar"><span class="bl">LABS</span><span class="bt"><i id="bLab"></i></span><span class="bv" id="vLab">0/9</span></div>
+        <div class="bar"><span class="bl">TOPICS</span><span class="bt"><i id="bTop"></i></span><span class="bv" id="vTop">0/16</span></div>
+        <div class="bar"><span class="bl">LABS</span><span class="bt"><i id="bLab"></i></span><span class="bv" id="vLab">0/13</span></div>
         <div class="bar"><span class="bl">CARDS</span><span class="bt"><i id="bCard"></i></span><span class="bv" id="vCard">0</span></div>
         <div class="bar"><span class="bl">BEST QUIZ</span><span class="bt"><i id="bQuiz"></i></span><span class="bv" id="vQuiz">—</span></div>
       </div>
     </div>
-    <div class="row"><span class="badge">EXAM DATE</span><input type="date" id="examDate" class="fld" style="width:auto"><span class="badge cy" id="examLeft">—</span></div>
+    <div class="row"><span class="badge">TARGET DATE</span><input type="date" id="examDate" class="fld" style="width:auto"><span class="badge cy" id="examLeft">—</span></div>
   </div>
 
     <p class="sub2">Not sure where to begin? Pick the one that matches where you are right now.</p>
     <div class="pathgrid">
-      <button class="path" data-tabgo="blueprint"><span class="ic">[1]</span><b data-th="ทำความเข้าใจ">Understand</b><span data-th="ดูทั้งวิชาเป็นเครือข่ายเดียว และเข้าใจว่าทำไมหัวข้อจึงเรียงแบบนี้">See the whole course as one network, and why the topics come in this order</span></button>
-      <button class="path" data-tabgo="notes"><span class="ic">[2]</span><b data-th="เรียน">Study</b><span data-th="16 บทเรียนที่เขียนใหม่ให้เข้าใจง่าย พร้อมแล็บทั้ง 9 ที่ทำเฉลยไว้แล้ว">16 lectures rewritten for comprehension, plus all 9 labs worked out</span></button>
+      <button class="path" data-tabgo="blueprint"><span class="ic">[1]</span><b data-th="ทำความเข้าใจ">Understand</b><span>See the switching system as one network and connect the concepts</span></button>
+      <button class="path" data-tabgo="notes"><span class="ic">[2]</span><b data-th="เรียน">Study</b><span>Review 16 technical topics, then perform LAB 01–LAB 13</span></button>
       <button class="path" data-tabgo="intensive"><span class="ic">[3]</span><b data-th="ทำให้ได้จริง">Perform</b><span data-th="ข้อสอบจับเวลา เรดาร์จุดอ่อน และเครื่องฝึกวิเคราะห์พอร์ต">Timed exams, a weak-point radar and the port-role solver</span></button>
     </div>
     <p style="margin-top:15px">The short version of the syllabus: address the network (<b>IPv6</b>) → power the switch (<b>ports, SSH, security</b>) → split it (<b>VLANs, trunks, VTP</b>) → widen it (<b>EtherChannel</b>) → route it (<b>L3 switch</b>) → isolate it (<b>Private VLAN</b>) → and stop the loops (<b>STP → RSTP → MST</b>).</p>
   </div>
 
   <div class="panel pv">
-    <div class="ph"><h2 data-th="บทเรียน">Lectures</h2><span class="badge right">click to open</span></div>
+    <div class="ph"><h2 data-th="หัวข้อ">Topics</h2><span class="badge right">click to open</span></div>
     <div class="grid" id="gridTopics"></div>
   </div>
 
   <div class="panel pg">
-    <div class="ph"><h2 data-th="แล็บ">Labs</h2><span class="badge gr right">2 keys solved</span></div>
+    <div class="ph"><h2 data-th="แล็บ">Labs</h2><span class="badge gr right">LAB 01–LAB 13</span></div>
 
   <div class="panel pa">
     <div class="ph"><h2 data-th="แผน 7 วัน">7-day plan</h2></div>
     <div class="tscroll"><table>
       <tr><th>Day</th><th>Study</th><th>Target</th></tr>
-      <tr><td class="mono">D1</td><td>Lec 01–03 · Lab 01</td><td>EUI-64 by hand. SSH from memory.</td></tr>
-      <tr><td class="mono">D2</td><td>Lec 04–05 · Lab 02–03</td><td>DTP table + VLAN ranges cold.</td></tr>
-      <tr><td class="mono">D3</td><td>Lec 06–08 · Lab 04–05</td><td>Which mode pairs bundle.</td></tr>
-      <tr><td class="mono">D4</td><td>Lec 09–10 · Lab 07</td><td>Elect root + pick ports on paper.</td></tr>
-      <tr><td class="mono">D5</td><td>Lec 11–12 · Lab 08–09</td><td>Match each guard to its problem.</td></tr>
-      <tr><td class="mono">D6</td><td>Lec 13–15 · Lab 10</td><td>RSTP states. MST region rules.</td></tr>
-      <tr><td class="mono">D7</td><td>Cheatsheet + drills</td><td>Only redo cards marked AGAIN.</td></tr>
+      <tr><td class="mono">D1</td><td>Topics 01–03 · LAB 01</td><td>EUI-64 by hand. SSH from memory.</td></tr>
+      <tr><td class="mono">D2</td><td>Topics 04–05 · LAB 02–03</td><td>VLAN tags and VTP behavior.</td></tr>
+      <tr><td class="mono">D3</td><td>Topics 06–09 · LAB 04–06</td><td>LACP, inter-VLAN routing, PVLANs.</td></tr>
+      <tr><td class="mono">D4</td><td>Topic 10 · LAB 07–08</td><td>Elect roots and verify every port.</td></tr>
+      <tr><td class="mono">D5</td><td>Topics 11–12 · LAB 09–10</td><td>Priorities, topology changes, PortFast.</td></tr>
+      <tr><td class="mono">D6</td><td>Topics 13–15 · LAB 11–12</td><td>RSTP states and MST regions.</td></tr>
+      <tr><td class="mono">D7</td><td>LAB 13 · Cheatsheet · drills</td><td>DHCP pools, exclusions, final review.</td></tr>
     </table></div>
     <p class="sub2" style="margin-top:10px">Daily: 20 min notes → 15 min cards → 20 min typing commands in Packet Tracer.</p>
   </div>
@@ -710,8 +709,8 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 <!-- ============ BLUEPRINT ============ -->
 <section class="tab" id="blueprint"><div class="wrap">
-  <h1 data-th="ทั้งวิชา รวมอยู่ในเครือข่ายเดียว"><span class="pre">// SYSTEM VIEW</span>The whole course as one network</h1>
-  <p class="lede" data-th="ทุกหัวข้อที่เรียนมา อยู่ในแผนภาพนี้ทั้งหมด คลิกที่ป้ายตัวเลขเพื่อเปิดบทเรียนนั้น">Every topic you have studied lives somewhere on this diagram. Click any numbered tag to open that lecture.</p>
+  <h1><span class="pre">// SYSTEM VIEW</span>The whole switching system as one network</h1>
+  <p class="lede">Every topic lives somewhere on this diagram. Click any numbered tag to open its technical notes.</p>
 
   <div class="panel pv">
     <div class="ph"><h2 data-th="หนึ่งเครือข่าย ครบทั้ง 16 หัวข้อ">One campus, all 16 topics</h2><span class="badge vi right">click the tags</span></div>
@@ -822,7 +821,7 @@ body.light .bpmap .hot text{fill:#4f6180}
       <g class="hot" data-goto="t13"><rect x="772" y="196" width="90" height="22" rx="5"/><text x="817" y="211" text-anchor="middle">13 RSTP</text></g>
       <g class="hot" data-goto="t15"><rect x="772" y="224" width="90" height="22" rx="5"/><text x="817" y="239" text-anchor="middle">15 MST</text></g>
 
-      <text x="440" y="540" text-anchor="middle" font-size="9.5" fill="#5d708e" font-family="monospace">every lecture is a layer of this same picture</text>
+      <text x="440" y="540" text-anchor="middle" font-size="9.5" fill="#5d708e" font-family="monospace">every topic is a layer of this same picture</text>
     </svg>
     <div class="legend">
       <span><span class="dot" style="background:#22d3ee"></span>VLAN 10</span>
@@ -834,7 +833,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 
   <div class="panel pa">
     <div class="ph"><h2 data-th="ทำไมหัวข้อจึงเรียงลำดับแบบนี้">Why the topics come in this order</h2><span class="badge am right">each fix creates the next problem</span></div>
-    <p class="sub2">This is the real logic of the syllabus. If you can recite this chain you can rebuild the whole course from memory.</p>
+    <p class="sub2">This dependency chain lets you rebuild the switching system from first principles.</p>
     <div class="chain" id="chain"></div>
   </div>
 
@@ -854,7 +853,7 @@ body.light .bpmap .hot text{fill:#4f6180}
   <div class="panel pg">
     <div class="ph"><h2 data-th="ดัชนีสำหรับวิศวกร">Engineer's index</h2><span class="badge gr right">if you need X, use Y</span></div>
     <div class="tscroll"><table>
-      <tr><th>Requirement</th><th>Tool</th><th>Lecture</th></tr>
+      <tr><th>Requirement</th><th>Tool</th><th>Topic</th></tr>
       <tr><td>Split one switch into separate networks</td><td class="mono ok">VLAN</td><td class="mono">04</td></tr>
       <tr><td>Carry many VLANs on one cable</td><td class="mono ok">802.1Q trunk</td><td class="mono">04</td></tr>
       <tr><td>Stop typing the same VLAN on 50 switches</td><td class="mono ok">VTP</td><td class="mono">05</td></tr>
@@ -876,14 +875,14 @@ body.light .bpmap .hot text{fill:#4f6180}
   </div>
 
   <div class="panel pv">
-    <div class="ph"><h2 data-th="น้ำหนักของข้อสอบอยู่ตรงไหน">Where the exam weight really is</h2><span class="badge vi right">inferred from the labs</span></div>
-    <p class="sub2">The professor issued 4 separate labs on Spanning Tree and 1 on everything else. Study accordingly.</p>
+    <div class="ph"><h2>Lab coverage</h2><span class="badge vi right">practice density</span></div>
+    <p class="sub2">The sequence deliberately revisits Spanning Tree from four angles: manual calculation, verification, configuration, and topology change.</p>
     <div id="weight"></div>
-    <div class="box wild" style="margin-top:14px"><b>Read the signal</b>Labs 07, 08, 09 and 10 walk the same topology four times — on paper, verified, configured, then deliberately broken. That is a professor telling you exactly what the exam is about without saying it.</div>
+    <div class="box wild" style="margin-top:14px"><b>Use the repetition</b>LAB 07, LAB 08, LAB 09 and LAB 10 share one topology. Solve it on paper first, confirm it in IOS, change the priorities, then observe convergence.</div>
   </div>
 
   <div class="panel">
-    <div class="ph"><h2 data-th="ห้าประโยคที่สรุปทั้งวิชา">The five sentences that hold the course together</h2></div>
+    <div class="ph"><h2>The five sentences that hold the system together</h2></div>
     <ol class="steps" style="font-size:15.5px">
       <li>A switch floods what it does not know — which is why <b>loops are fatal</b> and why VLANs reduce risk.</li>
       <li>A VLAN is a broadcast domain, and a broadcast domain is a subnet — so <b>crossing VLANs is always a layer 3 act</b>.</li>
@@ -896,59 +895,62 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 <!-- ============ FLOW ============ -->
 <section class="tab" id="flow"><div class="wrap">
-  <h1 data-th="วิชานี้ดำเนินการอย่างไร"><span class="pre">// COURSE PIPELINE</span>How this class actually works</h1>
-  <p class="lede" data-th="ทุกหัวข้อจะผ่าน 3 ขั้นตอนเหมือนกัน ถ้าข้ามขั้นใดขั้นหนึ่ง จะเสียคะแนนในขั้นถัดไป">Every topic runs the same three stages. Miss one stage and the next stage costs you points.</p>
+  <h1><span class="pre">// LAB PATH</span>Prepare → configure → verify → troubleshoot</h1>
+  <p class="lede">Use the same evidence-driven loop for every lab. The numbered sequence below matches the supplied lab files exactly.</p>
 
   <div class="panel">
     <div class="pipe">
-      <div class="pnode"><div class="ic">[1]</div><b>Lecture slides</b><span>theory + commands</span></div>
+      <div class="pnode"><div class="ic">[1]</div><b>Prepare</b><span>topology · addressing</span></div>
       <div class="parrow">──▶</div>
-      <div class="pnode"><div class="ic">[2]</div><b>Lab instructions</b><span>build it in Packet Tracer</span></div>
+      <div class="pnode"><div class="ic">[2]</div><b>Configure</b><span>IOS in source order</span></div>
       <div class="parrow">──▶</div>
-      <div class="pnode"><div class="ic">[3]</div><b>Quiz on Mango CMU</b><span>graded, in-class</span></div>
+      <div class="pnode"><div class="ic">[3]</div><b>Verify</b><span>show output · pings</span></div>
     </div>
-    <div class="box wild"><b>How to win it</b>The quiz asks what the lab <i>shows you</i>, not what the slide says. So always run the <code>show</code> commands and read the real output — root bridge, port roles, priorities, MAC tables. That output IS the answer sheet.</div>
+    <div class="box wild"><b>Evidence first</b>Do not stop when the commands are accepted. Read the operational state: VLAN membership, trunks, neighbors, root IDs, port roles, DHCP leases, and end-to-end reachability.</div>
   </div>
 
   <div class="panel pv">
-    <div class="ph"><h2 data-th="แผนผังทั้งหมด">Full map</h2><span class="badge right">lecture → lab → quiz</span></div>
+    <div class="ph"><h2>Authoritative lab map</h2><span class="badge right">LAB 01–LAB 13</span></div>
     <div class="tscroll"><table>
-      <tr><th>Lab</th><th>Topic</th><th>From lecture</th><th>Quiz</th></tr>
-      <tr><td class="mono ok">L01</td><td>Basic Switch — SSH, port security</td><td class="mono">03</td><td class="wn">not saved</td></tr>
-      <tr><td class="mono ok">L02</td><td>VLAN + trunk + 802.1Q frame</td><td class="mono">04</td><td class="wn">not saved</td></tr>
-      <tr><td class="mono ok">L03</td><td>VTP server / client / transparent</td><td class="mono">05</td><td class="wn">not saved</td></tr>
-      <tr><td class="mono ok">L04</td><td>EtherChannel with LACP</td><td class="mono">06</td><td class="wn">not saved</td></tr>
-      <tr><td class="mono ok">L05</td><td>Inter-VLAN: router-stick + L3 switch</td><td class="mono">02 · 07 · 08</td><td class="wn">not saved</td></tr>
-      <tr><td class="mono">L06</td><td class="dim">— not issued —</td><td>—</td><td>—</td></tr>
-      <tr><td class="mono ok">L07</td><td>Determine STP on paper</td><td class="mono">10</td><td class="wn">not saved</td></tr>
-      <tr><td class="mono ok">L08</td><td>Verify STP in Packet Tracer</td><td class="mono">10</td><td class="ok">SOLVED 100%</td></tr>
-      <tr><td class="mono ok">L09</td><td>Configure STP priorities + root primary</td><td class="mono">11</td><td class="ok">SOLVED 100%</td></tr>
-      <tr><td class="mono ok">L10</td><td>STP topology changes + PortFast</td><td class="mono">10 · 11</td><td class="wn">not saved</td></tr>
+      <tr><th>Lab</th><th>Title</th><th>Platform</th><th>Core evidence</th></tr>
+      <tr><td class="mono ok">LAB 01</td><td>Basic Switch</td><td>Packet Tracer 9.0</td><td>SSH, management SVI, sticky port security</td></tr>
+      <tr><td class="mono ok">LAB 02</td><td>VLAN and 802.1Q</td><td>Packet Tracer</td><td>VLAN reachability, TPID and TCI</td></tr>
+      <tr><td class="mono ok">LAB 03</td><td>VTP</td><td>Packet Tracer</td><td>server, client and transparent propagation</td></tr>
+      <tr><td class="mono ok">LAB 04</td><td>EtherChannel with LACP</td><td>Packet Tracer</td><td>bundle state and port-channel trunk</td></tr>
+      <tr><td class="mono ok">LAB 05</td><td>Inter-VLAN Routing</td><td>Packet Tracer 9.0</td><td>router-on-a-stick, SVIs, OSPF/OSPFv3</td></tr>
+      <tr><td class="mono ok">LAB 06</td><td>Private VLAN</td><td>GNS3 + IOU</td><td>community, isolated and promiscuous reachability</td></tr>
+      <tr><td class="mono ok">LAB 07</td><td>Determine Spanning Tree</td><td>Manual calculation</td><td>root, root ports, designated and blocked ports</td></tr>
+      <tr><td class="mono ok">LAB 08</td><td>Verifying Spanning Tree</td><td>Packet Tracer 9.0</td><td>PVST+ root and role output</td></tr>
+      <tr><td class="mono ok">LAB 09</td><td>Configuring Spanning Tree</td><td>Packet Tracer 9.0</td><td>priority and root-primary behavior</td></tr>
+      <tr><td class="mono ok">LAB 10</td><td>STP with Topology Changes</td><td>Packet Tracer 9.0</td><td>timed convergence and PortFast</td></tr>
+      <tr><td class="mono ok">LAB 11</td><td>Rapid Spanning Tree</td><td>Packet Tracer 9.0</td><td>802.1D compatibility and rapid convergence</td></tr>
+      <tr><td class="mono ok">LAB 12</td><td>Multiple Spanning Tree</td><td>GNS3 + IOU</td><td>regions, instances, roots and path cost</td></tr>
+      <tr><td class="mono ok">LAB 13</td><td>DHCP</td><td>Packet Tracer 9.0</td><td>pools, exclusions, leases and IPv6 SLAAC</td></tr>
     </table></div>
   </div>
 
   <div class="panel pa">
-    <div class="ph"><h2 data-th="แล็บบอกอะไรเกี่ยวกับข้อสอบ">What the labs prove about the exam</h2></div>
+    <div class="ph"><h2>Dependency checkpoints</h2></div>
     <ul class="pts">
-      <li>Labs 07–10 are <b>four passes over STP</b> — paper, verify, configure, break. STP is clearly the heaviest exam topic.</li>
-      <li>Labs 01–05 each map to exactly one lecture. Expect one command-level question per lab topic.</li>
-      <li>Every lab ends with "answer the questions" — the quiz repeats the <code>show</code> output you were told to read.</li>
-      <li>Lab 05 mixes IPv6 + OSPFv3 + SVI + subinterfaces in one file. That combination is exam-favourite material.</li>
+      <li>Complete LAB 02 before LAB 03–LAB 06; each depends on correct VLAN and trunk behavior.</li>
+      <li>Use LAB 07 as the manual baseline for LAB 08–LAB 11.</li>
+      <li>Save the LAB 09 file for LAB 10, then save LAB 10 for LAB 11.</li>
+      <li>LAB 12 requires GNS3/IOU; LAB 13 returns to Packet Tracer and combines VLANs, routing, DHCP and IPv6.</li>
     </ul>
   </div>
 </div></section>
-<!-- ============ LECTURES ============ -->
+<!-- ============ TOPICS ============ -->
 <section class="tab" id="notes"><div class="wrap">
-  <h1 data-th="16 ชุดสไลด์ อธิบายให้เข้าใจจริง"><span class="pre">// LECTURE NOTES</span>16 decks, taught properly</h1>
-  <p class="lede">Everything from the slides, reordered so it makes sense. The bar above tracks where you are — <b>‹ ›</b> or <b>J / K</b> to move.</p>
+  <h1><span class="pre">// TECHNICAL TOPICS</span>16 connected network-engineering topics</h1>
+  <p class="lede">Concepts, IOS commands, failure modes, and verification evidence arranged as one study path. Use <b>‹ ›</b> or <b>J / K</b> to move.</p>
 
   <!-- 01 -->
   <article class="item" id="t01">
-    <div class="ph"><span class="badge cy">01</span><h3 data-th="บทนำและโมเดลการออกแบบเครือข่าย">Intro &amp; Design Model</h3><span class="tag">SLIDE01_Intro</span></div>
+    <div class="ph"><span class="badge cy">01</span><h3 data-th="บทนำและโมเดลการออกแบบเครือข่าย">Intro &amp; Design Model</h3><span class="tag">Campus Design · Hierarchy</span></div>
     <p class="tldr" data-th="เครือข่ายขนาดใหญ่ถูกออกแบบเป็นชั้น เพื่อให้ขยายและแก้ปัญหาได้ง่าย">Big networks are built in layers so they can grow and be fixed.</p>
 
-    <h4 data-th="วิชานี้คืออะไรกันแน่">What this course actually is</h4>
-    <p>It is a <b>Layer 2 switching</b> course wearing a design-course name. Everything — VLAN, inter-VLAN, VTP, Spanning Tree, port aggregation — lives at layer 2 or just above it. Later come campus design, basic QoS, HA, and wireless design.</p>
+    <h4>Technical scope</h4>
+    <p>The console centers on <b>Layer 2 switching</b> and the Layer 3 functions that connect switched domains: VLANs, inter-VLAN routing, VTP, EtherChannel, Private VLANs, Spanning Tree, DHCP, campus design, basic QoS, high availability, and wireless design.</p>
 
     <h4 data-th="โมเดลลำดับชั้น 3 ระดับ">The 3-layer hierarchical model</h4>
     <div class="tscroll"><table>
@@ -970,21 +972,21 @@ body.light .bpmap .hot text{fill:#4f6180}
     <h4 data-th="เครื่องมือที่ใช้">Tools</h4>
     <div class="tscroll"><table>
       <tr><th>Tool</th><th>Level</th><th>Notes</th></tr>
-      <tr><td class="mono">Packet Tracer 9.0</td><td>CCNA</td><td>From NetAcad (login + course token). Enable <i>Always Show Port Labels</i>; on macOS disable <i>CLI Text to Speed</i>.</td></tr>
+      <tr><td class="mono">Packet Tracer 9.0</td><td>CCNA</td><td>Enable <i>Always Show Port Labels</i>; on macOS disable <i>CLI Text to Speed</i>.</td></tr>
       <tr><td class="mono">GNS3 2.x + IOU</td><td>CCNP</td><td>Needs the matching GNS3 VM in VirtualBox, host-only adapter, static IP, and a generated IOU licence. Only 2 labs use it.</td></tr>
     </table></div>
-    <div class="box trap"><b>Prof's ground rules</b><ul>
-      <li>"The slides are a guideline. You have to study by yourself." — the exam can ask about lab output that never appears on a slide.</li>
-      <li>Labs are <b>in-class with a deadline</b> and <b>no TA</b>. Finish early, leave early. Miss the deadline, lose the score.</li>
-      <li>Grading: Assignment 20 · Design Project 15 · <b>Midterm 35</b> · Final 30.</li>
+    <div class="box trap"><b>Lab discipline</b><ul>
+      <li>Save a clean baseline before each topology-change experiment.</li>
+      <li>Run verification commands and record the actual operational state, not only the running configuration.</li>
+      <li>Keep device names, interface numbers, VLAN IDs, addresses, and protocol values identical to the source lab.</li>
     </ul></div>
-    <div class="box rl"><b>Get ahead</b>Before class, be able to name the layer for any device you see on a diagram. Half the design questions are just "which layer does this belong to".</div>
+    <div class="box rl"><b>Foundation check</b>Be able to name the network layer for every device in a diagram and explain where switching, routing, and policy decisions belong.</div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t01"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="01" data-th="ฝึกการ์ด →">drill cards →</button></div>
   </article>
 
   <!-- 02 -->
   <article class="item" id="t02">
-    <div class="ph"><span class="badge cy">02</span><h3 data-th="IPv6">IPv6</h3><span class="tag">SLIDE02_IPv6 · review topic</span></div>
+    <div class="ph"><span class="badge cy">02</span><h3 data-th="IPv6">IPv6</h3><span class="tag">IPv6 · EUI-64 · SLAAC</span></div>
     <p class="tldr" data-th="Address ขนาด 128 บิต เขียนเป็นเลขฐานสิบหก 8 กลุ่ม และย่อได้ด้วยกฎ 2 ข้อ">128-bit addresses. Written as 8 hex groups, shortened by two rules.</p>
 
     <h4 data-th="ปัญหาที่ต้องแก้">The problem</h4>
@@ -1111,7 +1113,7 @@ ping ipv6 2001:DB8:1111:1::1</pre></div></details>
 
   <!-- 03 -->
   <article class="item" id="t03">
-    <div class="ph"><span class="badge cy">03</span><h3 data-th="พื้นฐาน Switch และการรักษาความปลอดภัย">Switch Basics &amp; Security</h3><span class="tag">SLIDE03_BasicSwitch</span></div>
+    <div class="ph"><span class="badge cy">03</span><h3 data-th="พื้นฐาน Switch และการรักษาความปลอดภัย">Switch Basics &amp; Security</h3><span class="tag">Switching · SSH · Port Security</span></div>
     <p class="tldr" data-th="Switch เรียนรู้ MAC address อย่างไร และจะปิดกั้นความเสี่ยงได้อย่างไร">How a switch learns, and how to lock it down.</p>
 
     <h4 data-th="อุปกรณ์ทั้งสามชนิด">The three devices</h4>
@@ -1130,7 +1132,7 @@ ping ipv6 2001:DB8:1111:1::1</pre></div></details>
       <li><b>Flood unknown unicast</b> — destination not in the table? Same treatment.</li>
       <li><b>Never modify the frame</b> — which is exactly why it's called <i>transparent</i>.</li>
     </ol>
-    <div class="box wild"><b>Why this matters later</b>Behaviours 3 and 4 are what make bridging loops catastrophic. Hold this in your head — it is the entire motivation for Spanning Tree in lecture 10.</div>
+    <div class="box wild"><b>Why this matters later</b>Behaviours 3 and 4 are what make bridging loops catastrophic. They are the entire motivation for Spanning Tree in Topic 10.</div>
 
     <h4 data-th="ตาราง MAC address">The MAC table</h4>
     <ul class="pts">
@@ -1225,7 +1227,7 @@ show ip ssh</pre></div></details>
 
   <!-- 04 -->
   <article class="item" id="t04">
-    <div class="ph"><span class="badge cy">04</span><h3 data-th="VLAN และ Trunking">VLANs &amp; Trunking</h3><span class="tag">SLIDE04_VLAN</span></div>
+    <div class="ph"><span class="badge cy">04</span><h3 data-th="VLAN และ Trunking">VLANs &amp; Trunking</h3><span class="tag">VLAN · 802.1Q · DTP</span></div>
     <p class="tldr" data-th="Switch ตัวเดียว แบ่งได้หลาย broadcast domain และสายเส้นเดียว ส่งได้หลาย VLAN">One switch, many broadcast domains. One cable, many VLANs.</p>
 
     <h4 data-th="ปัญหาที่ต้องแก้">The problem</h4>
@@ -1322,7 +1324,7 @@ show interface trunk</pre></div></details>
 
   <!-- 05 -->
   <article class="item" id="t05">
-    <div class="ph"><span class="badge cy">05</span><h3 data-th="VTP">VTP</h3><span class="tag">Slide05_VTP</span></div>
+    <div class="ph"><span class="badge cy">05</span><h3 data-th="VTP">VTP</h3><span class="tag">VTPv2 · Domains · Pruning</span></div>
     <p class="tldr" data-th="สร้าง VLAN เพียงครั้งเดียว แล้วทุก Switch ใน domain จะคัดลอกตาม">Create a VLAN once; the domain copies it everywhere.</p>
 
     <h4 data-th="ปัญหาที่ต้องแก้">The problem</h4>
@@ -1351,7 +1353,7 @@ show interface trunk</pre></div></details>
     <div class="tscroll"><table>
       <tr><th>Version</th><th>What it adds</th></tr>
       <tr><td class="mono">1</td><td>Baseline</td></tr>
-      <tr><td class="mono ok">2</td><td>Token Ring support · unrecognised TLV pass-through · version-independent transparent mode · consistency checks. <b>Course focus</b></td></tr>
+      <tr><td class="mono ok">2</td><td>Token Ring support · unrecognised TLV pass-through · version-independent transparent mode · consistency checks. <b>Primary focus here</b></td></tr>
       <tr><td class="mono">3</td><td>Doesn't handle VLANs directly — distributes whole databases over the domain; supports extended VLANs</td></tr>
     </table></div>
 
@@ -1397,7 +1399,7 @@ show vlan brief</pre></div></details>
   </article>
   <!-- 06 -->
   <article class="item" id="t06">
-    <div class="ph"><span class="badge cy">06</span><h3 data-th="การรวมลิงก์ — EtherChannel">Link Aggregation / EtherChannel</h3><span class="tag">Slide06_LinkAggregation</span></div>
+    <div class="ph"><span class="badge cy">06</span><h3 data-th="การรวมลิงก์ — EtherChannel">Link Aggregation / EtherChannel</h3><span class="tag">EtherChannel · LACP · PAgP</span></div>
     <p class="tldr" data-th="รวมหลายสายให้ทำงานเป็นลิงก์เดียว ได้แบนด์วิดท์เพิ่มโดยไม่กระทบ STP">Several cables acting as one link — more bandwidth, no STP drama.</p>
 
     <h4 data-th="ปัญหาที่ต้องแก้">The problem</h4>
@@ -1467,7 +1469,7 @@ show interfaces etherchannel</pre></div></details>
 
   <!-- 07 -->
   <article class="item" id="t07">
-    <div class="ph"><span class="badge cy">07</span><h3 data-th="Multilayer Switch">Multilayer Switch</h3><span class="tag">CPE434Slide07</span></div>
+    <div class="ph"><span class="badge cy">07</span><h3 data-th="Multilayer Switch">Multilayer Switch</h3><span class="tag">SVI · Routed Port · Layer 3</span></div>
     <p class="tldr" data-th="อุปกรณ์ตัวเดียว แต่มีพอร์ตให้เลือกใช้ 3 แบบ">One box, three kinds of port.</p>
 
     <h4 data-th="บทบาทของพอร์ต 3 แบบ">The three port personalities</h4>
@@ -1509,7 +1511,7 @@ show ip route</pre></div></details>
 
   <!-- 08 -->
   <article class="item" id="t08">
-    <div class="ph"><span class="badge cy">08</span><h3 data-th="การ Route ระหว่าง VLAN">Inter-VLAN Routing</h3><span class="tag">CPE434Slide08</span></div>
+    <div class="ph"><span class="badge cy">08</span><h3 data-th="การ Route ระหว่าง VLAN">Inter-VLAN Routing</h3><span class="tag">Router-on-a-Stick · SVI · Routing</span></div>
     <p class="tldr" data-th="มี 3 วิธีให้ VLAN คุยกันได้ เลือกตามจำนวนพอร์ตที่มี">Three ways to let VLANs talk. Pick by port count.</p>
 
     <h4 data-th="กฎที่เป็นหัวใจของทุกอย่าง">The rule that drives everything</h4>
@@ -1569,12 +1571,12 @@ show vlan brief</pre></div></details>
       <li>Gateway = the address for <b>that host's own</b> VLAN.</li>
       <li>Packet Tracer MLS: <code>ip routing</code> is off by default.</li>
     </ul></div>
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t08"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="08" data-th="ฝึกการ์ด →">drill cards →</button><button class="btn" data-lab="L05">Lab 05 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t08"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="08" data-th="ฝึกการ์ด →">drill cards →</button><button class="btn" data-lab="L05">LAB 05 →</button><button class="btn" data-lab="L13">LAB 13 →</button></div>
   </article>
 
   <!-- 09 -->
   <article class="item" id="t09">
-    <div class="ph"><span class="badge cy">09</span><h3 data-th="Private VLAN">Private VLANs</h3><span class="tag">Slide_09PrivateVLAN</span></div>
+    <div class="ph"><span class="badge cy">09</span><h3 data-th="Private VLAN">Private VLANs</h3><span class="tag">PVLAN · Community · Isolated</span></div>
     <p class="tldr">Isolation <i>inside</i> a single VLAN, without new subnets.</p>
 
     <h4 data-th="ปัญหาที่ต้องแก้">The problem</h4>
@@ -1642,14 +1644,14 @@ show interface Fa0/1 switchport</pre></div></details>
       <li>Isolated ↔ isolated is <b>blocked</b>. Community A ↔ community B is blocked.</li>
       <li><b>host-association</b> on host ports, <b>mapping</b> on promiscuous ports and SVIs.</li>
       <li>VTP cannot carry PVLANs — configure them on every switch, transparent mode recommended.</li>
-      <li>Not supported on GNS3 IOU / vIOS-L2, so it's a Packet Tracer or theory-only topic.</li>
+      <li>LAB 06 uses a Private-VLAN-capable Layer 2 IOU image in GNS3. Feature support depends on the image, so use the supplied lab image and verify the commands before building the topology.</li>
     </ul></div>
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t09"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="09" data-th="ฝึกการ์ด →">drill cards →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t09"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="09" data-th="ฝึกการ์ด →">drill cards →</button><button class="btn" data-lab="L06">LAB 06 →</button></div>
   </article>
 
   <!-- 10 -->
   <article class="item" id="t10">
-    <div class="ph"><span class="badge rd">10</span><h3 data-th="Spanning Tree Protocol">Spanning Tree Protocol</h3><span class="tag">CPE434Slide10 · the biggest topic</span></div>
+    <div class="ph"><span class="badge rd">10</span><h3 data-th="Spanning Tree Protocol">Spanning Tree Protocol</h3><span class="tag">STP · Root Election · Port Roles</span></div>
     <p class="tldr" data-th="ลิงก์สำรองทำให้เกิด loop ดังนั้น STP จะบล็อกพอร์ตเท่าที่จำเป็น เพื่อตัดทุก loop">Redundant links create loops. STP blocks the minimum number of ports to break every loop.</p>
 
     <h4 data-th="ทำไม loop จึงร้ายแรง — ไล่ทีละขั้น">Why a loop is fatal — walk it through</h4>
@@ -1696,7 +1698,7 @@ show interface Fa0/1 switchport</pre></div></details>
     <p>Anything that is neither a root port nor a designated port is <b>blocked</b>.</p>
 
     <h4 data-th="การเลือกครั้งที่ 1 — root bridge">Election 1 — the root bridge</h4>
-    <p>Every switch boots believing it is the root and advertises itself. As better BPDUs arrive they defer. Winner = <b>lowest priority</b>, tie → <b>lowest MAC</b>. A new switch with a lower BID can preempt an existing root at any time, which is why you set priorities manually (lecture 11).</p>
+    <p>Every switch boots believing it is the root and advertises itself. As better BPDUs arrive they defer. Winner = <b>lowest priority</b>, tie → <b>lowest MAC</b>. A new switch with a lower BID can preempt an existing root at any time, which is why you set priorities manually (Topic 11).</p>
 
     <h4 data-th="การเลือกครั้งที่ 2 — root port และการสะสมค่า cost">Election 2 — root ports, and how cost accumulates</h4>
     <ol class="steps">
@@ -1779,7 +1781,7 @@ show interface Fa0/1 switchport</pre></div></details>
       <li>The root acknowledges and floods a TC-flagged BPDU to everyone.</li>
       <li>Every switch shortens MAC ageing and flushes idle entries — <b>for no reason at all</b>.</li>
     </ol>
-    <div class="box wild"><b>This is the argument for PortFast</b>A cosmetic event just aged out the whole network's MAC tables. Lecture 11's PortFast stops host ports from generating topology changes, and Lab 10 makes you watch both behaviours back to back.</div>
+    <div class="box wild"><b>This is the argument for PortFast</b>A cosmetic event just aged out the whole network's MAC tables. Topic 11's PortFast stops host ports from generating topology changes, and LAB 10 makes you watch both behaviours back to back.</div>
 
     <h4 data-th="ตระกูลของ STP">The family</h4>
     <div class="tscroll"><table>
@@ -1804,7 +1806,7 @@ spanning-tree pathcost method long</pre></div></details>
   </article>
   <!-- 10B -->
   <article class="item" id="t10B">
-    <div class="ph"><span class="badge rd">10+</span><h3 data-th="BackboneFast และ RLQ">BackboneFast &amp; RLQ</h3><span class="tag">BackboneFast.pdf · extra deck under lecture 10</span></div>
+    <div class="ph"><span class="badge rd">10+</span><h3 data-th="BackboneFast และ RLQ">BackboneFast &amp; RLQ</h3><span class="tag">BackboneFast · RLQ · Indirect Failure</span></div>
     <p class="tldr" data-th="ตัดการรอ Max Age 20 วินาที เมื่อเกิด indirect failure ด้วยการถาม Switch ต้นทางว่ายังไปถึง root bridge ได้หรือไม่">Kill the 20-second Max Age wait after an indirect failure — by asking upstream "can you still reach the root?"</p>
 
     <h4 data-th="ใช้เพื่ออะไร">What it is for</h4>
@@ -1878,12 +1880,12 @@ show spanning-tree summary</pre></div></details>
       <li>Reply on the <b>root port</b> → only the inferior-BPDU port moves. Reply on a <b>blocked port</b> → both move.</li>
       <li>Must be enabled on <b>all</b> switches in the network to work properly.</li>
     </ul></div>
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t10B"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="10B" data-th="ฝึกการ์ด →">drill cards →</button><button class="btn" data-goto="t11">lecture 11 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t10B"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="10B" data-th="ฝึกการ์ด →">drill cards →</button><button class="btn" data-goto="t11">Topic 11 →</button></div>
   </article>
 
   <!-- 11 -->
   <article class="item" id="t11">
-    <div class="ph"><span class="badge rd">11</span><h3 data-th="การใช้งาน STP 1 — การปรับแต่งและกลไกป้องกัน">Implementing STP 1 — Tuning &amp; Guards</h3><span class="tag">Slide_11ImpSTP1</span></div>
+    <div class="ph"><span class="badge rd">11</span><h3 data-th="การใช้งาน STP 1 — การปรับแต่งและกลไกป้องกัน">Implementing STP 1 — Tuning &amp; Guards</h3><span class="tag">Priority · PortFast · Guards</span></div>
     <p class="tldr" data-th="กำหนด root bridge เอง ทำให้ converge เร็วขึ้น และป้องกันไม่ให้ผู้ใช้ทำ topology พัง">Put the root where you want it, converge faster, and stop users breaking the tree.</p>
 
     <h4 data-th="ตรวจสอบก่อน — ถ้ามองไม่เห็น ก็ปรับไม่ได้">Verification first — you cannot tune what you cannot see</h4>
@@ -2000,7 +2002,7 @@ show spanning-tree backbonefast</pre></div></details>
 
   <!-- 12 -->
   <article class="item" id="t12">
-    <div class="ph"><span class="badge rd">12</span><h3 data-th="การใช้งาน STP 2 — Loop Guard, UDLD, Flex Links">Implementing STP 2 — Loop Guard, UDLD, Flex Links</h3><span class="tag">Slide_12ImpSTP2</span></div>
+    <div class="ph"><span class="badge rd">12</span><h3 data-th="การใช้งาน STP 2 — Loop Guard, UDLD, Flex Links">Implementing STP 2 — Loop Guard, UDLD, Flex Links</h3><span class="tag">Loop Guard · UDLD · Flex Links</span></div>
     <p class="tldr" data-th="ความล้มเหลวที่อันตรายที่สุด ไม่ใช่ลิงก์ที่ขาด แต่คือลิงก์ที่เงียบหายไป">The dangerous failure is not a broken link — it's a link that goes quiet.</p>
 
     <h4 data-th="เริ่มจากบทบาทของพอร์ตทั้งหมด">First, the complete list of port roles</h4>
@@ -2086,7 +2088,7 @@ show interface switchport backup</pre></div></details>
 
   <!-- 13 -->
   <article class="item" id="t13">
-    <div class="ph"><span class="badge am">13</span><h3 data-th="Rapid Spanning Tree — หลักการทำงาน">Rapid Spanning Tree — How It Works</h3><span class="tag">Slide_13RapidSTP1</span></div>
+    <div class="ph"><span class="badge am">13</span><h3 data-th="Rapid Spanning Tree — หลักการทำงาน">Rapid Spanning Tree — How It Works</h3><span class="tag">RSTP · Proposal/Agreement · Edge</span></div>
     <p class="tldr" data-th="ได้ tree แบบเดิม แต่สร้างด้วยการ handshake แทนการรอ timer">Same tree, built by handshakes rather than by waiting out timers.</p>
 
     <h4 data-th="ที่มาของโปรโตคอล">Where it came from</h4>
@@ -2169,7 +2171,7 @@ spanning-tree mode pvst                   <span class="c">! back to classic</spa
 
   <!-- 14 -->
   <article class="item" id="t14">
-    <div class="ph"><span class="badge am">14</span><h3 data-th="RSTP 2 — บทบาทของพอร์ตและการเปลี่ยน Topology">RSTP 2 — Roles &amp; Topology Changes in Practice</h3><span class="tag">Slide_14RapidSTP2</span></div>
+    <div class="ph"><span class="badge am">14</span><h3 data-th="RSTP 2 — บทบาทของพอร์ตและการเปลี่ยน Topology">RSTP 2 — Roles &amp; Topology Changes in Practice</h3><span class="tag">RSTP · Roles · Topology Changes</span></div>
     <p class="tldr" data-th="เหตุการณ์เดียวกัน เล่า 2 รอบ: 802.1D ใช้เวลา 30 วินาที ส่วน RSTP ใช้แค่การ handshake">The same event, told twice: 802.1D takes 30 seconds, RSTP takes a handshake.</p>
 
     <h4 data-th="การอ่านแผนภาพบทบาทพอร์ต">Reading a port-role diagram</h4>
@@ -2216,7 +2218,7 @@ spanning-tree mode pvst                   <span class="c">! back to classic</spa
 
   <!-- 15 -->
   <article class="item" id="t15">
-    <div class="ph"><span class="badge am">15</span><h3 data-th="Multiple Spanning Tree (MST)">Multiple Spanning Tree (MST)</h3><span class="tag">Slide_15MST</span></div>
+    <div class="ph"><span class="badge am">15</span><h3 data-th="Multiple Spanning Tree (MST)">Multiple Spanning Tree (MST)</h3><span class="tag">MST · Regions · Instances</span></div>
     <p class="tldr" data-th="มี VLAN เป็นร้อย แต่ topology จริงมีไม่กี่แบบ จึงควรรัน tree เพียงไม่กี่ instance">Hundreds of VLANs but only a couple of distinct topologies — so run only a couple of trees.</p>
 
     <h4 data-th="เปรียบเทียบแนวทางทั้งสาม">The three approaches compared</h4>
@@ -2238,7 +2240,7 @@ spanning-tree mode pvst                   <span class="c">! back to classic</spa
 
     <h4 data-th="Priority ใน MST">Priority in MST</h4>
     <p class="mono ok">system ID priority = configured priority + instance number</p>
-    <p class="sub2">Default priority with instance 10 → 32768 + 10 = <b>32778</b>. Same idea as the extended system ID in lecture 11, but keyed on the instance instead of the VLAN.</p>
+    <p class="sub2">Default priority with instance 10 → 32768 + 10 = <b>32778</b>. Same idea as the extended system ID in Topic 11, but keyed on the instance instead of the VLAN.</p>
 
     <h4 data-th="Region — จุดที่มักมีปัญหาในการใช้งานจริง">Regions — the part that breaks in practice</h4>
     <p>A switch running MST must work out which of its neighbours share its configuration. Two switches are in the <b>same region</b> only if <b>all three</b> of these match exactly:</p>
@@ -2275,7 +2277,7 @@ show spanning-tree summary</pre></div></details>
       <li>The three region attributes — <b>name, revision, mapping</b>. One mismatch = separate regions.</li>
       <li>Priority + <b>instance</b> number (32778), not the VLAN number.</li>
       <li><code>show pending</code> previews; <code>end</code> commits.</li>
-      <li>MST is built on RSTP, so it inherits the roles, states and handshake from lecture 13.</li>
+      <li>MST is built on RSTP, so it inherits the roles, states and handshake from Topic 13.</li>
     </ul></div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t15"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="15" data-th="ฝึกการ์ด →">drill cards →</button></div>
   </article>
@@ -2283,33 +2285,31 @@ show spanning-tree summary</pre></div></details>
 
 <!-- ============ LABS ============ -->
 <section class="tab" id="labs"><div class="wrap">
-  <h1 data-th="12 แล็บ เรียงตามลำดับการสร้างจริง"><span class="pre">// LAB WORKBENCH</span>12 labs, build order</h1>
-  <div class="box trap" style="margin-top:14px"><b>Note on the worked answers</b>
-  These are my own revision records for labs I have already completed and submitted. They are published to show the
-  <b>reasoning method</b> — how root election, path cost and tie-breaks resolve — not as a shortcut for anyone else's
-  coursework. If you are taking 261434 now, work the topology out yourself first; the port-role solver in the
-  <b>Exam</b> tab generates unlimited fresh scenarios for exactly that purpose.</div>
-  <p class="lede" data-th="แต่ละแล็บ: เป้าหมาย ตารางที่อยู่ ทุกขั้นตอน คอนฟิกเต็ม การตรวจสอบ และเฉลยที่ยืนยันแล้ว">Each lab: objective, addressing table, every step from the sheet, complete configs, what to read in the verification output, and the traps. Labs 07–11 carry full solved keys; Lab 12 carries worked predictions.</p>
+  <h1><span class="pre">// LAB WORKBENCH</span>LAB 01–LAB 13, original numbering</h1>
+  <div class="box wild" style="margin-top:14px"><b>How to use the worked reasoning</b>Build each topology and record your own output first. Then compare the root election, path cost, tie-breaks, verification evidence, and troubleshooting notes here.</div>
+  <p class="lede">Each lab keeps its source number, devices, ports, addresses, required platform, configuration order, verification commands, expected behavior, and questions. The IPv4 subnetting material is a separate Review and does not count as a lab.</p>
 
   <div class="tscroll" style="margin-top:16px"><table>
-    <tr><th>Lab</th><th>Topic</th><th>Kit</th><th>Lecture</th><th data-th="คะแนน">Score</th></tr>
-    <tr><td class="mono">00</td><td>IPv4 Subnetting Review</td><td>paper</td><td>01 · 02</td><td class="ok">14 / 14</td></tr>
-    <tr><td class="mono">01</td><td>Basic Switch — SSH, port security</td><td>2 × 2960</td><td>03</td><td class="ok">12 / 12</td></tr>
-    <tr><td class="mono">02</td><td>VLAN + 802.1Q tag inspection</td><td>2 × 2960</td><td>04</td><td class="ok">13 / 13</td></tr>
-    <tr><td class="mono">03</td><td>VTP server / client / transparent</td><td>4 × 2960</td><td>05</td><td class="ok">13 / 13</td></tr>
-    <tr><td class="mono">04</td><td>EtherChannel with LACP</td><td>2 × 3650</td><td>06</td><td class="ok">10 / 10</td></tr>
-    <tr><td class="mono">05</td><td>Inter-VLAN — stick + L3 switch</td><td>1941 · 2960 · 3650</td><td>07 · 08</td><td class="ok">15 / 15</td></tr>
-    <tr><td class="mono">07</td><td>Determine STP by hand</td><td>paper</td><td>10</td><td class="ok">11 / 11</td></tr>
-    <tr><td class="mono">08</td><td>Verifying spanning tree</td><td>4 × 2960</td><td>10</td><td class="ok">30 / 30</td></tr>
-    <tr><td class="mono">09</td><td>Configuring STP priorities</td><td>4 × 2960</td><td>10 · 11</td><td class="ok">31 / 31</td></tr>
-    <tr><td class="mono">10</td><td>STP with topology changes</td><td>4 × 2960</td><td>10 · 11</td><td class="ok">14 / 14</td></tr>
-    <tr><td class="mono">11</td><td>Rapid STP + backward compatibility</td><td>4 × 2960</td><td>13 · 14</td><td class="ok">17 / 17</td></tr>
-    <tr><td class="mono">12</td><td>MST — regions and instances</td><td>4 × IOU · GNS3</td><td>15</td><td class="sub2">in progress</td></tr>
+    <tr><th>Lab</th><th>Title</th><th>Platform / kit</th><th>Technical focus</th></tr>
+    <tr><td class="mono">REVIEW</td><td>IPv4 Subnetting</td><td>Manual</td><td>/24–/30 addressing</td></tr>
+    <tr><td class="mono ok">LAB 01</td><td>Basic Switch</td><td>Packet Tracer · 2 × 2960</td><td>SSH · management SVI · port security</td></tr>
+    <tr><td class="mono ok">LAB 02</td><td>VLAN and 802.1Q</td><td>Packet Tracer · 2 × 2960</td><td>access ports · trunk · tag inspection</td></tr>
+    <tr><td class="mono ok">LAB 03</td><td>VTP</td><td>Packet Tracer · 4 × 2960</td><td>server · client · transparent</td></tr>
+    <tr><td class="mono ok">LAB 04</td><td>EtherChannel with LACP</td><td>Packet Tracer · 2 × 3650</td><td>active/passive bundles</td></tr>
+    <tr><td class="mono ok">LAB 05</td><td>Inter-VLAN Routing</td><td>Packet Tracer · 1941 · 2960 · 3650</td><td>router-on-a-stick · L3 switch · OSPF</td></tr>
+    <tr><td class="mono ok">LAB 06</td><td>Private VLAN</td><td>GNS3 · L2/L3 IOU · VPCS</td><td>community · isolated · promiscuous</td></tr>
+    <tr><td class="mono ok">LAB 07</td><td>Determine Spanning Tree</td><td>Manual</td><td>root and port-role calculation</td></tr>
+    <tr><td class="mono ok">LAB 08</td><td>Verifying Spanning Tree</td><td>Packet Tracer · 4 × 2960</td><td>PVST+ output</td></tr>
+    <tr><td class="mono ok">LAB 09</td><td>Configuring Spanning Tree</td><td>Packet Tracer · 4 × 2960</td><td>priorities · root primary</td></tr>
+    <tr><td class="mono ok">LAB 10</td><td>STP with Topology Changes</td><td>Packet Tracer · 4 × 2960</td><td>convergence · PortFast</td></tr>
+    <tr><td class="mono ok">LAB 11</td><td>Rapid Spanning Tree</td><td>Packet Tracer · 4 × 2960</td><td>RSTP · backward compatibility</td></tr>
+    <tr><td class="mono ok">LAB 12</td><td>Multiple Spanning Tree</td><td>GNS3 · 4 × IOU</td><td>regions · instances · cost</td></tr>
+    <tr><td class="mono ok">LAB 13</td><td>DHCP</td><td>Packet Tracer · L3 switch · router</td><td>pools · exclusions · SLAAC</td></tr>
   </table></div>
 
-  <!-- L00 -->
-  <article class="item lab" id="L00">
-    <div class="ph"><span class="badge gr">LAB 00</span><h3 data-th="ทบทวน IPv4 Subnetting">IPv4 Subnetting Review</h3><span class="tag">lectures 01 · 02 · no Packet Tracer</span></div>
+  <!-- REVIEW -->
+  <article class="item" id="subnet-review">
+    <div class="ph"><span class="badge gr">REVIEW</span><h3 data-th="ทบทวน IPv4 Subnetting">IPv4 Subnetting</h3><span class="tag">IPv4 · prefixes · manual calculation</span></div>
     <p class="tldr" data-th="ทบทวนการแบ่ง subnet ก่อนเริ่มเรียนจริง เพราะทุกแล็บหลังจากนี้ต้องใช้">The entry check. Every lab after this one hands you a prefix and expects you to know instantly which addresses are legal.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -2362,12 +2362,12 @@ show spanning-tree summary</pre></div></details>
 
     <div class="box wild"><b data-th="ทำไมถึงสำคัญ">Why it matters</b>Every subsequent lab silently assumes this. Lab 01 fails to ping if you read /25 as /24. Lab 05's OSPF adjacency will not form if the /30 is wrong on either end. This lab is short because it is a gate, not a topic.</div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L00"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t02">lecture 02 →</button></div>
+    <div class="foot"><button class="btn" data-goto="t02">IPv6 topic →</button></div>
   </article>
 
   <!-- L01 -->
   <article class="item lab" id="L01">
-    <div class="ph"><span class="badge gr">LAB 01</span><h3 data-th="Basic Switch">Basic Switch</h3><span class="tag">lecture 03</span></div>
+    <div class="ph"><span class="badge gr">LAB 01</span><h3 data-th="Basic Switch">Basic Switch</h3><span class="tag">Packet Tracer 9.0 · SSH · Port Security</span></div>
     <p class="tldr" data-th="สองสวิตช์ สอง PC และการเข้าถึงระยะไกลอย่างปลอดภัยด้วย SSH">Two switches, two PCs, and locking the switch down so only SSH gets in.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -2387,7 +2387,7 @@ show spanning-tree summary</pre></div></details>
 
     <h4 data-th="ขั้นตอนตามใบแล็บ">Steps, as the sheet numbers them</h4>
     <ol class="steps">
-      <li>Download the Packet Tracer file, open with <b>version 9.0</b> from NetAcad.</li>
+      <li>Open the supplied topology file with <b>Packet Tracer 9.0</b>.</li>
       <li>Set both PC IPs from the figure. Check the real interface names in the file — they are not always Fa0/1.</li>
       <li>Hostnames <b>swA</b> and <b>swB</b> as shown.</li>
       <li><code>enable secret netdes</code>.</li>
@@ -2462,7 +2462,7 @@ interface FastEthernet0/2            <span class="c">! swB's access port is Fa0/
       <tr><td class="mono">show ip interface brief</td><td><code>Vlan1 … up up</code> with the right address. Down means you forgot <code>no shutdown</code>.</td></tr>
     </table></div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li>The mask for /25 typed out: <b>255.255.255.128</b>. Both PCs and both switches are inside one subnet.</li>
       <li>SSH needs <b>three</b> ingredients before the key will generate: hostname (not "Switch"), <code>ip domain-name</code>, then <code>crypto key generate rsa</code>. Miss one and SSH silently stays off.</li>
       <li><code>transport input ssh</code> is what actually blocks Telnet. <code>login local</code> only chooses <i>which</i> credentials.</li>
@@ -2473,12 +2473,12 @@ interface FastEthernet0/2            <span class="c">! swB's access port is Fa0/
 
     <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>This config is the first five minutes of every switch that ever gets racked. Console password for the person standing in front of it, SSH-only for everyone else, and port security on the access ports so a student cannot unplug a printer and hang a rogue AP off the wall socket.</div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L01"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t03">lecture 03 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L01"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t03">Switch Basics topic →</button></div>
   </article>
 
   <!-- L02 -->
   <article class="item lab" id="L02">
-    <div class="ph"><span class="badge gr">LAB 02</span><h3 data-th="VLAN และการอ่านแท็ก 802.1Q">VLAN + reading the 802.1Q tag</h3><span class="tag">lecture 04</span></div>
+    <div class="ph"><span class="badge gr">LAB 02</span><h3 data-th="VLAN และการอ่านแท็ก 802.1Q">VLAN and 802.1Q Tag Inspection</h3><span class="tag">VLAN · 802.1Q · Verification · Packet Tracer</span></div>
     <p class="tldr" data-th="แยกสองห้องออกจากกันด้วย VLAN แล้วเปิดเฟรมจริงดูว่าแท็กอยู่ตรงไหน">Split two rooms into two broadcast domains, then open a real frame in Simulation mode and find the tag with your own eyes.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -2558,7 +2558,7 @@ interface GigabitEthernet0/2
     <br>VLAN <b>261</b> = 0x105 → TCI <code>0x0105</code> &nbsp;·&nbsp; VLAN <b>434</b> = 0x1B2 → TCI <code>0x01B2</code>.
     <br>12 bits is why the VLAN range stops at <b>4094</b>: 0 and 4095 are reserved.</div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li>TPID value — <b>0x8100</b>, fixed, never changes.</li>
       <li>Convert the VLAN ID to hex and back. Practise 261 ↔ 0x105 and 434 ↔ 0x1B2 until it is instant.</li>
       <li>The tag exists <b>only on the trunk</b>. The frame arriving at PC1 has already been stripped — inspect at the switch, not the PC.</li>
@@ -2567,12 +2567,12 @@ interface GigabitEthernet0/2
       <li>Frame grows by 4 bytes, so the maximum tagged frame is <b>1522</b>, not 1518.</li>
     </ul></div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L02"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t04">lecture 04 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L02"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t04">VLAN topic →</button></div>
   </article>
 
   <!-- L03 -->
   <article class="item lab" id="L03">
-    <div class="ph"><span class="badge gr">LAB 03</span><h3 data-th="โหมด VTP — ใครคัดลอกอะไร">VTP — who copies what</h3><span class="tag">lecture 05</span></div>
+    <div class="ph"><span class="badge gr">LAB 03</span><h3 data-th="โหมด VTP — ใครคัดลอกอะไร">VTP</h3><span class="tag">VTPv2 · Server · Client · Transparent</span></div>
     <p class="tldr" data-th="สี่สวิตช์ สามโหมด สร้าง VLAN ทีละตัวแล้วดูว่ามันไปโผล่ที่ไหนบ้าง">Four switches, three modes. Create one VLAN at a time and watch exactly where it does and does not appear.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -2639,7 +2639,7 @@ show vlan brief              <span class="c">! run this on ALL FOUR after each s
     </table></div>
     The transparent switch is the trick: <b>swC keeps its own VLANs private, but still forwards other switches' advertisements through itself.</b> That is why swD receives VLAN 30/40 from swA even though swC — sitting between them — never installs them.</div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li><b>Client mode cannot create VLANs.</b> swB answers with <code>VTP VLAN configuration not allowed when device is in CLIENT mode.</code> That is the whole of Q13.</li>
       <li>Transparent = local VLAN database, <b>revision stays 0 forever</b>, but it relays advertisements for its domain.</li>
       <li>Both servers can create, and each change <b>increments the revision number</b>. Highest revision in the domain wins — which is how a wrongly-configured switch can wipe a production VLAN database.</li>
@@ -2650,12 +2650,12 @@ show vlan brief              <span class="c">! run this on ALL FOUR after each s
 
     <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>Most networks now run VTP transparent or turn VTP off entirely. One switch with a high revision number and a stale database, plugged in by a well-meaning technician, can delete every VLAN in a campus. This lab is teaching you the failure mode as much as the feature.</div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L03"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t05">lecture 05 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L03"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t05">VTP topic →</button></div>
   </article>
 
   <!-- L04 -->
   <article class="item lab" id="L04">
-    <div class="ph"><span class="badge gr">LAB 04</span><h3 data-th="EtherChannel ด้วย LACP">EtherChannel with LACP</h3><span class="tag">lecture 06</span></div>
+    <div class="ph"><span class="badge gr">LAB 04</span><h3 data-th="EtherChannel ด้วย LACP">EtherChannel with LACP</h3><span class="tag">LACP · EtherChannel · Catalyst 3650</span></div>
     <p class="tldr" data-th="สามสายระหว่างสวิตช์: ก่อนรวม STP บล็อกทิ้งสองเส้น หลังรวมใช้ได้ทั้งสาม">Three cables between two switches. Before bundling, STP throws two of them away. After bundling, all three carry traffic. Same wires, triple the bandwidth.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -2744,7 +2744,7 @@ SWB# show spanning-tree vlan 100           <span class="c">! now shows Po4 as ON
 
     <div class="box rl"><b data-th="ประเด็นสำคัญของแล็บ">The point of the lab, in one line</b>Run <code>show spanning-tree vlan 100</code> before and after. Before: three physical ports, one forwarding, two blocked. After: <b>one logical port</b> <code>Po4</code>, forwarding, carrying all three links' bandwidth. STP cannot create a loop out of a bundle it sees as a single interface.</div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li><b>Channel-group numbers are locally significant.</b> SWA uses 3, SWB uses 4, and the bundle still forms. Only the LACP modes have to be compatible.</li>
       <li>LACP mode pairs: <b>active+passive ✓</b>, active+active ✓, <b>passive+passive ✗</b> (nobody starts the conversation).</li>
       <li>LACP is the IEEE standard <b>802.3ad</b>; PAgP is the Cisco-only equivalent. <code>on</code> mode uses no protocol at all and will happily build a loop if you misconfigure one side.</li>
@@ -2753,12 +2753,12 @@ SWB# show spanning-tree vlan 100           <span class="c">! now shows Po4 as ON
       <li>Sts flags to recognise: <b>SU</b> = Layer 2 and in use, <b>P</b> = bundled, <b>D</b> = down, <b>s</b> = suspended.</li>
     </ul></div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L04"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t06">lecture 06 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L04"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t06">EtherChannel topic →</button></div>
   </article>
 
   <!-- L05 -->
   <article class="item lab" id="L05">
-    <div class="ph"><span class="badge gr">LAB 05</span><h3 data-th="Inter-VLAN Routing สองวิธีในแล็บเดียว">Inter-VLAN Routing — both methods at once</h3><span class="tag">lectures 07 · 08</span></div>
+    <div class="ph"><span class="badge gr">LAB 05</span><h3 data-th="Inter-VLAN Routing สองวิธีในแล็บเดียว">Inter-VLAN Routing</h3><span class="tag">Router-on-a-Stick · Layer 3 Switch · OSPF</span></div>
     <p class="tldr" data-th="ครึ่งซ้ายใช้ router-on-a-stick ครึ่งขวาใช้ SVI บน L3 switch แล้วเชื่อมสองครึ่งด้วย OSPF">The left half routes with a router-on-a-stick. The right half routes with SVIs inside a Layer 3 switch. OSPF glues the two halves together. One lab, both techniques, side by side.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -2777,7 +2777,7 @@ SWB# show spanning-tree vlan 100           <span class="c">! now shows Po4 as ON
 
     <h4 data-th="ขั้นตอนตามใบแล็บ">Steps, as the sheet numbers them</h4>
     <ol class="steps">
-      <li>Download the base file and open it in Packet Tracer 9.0.</li>
+      <li>Open <code>2026CPE434Lab05InterVLANBase.pkt</code> in Packet Tracer 9.0.</li>
       <li>Set all four PC addresses and gateways. PC1 and PC2 also get IPv6 = <b>Automatic</b>.</li>
       <li><b>swA</b> — pure Layer 2: create VLAN 10 and 20, Fa0/1 and Fa0/2 as access ports in them, <b>Gi0/1 as trunk</b> up to the router.</li>
       <li><b>rC</b> — router-on-a-stick: address G0/1 (the /30), <code>no shutdown</code> <b>both</b> G0/0 and G0/1, then build the two subinterfaces, then OSPF and OSPFv3 in area 0.</li>
@@ -2873,7 +2873,7 @@ interface GigabitEthernet0/1            <span class="c">! the trunk carrying bot
       <tr><td class="mono">show mac address-table</td><td>swA, swB</td><td>Q6 onward reads this — ping everything first, entries expire after <b>300 s</b>.</td></tr>
     </table></div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li><b>Router-on-a-stick vs SVI.</b> One physical port carrying tagged subinterfaces, versus virtual interfaces inside a switch that already has a routing ASIC. Same result, very different performance.</li>
       <li>The subinterface number (<code>.1010</code>) is <b>cosmetic</b>. What matters is <code>encapsulation dot1Q 10</code> — that number must match the VLAN.</li>
       <li><code>ip routing</code> on a Layer 3 switch is off by default. Without it, SVIs come up but nothing routes between them.</li>
@@ -2885,16 +2885,113 @@ interface GigabitEthernet0/1            <span class="c">! the trunk carrying bot
 
     <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>Router-on-a-stick is what you build when the budget bought a Layer 2 switch and a router you already own. Every packet between VLAN 10 and VLAN 20 goes up the trunk, into the router, and back down the same cable — so that one link carries the traffic twice. The Layer 3 switch on the right does the same job in silicon at line rate without leaving the box. This lab puts both in one topology so you can see exactly what you are paying for.</div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L05"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t08">lecture 08 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L05"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t08">Inter-VLAN topic →</button></div>
+  </article>
+
+  <!-- L06 -->
+  <article class="item lab" id="L06">
+    <div class="ph"><span class="badge gr">LAB 06</span><h3>Private VLAN</h3><span class="tag">PVLAN · GNS3 · IOU · Verification</span></div>
+    <p class="tldr">Place community and isolated hosts behind one primary VLAN, then prove the isolation policy through the promiscuous router port.</p>
+
+    <h4>Objective and platform</h4>
+    <p>Configure and verify Private VLAN operation while reviewing router addressing and Layer 2 switch configuration. This lab requires <b>GNS3 with the GNS3 VM</b>, <b>Layer 2 and Layer 3 IOU images</b>, and <b>VPCS</b> hosts. Only Layer 2 functions of SWA are used.</p>
+
+    <h4>Topology and addressing</h4>
+    <p class="mono" style="color:var(--dim)">PC5 — RB e0/1 · RB e0/0 — SWA e0/0 promiscuous · SWA e1/0–1 community · SWA e2/0–1 isolated</p>
+    <div class="tscroll"><table>
+      <tr><th>Device</th><th>Attached interface</th><th>IPv4 / gateway</th><th>PVLAN role</th></tr>
+      <tr><td class="mono">PC1</td><td class="mono">SWA e1/0</td><td class="mono">200.10.10.11/24 · 200.10.10.1</td><td>community VLAN 101</td></tr>
+      <tr><td class="mono">PC2</td><td class="mono">SWA e1/1</td><td class="mono">200.10.10.12/24 · 200.10.10.1</td><td>community VLAN 101</td></tr>
+      <tr><td class="mono">PC3</td><td class="mono">SWA e2/0</td><td class="mono">200.10.10.21/24 · 200.10.10.1</td><td>isolated VLAN 102</td></tr>
+      <tr><td class="mono">PC4</td><td class="mono">SWA e2/1</td><td class="mono">200.10.10.22/24 · 200.10.10.1</td><td>isolated VLAN 102</td></tr>
+      <tr><td class="mono">PC5</td><td class="mono">RB e0/1</td><td class="mono">100.1.1.201/24 · 100.1.1.1</td><td>external verification host</td></tr>
+      <tr><td class="mono">RB</td><td class="mono">e0/0 · e0/1</td><td class="mono">200.10.10.1/24 · 100.1.1.1/24</td><td>gateway through promiscuous port</td></tr>
+    </table></div>
+
+    <h4>Configuration sequence</h4>
+    <ol class="steps">
+      <li>Configure PC1–PC5 with the exact IPv4 addresses and gateways above. In VPCS, verify each host with <code>show ip</code>.</li>
+      <li>Configure RB e0/0 and e0/1 with the two gateway addresses.</li>
+      <li>Put SWA in <b>VTP transparent</b> mode.</li>
+      <li>Create secondary VLAN <b>101</b> as a <b>community</b> Private VLAN.</li>
+      <li>Create secondary VLAN <b>102</b> as an <b>isolated</b> Private VLAN.</li>
+      <li>Create primary VLAN <b>10</b> and associate secondary VLANs 101 and 102.</li>
+      <li>Configure SWA e0/0 as a <b>promiscuous</b> port and map primary VLAN 10 to secondaries 101 and 102. This link is not a trunk, and RB needs no subinterface.</li>
+      <li>Configure SWA e1/0–1 as community host ports associated with primary 10 and secondary 101.</li>
+      <li>Configure SWA e2/0–1 as isolated host ports associated with primary 10 and secondary 102.</li>
+      <li>Run the required connectivity tests and compare them with the matrix below.</li>
+      <li>Save SWA, RB, and every VPCS host before closing the project.</li>
+    </ol>
+
+    <details><summary>▸ complete SWA and RB configuration</summary><div class="dbody"><pre><span class="c">! ---------- SWA: Layer 2 only ----------</span>
+configure terminal
+vtp mode transparent
+!
+vlan 101
+ private-vlan community
+vlan 102
+ private-vlan isolated
+vlan 10
+ private-vlan primary
+ private-vlan association 101,102
+!
+interface Ethernet0/0
+ switchport mode private-vlan promiscuous
+ switchport private-vlan mapping 10 101,102
+ no shutdown
+!
+interface range Ethernet1/0 - 1
+ switchport mode private-vlan host
+ switchport private-vlan host-association 10 101
+ no shutdown
+!
+interface range Ethernet2/0 - 1
+ switchport mode private-vlan host
+ switchport private-vlan host-association 10 102
+ no shutdown
+end
+copy running-config startup-config
+
+<span class="c">! ---------- RB ----------</span>
+configure terminal
+interface Ethernet0/0
+ ip address 200.10.10.1 255.255.255.0
+ no shutdown
+interface Ethernet0/1
+ ip address 100.1.1.1 255.255.255.0
+ no shutdown
+end
+copy running-config startup-config</pre></div></details>
+
+    <details><summary>▸ VPCS addressing and save commands</summary><div class="dbody"><pre>PC1&gt; ip 200.10.10.11/24 200.10.10.1
+PC2&gt; ip 200.10.10.12/24 200.10.10.1
+PC3&gt; ip 200.10.10.21/24 200.10.10.1
+PC4&gt; ip 200.10.10.22/24 200.10.10.1
+PC5&gt; ip 100.1.1.201/24 100.1.1.1
+
+show ip
+save</pre></div></details>
+
+    <h4>Expected connectivity</h4>
+    <div class="tscroll"><table>
+      <tr><th>Required test</th><th>Expected result</th><th>Reason</th></tr>
+      <tr><td>PC1–PC4 ↔ PC5</td><td class="ok"><b>Pass</b></td><td>Every secondary VLAN may reach the promiscuous port and return through RB.</td></tr>
+      <tr><td>PC1 ↔ PC2</td><td class="ok"><b>Pass</b></td><td>Both are members of community VLAN 101.</td></tr>
+      <tr><td>PC3 ↔ PC4</td><td style="color:var(--rd)"><b>Fail</b></td><td>Hosts in isolated VLAN 102 cannot communicate directly.</td></tr>
+    </table></div>
+
+    <div class="box trap"><b>Troubleshooting and persistence</b>If expected behavior is not visible after configuration, save all device configurations and reopen the GNS3 project. Use <code>copy running-config startup-config</code> or <code>write</code> on SWA and RB, and <code>save</code> inside every VPCS console. Without those saves, GNS3 may restore only the topology.</div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L06"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t09">Private VLAN topic →</button></div>
   </article>
 
   <!-- L07 -->
   <article class="item lab" id="L07">
-    <div class="ph"><span class="badge gr">LAB 07</span><h3 data-th="วิเคราะห์ STP บนกระดาษ">Determine STP on paper</h3><span class="tag">lecture 10 · no Packet Tracer</span></div>
-    <p class="tldr" data-th="Topology สี่สวิตช์ ค่าเริ่มต้นทั้งหมด คำนวณ VLAN 1 ด้วยมือ ไม่ต้องเปิดโปรแกรม">Four switches, every value at default, no software. Work out the VLAN 1 tree with nothing but the MAC addresses — this is the method the midterm will test.</p>
+    <div class="ph"><span class="badge gr">LAB 07</span><h3 data-th="วิเคราะห์ STP บนกระดาษ">Determine Spanning Tree</h3><span class="tag">STP · Manual Calculation · Bridge ID · Midterm Practice</span></div>
+    <p class="tldr" data-th="Topology สี่สวิตช์ ค่าเริ่มต้นทั้งหมด คำนวณ VLAN 1 ด้วยมือ ไม่ต้องเปิดโปรแกรม">Four switches, every value at default. Calculate the VLAN 1 topology manually from the bridge IDs and port relationships.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
-    <p>Determine the Spanning Tree Protocol topology by hand. Packet Tracer is not required and not allowed to help you.</p>
+    <p>Determine the Spanning Tree Protocol topology by hand. Packet Tracer is not required.</p>
 
     <h4 data-th="สิ่งที่โจทย์ให้มา">What you are given</h4>
     <div class="tscroll"><table>
@@ -2938,7 +3035,7 @@ interface GigabitEthernet0/1            <span class="c">! the trunk carrying bot
       <li>Priority is <b>32769</b> for VLAN 1, not 32768 — the extended system ID adds the VLAN number.</li>
     </ul></div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L07"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t10">lecture 10 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L07"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t10">STP topic →</button></div>
   </article>
 
   <!-- SIMULATOR -->
@@ -3019,7 +3116,7 @@ interface GigabitEthernet0/1            <span class="c">! the trunk carrying bot
 
   <!-- L08 -->
   <article class="item lab" id="L08">
-    <div class="ph"><span class="badge gr">LAB 08</span><h3 data-th="ตรวจสอบ Spanning Tree จากของจริง">Verifying Spanning Tree</h3><span class="tag">lecture 10 · key solved</span></div>
+    <div class="ph"><span class="badge gr">LAB 08</span><h3 data-th="ตรวจสอบ Spanning Tree จากของจริง">Verifying Spanning Tree</h3><span class="tag">STP · PVST+ · Verification · Packet Tracer</span></div>
     <p class="tldr" data-th="Topology เดียวกับ Lab 07 แต่คราวนี้เปิด Packet Tracer จริง และมีสอง VLAN ที่ให้ผลต่างกัน">Same topology as Lab 07, but now you open the file and read the truth off the switches. Two VLANs, two different trees — that is PVST+ in one screenshot.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -3054,22 +3151,22 @@ Fa0/11      Desg FWD 19     128.11    P2p
 <span class="c">! If BLOCK 1 and BLOCK 2 show the same address, that switch IS the root —</span>
 <span class="c">! and IOS prints "This bridge is the root" between them.</span></pre></div></details>
 
-    <div class="box rl"><b data-th="เฉลยเต็ม — 30/30">Full solved key — 30 / 30</b>
-    <p style="margin-top:6px"><b>Q1 · MAC addresses (4 pts)</b> — read from the <i>Bridge ID → Address</i> line; same base MAC in every VLAN block.</p>
+    <div class="box rl"><b>Verified reasoning key</b>
+    <p style="margin-top:6px"><b>Q1 · MAC addresses</b> — read from the <i>Bridge ID → Address</i> line; same base MAC in every VLAN block.</p>
     <p class="mono">SW1 000C.858B.5322 · SW2 0040.0B0B.0AB7 · SW3 0090.21D7.0E24 · SW4 000C.CFA1.904D</p>
-    <p><b>Q2 · VLAN 1 priority (4 pts)</b> — all four are <b>32769</b>. Default 32768 + sys-id-ext 1. Type it without a comma.</p>
-    <p><b>Q3 · Interface ID of SW2 Fa0/4 (1 pt)</b> — <b>128.4</b>. Port priority (128) dot port number. It is the <code>Prio.Nbr</code> column.</p>
-    <p><b>Q4 · Root for VLAN 1 (1 pt)</b> — <b>SW1</b>. All priorities tie at 32769 → lowest MAC wins, <code>000C.858B</code>.</p>
-    <p><b>Q5 · SW2 port roles, VLAN 1 (4 pts)</b></p>
+    <p><b>Q2 · VLAN 1 priority</b> — all four are <b>32769</b>. Default 32768 + sys-id-ext 1. Type it without a comma.</p>
+    <p><b>Q3 · Interface ID of SW2 Fa0/4</b> — <b>128.4</b>. Port priority (128) dot port number. It is the <code>Prio.Nbr</code> column.</p>
+    <p><b>Q4 · Root for VLAN 1</b> — <b>SW1</b>. All priorities tie at 32769 → lowest MAC wins, <code>000C.858B</code>.</p>
+    <p><b>Q5 · SW2 port roles, VLAN 1</b></p>
     <div class="tscroll"><table>
       <tr><th>Fa0/3</th><th>Fa0/4</th><th>Fa0/5</th><th>Fa0/6</th></tr>
       <tr><td style="color:var(--rd)"><b>Blocked</b></td><td class="ok">Root</td><td class="ok">Designated</td><td class="ok">Designated</td></tr>
     </table></div>
     <p class="sub2">Both uplinks cost 19 → tie broken by the sender's port ID: SW1 Fa0/1 = 128.1 beats Fa0/2 = 128.2, so SW2 Fa0/4 is Root and Fa0/3 blocks. Fa0/5 and Fa0/6 are Designated because SW2 (19) is closer to root than SW3/SW4 (38).</p>
-    <p><b>Q6 · VLAN 10 priority (4 pts)</b> — <b>SW1 36874</b> · SW2, SW3, SW4 all <b>32778</b>.</p>
+    <p><b>Q6 · VLAN 10 priority</b> — <b>SW1 36874</b> · SW2, SW3, SW4 all <b>32778</b>.</p>
     <p class="sub2">SW1 was deliberately configured to 36864 in the base file, so 36864 + 10 = 36874. It loses the VLAN 10 election on purpose. The others are default 32768 + 10.</p>
-    <p><b>Q7 · Root for VLAN 10 (1 pt)</b> — <b>SW4</b>. SW1 is out at 36874; the remaining three tie at 32778 → lowest MAC <code>000C.CFA1.904D</code>.</p>
-    <p><b>Q8 · All port roles, VLAN 10 (11 pts)</b></p>
+    <p><b>Q7 · Root for VLAN 10</b> — <b>SW4</b>. SW1 is out at 36874; the remaining three tie at 32778 → lowest MAC <code>000C.CFA1.904D</code>.</p>
+    <p><b>Q8 · All port roles, VLAN 10</b></p>
     <div class="tscroll"><table>
       <tr><th>Port</th><th>Switch</th><th>Role</th><th>Port</th><th>Switch</th><th>Role</th></tr>
       <tr><td class="mono">Fa0/1</td><td class="mono">SW1</td><td style="color:var(--rd)"><b>Blocked</b></td><td class="mono">Fa0/7</td><td class="mono">SW3</td><td style="color:var(--rd)"><b>Blocked</b></td></tr>
@@ -3087,12 +3184,12 @@ Fa0/11      Desg FWD 19     128.11    P2p
       <li>Priority always displays as configured + VLAN number. If a question gives you 36874 and asks the configured value, subtract the VLAN: 36864.</li>
     </ul></div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L08"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t10">lecture 10 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L08"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t10">STP topic →</button></div>
   </article>
 
   <!-- L09 -->
   <article class="item lab" id="L09">
-    <div class="ph"><span class="badge gr">LAB 09</span><h3 data-th="ตั้งค่า Priority และบังคับเลือก Root">Configuring STP</h3><span class="tag">lectures 10 · 11 · key solved</span></div>
+    <div class="ph"><span class="badge gr">LAB 09</span><h3 data-th="ตั้งค่า Priority และบังคับเลือก Root">Configuring Spanning Tree</h3><span class="tag">STP · Bridge Priority · Root Primary · Packet Tracer</span></div>
     <p class="tldr" data-th="เลิกปล่อยให้ MAC ตัดสิน มาเลือก root เองด้วย priority แล้วลองคำสั่งลัด root primary">Stop letting MAC addresses decide your network. Set priorities on purpose, then watch what Cisco's <code>root primary</code> shortcut actually calculates.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -3130,10 +3227,10 @@ SW2(config)# spanning-tree vlan 10 root primary
 show spanning-tree vlan 10
 show spanning-tree vlan 10 root      <span class="c">! one-line summary</span></pre></div></details>
 
-    <div class="box rl"><b data-th="เฉลยเต็ม — 31/31">Full solved key — 31 / 31</b>
-    <p style="margin-top:6px"><b>Q1 · VLAN 10 priorities (4 pts)</b> — SW1 <b>20490</b> · SW2 <b>24586</b> · SW3 <b>32778</b> · SW4 <b>40970</b>. Configured + 10, no commas.</p>
-    <p><b>Q2 · Root per VLAN (2 pts)</b> — VLAN 1 → <b>SW1</b>, VLAN 10 → <b>SW1</b>. Same winner, two different reasons: VLAN 1 is untouched so all tie at 32769 and the lowest MAC wins; VLAN 10 now has priorities and SW1 holds the lowest.</p>
-    <p><b>Q3 · Port roles, VLAN 10, before <code>root primary</code> (10 pts)</b></p>
+    <div class="box rl"><b>Verified reasoning key</b>
+    <p style="margin-top:6px"><b>Q1 · VLAN 10 priorities</b> — SW1 <b>20490</b> · SW2 <b>24586</b> · SW3 <b>32778</b> · SW4 <b>40970</b>. Configured + 10, no commas.</p>
+    <p><b>Q2 · Root per VLAN</b> — VLAN 1 → <b>SW1</b>, VLAN 10 → <b>SW1</b>. Same winner, two different reasons: VLAN 1 is untouched so all tie at 32769 and the lowest MAC wins; VLAN 10 now has priorities and SW1 holds the lowest.</p>
+    <p><b>Q3 · Port roles, VLAN 10, before <code>root primary</code></b></p>
     <div class="tscroll"><table>
       <tr><th>Port</th><th>Sw</th><th>Role</th><th>Port</th><th>Sw</th><th>Role</th></tr>
       <tr><td class="mono">Fa0/1</td><td class="mono">SW1</td><td class="ok">Designated</td><td class="mono">Fa0/6</td><td class="mono">SW2</td><td class="ok">Designated</td></tr>
@@ -3143,12 +3240,12 @@ show spanning-tree vlan 10 root      <span class="c">! one-line summary</span></
       <tr><td class="mono">Fa0/5</td><td class="mono">SW2</td><td class="ok">Designated</td><td class="mono">Fa0/10</td><td class="mono">SW4</td><td style="color:var(--rd)"><b>Blocked</b></td></tr>
     </table></div>
     <p class="sub2">Root SW1 → all its ports Designated. SW2's two equal paths break on sender port ID (128.1 beats 128.2) → Fa0/4 Root, Fa0/3 blocks. SW3 and SW4 both reach root for 38. On SW3–SW4, lower BID wins: SW3 (32778) beats SW4 (40970), so Fa0/8 Designated and Fa0/10 blocks. Blocked = 5 − 3 = 2 ✓</p>
-    <p><b>Q4 · Are VLAN 1 and VLAN 10 the same shape? (1 pt)</b> — <b>False</b>. Both roots happen to be SW1, but the SW3–SW4 link flips: VLAN 1 breaks the tie on MAC (SW4 wins, SW3 Fa0/8 blocks); VLAN 10 breaks it on priority (SW3 wins, SW4 Fa0/10 blocks).</p>
-    <p><b>Q5 · Root after <code>root primary</code> on SW2 (2 pts)</b> — VLAN 1 → <b>SW1</b> (untouched), VLAN 10 → <b>SW2</b>.</p>
-    <p><b>Q6 · SW2's VLAN 10 priority now (1 pt)</b> — <b>16394</b>, i.e. configured 16384.</p>
+    <p><b>Q4 · Are VLAN 1 and VLAN 10 the same shape?</b> — <b>False</b>. Both roots happen to be SW1, but the SW3–SW4 link flips: VLAN 1 breaks the tie on MAC (SW4 wins, SW3 Fa0/8 blocks); VLAN 10 breaks it on priority (SW3 wins, SW4 Fa0/10 blocks).</p>
+    <p><b>Q5 · Root after <code>root primary</code> on SW2</b> — VLAN 1 → <b>SW1</b> (untouched), VLAN 10 → <b>SW2</b>.</p>
+    <p><b>Q6 · SW2's VLAN 10 priority now</b> — <b>16394</b>, i.e. configured 16384.</p>
     <p class="sub2">The rule: if the current lowest priority is <b>above</b> 24576, take 24576; otherwise go <b>4096 below it</b>. SW1 held 20480, which is not above 24576, so SW2 takes 20480 − 4096 = 16384 → displayed 16394. This is the single most-missed question in the lab.</p>
-    <p><b>Q7 · Run <code>root primary</code> again — priority now? (1 pt)</b> — <b>16394, unchanged</b>. The command recalculates against the other switches every time; it is <b>not cumulative</b>. The lowest rival is still SW1 at 20480, so the answer is still 20480 − 4096.</p>
-    <p><b>Q8 · Port roles, VLAN 10, after <code>root primary</code> (10 pts)</b></p>
+    <p><b>Q7 · Run <code>root primary</code> again — priority now?</b> — <b>16394, unchanged</b>. The command recalculates against the other switches every time; it is <b>not cumulative</b>. The lowest rival is still SW1 at 20480, so the answer is still 20480 − 4096.</p>
+    <p><b>Q8 · Port roles, VLAN 10, after <code>root primary</code></b></p>
     <div class="tscroll"><table>
       <tr><th>Port</th><th>Sw</th><th>Role</th><th>Port</th><th>Sw</th><th>Role</th></tr>
       <tr><td class="mono">Fa0/1</td><td class="mono">SW1</td><td style="color:var(--rd)"><b>Blocked</b></td><td class="mono">Fa0/6</td><td class="mono">SW2</td><td class="ok">Designated</td></tr>
@@ -3159,7 +3256,7 @@ show spanning-tree vlan 10 root      <span class="c">! one-line summary</span></
     </table></div>
     <p class="sub2">Root is now SW2, so all four SW2 ports are Designated. SW1 picks between its two links — sender SW2 Fa0/3 (128.3) beats Fa0/4 (128.4), and that cable lands on SW1 Fa0/2, so Fa0/2 is Root and Fa0/1 blocks. Exact mirror image of Q3. SW3 and SW4 keep Fa0/7 and Fa0/9, now cost 19 straight to the root; the SW3–SW4 tie is unchanged.</p></div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li>Priority must be a <b>multiple of 4096</b>. 20000 is rejected; 20480 is accepted.</li>
       <li><b>Displayed = configured + VLAN ID.</b> Every priority question hides this. 16384 → 16394 for VLAN 10.</li>
       <li><code>root primary</code> = "current lowest above 24576 → take 24576, else lowest − 4096", computed once, never cumulative. <code>root secondary</code> always lands on 28672.</li>
@@ -3167,12 +3264,12 @@ show spanning-tree vlan 10 root      <span class="c">! one-line summary</span></
       <li>The tie-break order never changes: <b>cost → sender BID → sender port priority → sender port number</b>.</li>
     </ul></div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L09"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t11">lecture 11 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L09"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t11">STP tuning topic →</button></div>
   </article>
 
   <!-- L10 -->
   <article class="item lab" id="L10">
-    <div class="ph"><span class="badge gr">LAB 10</span><h3 data-th="STP เมื่อ Topology เปลี่ยน">STP with Topology Changes</h3><span class="tag">lectures 10 · 11 · key solved</span></div>
+    <div class="ph"><span class="badge gr">LAB 10</span><h3 data-th="STP เมื่อ Topology เปลี่ยน">STP with Topology Changes</h3><span class="tag">STP · Convergence · PortFast · Packet Tracer</span></div>
     <p class="tldr" data-th="ตั้งใจทำให้ล้ม แล้วจับเวลาว่า STP ใช้เวลาฟื้นตัวนานแค่ไหน และ PortFast ช่วยตรงไหน">Break things on purpose and time the recovery. Five experiments that turn the 15+15 second forward-delay from a number on a slide into something you watch happen.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -3200,8 +3297,9 @@ SW4:  Fa0/9 Root FWD    Fa0/10 Altn BLK   Fa0/12 Desg FWD</pre>
       <tr><td class="mono">2</td><td><code>spanning-tree portfast</code> on Fa0/11, repeat</td><td class="mono">SW3 vlan 10</td><td>Fa0/11 is <b>FWD instantly</b> — the entire argument for PortFast</td></tr>
       <tr><td class="mono">3</td><td>just look</td><td class="mono">SW4 vlan 10</td><td>Fa0/9 <b>Root FWD</b> · Fa0/10 <b>Altn BLK</b></td></tr>
       <tr><td class="mono">4</td><td><code>shutdown</code> SW4 Fa0/9</td><td class="mono">SW4 vlan 10</td><td>Fa0/10 promotes to <b>Root</b>, walks LIS → LRN ≈ 30 s</td></tr>
-      <tr><td class="mono">5</td><td><code>no shutdown</code> Fa0/9</td><td class="mono">SW4 vlan 10</td><td>Fa0/9 retakes Root <b>while still LIS</b>, Fa0/10 drops to <b>Altn BLK</b> immediately</td></tr>
+      <tr><td class="mono">5</td><td><code>no shutdown</code> Fa0/9</td><td class="mono">SW4 vlan 10</td><td>Fa0/9 retakes Root while still transitioning (<b>LIS or LRN</b>, depending on capture time); Fa0/10 drops to <b>Altn BLK</b> immediately</td></tr>
     </table></div>
+    <p class="sub2">Wait at least one minute between sections. At the end, save the running configuration on all four switches and save the Packet Tracer project under a new filename; LAB 11 starts from this file.</p>
 
     <div class="box wild"><b data-th="เทคนิคจับ 29 วินาที">Catching the 29-second window</b>
     <b>1.</b> Type the show command but <b>do not press Enter</b> — trigger the event, come back, hit Enter.
@@ -3229,7 +3327,7 @@ SW4(config-if)# do show spanning-tree vlan 10      <span class="c">! wait ~5 s f
 end
 copy running-config startup-config</pre></div></details>
 
-    <div class="box rl"><b data-th="เฉลยเต็ม — 14/14 ยืนยันแล้ว">Full solved key — 14 / 14, verified against the grader</b>
+    <div class="box rl"><b>Verified reasoning key</b>
     <div class="tscroll" style="margin-top:8px"><table>
       <tr><th>Q</th><th data-th="ช่อง">Blank</th><th data-th="คำตอบ">Answer</th></tr>
       <tr><td class="mono">1</td><td>Fa0/11 role · state</td><td class="mono ok">Desg · <b>LRN</b></td></tr>
@@ -3238,9 +3336,9 @@ copy running-config startup-config</pre></div></details>
       <tr><td class="mono">4</td><td>Fa0/10 role · state</td><td class="mono ok">Root · <b>LRN</b></td></tr>
       <tr><td class="mono">5</td><td>Fa0/9 role · Fa0/10 role · Fa0/9 state · Fa0/10 state</td><td class="mono ok">Root · Altn · <b>LRN</b> · BLK</td></tr>
     </table></div>
-    <p class="sub2" style="margin-top:8px">The three transition blanks all take <b>LRN</b>, not LIS. Physically either is defensible inside 29 s — the port is Listening for the first 15 s and Learning for the next 15 — but the grader's key was captured after the 15-second mark in all three cases. Roles are computed independently of state, which is why Fa0/9 reads <b>Root</b> while it is still only Learning.</p></div>
+    <p class="sub2" style="margin-top:8px">This worked capture shows <b>LRN</b> for the three transition checks. The source requires a reading inside 29 seconds, so an earlier capture can still show LIS: Listening occupies the first 15 seconds and Learning the next 15. Record what the device actually displays. Roles are computed independently of state, which is why Fa0/9 can read <b>Root</b> while it is still Learning.</p></div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li>Status codes: <b>LIS</b> listening · <b>LRN</b> learning · <b>FWD</b> forwarding · <b>BLK</b> blocking. Role codes: <b>Root</b> · <b>Desg</b> · <b>Altn</b>. Type the abbreviations exactly as the output prints them.</li>
       <li><b>Role and state are independent.</b> A port becomes Root the instant the BPDU maths says so, and only <i>then</i> spends 30 s earning the right to forward.</li>
       <li>Experiment 5 is the money shot: <code>Fa0/9 Root LRN</code> and <code>Fa0/10 Altn BLK</code> at the same moment means SW4 has <b>no forwarding path to the root at all</b>. PCB is cut off for 30 seconds.</li>
@@ -3248,14 +3346,14 @@ copy running-config startup-config</pre></div></details>
       <li>Direct link failure (experiment 4) costs 30 s: no Max Age wait, just 15 + 15. An <i>indirect</i> failure adds the 20 s Max Age on top — that is the 50 s figure, and what BackboneFast removes.</li>
     </ul></div>
 
-    <div class="box wild"><b data-th="ทำไมถึงมี RSTP">And this is why RSTP exists</b>Thirty seconds of blackout every time a link flaps is unacceptable on a modern network. 802.1w replaces the timers with a proposal/agreement handshake and converges in under a second — and it turns PortFast into a first-class concept called an <b>edge port</b>. Lecture 13 picks up exactly here.</div>
+    <div class="box wild"><b data-th="ทำไมถึงมี RSTP">And this is why RSTP exists</b>Thirty seconds of blackout every time a link flaps is unacceptable on a modern network. 802.1w replaces the timers with a proposal/agreement handshake and converges in under a second — and it turns PortFast into a first-class concept called an <b>edge port</b>. Topic 13 picks up exactly here.</div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L10"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t13">lecture 13 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L10"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t13">Rapid STP topic →</button></div>
   </article>
 
   <!-- L11 -->
   <article class="item lab" id="L11">
-    <div class="ph"><span class="badge gr">LAB 11</span><h3 data-th="RSTP และความเข้ากันได้ย้อนหลัง">Configuring Rapid Spanning Tree</h3><span class="tag">lectures 13 · 14 · key solved</span></div>
+    <div class="ph"><span class="badge gr">LAB 11</span><h3 data-th="RSTP และความเข้ากันได้ย้อนหลัง">Configuring Rapid Spanning Tree</h3><span class="tag">RSTP · 802.1w · Compatibility · Packet Tracer</span></div>
     <p class="tldr" data-th="ทำให้ลิงก์ล้มแบบเดียวกันสี่ครั้ง เปลี่ยนแค่โปรโตคอล แล้ววัดเวลาฟื้นตัว 30 วินาที เทียบกับทันที">Same link failure, four times over, changing only the protocol. Watch 30 seconds of outage collapse to nothing — and see what happens when only half the network has been upgraded.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -3313,25 +3411,25 @@ show spanning-tree vlan 10          <span class="c">! the "protocol" word tells 
 show spanning-tree summary          <span class="c">! one line: which mode this switch is in</span>
 <span class="c">! spanning-tree mode pvst   <- returns a switch to classic 802.1D</span></pre></div></details>
 
-        <div class="box rl"><b data-th="เฉลยเต็ม — 17/17 ยืนยันแล้ว">Full solved key — 17 / 17, verified against the grader</b>
+        <div class="box rl"><b>Verified reasoning key</b>
     <p class="sub2" style="margin-top:6px">Every question reads <b>SW1</b>, <b>VLAN 10</b>, inside the first 29 seconds.</p>
     <div class="tscroll" style="margin-top:8px"><table>
-      <tr><th>Q</th><th data-th="ช่วง">§</th><th data-th="ถาม">Asks</th><th data-th="คำตอบ">Answer</th><th>pts</th></tr>
-      <tr><td class="mono">1</td><td class="mono">1</td><td>protocol on SW1</td><td class="mono ok"><b>ieee</b></td><td class="mono">1</td></tr>
-      <tr><td class="mono">2</td><td class="mono">1</td><td>root bridge for VLAN 10</td><td class="mono ok"><b>SW2</b></td><td class="mono">1</td></tr>
-      <tr><td class="mono">3</td><td class="mono">1</td><td>Fa0/1 role · state</td><td class="mono ok">Altn · BLK</td><td class="mono">2</td></tr>
-      <tr><td class="mono">4</td><td class="mono">2</td><td>protocol on SW1, <i>after SW2 → RSTP</i></td><td class="mono ok"><b>ieee</b></td><td class="mono">1</td></tr>
-      <tr><td class="mono">5</td><td class="mono">2</td><td>Fa0/1 role · state</td><td class="mono ok">Root · <b>LIS</b></td><td class="mono">2</td></tr>
-      <tr><td class="mono">6</td><td class="mono">3</td><td>Fa0/1 role · Fa0/2 role · Fa0/1 state · Fa0/2 state</td><td class="mono ok">Altn · Root · BLK · <b>LIS</b></td><td class="mono">4</td></tr>
-      <tr><td class="mono">7</td><td class="mono">4</td><td>Fa0/1 role · state</td><td class="mono ok">Root · <b>FWD</b></td><td class="mono">2</td></tr>
-      <tr><td class="mono">8</td><td class="mono">5</td><td>Fa0/1 role · Fa0/2 role · Fa0/1 state · Fa0/2 state</td><td class="mono ok">Altn · Root · BLK · <b>FWD</b></td><td class="mono">4</td></tr>
+      <tr><th>Q</th><th data-th="ช่วง">§</th><th data-th="ถาม">Asks</th><th data-th="คำตอบ">Answer</th></tr>
+      <tr><td class="mono">1</td><td class="mono">1</td><td>protocol on SW1</td><td class="mono ok"><b>ieee</b></td></tr>
+      <tr><td class="mono">2</td><td class="mono">1</td><td>root bridge for VLAN 10</td><td class="mono ok"><b>SW2</b></td></tr>
+      <tr><td class="mono">3</td><td class="mono">1</td><td>Fa0/1 role · state</td><td class="mono ok">Altn · BLK</td></tr>
+      <tr><td class="mono">4</td><td class="mono">2</td><td>protocol on SW1, <i>after SW2 → RSTP</i></td><td class="mono ok"><b>ieee</b></td></tr>
+      <tr><td class="mono">5</td><td class="mono">2</td><td>Fa0/1 role · state</td><td class="mono ok">Root · <b>LIS</b></td></tr>
+      <tr><td class="mono">6</td><td class="mono">3</td><td>Fa0/1 role · Fa0/2 role · Fa0/1 state · Fa0/2 state</td><td class="mono ok">Altn · Root · BLK · <b>LIS</b></td></tr>
+      <tr><td class="mono">7</td><td class="mono">4</td><td>Fa0/1 role · state</td><td class="mono ok">Root · <b>FWD</b></td></tr>
+      <tr><td class="mono">8</td><td class="mono">5</td><td>Fa0/1 role · Fa0/2 role · Fa0/1 state · Fa0/2 state</td><td class="mono ok">Altn · Root · BLK · <b>FWD</b></td></tr>
     </table></div>
-    <p style="margin-top:10px"><b>Q4 is the trap.</b> Only SW2 was switched to RSTP, so SW1 — which is what the question asks about — still reports <b>ieee</b>. Read the wrong switch's output and you lose the mark. Both protocol questions answer <b>ieee</b>.</p>
+    <p style="margin-top:10px"><b>Q4 is the trap.</b> Only SW2 was switched to RSTP, so SW1 — which is what the question asks about — still reports <b>ieee</b>. Read the wrong switch's output and the conclusion is wrong. Both protocol questions answer <b>ieee</b>.</p>
     <p><b>Q5 vs Q7 is the entire lab.</b> Identical event, identical topology. With SW1 still on 802.1D the promoted alternate crawls through <b>LIS</b>; with every switch on 802.1w it is already <b>FWD</b>. Thirty seconds of outage against none.</p>
     <p><b>Q6 and Q8 show the asymmetry.</b> Demotion to blocking is instant in both protocols — there is no timer on the way <i>into</i> blocking. It is the promotion that costs time, and only under 802.1D.</p></div>
 
     <div class="box trap"><b data-th="เรื่องเวลา — อย่าเหมารวม">Timing — do not carry Lab 10's convention over</b>
-    Every transition blank in this lab graded as <b>LIS</b>. In <b>Lab 10</b> the same kind of blank graded as <b>LRN</b>. Both are physically correct inside a 29-second window — the port is Listening for the first 15 s and Learning for the next 15 — the difference is purely <b>when the reading was captured</b>. Take your own reading quickly and report what you actually see.</div>
+    This worked capture shows <b>LIS</b>; the LAB 10 capture shows <b>LRN</b>. Both are physically possible inside a 29-second window — the port is Listening for the first 15 seconds and Learning for the next 15. Take your own reading quickly and report what the device actually shows.</div>
 
     <h4 data-th="ทำไม RSTP ถึงเร็ว">Why RSTP is instant — the two mechanisms</h4>
     <div class="tscroll"><table>
@@ -3340,7 +3438,7 @@ show spanning-tree summary          <span class="c">! one line: which mode this 
       <tr><td>New link comes up <span class="sub2">(§3 vs §5)</span></td><td>Every port serves the same 30 s</td><td class="ok"><b>Proposal / agreement handshake</b> across the point-to-point link: one exchange, then forward</td></tr>
     </table></div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li>The mode word in the output: <b><code>ieee</code></b> = 802.1D/PVST+, <b><code>rstp</code></b> = rapid-PVST. That single word answers "which protocol is this switch running".</li>
       <li>The Cisco command is <code>spanning-tree mode <b>rapid-pvst</b></code> — not "rstp".</li>
       <li><b>Backward compatibility is per port, not per switch.</b> An RSTP bridge that hears a legacy BPDU on one port drops to 802.1D <i>on that port only</i>. Cisco marks it in the Type column as <code>P2p <b>Peer(STP)</b></code>.</li>
@@ -3352,12 +3450,12 @@ show spanning-tree summary          <span class="c">! one line: which mode this 
 
     <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>Nobody runs 802.1D by choice any more — but plenty of campuses run a mix, because one forgotten access switch never got its mode changed. This lab shows you exactly what that costs: the upgrade buys nothing until the <i>last</i> switch on the path is converted.</div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L11"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t13">lecture 13 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L11"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t13">Rapid STP topic →</button></div>
   </article>
 
   <!-- L12 -->
   <article class="item lab" id="L12">
-    <div class="ph"><span class="badge gr">LAB 12</span><h3 data-th="MST — 20 VLAN แต่เหลือแค่ 2 ต้นไม้">Configuring MST</h3><span class="tag">lecture 15 · GNS3, not Packet Tracer</span></div>
+    <div class="ph"><span class="badge gr">LAB 12</span><h3 data-th="MST — 20 VLAN แต่เหลือแค่ 2 ต้นไม้">Configuring Multiple Spanning Tree</h3><span class="tag">MST · Instances · GNS3 · IOU</span></div>
     <p class="tldr" data-th="20 VLAN ถ้าใช้ PVST+ ก็ต้องคำนวณ 20 ต้นไม้ MST ยุบเหลือ 2 แล้วยังแบ่งโหลดได้">Twenty VLANs. PVST+ would compute twenty separate spanning trees. MST collapses them into two — and lets you send each half of the network a different way.</p>
 
     <h4 data-th="เป้าหมาย">Objective</h4>
@@ -3392,13 +3490,8 @@ show spanning-tree summary          <span class="c">! one line: which mode this 
       <li>Answer the questions.</li>
     </ol>
 
-    <details><summary data-th="▸ คอนฟิกเต็ม">▸ complete config</summary><div class="dbody"><pre><span class="c">! ===== ALL FOUR SWITCHES — identical, character for character =====</span>
+    <details><summary data-th="▸ คอนฟิกเต็ม">▸ complete config</summary><div class="dbody"><pre><span class="c">! ===== VLAN and MST region: identical on all four =====</span>
 vlan 51-70
-!
-interface range Ethernet0/0 - 3 , Ethernet1/0 - 3 , Ethernet2/0 - 1
- switchport trunk encapsulation dot1q
- switchport mode trunk
-!
 spanning-tree mode mst
 !
 spanning-tree mst configuration
@@ -3407,6 +3500,27 @@ spanning-tree mst configuration
  instance 1 vlan 51-60
  instance 2 vlan 61-70
  exit                         <span class="c">! config is staged until you exit — nothing applies before this</span>
+
+<span class="c">! ===== Trunk only the interfaces present in the supplied topology =====</span>
+<span class="c">! IOU1</span>
+interface range Ethernet0/0 , Ethernet1/3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+
+<span class="c">! IOU2</span>
+interface range Ethernet0/1 - 2 , Ethernet2/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+
+<span class="c">! IOU3</span>
+interface range Ethernet0/3 , Ethernet1/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+
+<span class="c">! IOU4</span>
+interface range Ethernet1/1 - 2 , Ethernet2/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
 
 <span class="c">! ===== IOU2 only =====</span>
 spanning-tree mst 1 root primary
@@ -3435,7 +3549,7 @@ interface Ethernet2/1
     <p><b>Step 6 is the demonstration.</b> The IOU2–IOU4 diagonal is the shortest hop between the two roots. Setting its instance-2 cost to <b>10,000,000</b> — far above any default long-path cost — forces instance 2 to reroute through IOU1 or IOU3, while <b>instance 1 keeps using the diagonal at its normal cost</b>. One cable, two costs, two behaviours, decided per instance.</p>
     <p class="sub2">Cost is set on <b>both</b> ends because path cost is evaluated on the receiving side; leaving one end cheap makes the two switches disagree about the diagonal.</p></div>
 
-    <div class="box trap"><b data-th="สิ่งที่ควิซจะถาม">Quiz will ask</b><ul>
+    <div class="box trap"><b>Review checks</b><ul>
       <li><b>What makes a region.</b> Three things must match exactly on every switch: <b>name</b>, <b>revision number</b>, and the <b>VLAN-to-instance map</b>. Not the priorities, not the costs. Mistype <code>netdes</code> as <code>Netdes</code> and you have two regions that talk to each other as if through plain 802.1D.</li>
       <li><b>Instance 0 is the IST</b> and cannot be deleted. Every unmapped VLAN rides it.</li>
       <li>MST is built on <b>RSTP</b>, so it inherits the rapid transitions from Lab 11 — proposal/agreement, alternate ports promoted instantly.</li>
@@ -3448,7 +3562,164 @@ interface Ethernet2/1
 
     <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>A data-centre with 500 VLANs running PVST+ is running 500 spanning-tree processes, and the switch CPU feels every one. MST is how you get that down to two or three trees while still using both uplinks — half the VLANs left, half the VLANs right, nothing idle. The cost is that every switch in the region must be configured identically, which is exactly the failure this lab teaches you to check for first.</div>
 
-    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L12"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t15">lecture 15 →</button></div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L12"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t15">MST topic →</button></div>
+  </article>
+
+  <!-- L13 -->
+  <article class="item lab" id="L13">
+    <div class="ph"><span class="badge gr">LAB 13</span><h3>DHCP</h3><span class="tag">DHCP · L3 Switch · Router-on-a-Stick · IPv6</span></div>
+    <p class="tldr">Serve two VLANs directly from a multilayer switch and two more from a router-on-a-stick, with exact allocation ranges and IPv6 SLAAC on every client.</p>
+
+    <h4>Objective and source file</h4>
+    <p>Configure and verify DHCP first on a Layer 3 switch, then on a router using router-on-a-stick. Open <code>2026CPE434Lab13DHCPTopo.pkt</code> with <b>Packet Tracer 9.0</b>. Enable IPv6 routing on both <b>swA</b> and <b>rC</b>.</p>
+
+    <h4>Topology</h4>
+    <div class="tscroll"><table>
+      <tr><th>Section</th><th>Device / interface</th><th>VLAN</th><th>Host</th></tr>
+      <tr><td rowspan="2">Layer 3 switch DHCP</td><td class="mono">swA Gi1/0/1</td><td class="mono">10 · DHL1</td><td class="mono">PC1</td></tr>
+      <tr><td class="mono">swA Gi1/0/2</td><td class="mono">20 · DHL2</td><td class="mono">PC2</td></tr>
+      <tr><td rowspan="3">Router-on-a-stick DHCP</td><td class="mono">swB Fa0/1</td><td class="mono">30 · DHL3</td><td class="mono">PC3</td></tr>
+      <tr><td class="mono">swB Fa0/2</td><td class="mono">40 · DHL4</td><td class="mono">PC4</td></tr>
+      <tr><td class="mono">swB Gi0/1 ↔ rC Gi0/1</td><td>802.1Q trunk</td><td>—</td></tr>
+    </table></div>
+
+    <h4>DHCP plan — use these values exactly</h4>
+    <div class="tscroll"><table>
+      <tr><th>Pool</th><th>Network / gateway</th><th>DNS</th><th>Allowed leases</th><th>IOS exclusions</th></tr>
+      <tr><td class="mono">vlnet10</td><td class="mono">200.10.1.0/24 · .1</td><td class="mono">1.1.1.1</td><td class="mono">200.10.1.2–.254</td><td class="mono">200.10.1.1</td></tr>
+      <tr><td class="mono">vlnet20</td><td class="mono">200.20.1.0/24 · .1</td><td class="mono">8.8.4.4</td><td class="mono">200.20.1.101–.200</td><td class="mono">.1–.100 and .201–.254</td></tr>
+      <tr><td class="mono">vlnet30</td><td class="mono">200.30.1.0/24 · .1</td><td class="mono">200.30.1.2</td><td class="mono">200.30.1.50–.100</td><td class="mono">.1–.49 and .101–.254</td></tr>
+      <tr><td class="mono">vlnet40</td><td class="mono">200.40.1.0/24 · .1</td><td class="mono">8.8.8.8</td><td class="mono">200.40.1.2–.254</td><td class="mono">200.40.1.1</td></tr>
+    </table></div>
+    <p class="sub2">IOS excluded-address ranges are inclusive at both ends. The DHCP pool names are lowercase exactly as shown.</p>
+
+    <h4>Part 1 — Layer 3 switch DHCP on swA</h4>
+    <ol class="steps">
+      <li>Create VLAN 10 <b>DHL1</b> and VLAN 20 <b>DHL2</b>.</li>
+      <li>Enable IPv4 and IPv6 routing.</li>
+      <li>Make Gi1/0/1 a VLAN 10 access port and Gi1/0/2 a VLAN 20 access port; enable PortFast on both.</li>
+      <li>Configure SVI VLAN 10 as <b>200.10.1.1/24</b> and <b>CAFE:10::1/64</b>.</li>
+      <li>Configure SVI VLAN 20 as <b>200.20.1.1/24</b> and <b>CAFE:20::1/64</b>.</li>
+      <li>Build pools <b>vlnet10</b> and <b>vlnet20</b> with the exact ranges above.</li>
+      <li>Run <code>ipv6 enable</code> on both SVIs. Do not disable IPv6 Neighbor Discovery.</li>
+      <li>On PC1 and PC2, select <b>DHCP</b> for IPv4 and <b>Automatic</b> for IPv6.</li>
+    </ol>
+
+    <details><summary>▸ complete swA configuration</summary><div class="dbody"><pre>configure terminal
+ip routing
+ipv6 unicast-routing
+!
+vlan 10
+ name DHL1
+vlan 20
+ name DHL2
+!
+interface GigabitEthernet1/0/1
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+interface GigabitEthernet1/0/2
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+!
+interface vlan 10
+ ip address 200.10.1.1 255.255.255.0
+ ipv6 address CAFE:10::1/64
+ ipv6 enable
+ no shutdown
+interface vlan 20
+ ip address 200.20.1.1 255.255.255.0
+ ipv6 address CAFE:20::1/64
+ ipv6 enable
+ no shutdown
+!
+ip dhcp excluded-address 200.10.1.1
+ip dhcp excluded-address 200.20.1.1 200.20.1.100
+ip dhcp excluded-address 200.20.1.201 200.20.1.254
+!
+ip dhcp pool vlnet10
+ network 200.10.1.0 255.255.255.0
+ default-router 200.10.1.1
+ dns-server 1.1.1.1
+ip dhcp pool vlnet20
+ network 200.20.1.0 255.255.255.0
+ default-router 200.20.1.1
+ dns-server 8.8.4.4
+end</pre></div></details>
+
+    <h4>Part 2 — Router-on-a-Stick DHCP on swB and rC</h4>
+    <ol class="steps">
+      <li>Create VLAN 30 <b>DHL3</b> and VLAN 40 <b>DHL4</b> on swB.</li>
+      <li>Make Fa0/1 a VLAN 30 access port and Fa0/2 a VLAN 40 access port; enable PortFast on both.</li>
+      <li>Configure swB Gi0/1 as a trunk. Enter the dot1q encapsulation command first if that switch model supports it.</li>
+      <li>Enable rC Gi0/1 with <code>no shutdown</code>.</li>
+      <li>Create rC Gi0/1.30 with dot1q VLAN 30, <b>200.30.1.1/24</b>, and <b>BEEF:30::1/64</b>.</li>
+      <li>Create rC Gi0/1.40 with dot1q VLAN 40, <b>200.40.1.1/24</b>, and <b>BEEF:40::1/64</b>.</li>
+      <li>Build pools <b>vlnet30</b> and <b>vlnet40</b> with the exact exclusions above. Do not disable IPv6 Neighbor Discovery.</li>
+      <li>On PC3 and PC4, select <b>DHCP</b> for IPv4 and <b>Automatic</b> for IPv6.</li>
+    </ol>
+
+    <details><summary>▸ complete swB and rC configuration</summary><div class="dbody"><pre><span class="c">! ---------- swB ----------</span>
+configure terminal
+vlan 30
+ name DHL3
+vlan 40
+ name DHL4
+interface FastEthernet0/1
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+interface FastEthernet0/2
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+interface GigabitEthernet0/1
+ switchport trunk encapsulation dot1q  <span class="c">! enter only if available</span>
+ switchport mode trunk
+end
+
+<span class="c">! ---------- rC ----------</span>
+configure terminal
+ipv6 unicast-routing
+interface GigabitEthernet0/1
+ no shutdown
+interface GigabitEthernet0/1.30
+ encapsulation dot1q 30
+ ip address 200.30.1.1 255.255.255.0
+ ipv6 address BEEF:30::1/64
+interface GigabitEthernet0/1.40
+ encapsulation dot1q 40
+ ip address 200.40.1.1 255.255.255.0
+ ipv6 address BEEF:40::1/64
+!
+ip dhcp excluded-address 200.30.1.1 200.30.1.49
+ip dhcp excluded-address 200.30.1.101 200.30.1.254
+ip dhcp excluded-address 200.40.1.1
+!
+ip dhcp pool vlnet30
+ network 200.30.1.0 255.255.255.0
+ default-router 200.30.1.1
+ dns-server 200.30.1.2
+ip dhcp pool vlnet40
+ network 200.40.1.0 255.255.255.0
+ default-router 200.40.1.1
+ dns-server 8.8.8.8
+end</pre></div></details>
+
+    <h4>Verification</h4>
+    <div class="tscroll"><table>
+      <tr><th>Check</th><th>Expected evidence</th></tr>
+      <tr><td class="mono">show ip dhcp pool</td><td>Each pool shows the correct network and an available-address count constrained by its exclusions.</td></tr>
+      <tr><td class="mono">show ip dhcp binding</td><td>PC leases appear inside only the allowed range for their VLAN.</td></tr>
+      <tr><td class="mono">show ip interface brief</td><td>swA VLAN 10/20 and rC Gi0/1.30/.40 are up with the correct IPv4 gateways.</td></tr>
+      <tr><td class="mono">show ipv6 interface brief</td><td>The four gateways show CAFE:10, CAFE:20, BEEF:30, and BEEF:40 prefixes.</td></tr>
+      <tr><td>PC Desktop → IP Configuration</td><td>IPv4 uses DHCP with the specified gateway/DNS; IPv6 uses Automatic.</td></tr>
+    </table></div>
+
+    <div class="box trap"><b>Range check</b>A client address outside its stated interval means an exclusion is missing or mistyped. Recheck both ends of every inclusive exclusion range before deleting or rebuilding a pool.</div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L13"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t08">Inter-VLAN topic →</button></div>
   </article>
 </div></section>
 <!-- ============ DRILLS ============ -->
@@ -3591,18 +3862,6 @@ interface Ethernet2/1
     <div id="spBody"></div>
   </div>
 
-  <div class="panel">
-    <div class="ph"><h2 data-th="ช่องรอเพิ่มเนื้อหา">Resource slots</h2><span class="badge right">to be filled</span></div>
-    <p class="sub2">Space reserved for material still to come. Send it and it gets built in here.</p>
-    <div class="tscroll"><table>
-      <tr><th>Slot</th><th>Status</th><th>What it will add</th></tr>
-      <tr><td class="mono">Lab 10 quiz key</td><td class="wn">awaiting your attempt</td><td>Solved answers + new quiz items on PortFast timing and port states</td></tr>
-      <tr><td class="mono">Labs 01–05 quiz keys</td><td class="wn">not captured</td><td>Verified answers for the earlier labs</td></tr>
-      <tr><td class="mono">Past midterm papers</td><td class="wn">not supplied</td><td>Real question patterns, weighted by frequency</td></tr>
-      <tr><td class="mono">Design project brief</td><td class="wn">not supplied</td><td>A project workspace with requirements checklist</td></tr>
-      <tr><td class="mono">Post-midterm decks</td><td class="wn">not issued</td><td>QoS, HA, wireless design — final exam scope</td></tr>
-    </table></div>
-  </div>
 </div></section>
 
 <!-- ============ CHEATSHEET ============ -->
@@ -3851,78 +4110,43 @@ show port-security interface Fa0/1</pre></div></details>
   </table></div></div>
 </div></section>
 
-<!-- ============ AUTHOR ============ -->
+<!-- ============ ABOUT ============ -->
 <section class="tab" id="author"><div class="wrap">
-  <h1 data-th="Zann"><span class="pre">// AUTHOR</span>Zann</h1>
+  <h1><span class="pre">// ABOUT NETDES</span>Network Engineering Study Console</h1>
 
   <div class="panel pg">
-    <div class="hero">
-      <div class="mono-badge">Z</div>
-      <div style="flex:1;min-width:220px">
-        <h2>Zann</h2>
-        <div class="role">Computer Engineering · Chiang Mai University</div>
-        <div class="tags">
-          <span class="badge cy">NETWORKING</span>
-          <span class="badge gr">SWITCHING</span>
-          <span class="badge vi">CCNA/CCNP TRACK</span>
-        </div>
-      </div>
-    </div>
-    <p class="sub2" style="margin-top:14px">Fields with a dotted underline are editable — click, type, and they save in this browser.</p>
-    <div class="idgrid">
-      <div class="idrow ro"><label>Email</label><a href="mailto:thuhtoozan_1@cmu.ac.th">thuhtoozan_1@cmu.ac.th</a></div>
-      <div class="idrow ro"><label>University</label><span>Chiang Mai University</span></div>
-      <div class="idrow ro"><label>Faculty</label><span>Faculty of Engineering</span></div>
-      <div class="idrow"><label>Program</label><input id="f_prog" placeholder="Computer Engineering (CPE)"></div>
-      <div class="idrow"><label>Student ID</label><input id="f_sid" placeholder="add your student ID"></div>
-      <div class="idrow"><label>Year / Intake</label><input id="f_year" placeholder="e.g. 3rd year"></div>
-      <div class="idrow"><label>GitHub</label><input id="f_gh" placeholder="github.com/…"></div>
-      <div class="idrow"><label>LinkedIn</label><input id="f_li" placeholder="linkedin.com/in/…"></div>
-      <div class="idrow"><label>Portfolio / site</label><input id="f_web" placeholder="your-site.com"></div>
-    </div>
-  </div>
-
-  <div class="panel">
-    <div class="ph"><h2 data-th="รายวิชา">Course</h2><span class="badge right">261434</span></div>
-    <div class="tscroll"><table>
-      <tr><th>Field</th><th>Value</th></tr>
-      <tr><td>Course</td><td class="mono ok">261434 — Computer Network Design and Management</td></tr>
-      <tr><td>Also listed as</td><td class="mono">CPE434</td></tr>
-      <tr><td>Scope</td><td>Layer 2 switching: VLAN · trunking · VTP · EtherChannel · inter-VLAN routing · Private VLAN · STP / RSTP / MST · plus campus design, QoS, HA and wireless design</td></tr>
-      <tr><td>Assessment</td><td class="mono">Assignment 20 · Project 15 · <b class="ok">Midterm 35</b> · Final 30</td></tr>
-      <tr><td>Lab platform</td><td class="mono">Cisco Packet Tracer 9.0 · GNS3 2.x with IOU</td></tr>
-      <tr><td>Workflow</td><td>Lecture slides → lab instructions → graded quiz on Mango CMU</td></tr>
-    </table></div>
+    <div class="ph"><h2>Purpose</h2><span class="badge gr right">independent study workspace</span></div>
+    <p>NETDES connects network-engineering concepts to repeatable lab work. The application shell provides navigation, progress, drills, search, and verification aids; the supplied original lab files control every numbered lab's technical details.</p>
+    <div class="box wild"><b>Numbering contract</b>LAB 01 through LAB 13 always retain their source numbers. The subnetting Review is useful preparation, but it is not a numbered lab and is excluded from lab progress.</div>
   </div>
 
   <div class="panel pv">
     <div class="ph"><h2 data-th="แผนผังความสามารถ">Competency map</h2><span class="badge vi right" id="skMeta"></span></div>
-    <p class="sub2">Filled bars are topics marked complete on this site. Portfolio-friendly: this is the actual syllabus coverage.</p>
+    <p class="sub2">Filled bars are technical topics marked complete on this device.</p>
     <div class="skills" id="skills"></div>
   </div>
 
   <div class="panel pa">
-    <div class="ph"><h2 data-th="เกี่ยวกับงานชิ้นนี้">About this build</h2><span class="badge am right">personal project</span></div>
-    <p style="margin-top:6px">A single self-contained HTML study console for 261434, built from the course's own material: 16 lecture decks, 9 lab sheets and 2 solved quiz keys. No frameworks, no build step, no network calls — it runs offline from one file and stores progress locally.</p>
+    <div class="ph"><h2 data-th="เกี่ยวกับงานชิ้นนี้">Build inventory</h2><span class="badge am right">offline-capable</span></div>
+    <p style="margin-top:6px">A focused single-page workspace for switching, routing, redundancy, addressing, and service configuration. Progress is kept locally in the browser.</p>
     <div class="buildgrid">
-      <div class="bstat"><b id="bs1">16</b><span>Lecture decks</span></div>
-      <div class="bstat"><b id="bs2">9</b><span>Labs mapped</span></div>
-      <div class="bstat"><b id="bs3">152</b><span>Flashcards</span></div>
-      <div class="bstat"><b id="bs4">88</b><span>Quiz items</span></div>
-      <div class="bstat"><b id="bs5">1</b><span>HTML file</span></div>
-      <div class="bstat"><b id="bs6">0</b><span>Dependencies</span></div>
+      <div class="bstat"><b id="bs1">16</b><span>Topics</span></div>
+      <div class="bstat"><b id="bs2">13</b><span>Labs mapped</span></div>
+      <div class="bstat"><b id="bs3">151</b><span>Flashcards</span></div>
+      <div class="bstat"><b id="bs4">87</b><span>Practice items</span></div>
+      <div class="bstat"><b id="bs5">1</b><span>HTML app</span></div>
+      <div class="bstat"><b id="bs6">0</b><span>Frameworks</span></div>
     </div>
     <h4 data-th="ทำอะไรได้บ้าง">What it does</h4>
     <ul class="pts">
-      <li>Full lecture notes rewritten for comprehension, with every table and sequence from the slides.</li>
-      <li>All 9 labs documented with topology, commands and predicted quiz answers.</li>
-      <li>Interactive STP simulator: one topology, four verified scenarios across Labs 07–09.</li>
-      <li>Drill engine — spaced flashcards, a 20-question mock exam with explanations, and three infinite generators (EUI-64, root election, mode matcher).</li>
-      <li>Progress tracking, readiness scoring and an exam countdown, persisted in the browser.</li>
-      <li>Canvas background engine with three switchable network-themed visualisations.</li>
+      <li>Connects 16 technical topics with the complete LAB 01–LAB 13 sequence.</li>
+      <li>Preserves topology, addressing, VLANs, interface mappings, protocol values, IOS order, expected results, and troubleshooting notes.</li>
+      <li>Includes an interactive STP simulator with verified scenarios across LAB 07–LAB 09.</li>
+      <li>Provides flashcards, practice questions, command recall, and generators for EUI-64, bridge election, and protocol modes.</li>
+      <li>Tracks topic, lab, card, and practice progress locally.</li>
     </ul>
     <h4 data-th="สร้างด้วย">Built with</h4>
-    <p class="mono sub2">Vanilla HTML · CSS custom properties for theming · plain JavaScript · Canvas 2D · localStorage</p>
+    <p class="mono sub2">Vanilla HTML · CSS custom properties · plain JavaScript · Canvas 2D · localStorage</p>
   </div>
 
   <div class="panel">
@@ -3943,20 +4167,20 @@ show port-security interface Fa0/1</pre></div></details>
 <div class="footer">
   <div class="fnav">
     <button data-tabgo="home">Home</button><button data-tabgo="blueprint">Blueprint</button>
-    <button data-tabgo="notes">Lectures</button><button data-tabgo="labs">Labs</button>
-    <button data-tabgo="drills">Drills</button><button data-tabgo="intensive">Exam</button>
+    <button data-tabgo="notes">Topics</button><button data-tabgo="labs">Labs</button>
+    <button data-tabgo="drills">Drills</button><button data-tabgo="intensive">Practice</button>
     <button data-tabgo="cheat">Cheatsheet</button><button data-tabgo="terms">Terms</button>
-    <button data-tabgo="author">Author</button><button id="fHelp">Shortcuts</button>
+    <button data-tabgo="author">About</button><button id="fHelp">Shortcuts</button>
   </div>
-  // 16 lecture decks · 9 lab sheets · 2 answer keys · 261434 CPE434<br>
-  designed &amp; built by <b style="color:var(--cy);letter-spacing:2px">ZANN</b> · Chiang Mai University
+  // 16 technical topics · 13 original-numbered labs · 151 cards · 87 practice questions<br>
+  NETDES study console · built for repeatable configuration and verification
 </div>
 <script>
 var store={get:function(k,d){try{var v=localStorage.getItem("nd_"+k);return v?JSON.parse(v):d}catch(e){return d}},
            set:function(k,v){try{localStorage.setItem("nd_"+k,JSON.stringify(v))}catch(e){}}};
 
 var TOPICS={
- "01":["Intro & Design","3-layer model, grading, tools"],
+ "01":["Intro & Design","3-layer model and lab tools"],
  "02":["IPv6","128-bit, EUI-64, SLAAC"],
  "03":["Switch Basics","CAM, SSH, port security"],
  "04":["VLANs & Trunking","802.1Q, DTP, ranges"],
@@ -3975,25 +4199,25 @@ var TOPICS={
 var TORDER=["01","02","03","04","05","06","07","08","09","10","10B","11","12","13","14","15"];
 
 var LABS={
- "L00":["IPv4 Subnetting","the entry gate","02"],
  "L01":["Basic Switch","SSH, port security","03"],
  "L02":["VLAN + 802.1Q","tag inside the frame","04"],
  "L03":["VTP Modes","who copies what","05"],
  "L04":["EtherChannel","LACP, STP before/after","06"],
  "L05":["Inter-VLAN + OSPF","stick + L3 switch","08"],
+ "L06":["Private VLAN","community, isolated, promiscuous","09"],
  "L07":["Determine STP","on paper","10"],
- "L08":["Verifying STP","key solved","10"],
- "L09":["Configure STP","key solved","11"],
+ "L08":["Verifying STP","PVST+ evidence","10"],
+ "L09":["Configure STP","priority and root primary","11"],
  "L10":["STP Changes","PortFast proof","11"],
  "L11":["Rapid STP","802.1w vs 802.1D","13"],
- "L12":["MST","regions + instances","15"]};
+ "L12":["MST","regions and instances","15"],
+ "L13":["DHCP","pools, exclusions, SLAAC","08"]};
 
 var CARDS=[];function C(t,q,a){CARDS.push({t:t,q:q,a:a})}
 C("01","The 3 layers of the Cisco campus model?","Access, Distribution, Core.");
 C("01","Job of the Access layer?","Connect end devices: PCs, phones, access points.");
 C("01","Job of the Distribution layer?","Aggregate access switches, apply policy, route between VLANs.");
 C("01","Job of the Core layer?","Fast backbone between distribution blocks.");
-C("01","Midterm weight?","35% — the largest single score.");
 C("01","Data-center alternative to the 3-layer model?","Spine-and-Leaf.");
 C("02","Size and format of an IPv6 address?","128 bits, 8 groups of 4 hex digits.");
 C("02","The two shortening rules?","Drop leading zeros per group; replace ONE zero-run with ::");
@@ -4145,7 +4369,6 @@ C("10B","RLQ R arrives on a BLOCKED port — what happens?","Both the blocked po
 
 var QB=[];function Q(t,q,o,a,w){QB.push({t:t,q:q,o:o,a:a,w:w})}
 Q("01","Which layer connects PCs and phones?",["Access","Distribution","Core","Spine"],0,"Access = user-facing ports.");
-Q("01","Midterm weight?",["35%","20%","30%","50%"],0,"Assignment 20, project 15, midterm 35, final 30.");
 Q("02","Correct short form of 2001:0DB8:0000:0000:0000:0000:0000:0001?",["2001:DB8::1","2001:DB8:::1","2001:DB8::0::1","2001:0DB8::::1"],0,"Drop leading zeros, one :: only.");
 Q("02","FF02::2 reaches...",["All routers on the link","All nodes","All DHCP servers","The gateway only"],0,"FF02::1 nodes, FF02::2 routers.");
 Q("02","EUI-64 inserts what?",["FFFE","FEFF","FFFF","FDFE"],0,"Split, insert FFFE, flip bit 7.");
@@ -4290,11 +4513,14 @@ setLight(!!store.get("light",0));
 var doneSet=store.get("done",[]);
 var knownSet=store.get("known",[]);
 function cardId(c){return c.t+"|"+c.q}
-function isLab(k){return k.charAt(0)==="L"}
+function isLab(k){return Object.prototype.hasOwnProperty.call(LABS,k)}
+function isTopic(k){return typeof k==="string"&&k.charAt(0)==="t"&&TORDER.indexOf(k.slice(1))>-1}
+doneSet=doneSet.filter(function(k,i,a){return (isLab(k)||isTopic(k))&&a.indexOf(k)===i});
+store.set("done",doneSet);
 function refreshReady(){
   var el=document.getElementById("readyPct");if(!el)return;
   var NT=TORDER.length,NL=Object.keys(LABS).length;
-  var nt=doneSet.filter(function(k){return !isLab(k)}).length;
+  var nt=doneSet.filter(isTopic).length;
   var nl=doneSet.filter(isLab).length;
   var kn=0;CARDS.forEach(function(c){if(knownSet.indexOf(cardId(c))>-1)kn++});
   var best=store.get("quizBest",-1);
@@ -4335,7 +4561,7 @@ TORDER.forEach(function(k){
 });
 Object.keys(LABS).forEach(function(k){
   var b=document.createElement("button");b.className="gcard lab";b.dataset.mk=k;
-  b.innerHTML='<span class="id">'+k.replace("L","")+'</span><span style="flex:1"><b>'+LABS[k][0]+'</b><span>'+LABS[k][1]+' · lec '+LABS[k][2]+'</span></span><span class="tick">OK</span>';
+  b.innerHTML='<span class="id">'+k.replace("L","")+'</span><span style="flex:1"><b>'+LABS[k][0]+'</b><span>'+LABS[k][1]+'</span></span><span class="tick">OK</span>';
   b.addEventListener("click",function(){jump(k,"labs")});
   gL.appendChild(b);
 });
@@ -4359,7 +4585,7 @@ function sbItem(n,txt,id,tab,lb,key){
   b.addEventListener("click",function(){closeSb();jump(id,tab)});
   sbL.appendChild(b);
 }
-sbGroup("Lectures");
+sbGroup("Topics");
 TORDER.forEach(function(k){sbItem(k,TOPICS[k][0],"t"+k,"notes",0,"t"+k)});
 sbGroup("Labs");
 sbItem("SIM","STP Simulator","sim","labs",1,0);
@@ -5144,15 +5370,15 @@ function boom(){
   /* ---------- SPRINT PROGRAMS ---------- */
   var PROG={
     stp:{name:"STP BLITZ · 45 min",steps:[
-      "Read lecture 10 end to end — do not skip the loop walkthrough",
+      "Read Topic 10 end to end — do not skip the loop walkthrough",
       "Read 10+ BackboneFast and the RLQ rule tables",
-      "Read lecture 11, focus on the guard triggers",
+      "Read Topic 11, focus on the guard triggers",
       "Run the STP simulator through all four Lab scenarios",
       "Port role solver — 3 scenarios, 100% on each",
       "20-question timed exam, then review every miss"]},
     sweep:{name:"FULL SWEEP · 90 min",steps:[
       "Blueprint tab — read the problem→solution chain out loud",
-      "Skim all 16 lecture TL;DR lines and analogies",
+      "Skim all 16 topic summaries and analogies",
       "Cheatsheet: memorise the numbers table",
       "Mode matcher — all three protocols, every combination",
       "EUI-64 generator — 5 correct in a row",
@@ -5307,20 +5533,20 @@ function boom(){
 
 /* ============ SEARCH PALETTE ============ */
 (function(){
-  var SECT=[["home","Home","overview and progress"],["blueprint","Blueprint","the whole course as one network"],
-    ["flow","Flow","lecture → lab → quiz pipeline"],["notes","Lectures","16 decks of notes"],
-    ["labs","Labs","9 labs + solved keys"],["drills","Drills","flashcards and generators"],
-    ["intensive","Exam","timed exams and trainers"],["cheat","Cheatsheet","numbers and tables"],
-    ["terms","Terms","acronym glossary"],["author","Author","about Zann"]];
+  var SECT=[["home","Home","overview and progress"],["blueprint","Blueprint","the whole system as one network"],
+    ["flow","Flow","prepare, configure, verify, troubleshoot"],["notes","Topics","16 technical topics"],
+    ["labs","Labs","LAB 01 through LAB 13"],["drills","Drills","flashcards and generators"],
+    ["intensive","Practice","timed practice and trainers"],["cheat","Cheatsheet","numbers and tables"],
+    ["terms","Terms","acronym glossary"],["author","About","about NETDES"]];
   var IDX=[];
   function build(){
     IDX=[];
     SECT.forEach(function(s){IDX.push({k:"GO",t:s[1],s:s[2],tab:s[0],id:null,g:"Sections"})});
     TORDER.forEach(function(k){
-      IDX.push({k:k,t:TOPICS[k][0],s:"Lecture "+k+" · "+TOPICS[k][1],tab:"notes",id:"t"+k,g:"Lectures"});
+      IDX.push({k:k,t:TOPICS[k][0],s:"Topic "+k+" · "+TOPICS[k][1],tab:"notes",id:"t"+k,g:"Topics"});
     });
     Object.keys(LABS).forEach(function(k){
-      IDX.push({k:k.replace("L",""),t:LABS[k][0],s:"Lab "+k.replace("L","")+" · "+LABS[k][1]+" · lecture "+LABS[k][2],tab:"labs",id:k,g:"Labs"});
+      IDX.push({k:k.replace("L",""),t:LABS[k][0],s:"LAB "+k.replace("L","")+" · "+LABS[k][1],tab:"labs",id:k,g:"Labs"});
     });
     document.querySelectorAll("#notes .item").forEach(function(art){
       var id=art.id, num=id.replace("t","");
@@ -5351,7 +5577,7 @@ function boom(){
       s+=Math.max(10,60-p);
       if(item.t.toLowerCase().indexOf(toks[i])===0)s+=45;
     }
-    if(item.g==="Lectures"||item.g==="Labs")s+=25;
+    if(item.g==="Topics"||item.g==="Labs")s+=25;
     if(item.g==="Sections")s+=15;
     if(item.t.toLowerCase()===q)s+=120;
     return s;
@@ -5374,7 +5600,7 @@ function boom(){
   function search(){
     var q=inp.value.trim().toLowerCase();
     if(!q){
-      res=IDX.filter(function(x){return x.g==="Sections"||x.g==="Lectures"}).slice(0,26);
+      res=IDX.filter(function(x){return x.g==="Sections"||x.g==="Topics"}).slice(0,26);
     }else{
       res=IDX.map(function(x){return{x:x,s:score(x,q)}}).filter(function(o){return o.s>0})
              .sort(function(a,b){return b.s-a.s}).slice(0,40).map(function(o){return o.x});
@@ -5481,7 +5707,7 @@ function boom(){
       var d=document.createElement("div");d.className="clink";
       d.innerHTML='<div class="cprob"><b>PROBLEM</b>'+c[0]+'</div>'+
                   '<div class="carrow">──▶</div>'+
-                  '<div class="cfix" data-goto="t'+c[3]+'"><b>SOLVED BY · LEC '+c[3]+'</b>'+c[2]+' — '+c[1]+'</div>';
+                  '<div class="cfix" data-goto="t'+c[3]+'"><b>SOLVED BY · TOPIC '+c[3]+'</b>'+c[2]+' — '+c[1]+'</div>';
       box.appendChild(d);
     });
   }
@@ -5536,8 +5762,8 @@ function boom(){
     if(m)m.textContent=done+" / "+TORDER.length+" COVERED";
   }
   function snap(){
-    var nt=doneSet.filter(function(k){return k.charAt(0)!=="L"}).length;
-    var nl=doneSet.filter(function(k){return k.charAt(0)==="L"}).length;
+    var nt=doneSet.filter(isTopic).length;
+    var nl=doneSet.filter(isLab).length;
     var kn=0;CARDS.forEach(function(c){if(knownSet.indexOf(cardId(c))>-1)kn++});
     var best=store.get("quizBest",-1);
     var pct=Math.round(((nt/TORDER.length)+(nl/Object.keys(LABS).length)+(kn/CARDS.length)+(best<0?0:best/20))/4*100);
@@ -5550,7 +5776,7 @@ function boom(){
   document.querySelectorAll(".dn").forEach(function(c){c.addEventListener("change",snap)});
   var rb=document.getElementById("resetBtn");
   if(rb)rb.addEventListener("click",function(){
-    if(!confirm("Clear all progress on this device? Profile fields are kept."))return;
+    if(!confirm("Clear all study progress on this device?"))return;
     ["done","known","quizBest","scrollMem"].forEach(function(k){try{localStorage.removeItem("nd_"+k)}catch(e){}});
     location.reload();
   });
