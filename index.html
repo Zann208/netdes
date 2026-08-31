@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 108674)
-Total output lines: 6113
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2568,7 +2565,472 @@ interface GigabitEthernet0/2
       <li>The tag exists <b>only on the trunk</b>. The frame arriving at PC1 has already been stripped — inspect at the switch, not the PC.</li>
       <li>The <b>native VLAN</b> crosses the trunk untagged, and must match on both ends or traffic leaks between VLANs.</li>
       <li>Cross-VLAN ping failing is correct behaviour. Fixing it needs a router — that is Lab 05.</li>
-      <li>Frame grows by 4 …8674 tokens truncated…code> (SW4) beats <code>0090.21D7</code> (SW3) — so <b>SW3</b> is the one that blocks.</li>
+      <li>Frame grows by 4 bytes, so the maximum tagged frame is <b>1522</b>, not 1518.</li>
+    </ul></div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L02"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t04">VLAN topic →</button></div>
+  </article>
+
+  <!-- L03 -->
+  <article class="item lab" id="L03">
+    <div class="ph"><span class="badge gr">LAB 03</span><h3 data-th="โหมด VTP — ใครคัดลอกอะไร">VTP</h3><span class="tag">VTPv2 · Server · Client · Transparent</span></div>
+    <p class="tldr" data-th="สี่สวิตช์ สามโหมด สร้าง VLAN ทีละตัวแล้วดูว่ามันไปโผล่ที่ไหนบ้าง">Four switches, three modes. Create one VLAN at a time and watch exactly where it does and does not appear.</p>
+
+    <h4 data-th="เป้าหมาย">Objective</h4>
+    <p>Configure VTP server, client and transparent modes, and verify propagation with show commands. The lab is designed as five separate experiments — each one creates a VLAN on a different switch and asks you where it landed.</p>
+
+    <h4 data-th="ผังการเชื่อมต่อ">Topology — a 4-floor building</h4>
+    <div class="tscroll"><table>
+      <tr><th data-th="สวิตช์">Switch</th><th data-th="ชั้น">Floor</th><th>VTP mode</th><th data-th="เชื่อมต่อ">Trunk to</th></tr>
+      <tr><td class="mono">swA</td><td>5th</td><td class="ok">server</td><td class="mono">Gi0/2 → swB Gi0/1 · Gi0/1 → swC Gi0/1</td></tr>
+      <tr><td class="mono">swB</td><td>4th</td><td>client</td><td class="mono">Gi0/1 → swA Gi0/2</td></tr>
+      <tr><td class="mono">swC</td><td>6th</td><td>transparent</td><td class="mono">Gi0/1 → swA · Gi0/2 → swD Gi0/1</td></tr>
+      <tr><td class="mono">swD</td><td>7th</td><td class="ok">server</td><td class="mono">Gi0/1 → swC Gi0/2</td></tr>
+    </table></div>
+    <p class="sub2">Domain <b>ENG</b> · password <b>261434</b> · VTP <b>version 2</b> on all four. Catalyst 2960.</p>
+
+    <h4 data-th="ขั้นตอนตามใบแล็บ">Steps, as the sheet numbers them</h4>
+    <ol class="steps">
+      <li>Configure the trunk interfaces shown in the figure.</li>
+      <li>All switches: VTP <b>version 2</b>, the mode from the figure, domain <b>ENG</b>, password <b>261434</b>.</li>
+      <li>On <b>swA</b>: create VLAN 30 <b>bachelor</b> and VLAN 40 <b>grad</b>. Verify on all four.</li>
+      <li>On <b>swC</b>: create VLAN 100 <b>faculty</b>. Verify on all four.</li>
+      <li>Verify VTP with the show commands.</li>
+      <li>Verify VLANs on all switches → answer <b>Q1–4</b>.</li>
+      <li>On <b>swD</b>: create VLAN 50 <b>guests</b> → answer <b>Q5–8</b>.</li>
+      <li>On <b>swC</b>: create VLAN 200 <b>CMU</b> → answer <b>Q9–12</b>.</li>
+      <li>On <b>swB</b>: create VLAN 80 <b>visitors</b> → answer <b>Q13</b>.</li>
+    </ol>
+
+    <details><summary data-th="▸ คำสั่ง">▸ commands</summary><div class="dbody"><pre><span class="c">! ---- every switch: trunk first, VTP second ----</span>
+interface GigabitEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+vtp version 2
+vtp domain ENG
+vtp password 261434
+vtp mode server                <span class="c">! swA and swD</span>
+<span class="c">! vtp mode client        ! swB</span>
+<span class="c">! vtp mode transparent   ! swC</span>
+!
+<span class="c">! ---- swA (server) ----</span>
+vlan 30
+ name bachelor
+vlan 40
+ name grad
+!
+<span class="c">! ---- swC (transparent) ----</span>
+vlan 100
+ name faculty
+!
+<span class="c">! ---- verification ----</span>
+show vtp status              <span class="c">! mode, domain, revision, version</span>
+show vtp password
+show vlan brief              <span class="c">! run this on ALL FOUR after each step</span></pre></div></details>
+
+    <div class="box rl"><b data-th="ผลลัพธ์ที่ต้องได้">What actually happens — the whole lab in one table</b>
+    <div class="tscroll" style="margin-top:8px"><table>
+      <tr><th data-th="สร้างที่">Created on</th><th>VLAN</th><th class="mono">swA</th><th class="mono">swB</th><th class="mono">swC</th><th class="mono">swD</th></tr>
+      <tr><td class="mono">swA <span class="ok">server</span></td><td class="mono">30, 40</td><td class="ok">yes</td><td class="ok">yes</td><td>no</td><td class="ok">yes</td></tr>
+      <tr><td class="mono">swC <span>transparent</span></td><td class="mono">100</td><td>no</td><td>no</td><td class="ok">yes</td><td>no</td></tr>
+      <tr><td class="mono">swD <span class="ok">server</span></td><td class="mono">50</td><td class="ok">yes</td><td class="ok">yes</td><td>no</td><td class="ok">yes</td></tr>
+      <tr><td class="mono">swC <span>transparent</span></td><td class="mono">200</td><td>no</td><td>no</td><td class="ok">yes</td><td>no</td></tr>
+      <tr><td class="mono">swB <span>client</span></td><td class="mono">80</td><td colspan="4" class="mono">rejected — cannot be created at all</td></tr>
+    </table></div>
+    The transparent switch is the trick: <b>swC keeps its own VLANs private, but still forwards other switches' advertisements through itself.</b> That is why swD receives VLAN 30/40 from swA even though swC — sitting between them — never installs them.</div>
+
+    <div class="box trap"><b>Review checks</b><ul>
+      <li><b>Client mode cannot create VLANs.</b> swB answers with <code>VTP VLAN configuration not allowed when device is in CLIENT mode.</code> That is the whole of Q13.</li>
+      <li>Transparent = local VLAN database, <b>revision stays 0 forever</b>, but it relays advertisements for its domain.</li>
+      <li>Both servers can create, and each change <b>increments the revision number</b>. Highest revision in the domain wins — which is how a wrongly-configured switch can wipe a production VLAN database.</li>
+      <li>Domain name and password must match <b>exactly</b>, case-sensitive, or nothing propagates and no error appears.</li>
+      <li>VTP only carries the <b>VLAN database</b>. It never carries port assignments — <code>switchport access vlan</code> is always local.</li>
+      <li><code>show vtp status</code> is where the mode, domain, revision and version all live. Learn to read it in one glance.</li>
+    </ul></div>
+
+    <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>Most networks now run VTP transparent or turn VTP off entirely. One switch with a high revision number and a stale database, plugged in by a well-meaning technician, can delete every VLAN in a campus. This lab is teaching you the failure mode as much as the feature.</div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L03"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t05">VTP topic →</button></div>
+  </article>
+
+  <!-- L04 -->
+  <article class="item lab" id="L04">
+    <div class="ph"><span class="badge gr">LAB 04</span><h3 data-th="EtherChannel ด้วย LACP">EtherChannel with LACP</h3><span class="tag">LACP · EtherChannel · Catalyst 3650</span></div>
+    <p class="tldr" data-th="สามสายระหว่างสวิตช์: ก่อนรวม STP บล็อกทิ้งสองเส้น หลังรวมใช้ได้ทั้งสาม">Three cables between two switches. Before bundling, STP throws two of them away. After bundling, all three carry traffic. Same wires, triple the bandwidth.</p>
+
+    <h4 data-th="เป้าหมาย">Objective</h4>
+    <p>Configure an EtherChannel using LACP, verify it with show commands, and — the real lesson — observe what EtherChannel does to Spanning Tree.</p>
+
+    <h4 data-th="ผังการเชื่อมต่อ">Topology</h4>
+    <div class="tscroll"><table>
+      <tr><th data-th="ลิงก์">Link</th><th class="mono">SWA</th><th class="mono">SWB</th></tr>
+      <tr><td>bundle member 1</td><td class="mono">Gi1/0/1</td><td class="mono">Gi1/0/11</td></tr>
+      <tr><td>bundle member 2</td><td class="mono">Gi1/0/2</td><td class="mono">Gi1/0/12</td></tr>
+      <tr><td>bundle member 3</td><td class="mono">Gi1/0/3</td><td class="mono">Gi1/0/13</td></tr>
+      <tr><td>host port · VLAN 100</td><td class="mono">Gi1/0/21 → pcX</td><td class="mono">Gi1/0/21 → pcY</td></tr>
+    </table></div>
+    <p class="sub2">Catalyst <b>3650</b> — multilayer switches. VLAN <b>100</b> named <b>Net</b>. The PCs get <b>no IP addresses</b>; they exist purely to make VLAN 100 active.</p>
+
+    <div class="box trap"><b data-th="ก่อนเริ่ม">Before you can configure anything</b>The 3650 boots with an empty power slot. Open the switch's <b>Physical</b> tab and drag a <b>power supply module</b> into the empty bay, or the device never comes up. In production two modules go in, for redundancy.</div>
+
+    <h4 data-th="ช่วงที่ 1 — ดู STP ก่อนรวมลิงก์">Phase 1 — look at STP before bundling</h4>
+    <ol class="steps">
+      <li>Configure the three inter-switch links as <b>trunk</b> ports, with dot1q encapsulation if the command exists.</li>
+      <li>Create VLAN <b>100</b> named <b>Net</b> on both. Optionally use VTP (domain <b>netdes</b>, password <b>261434</b>) to review Lab 03.</li>
+      <li><code>Gi1/0/21</code> on both switches → access port in VLAN 100. No IPs on the PCs.</li>
+      <li>On SWA: <code>spanning-tree vlan 100 root primary</code>, then press <b>Fast Forward Time ×4</b>.</li>
+      <li>On SWB: <code>show spanning-tree vlan 100</code> and read the <b>Sts</b> column.</li>
+      <li>Answer <b>Q1–2</b>.</li>
+    </ol>
+    <div class="box wild"><b data-th="สิ่งที่ควรเห็น">What you should see</b>Three parallel trunks form a loop, so STP leaves exactly <b>one</b> forwarding and blocks the other two. SWB shows one <code>Root FWD</code> and two <code>Altn BLK</code>. Two thirds of the cabling you paid for is doing nothing — which is the problem EtherChannel exists to solve.</div>
+
+    <h4 data-th="ช่วงที่ 2 — รวมลิงก์">Phase 2 — bundle them</h4>
+    <ol class="steps" start="7">
+      <li>Build the EtherChannel across all three links with <b>LACP</b>: SWA <b>active</b> mode, channel-group <b>3</b>; SWB <b>passive</b> mode, channel-group <b>4</b>.</li>
+      <li>Configure the new <b>Port-Channel</b> interfaces as trunks, dot1q if available.</li>
+      <li>If Packet Tracer fails to bring the Port-Channel up — save, close, reopen. Known bug, not your config.</li>
+      <li>Fast Forward Time <b>×4</b>. STP still needs ~30 s to move the bundle to forwarding.</li>
+      <li>Verify with the show commands.</li>
+      <li>Answer <b>Q3–10</b>.</li>
+    </ol>
+
+    <details><summary data-th="▸ คอนฟิกเต็ม">▸ complete config — both switches</summary><div class="dbody"><pre><span class="c">! ---------- SWA ----------</span>
+vlan 100
+ name Net
+!
+interface range GigabitEthernet1/0/1 - 3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 3 mode active          <span class="c">! LACP, actively asks</span>
+!
+interface Port-channel 3
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/21
+ switchport mode access
+ switchport access vlan 100
+!
+spanning-tree vlan 100 root primary
+
+<span class="c">! ---------- SWB ----------</span>
+interface range GigabitEthernet1/0/11 - 13
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ channel-group 4 mode passive         <span class="c">! LACP, only answers</span>
+!
+interface Port-channel 4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/21
+ switchport mode access
+ switchport access vlan 100</pre></div></details>
+
+    <h4 data-th="ตรวจสอบ">Verify — Packet Tracer only supports two commands</h4>
+    <pre>SWB# show etherchannel summary
+Flags:  D - down        P - in port-channel
+        I - stand-alone s - suspended
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+---------------------------------------
+4      Po4(<b>SU</b>)         <b>LACP</b>      Gi1/0/11(<b>P</b>) Gi1/0/12(<b>P</b>) Gi1/0/13(<b>P</b>)
+                                <span class="c">! S = Layer 2, U = in use, P = bundled. All three P = success.</span>
+
+SWB# show etherchannel port-channel        <span class="c">! no port number, or PT rejects it</span>
+SWB# show spanning-tree vlan 100           <span class="c">! now shows Po4 as ONE port, not three</span></pre>
+
+    <div class="box rl"><b data-th="ประเด็นสำคัญของแล็บ">The point of the lab, in one line</b>Run <code>show spanning-tree vlan 100</code> before and after. Before: three physical ports, one forwarding, two blocked. After: <b>one logical port</b> <code>Po4</code>, forwarding, carrying all three links' bandwidth. STP cannot create a loop out of a bundle it sees as a single interface.</div>
+
+    <div class="box trap"><b>Review checks</b><ul>
+      <li><b>Channel-group numbers are locally significant.</b> SWA uses 3, SWB uses 4, and the bundle still forms. Only the LACP modes have to be compatible.</li>
+      <li>LACP mode pairs: <b>active+passive ✓</b>, active+active ✓, <b>passive+passive ✗</b> (nobody starts the conversation).</li>
+      <li>LACP is the IEEE standard <b>802.3ad</b>; PAgP is the Cisco-only equivalent. <code>on</code> mode uses no protocol at all and will happily build a loop if you misconfigure one side.</li>
+      <li>Every member port must match on speed, duplex, mode (access/trunk) and allowed VLANs — a mismatch drops that port out of the bundle silently.</li>
+      <li>Configuration applied to the <b>Port-channel</b> interface propagates to members; changing a single member breaks it out of the bundle.</li>
+      <li>Sts flags to recognise: <b>SU</b> = Layer 2 and in use, <b>P</b> = bundled, <b>D</b> = down, <b>s</b> = suspended.</li>
+    </ul></div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L04"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t06">EtherChannel topic →</button></div>
+  </article>
+
+  <!-- L05 -->
+  <article class="item lab" id="L05">
+    <div class="ph"><span class="badge gr">LAB 05</span><h3 data-th="Inter-VLAN Routing สองวิธีในแล็บเดียว">Inter-VLAN Routing</h3><span class="tag">Router-on-a-Stick · Layer 3 Switch · OSPF</span></div>
+    <p class="tldr" data-th="ครึ่งซ้ายใช้ router-on-a-stick ครึ่งขวาใช้ SVI บน L3 switch แล้วเชื่อมสองครึ่งด้วย OSPF">The left half routes with a router-on-a-stick. The right half routes with SVIs inside a Layer 3 switch. OSPF glues the two halves together. One lab, both techniques, side by side.</p>
+
+    <h4 data-th="เป้าหมาย">Objective</h4>
+    <p>Configure inter-VLAN routing two different ways, add IPv6 and OSPFv3 to the router side, and verify end-to-end connectivity between all four VLANs.</p>
+
+    <h4 data-th="ผังและที่อยู่">Topology &amp; addressing</h4>
+    <p class="mono" style="color:var(--dim)">PC1 PC2 — swA(2960) —trunk Gi0/1— <b>rC</b>(1941) G0/1 ═192.168.100.0/30═ G1/0/24 <b>swB</b>(3650) — PC3 PC4</p>
+    <div class="tscroll"><table>
+      <tr><th>PC</th><th>VLAN</th><th data-th="ชื่อ">Name</th><th data-th="พอร์ต">Port</th><th>Address</th><th data-th="เกตเวย์">Gateway lives on</th></tr>
+      <tr><td class="mono">PC1</td><td class="mono">10</td><td>year1</td><td class="mono">swA Fa0/1</td><td class="mono">192.168.10.11/24</td><td class="mono">rC G0/0.1010 → .10.1</td></tr>
+      <tr><td class="mono">PC2</td><td class="mono">20</td><td>year2</td><td class="mono">swA Fa0/2</td><td class="mono">192.168.20.11/24</td><td class="mono">rC G0/0.2020 → .20.1</td></tr>
+      <tr><td class="mono">PC3</td><td class="mono">30</td><td>year3</td><td class="mono">swB Gi1/0/3</td><td class="mono">192.168.30.11/24</td><td class="mono">swB SVI vlan30 → .30.1</td></tr>
+      <tr><td class="mono">PC4</td><td class="mono">40</td><td>year4</td><td class="mono">swB Gi1/0/4</td><td class="mono">192.168.40.11/24</td><td class="mono">swB SVI vlan40 → .40.1</td></tr>
+    </table></div>
+    <p class="sub2">PC1 and PC2 also take IPv6 <b>Automatic</b> (SLAAC from the router). Router-to-switch link: rC <b>192.168.100.1/30</b> ↔ swB <b>192.168.100.2/30</b>.</p>
+
+    <h4 data-th="ขั้นตอนตามใบแล็บ">Steps, as the sheet numbers them</h4>
+    <ol class="steps">
+      <li>Open <code>2026CPE434Lab05InterVLANBase.pkt</code> in Packet Tracer 9.0.</li>
+      <li>Set all four PC addresses and gateways. PC1 and PC2 also get IPv6 = <b>Automatic</b>.</li>
+      <li><b>swA</b> — pure Layer 2: create VLAN 10 and 20, Fa0/1 and Fa0/2 as access ports in them, <b>Gi0/1 as trunk</b> up to the router.</li>
+      <li><b>rC</b> — router-on-a-stick: address G0/1 (the /30), <code>no shutdown</code> <b>both</b> G0/0 and G0/1, then build the two subinterfaces, then OSPF and OSPFv3 in area 0.</li>
+      <li><b>swB</b> — Layer 3 switch: create VLAN 30 and 40, access ports, <b>SVIs</b> as the gateways, turn Gi1/0/24 into a <b>routed port</b>, enable <code>ip routing</code>, run OSPF.</li>
+      <li>Answer the sheet. From <b>Q6 onward, ping every PC from every PC within 300 seconds</b> — some questions read the MAC address table, and entries age out after 300 s.</li>
+      <li>Optional: add IPv6 to PC3/PC4 and OSPFv3 to swB with your own scheme.</li>
+    </ol>
+
+    <details><summary data-th="▸ คอนฟิกเต็ม — rC (router-on-a-stick)">▸ complete config — rC, the router-on-a-stick</summary><div class="dbody"><pre>ipv6 unicast-routing                    <span class="c">! without this, IPv6 routing is off</span>
+!
+interface GigabitEthernet0/1            <span class="c">! link to swB</span>
+ ip address 192.168.100.1 255.255.255.252
+ no shutdown
+!
+interface GigabitEthernet0/0            <span class="c">! trunk down to swA — the "stick"</span>
+ no shutdown                            <span class="c">! no IP on the physical port itself</span>
+!
+interface GigabitEthernet0/0.1010       <span class="c">! VLAN 10</span>
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+ ipv6 enable
+ ipv6 address CAFE:1::1/64
+ ipv6 address FE80::FACE:10 link-local
+ ipv6 ospf 1 area 0
+!
+interface GigabitEthernet0/0.2020       <span class="c">! VLAN 20</span>
+ encapsulation dot1Q 20
+ ip address 192.168.20.1 255.255.255.0
+ ipv6 enable
+ ipv6 address CAFE:2::1/64
+ ipv6 address FE80::FACE:20 link-local
+ ipv6 ospf 1 area 0
+!
+router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0
+!
+ipv6 router ospf 1
+ router-id 192.168.100.1                <span class="c">! OSPFv3 has no IPv4 to borrow an ID from</span></pre></div></details>
+
+    <details><summary data-th="▸ คอนฟิกเต็ม — swB (L3 switch)">▸ complete config — swB, the Layer 3 switch</summary><div class="dbody"><pre>ip routing                              <span class="c">! THE line people forget. Without it swB is a hub with SVIs.</span>
+!
+vlan 30
+ name year3
+vlan 40
+ name year4
+!
+interface GigabitEthernet1/0/3
+ switchport mode access
+ switchport access vlan 30
+interface GigabitEthernet1/0/4
+ switchport mode access
+ switchport access vlan 40
+!
+interface Vlan30                        <span class="c">! the SVI = the gateway PC3 points at</span>
+ ip address 192.168.30.1 255.255.255.0
+ no shutdown
+interface Vlan40
+ ip address 192.168.40.1 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet1/0/24
+ no switchport                          <span class="c">! turn the port into a routed port</span>
+ ip address 192.168.100.2 255.255.255.252
+ no shutdown
+!
+router ospf 1
+ network 0.0.0.0 255.255.255.255 area 0</pre></div></details>
+
+    <details><summary data-th="▸ คอนฟิกเต็ม — swA (L2 เท่านั้น)">▸ complete config — swA, Layer 2 only</summary><div class="dbody"><pre>vlan 10
+ name year1
+vlan 20
+ name year2
+!
+interface FastEthernet0/1
+ switchport mode access
+ switchport access vlan 10
+interface FastEthernet0/2
+ switchport mode access
+ switchport access vlan 20
+!
+interface GigabitEthernet0/1            <span class="c">! the trunk carrying both VLANs to rC</span>
+ switchport mode trunk
+<span class="c">! 2960 is dot1q-only, so no encapsulation command exists here</span></pre></div></details>
+
+    <h4 data-th="ตรวจสอบ">Verify — in this order</h4>
+    <div class="tscroll"><table>
+      <tr><th data-th="คำสั่ง">Command</th><th data-th="ที่ไหน">Where</th><th data-th="มองหา">Look for</th></tr>
+      <tr><td class="mono">show ip ospf neighbor</td><td>rC and swB</td><td>One neighbour, state <code>FULL</code>. Nothing else works until this does.</td></tr>
+      <tr><td class="mono">show ip route</td><td>rC</td><td><code>O</code> routes for 192.168.30.0 and .40.0 learned from swB.</td></tr>
+      <tr><td class="mono">show ip route</td><td>swB</td><td><code>O</code> routes for 192.168.10.0 and .20.0, plus <code>C</code> for its own SVIs.</td></tr>
+      <tr><td class="mono">show ip interface brief</td><td>rC</td><td>Both subinterfaces <code>up up</code>. A down subinterface usually means G0/0 itself was never <code>no shutdown</code>.</td></tr>
+      <tr><td class="mono">show ipv6 interface brief</td><td>rC</td><td>The link-local <code>FE80::FACE:10</code> and the global <code>CAFE:1::1</code> both present.</td></tr>
+      <tr><td class="mono">show mac address-table</td><td>swA, swB</td><td>Q6 onward reads this — ping everything first, entries expire after <b>300 s</b>.</td></tr>
+    </table></div>
+
+    <div class="box trap"><b>Review checks</b><ul>
+      <li><b>Router-on-a-stick vs SVI.</b> One physical port carrying tagged subinterfaces, versus virtual interfaces inside a switch that already has a routing ASIC. Same result, very different performance.</li>
+      <li>The subinterface number (<code>.1010</code>) is <b>cosmetic</b>. What matters is <code>encapsulation dot1Q 10</code> — that number must match the VLAN.</li>
+      <li><code>ip routing</code> on a Layer 3 switch is off by default. Without it, SVIs come up but nothing routes between them.</li>
+      <li><code>no switchport</code> converts a switchport into a routed port so it can hold an IP directly.</li>
+      <li>OSPFv3 <b>requires a manually configured router-id</b> when there is no IPv4 address to borrow one from.</li>
+      <li>The /30 gives exactly two usable addresses — .1 and .2 — which is precisely a point-to-point link.</li>
+      <li>PC1/PC2 get their IPv6 by <b>SLAAC</b>, which only works because the router advertises the prefix. If the PC shows no address, save/close/reopen Packet Tracer — a known quirk the sheet warns about.</li>
+    </ul></div>
+
+    <div class="box wild"><b data-th="ในโลกจริง">In the real world</b>Router-on-a-stick is what you build when the budget bought a Layer 2 switch and a router you already own. Every packet between VLAN 10 and VLAN 20 goes up the trunk, into the router, and back down the same cable — so that one link carries the traffic twice. The Layer 3 switch on the right does the same job in silicon at line rate without leaving the box. This lab puts both in one topology so you can see exactly what you are paying for.</div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L05"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t08">Inter-VLAN topic →</button></div>
+  </article>
+
+  <!-- L06 -->
+  <article class="item lab" id="L06">
+    <div class="ph"><span class="badge gr">LAB 06</span><h3>Private VLAN</h3><span class="tag">PVLAN · GNS3 · IOU · Verification</span></div>
+    <p class="tldr">Place community and isolated hosts behind one primary VLAN, then prove the isolation policy through the promiscuous router port.</p>
+
+    <h4>Objective and platform</h4>
+    <p>Configure and verify Private VLAN operation while reviewing router addressing and Layer 2 switch configuration. This lab requires <b>GNS3 with the GNS3 VM</b>, <b>Layer 2 and Layer 3 IOU images</b>, and <b>VPCS</b> hosts. Only Layer 2 functions of SWA are used.</p>
+
+    <h4>Topology and addressing</h4>
+    <p class="mono" style="color:var(--dim)">PC5 — RB e0/1 · RB e0/0 — SWA e0/0 promiscuous · SWA e1/0–1 community · SWA e2/0–1 isolated</p>
+    <div class="tscroll"><table>
+      <tr><th>Device</th><th>Attached interface</th><th>IPv4 / gateway</th><th>PVLAN role</th></tr>
+      <tr><td class="mono">PC1</td><td class="mono">SWA e1/0</td><td class="mono">200.10.10.11/24 · 200.10.10.1</td><td>community VLAN 101</td></tr>
+      <tr><td class="mono">PC2</td><td class="mono">SWA e1/1</td><td class="mono">200.10.10.12/24 · 200.10.10.1</td><td>community VLAN 101</td></tr>
+      <tr><td class="mono">PC3</td><td class="mono">SWA e2/0</td><td class="mono">200.10.10.21/24 · 200.10.10.1</td><td>isolated VLAN 102</td></tr>
+      <tr><td class="mono">PC4</td><td class="mono">SWA e2/1</td><td class="mono">200.10.10.22/24 · 200.10.10.1</td><td>isolated VLAN 102</td></tr>
+      <tr><td class="mono">PC5</td><td class="mono">RB e0/1</td><td class="mono">100.1.1.201/24 · 100.1.1.1</td><td>external verification host</td></tr>
+      <tr><td class="mono">RB</td><td class="mono">e0/0 · e0/1</td><td class="mono">200.10.10.1/24 · 100.1.1.1/24</td><td>gateway through promiscuous port</td></tr>
+    </table></div>
+
+    <h4>Configuration sequence</h4>
+    <ol class="steps">
+      <li>Configure PC1–PC5 with the exact IPv4 addresses and gateways above. In VPCS, verify each host with <code>show ip</code>.</li>
+      <li>Configure RB e0/0 and e0/1 with the two gateway addresses.</li>
+      <li>Put SWA in <b>VTP transparent</b> mode.</li>
+      <li>Create secondary VLAN <b>101</b> as a <b>community</b> Private VLAN.</li>
+      <li>Create secondary VLAN <b>102</b> as an <b>isolated</b> Private VLAN.</li>
+      <li>Create primary VLAN <b>10</b> and associate secondary VLANs 101 and 102.</li>
+      <li>Configure SWA e0/0 as a <b>promiscuous</b> port and map primary VLAN 10 to secondaries 101 and 102. This link is not a trunk, and RB needs no subinterface.</li>
+      <li>Configure SWA e1/0–1 as community host ports associated with primary 10 and secondary 101.</li>
+      <li>Configure SWA e2/0–1 as isolated host ports associated with primary 10 and secondary 102.</li>
+      <li>Run the required connectivity tests and compare them with the matrix below.</li>
+      <li>Save SWA, RB, and every VPCS host before closing the project.</li>
+    </ol>
+
+    <details><summary>▸ complete SWA and RB configuration</summary><div class="dbody"><pre><span class="c">! ---------- SWA: Layer 2 only ----------</span>
+configure terminal
+vtp mode transparent
+!
+vlan 101
+ private-vlan community
+vlan 102
+ private-vlan isolated
+vlan 10
+ private-vlan primary
+ private-vlan association 101,102
+!
+interface Ethernet0/0
+ switchport mode private-vlan promiscuous
+ switchport private-vlan mapping 10 101,102
+ no shutdown
+!
+interface range Ethernet1/0 - 1
+ switchport mode private-vlan host
+ switchport private-vlan host-association 10 101
+ no shutdown
+!
+interface range Ethernet2/0 - 1
+ switchport mode private-vlan host
+ switchport private-vlan host-association 10 102
+ no shutdown
+end
+copy running-config startup-config
+
+<span class="c">! ---------- RB ----------</span>
+configure terminal
+interface Ethernet0/0
+ ip address 200.10.10.1 255.255.255.0
+ no shutdown
+interface Ethernet0/1
+ ip address 100.1.1.1 255.255.255.0
+ no shutdown
+end
+copy running-config startup-config</pre></div></details>
+
+    <details><summary>▸ VPCS addressing and save commands</summary><div class="dbody"><pre>PC1&gt; ip 200.10.10.11/24 200.10.10.1
+PC2&gt; ip 200.10.10.12/24 200.10.10.1
+PC3&gt; ip 200.10.10.21/24 200.10.10.1
+PC4&gt; ip 200.10.10.22/24 200.10.10.1
+PC5&gt; ip 100.1.1.201/24 100.1.1.1
+
+show ip
+save</pre></div></details>
+
+    <h4>Expected connectivity</h4>
+    <div class="tscroll"><table>
+      <tr><th>Required test</th><th>Expected result</th><th>Reason</th></tr>
+      <tr><td>PC1–PC4 ↔ PC5</td><td class="ok"><b>Pass</b></td><td>Every secondary VLAN may reach the promiscuous port and return through RB.</td></tr>
+      <tr><td>PC1 ↔ PC2</td><td class="ok"><b>Pass</b></td><td>Both are members of community VLAN 101.</td></tr>
+      <tr><td>PC3 ↔ PC4</td><td style="color:var(--rd)"><b>Fail</b></td><td>Hosts in isolated VLAN 102 cannot communicate directly.</td></tr>
+    </table></div>
+
+    <div class="box trap"><b>Troubleshooting and persistence</b>If expected behavior is not visible after configuration, save all device configurations and reopen the GNS3 project. Use <code>copy running-config startup-config</code> or <code>write</code> on SWA and RB, and <code>save</code> inside every VPCS console. Without those saves, GNS3 may restore only the topology.</div>
+
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="L06"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-goto="t09">Private VLAN topic →</button></div>
+  </article>
+
+  <!-- L07 -->
+  <article class="item lab" id="L07">
+    <div class="ph"><span class="badge gr">LAB 07</span><h3 data-th="วิเคราะห์ STP บนกระดาษ">Determine Spanning Tree</h3><span class="tag">STP · Manual Calculation · Bridge ID · Midterm Practice</span></div>
+    <p class="tldr" data-th="Topology สี่สวิตช์ ค่าเริ่มต้นทั้งหมด คำนวณ VLAN 1 ด้วยมือ ไม่ต้องเปิดโปรแกรม">Four switches, every value at default. Calculate the VLAN 1 topology manually from the bridge IDs and port relationships.</p>
+
+    <h4 data-th="เป้าหมาย">Objective</h4>
+    <p>Determine the Spanning Tree Protocol topology by hand. Packet Tracer is not required.</p>
+
+    <h4 data-th="สิ่งที่โจทย์ให้มา">What you are given</h4>
+    <div class="tscroll"><table>
+      <tr><th data-th="สวิตช์">Switch</th><th>MAC</th><th data-th="ลำดับ">Rank</th><th data-th="พอร์ต">Ports</th></tr>
+      <tr><td class="mono">SW1</td><td class="mono">000C.858B.5322</td><td class="ok">lowest → root</td><td class="mono">Fa0/1 → SW2 Fa0/4 · Fa0/2 → SW2 Fa0/3</td></tr>
+      <tr><td class="mono">SW4</td><td class="mono">000C.CFA1.904D</td><td>2nd lowest</td><td class="mono">Fa0/9 → SW2 Fa0/6 · Fa0/10 → SW3 Fa0/8</td></tr>
+      <tr><td class="mono">SW2</td><td class="mono">0040.0B0B.0AB7</td><td>3rd</td><td class="mono">Fa0/3 Fa0/4 → SW1 · Fa0/5 → SW3 · Fa0/6 → SW4</td></tr>
+      <tr><td class="mono">SW3</td><td class="mono">0090.21D7.0E24</td><td>highest</td><td class="mono">Fa0/7 → SW2 Fa0/5 · Fa0/8 → SW4 Fa0/10</td></tr>
+    </table></div>
+    <p class="sub2">All priorities default → <b>32769</b> for VLAN 1 (32768 + sys-id-ext 1). All links Fast Ethernet → cost <b>19</b> each. Compare MACs left to right, byte by byte: <code>000C.85</code> &lt; <code>000C.CF</code> &lt; <code>0040</code> &lt; <code>0090</code>.</p>
+
+    <h4 data-th="วิธี 5 ขั้น — ใช้ได้ทุกครั้ง">The five-step method — use it every single time</h4>
+    <ol class="steps">
+      <li><b>Count the blocked ports first.</b> Blocked = switch-to-switch links − (switches − 1) = 5 − 3 = <b>2</b>. Now you know when to stop.</li>
+      <li><b>Elect the root:</b> lowest priority, tie → lowest MAC. <b>All</b> of the root's ports are Designated.</li>
+      <li><b>One Root port per non-root switch:</b> lowest path cost to root → tie → lowest <i>neighbour</i> BID → tie → lowest <i>neighbour</i> port ID.</li>
+      <li><b>One Designated end per link:</b> whichever side is closer to the root; tie → lower BID.</li>
+      <li><b>Leftovers block.</b> Ports facing PCs are always Designated and never block.</li>
+    </ol>
+
+    <div class="box rl"><b data-th="เฉลย VLAN 1">Solved — VLAN 1</b>
+    <div class="tscroll" style="margin-top:8px"><table>
+      <tr><th data-th="สวิตช์">Switch</th><th data-th="พอร์ต">Port</th><th data-th="บทบาท">Role</th><th data-th="ทำไม">Why</th></tr>
+      <tr><td class="mono">SW1</td><td class="mono">Fa0/1</td><td class="ok">Designated</td><td>root bridge — every port designated</td></tr>
+      <tr><td class="mono">SW1</td><td class="mono">Fa0/2</td><td class="ok">Designated</td><td>same</td></tr>
+      <tr><td class="mono">SW2</td><td class="mono">Fa0/4</td><td class="ok">Root</td><td>cost 19 tie → sender port <b>128.1</b> beats 128.2</td></tr>
+      <tr><td class="mono">SW2</td><td class="mono">Fa0/3</td><td style="color:var(--rd)"><b>Blocked</b></td><td>the losing half of that tie</td></tr>
+      <tr><td class="mono">SW2</td><td class="mono">Fa0/5</td><td class="ok">Designated</td><td>SW2 cost 19 &lt; SW3 cost 38</td></tr>
+      <tr><td class="mono">SW2</td><td class="mono">Fa0/6</td><td class="ok">Designated</td><td>SW2 cost 19 &lt; SW4 cost 38</td></tr>
+      <tr><td class="mono">SW3</td><td class="mono">Fa0/7</td><td class="ok">Root</td><td>cost 38 via SW2, beats 57 the long way</td></tr>
+      <tr><td class="mono">SW3</td><td class="mono">Fa0/8</td><td style="color:var(--rd)"><b>Blocked</b></td><td>tie at 38 on the SW3–SW4 link → SW4's MAC is lower</td></tr>
+      <tr><td class="mono">SW4</td><td class="mono">Fa0/9</td><td class="ok">Root</td><td>cost 38 via SW2</td></tr>
+      <tr><td class="mono">SW4</td><td class="mono">Fa0/10</td><td class="ok">Designated</td><td>won the tie against SW3</td></tr>
+    </table></div>
+    Check: exactly <b>2</b> blocked, exactly <b>3</b> root ports, every link has exactly one designated end. ✓</div>
+
+    <div class="box trap"><b data-th="กับดัก">Traps</b><ul>
+      <li>The SW3–SW4 tie is decided by <b>MAC</b>, not port number, because both sides sit at cost 38. <code>000C.CFA1</code> (SW4) beats <code>0090.21D7</code> (SW3) — so <b>SW3</b> is the one that blocks.</li>
       <li>SW2's tie is decided by the <b>sender's</b> port ID, not its own. SW1 Fa0/1 sends 128.1, SW1 Fa0/2 sends 128.2 — so SW2's Fa0/4 (which faces Fa0/1) wins.</li>
       <li>Path cost accumulates on <b>ingress</b>. SW3 reaching root the long way is 19+19+19 = 57, not 38.</li>
       <li>Priority is <b>32769</b> for VLAN 1, not 32768 — the extended system ID adds the VLAN number.</li>
