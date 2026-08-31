@@ -41,13 +41,13 @@ The current workbench includes:
 Each lab now opens as a structured workbench:
 
 - A short **What you will practice** checklist
-- A responsive, source-matched topology diagram with device and interface labels
+- A responsive, figure-matched topology redraw with device, interface, VLAN/region, and link labels
 - The existing addressing/VLAN plan and platform notes
 - Focused configuration phases with per-phase completion markers
 - Clearly separated commands, verification evidence, expected results, and troubleshooting
 - A **Practice** mode that hides hints, solution commands, and expected results until you choose to reveal them
 
-The diagrams are presentation aids built from the authoritative topology data. The original tables and command sequences remain the detailed source inside each lab.
+The diagrams are responsive redraws of the supplied lab figures. They preserve the figure layout and networking relationships while using NETDES styling; they are not creative rearrangements of an equivalent network. The original tables and command sequences remain the detailed source inside each lab.
 
 ## Implementation
 
