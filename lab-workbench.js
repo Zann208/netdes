@@ -24,12 +24,12 @@
 
   var TOPOLOGY_SOURCE={
     L01:{note:"Source-faithful redraw · PC1 — swA — swB — PC2, including the crossover link.",key:[]},
-    L02:{note:"Source-faithful redraw · Room 402 and Room 413 retain their VLAN bands and trunk placement.",key:[["legend-vlan261","VLAN 261 · staffs"],["legend-vlan434","VLAN 434 · students"],["legend-trunk","802.1Q trunk"]]},
-    L03:{note:"Source-faithful redraw · floor tiles, VTP roles, and VLAN ownership match the supplied figure.",key:[["legend-server","VTP server"],["legend-client","VTP client"],["legend-transparent","VTP transparent"]]},
+    L02:{note:"Figure-matched redraw · Room402/Room413 placement, the two VLAN bands, endpoints and trunk follow the supplied topology.",key:[["legend-vlan261","VLAN 261 · staffs"],["legend-vlan434","VLAN 434 · students"],["legend-trunk","802.1Q trunk"]]},
+    L03:{note:"Figure-matched redraw · switch placement, floor labels, VTP roles, trunks and VLAN ownership follow the supplied topology.",key:[["legend-server","VTP server"],["legend-client","VTP client"],["legend-transparent","VTP transparent"]]},
     L04:{note:"Source-faithful redraw · three individual physical links remain visible inside the LACP bundle.",key:[["legend-ether","three physical links"],["legend-trunk","EtherChannel trunk"]]},
-    L05:{note:"Source-faithful redraw · Room401 and Room402 keep their original router, switch, host, and /30 layout.",key:[["legend-room401","Room401 · router-on-a-stick"],["legend-room402","Room402 · SVIs"],["legend-routed","192.168.100.0/30"]]},
+    L05:{note:"Figure-matched redraw · Room401/Room402, router-on-a-stick, multilayer switch, hosts and the /30 routed link follow the supplied topology.",key:[["legend-room401","Room401 · router-on-a-stick"],["legend-room402","Room402 · SVIs"],["legend-routed","192.168.100.0/30"]]},
     L06:{note:"Source-faithful redraw · primary, community, isolated, and promiscuous-port relationships are shown as supplied.",key:[["legend-primary","primary VLAN 10"],["legend-community","community VLAN 101"],["legend-isolated","isolated VLAN 102"]]},
-    L07:{note:"Source-faithful redraw · VLAN 1, bridge IDs, all five links, and every interface label are retained.",key:[]},
+    L07:{note:"Figure-matched redraw · VLAN 1, bridge IDs, all five links and interface labels follow the supplied topology.",key:[]},
     L08:{note:"Source-faithful redraw · the LAB 07 switching layout plus PCA on VLAN 10.",key:[]},
     L09:{note:"Source-faithful redraw · VLAN 10 priorities and ports follow the supplied configuration figure.",key:[]},
     L10:{note:"Source-faithful redraw · both access hosts and the configured bridge priorities are retained.",key:[]},
@@ -88,16 +88,17 @@
 
   function lab02(title){
     var s="";
-    s+=box(65,55,370,410,"topo-region vlan-room vlan-room402",26)+box(565,55,370,410,"topo-region vlan-room vlan-room413",26);
-    s+=box(78,105,344,98,"topo-region vlan261",0)+box(78,310,344,105,"topo-region vlan434",0);
-    s+=box(578,105,344,98,"topo-region vlan261",0)+box(578,310,344,105,"topo-region vlan434",0);
-    s+=tx(250,48,"Room402","topo-room-label","middle")+tx(750,48,"Room 413","topo-room-label","middle");
-    s+=tl(250,135,["VLAN 261","staffs"],"topo-vlan261-label","middle",18)+tl(750,135,["VLAN 261","staffs"],"topo-vlan261-label","middle",18);
-    s+=tl(250,347,["VLAN 434","students"],"topo-vlan434-label","middle",18)+tl(750,347,["VLAN 434","students"],"topo-vlan434-label","middle",18);
-    s+=link(208,178,277,238,"physical")+link(208,367,277,282,"physical")+link(323,260,677,260,"trunk")+link(723,238,792,178,"physical")+link(723,282,792,367,"physical");
-    s+=tx(222,216,"Fa0/1","topo-port","middle")+tx(225,337,"Fa0/2","topo-port","middle")+tx(372,246,"Gi0/1","topo-port","middle")+tx(500,239,"trunk","topo-link-note","middle")+tx(627,246,"Gi0/2","topo-port","middle")+tx(778,216,"Fa0/3","topo-port","middle")+tx(775,337,"Fa0/4","topo-port","middle");
-    s+=pc(180,172)+pc(180,370)+sw(300,260)+sw(700,260)+pc(820,172)+pc(820,370);
-    s+=tx(180,227,"PC0","topo-device-label","middle")+tx(180,425,"PC2","topo-device-label","middle")+tx(252,258,"swA","topo-device-label","end")+tx(748,258,"swB","topo-device-label","start")+tx(820,227,"PC1","topo-device-label","middle")+tx(820,425,"PC3","topo-device-label","middle");
+    /* Match the supplied figure's mental map: Room402 on the left, Room413 on
+       the right, with VLAN 261 spanning the upper hosts and VLAN 434 spanning
+       the lower hosts across the trunk. */
+    s+=box(55,62,430,408,"topo-region vlan-room vlan-room402",24)+box(515,62,430,408,"topo-region vlan-room vlan-room413",24);
+    s+=box(72,102,856,112,"topo-region vlan261",12)+box(72,326,856,112,"topo-region vlan434",12);
+    s+=tx(270,50,"Room402","topo-room-label","middle")+tx(730,50,"Room 413","topo-room-label","middle");
+    s+=tl(500,126,["VLAN 261","staffs"],"topo-vlan261-label","middle",18)+tl(500,352,["VLAN 434","students"],"topo-vlan434-label","middle",18);
+    s+=link(205,177,277,239,"physical")+link(205,383,277,281,"physical")+link(323,260,677,260,"trunk")+link(723,239,795,177,"physical")+link(723,281,795,383,"physical");
+    s+=tx(225,218,"Fa0/1","topo-port","middle")+tx(228,340,"Fa0/2","topo-port","middle")+tx(372,246,"Gi0/1","topo-port","middle")+tx(500,239,"trunk","topo-link-note","middle")+tx(628,246,"Gi0/2","topo-port","middle")+tx(775,218,"Fa0/3","topo-port","middle")+tx(772,340,"Fa0/4","topo-port","middle");
+    s+=pc(175,170)+pc(175,390)+sw(300,260)+sw(700,260)+pc(825,170)+pc(825,390);
+    s+=tx(175,225,"PC0","topo-device-label","middle")+tx(175,445,"PC2","topo-device-label","middle")+tx(252,258,"swA","topo-device-label","end")+tx(748,258,"swB","topo-device-label","start")+tx(825,225,"PC1","topo-device-label","middle")+tx(825,445,"PC3","topo-device-label","middle");
     return canvas("L02",title,"0 0 1000 510",s);
   }
 
@@ -174,9 +175,10 @@
     s+=sw(500,90)+sw(500,250)+sw(280,440)+sw(720,440);
     s+=tx(432,88,"SW1","topo-device-label","end")+tx(432,250,"SW2","topo-device-label","end")+tx(280,500,"SW3","topo-device-label","middle")+tx(720,500,"SW4","topo-device-label","middle");
     if(isManual){
-      s+=tx(432,105,"000C.858B.5322","topo-mac","end")+tx(432,267,"0040.0B0B.0AB7","topo-mac","end")+tx(280,522,"0090.21D7.0E24","topo-mac","middle")+tx(720,522,"000C.CFA1.904D","topo-mac","middle")+tx(125,220,"VLAN 1","topo-vlan-small","middle");
+      s+=tx(575,80,"000C.858B.5322","topo-mac","start")+tx(575,240,"0040.0B0B.0AB7","topo-mac","start")+tx(280,525,"0090.21D7.0E24","topo-mac","middle")+tx(720,525,"000C.CFA1.904D","topo-mac","middle");
+      s+=tx(500,40,"VLAN 1","topo-vlan-small","middle");
     }else{
-      s+=pc(85,440)+tx(85,390,"VLAN 10","topo-vlan-small","middle")+tx(85,490,"PCA","topo-device-label","middle")+tx(85,516,(hasPcb?"192.168.10.5/24":"192.168.10.5"),"topo-address","middle");
+      s+=pc(85,440)+tx(85,390,"VLAN 10","topo-vlan-small","middle")+tx(85,490,"PCA","topo-device-label","middle")+tx(85,516,"192.168.10.5/24","topo-address","middle");
       if(hasPcb)s+=pc(915,440)+tx(915,390,"VLAN 10","topo-vlan-small","middle")+tx(915,490,"PCB","topo-device-label","middle")+tx(915,516,"192.168.10.6/24","topo-address","middle");
     }
     if(priorities){
