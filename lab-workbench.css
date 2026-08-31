@@ -34,6 +34,82 @@ body.light .lab-mode button[aria-pressed="true"]{color:#fff}
 .lab-topology-legend .bundle::before{height:6px;background:var(--vi)}
 .lab-topology-legend .routed::before{height:4px;background:var(--gr)}
 .lab-topology-legend .blocked::before{background:repeating-linear-gradient(90deg,var(--rd) 0 6px,transparent 6px 10px)}
+
+/* Source-faithful topology redraws.  Region colors mirror the supplied figures:
+   blue rooms / yellow-green VLAN bands, Room401/Room402, and PVLAN groups. */
+.lab-topology .topology-svg{background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--cy) 6%,transparent),transparent 68%)}
+.lab-topology .topo-link{fill:none;stroke:color-mix(in srgb,var(--ink) 72%,var(--line));stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.lab-topology .topo-link.crossover{stroke:var(--vi);stroke-dasharray:7 4}
+.lab-topology .topo-link.trunk{stroke:var(--cy);stroke-width:4;stroke-dasharray:9 5}
+.lab-topology .topo-link.ether{stroke:var(--vi);stroke-width:4}
+.lab-topology .topo-link.routed{stroke:var(--gr);stroke-width:4}
+.lab-topology .topo-link.pvlan{stroke:var(--cy);stroke-width:3.5}
+.lab-topology .topo-link.mst-cost{stroke:var(--rd);stroke-width:7}
+.lab-topology .topo-device{filter:drop-shadow(0 4px 5px color-mix(in srgb,#000 20%,transparent))}
+.lab-topology .topo-switch-body{fill:color-mix(in srgb,var(--cy) 20%,var(--panel));stroke:var(--cy);stroke-width:2}
+.lab-topology .topo-switch-face{stroke:color-mix(in srgb,var(--cy) 70%,white);stroke-width:1.5;fill:none}
+.lab-topology .topo-switch-arrows{stroke:color-mix(in srgb,var(--cy) 78%,white);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lab-topology .topo-led{fill:var(--gr)}
+.lab-topology .topo-switch.topo-l3 .topo-switch-body{fill:color-mix(in srgb,var(--gr) 22%,var(--panel));stroke:var(--gr)}
+.lab-topology .topo-switch.topo-l3 .topo-switch-face,.lab-topology .topo-switch.topo-l3 .topo-switch-arrows{stroke:color-mix(in srgb,var(--gr) 78%,white)}
+.lab-topology .topo-switch.topo-iou .topo-switch-body{fill:color-mix(in srgb,var(--vi) 24%,var(--panel));stroke:var(--vi)}
+.lab-topology .topo-switch.topo-iou .topo-switch-face,.lab-topology .topo-switch.topo-iou .topo-switch-arrows{stroke:color-mix(in srgb,var(--vi) 80%,white)}
+.lab-topology .topo-router-body{fill:color-mix(in srgb,var(--gr) 28%,var(--panel));stroke:var(--gr);stroke-width:2}
+.lab-topology .topo-router-arrows{stroke:color-mix(in srgb,var(--gr) 82%,white);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lab-topology .topo-pc-screen{fill:color-mix(in srgb,var(--am) 26%,var(--panel));stroke:var(--am);stroke-width:2}
+.lab-topology .topo-pc-stand,.lab-topology .topo-pc-base{fill:color-mix(in srgb,var(--am) 42%,var(--panel));stroke:var(--am);stroke-width:1.5}
+.lab-topology .topo-building-body{fill:color-mix(in srgb,var(--cy) 13%,var(--panel));stroke:var(--cy);stroke-width:1.5}
+.lab-topology .topo-building-window{fill:var(--cy)}
+.lab-topology .topo-region{stroke:var(--line2);stroke-width:1.5}
+.lab-topology .topo-region.vlan-room{fill:color-mix(in srgb,#28719d 38%,var(--panel2));stroke:color-mix(in srgb,var(--cy) 44%,var(--line2));stroke-width:2}
+.lab-topology .topo-region.vlan261{fill:color-mix(in srgb,#f7d51d 70%,var(--panel));stroke:color-mix(in srgb,#d49d00 58%,var(--line2))}
+.lab-topology .topo-region.vlan434{fill:color-mix(in srgb,#a7d997 64%,var(--panel));stroke:color-mix(in srgb,#5aa15b 55%,var(--line2))}
+.lab-topology .topo-region.floor-tile{fill:color-mix(in srgb,#f3d326 68%,var(--panel));stroke:color-mix(in srgb,#d59f00 55%,var(--line2))}
+.lab-topology .topo-region.intervlan-room401{fill:color-mix(in srgb,#70ed5c 56%,var(--panel));stroke:color-mix(in srgb,#32ac54 65%,var(--line2))}
+.lab-topology .topo-region.intervlan-room402{fill:color-mix(in srgb,#f4ef62 61%,var(--panel));stroke:color-mix(in srgb,#c8b62d 58%,var(--line2))}
+.lab-topology .topo-pvlan-boundary{fill:color-mix(in srgb,var(--panel) 88%,transparent);stroke:var(--ink);stroke-width:2}
+.lab-topology .topo-region.pvlan-community{fill:color-mix(in srgb,#04dfeb 58%,var(--panel));stroke:color-mix(in srgb,#089ca7 75%,var(--line2))}
+.lab-topology .topo-region.pvlan-isolated{fill:color-mix(in srgb,#f5b53e 62%,var(--panel));stroke:color-mix(in srgb,#cf7e16 78%,var(--line2))}
+.lab-topology .topo-channel{fill:color-mix(in srgb,var(--vi) 46%,transparent);stroke:var(--vi);stroke-width:1.5}
+.lab-topology .topo-text,.lab-topology .topo-device-label,.lab-topology .topo-note,.lab-topology .topo-port,.lab-topology .topo-link-note,.lab-topology .topo-address,.lab-topology .topo-role,.lab-topology .topo-vlan-note,.lab-topology .topo-vlan-small,.lab-topology .topo-vlan-group,.lab-topology .topo-mac,.lab-topology .topo-priority,.lab-topology .topo-mapping,.lab-topology .topo-mst-cost-label{paint-order:stroke;stroke:var(--panel2);stroke-width:4px;stroke-linejoin:round}
+.lab-topology .topo-text{fill:var(--ink);font:500 14px var(--sans)}
+.lab-topology .topo-device-label{fill:var(--ink);font:800 19px var(--mono)}
+.lab-topology .topo-note{fill:var(--faint);font:600 10px var(--mono)}
+.lab-topology .topo-port{fill:var(--cy);font:700 12px var(--mono)}
+.lab-topology .topo-link-note{fill:var(--cy);font:800 13px var(--mono)}
+.lab-topology .topo-address{fill:var(--faint);font:650 11px var(--mono)}
+.lab-topology .topo-mac{fill:var(--ink);font:650 11px var(--mono)}
+.lab-topology .topo-mapping{fill:var(--dim);font:650 12px var(--mono)}
+.lab-topology .topo-priority{fill:var(--vi);font:800 13px var(--sans)}
+.lab-topology .topo-mst-cost-label{fill:var(--rd);font:800 11px var(--mono)}
+.lab-topology .topo-room-label,.lab-topology .topo-floor-label,.lab-topology .topo-building-label{fill:var(--ink);font:800 16px var(--sans)}
+.lab-topology .topo-room-corner{fill:var(--ink);font:800 11px var(--mono)}
+.lab-topology .topo-vlan261-label{fill:#8b2800;font:800 15px var(--sans)}
+.lab-topology .topo-vlan434-label{fill:#116529;font:800 15px var(--sans)}
+.lab-topology .topo-vlan-small{fill:var(--ink);font:800 14px var(--mono)}
+.lab-topology .topo-vlan-group{fill:var(--ink);font:800 16px var(--sans)}
+.lab-topology .topo-vlan-note{fill:var(--rd);font:800 12px var(--sans)}
+.lab-topology .topo-role{fill:var(--cy);font:800 13px var(--sans)}
+.lab-topology .topo-pvlan-boundary-label{fill:var(--ink);font:800 11px var(--mono)}
+.lab-topology .topo-pvlan-label{fill:var(--ink);font:800 12px var(--sans)}
+.lab-topology-legend .legend-vlan261::before{background:#e7b50f}
+.lab-topology-legend .legend-vlan434::before{background:#6fae64}
+.lab-topology-legend .legend-trunk::before{background:repeating-linear-gradient(90deg,var(--cy) 0 7px,transparent 7px 11px)}
+.lab-topology-legend .legend-ether::before{height:6px;background:var(--vi)}
+.lab-topology-legend .legend-server::before{background:var(--cy)}
+.lab-topology-legend .legend-client::before{background:var(--gr)}
+.lab-topology-legend .legend-transparent::before{background:var(--vi)}
+.lab-topology-legend .legend-room401::before{height:8px;background:#61b95a}
+.lab-topology-legend .legend-room402::before{height:8px;background:#d4c93a}
+.lab-topology-legend .legend-routed::before{height:4px;background:var(--gr)}
+.lab-topology-legend .legend-primary::before{background:var(--ink)}
+.lab-topology-legend .legend-community::before{height:8px;background:#17bfc8}
+.lab-topology-legend .legend-isolated::before{height:8px;background:#df941f}
+.lab-topology-legend .legend-mst::before{background:var(--vi)}
+.lab-topology-legend .legend-mst-cost::before{height:6px;background:var(--rd)}
+body:not(.light) .lab-topology .topo-vlan261-label{fill:#ffe97e;stroke:#613000}
+body:not(.light) .lab-topology .topo-vlan434-label{fill:#d5ffbf;stroke:#174119}
+body:not(.light) .lab-topology .topo-region.intervlan-room401 .topo-vlan-group,body:not(.light) .lab-topology .topo-region.intervlan-room402 .topo-vlan-group,body:not(.light) .lab-topology .topo-region.pvlan-community .topo-pvlan-label,body:not(.light) .lab-topology .topo-region.pvlan-isolated .topo-pvlan-label{stroke:color-mix(in srgb,var(--panel) 72%,#000)}
 .lab-phase{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:11px;background:color-mix(in srgb,var(--panel2) 54%,transparent)}
 .lab-phase > h4{margin:0 0 11px;color:var(--cy);font-size:11.5px}
 .lab-phase-check{display:flex;align-items:center;gap:8px;margin:14px 0 0;padding-top:11px;border-top:1px solid var(--line);color:var(--faint);font:600 11px var(--mono)}

@@ -86,6 +86,45 @@ if (fs.existsSync(workbenchJsPath)) {
   ]) {
     check(workbenchJs.includes(fragment), "lab workbench feature is missing: " + fragment);
   }
+  check(
+    workbenchJs.includes("var TOPOLOGY_SOURCE={") &&
+      workbenchJs.includes("var TOPOLOGY_RENDERERS={"),
+    "lab workbench is missing the source-topology renderer contract",
+  );
+  for (const id of expectedLabs) {
+    check(
+      workbenchJs.includes(id + ":{note:"),
+      "source-topology metadata is missing for " + id,
+    );
+  }
+
+  const topologyAnchors = {
+    L01: ["PC1", "swA", "swB", "PC2", "F0/...", "Gig0/1", "cross", "192.168.56.130/25"],
+    L02: ["Room402", "Room 413", "VLAN 261", "VLAN 434", "Fa0/1", "Fa0/4", "Gi0/1", "Gi0/2"],
+    L03: ["5th floor", "4th floor", "6th floor", "7th floor", "30th year bldg", "Gig0/2", "VLAN 100 faculty"],
+    L04: [
+      "SWA Gig1/0/1 - SWB Gig1/0/11",
+      "SWA Gig1/0/2 - SWB Gig1/0/12",
+      "SWA Gig1/0/3 - SWB Gig1/0/13",
+    ],
+    L05: ["Room401", "Room402", "rC(1941)", "swA(2960)", "swB(3650)", "G1/0/24", "192.168.100.1/30", "192.168.100.2/30"],
+    L06: ["primary VLAN 10", "private VLAN 101", "private VLAN 102", "promiscuous port", "e1/0", "e2/1"],
+    L07: ["000C.858B.5322", "0040.0B0B.0AB7", "0090.21D7.0E24", "000C.CFA1.904D", "VLAN 1"],
+    L08: ["PCA", "192.168.10.5", "Fa0/11"],
+    L09: ["20480", "24576", "32768", "40960"],
+    L10: ["16384", "PCB", "192.168.10.6/24", "Fa0/12"],
+    L11: ["16384", "PCB", "Fa0/12"],
+    L12: ["IOU1", "IOU2", "IOU3", "IOU4", "e2/0", "e2/1", "cost 10,000,000"],
+    L13: ["swA", "swB", "rC", "G1/0/1", "G1/0/2", "F0/1", "F0/2", "vlan40"],
+  };
+  for (const [id, fragments] of Object.entries(topologyAnchors)) {
+    for (const fragment of fragments) {
+      check(
+        workbenchJs.includes(fragment),
+        id + " source-faithful topology is missing: " + fragment,
+      );
+    }
+  }
 }
 
 const ids = matches(/\bid="([^"]+)"/g);
