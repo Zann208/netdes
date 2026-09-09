@@ -46,11 +46,12 @@ check(
   "shared Study Console body contract is incomplete",
 );
 for (const asset of [
-  "https://zann208.github.io/study/shared/v1/study-system.css",
-  "https://zann208.github.io/study/shared/v1/legacy-console.css",
+  "https://zann208.github.io/study/shared/v2/theme-init.js",
+  "https://zann208.github.io/study/shared/v2/study-system.css",
+  "https://zann208.github.io/study/shared/v2/legacy-console.css",
   "./study-console-adapter.css",
   "./lab-workbench.css",
-  "https://zann208.github.io/study/shared/v1/study-system.js",
+  "https://zann208.github.io/study/shared/v2/study-system.js",
   "./lab-workbench.js",
 ]) {
   check(html.includes(asset), "missing shared Study Console asset: " + asset);

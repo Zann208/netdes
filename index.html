@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NETDES // Network Engineering Study Console</title>
 <meta name="theme-color" content="#070b14">
+<script src="https://zann208.github.io/study/shared/v2/theme-init.js"></script>
 <style>
 :root{
   --bg:#070b14; --bg2:#0b1120; --panel:#0e1626; --panel2:#121c30;
@@ -508,8 +509,8 @@ body.light .bpmap .hot text{fill:#4f6180}
 @media(max-width:600px){.panel,.item{padding:16px}.tag{display:none}}
 @media print{nav,#sbT,#sb,#sbB,.copy,.btn,.chk,.row{display:none!important}section.tab{display:block!important}body{background:#fff;color:#000}}
 </style>
-<link rel="stylesheet" href="https://zann208.github.io/study/shared/v1/study-system.css">
-<link rel="stylesheet" href="https://zann208.github.io/study/shared/v1/legacy-console.css">
+<link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/study-system.css">
+<link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/legacy-console.css">
 <link rel="stylesheet" href="./study-console-adapter.css">
 <link rel="stylesheet" href="./lab-workbench.css">
 </head>
@@ -6107,7 +6108,7 @@ document.addEventListener("keydown",function(e){
 showTab(store.get("lastTab","home"));
 tabs.forEach(function(b){b.addEventListener("click",function(){store.set("lastTab",b.dataset.tab)})});
 </script>
-<script src="https://zann208.github.io/study/shared/v1/study-system.js"></script>
+<script src="https://zann208.github.io/study/shared/v2/study-system.js"></script>
 <script src="./lab-workbench.js"></script>
 </body>
 </html>

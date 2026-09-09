@@ -4,7 +4,7 @@ body[data-study-console="netdes"] .sc-legacy-coursebar .morewrap{margin-left:aut
 body[data-study-console="netdes"] #sb{background:var(--sc-surface)!important;border-color:var(--sc-line)!important}
 body[data-study-console="netdes"] #sb .sbh{font-family:inherit!important;color:var(--sc-muted)!important}
 body[data-study-console="netdes"] #sbT{background:var(--sc-surface)!important;color:var(--sc-text)!important;border-color:var(--sc-line)!important}
-body[data-study-console="netdes"] .wrap{width:min(100% - 32px,1120px)!important;max-width:1120px!important}
+body[data-study-console="netdes"] .wrap{width:min(100% - 32px,1200px)!important;max-width:1200px!important}
 body[data-study-console="netdes"] .ph{background:var(--sc-surface-2)!important;border-color:var(--sc-line)!important}
 body[data-study-console="netdes"] .sub2{color:var(--sc-muted)!important}
 body[data-study-console="netdes"] .tldr,body[data-study-console="netdes"] .trap{border-color:var(--sc-line)!important}
