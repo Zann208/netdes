@@ -11,3 +11,29 @@ body[data-study-console="netdes"] .tldr,body[data-study-console="netdes"] .trap{
 body[data-study-console="netdes"] .panel,body[data-study-console="netdes"] .item{margin-block:16px!important}
 body[data-study-console="netdes"] #pal .palbox,body[data-study-console="netdes"] .modbox{background:var(--sc-surface)!important;border-color:var(--sc-line)!important;box-shadow:0 18px 50px rgba(0,0,0,.18)!important}
 @media(max-width:760px){body[data-study-console="netdes"] .wrap{width:calc(100% - 20px)!important}body[data-study-console="netdes"] #sbT{min-height:44px!important}}
+
+/* Topic 16–18 learning controls. Keep all rules scoped away from the lab workbench. */
+.lesson-links{display:flex;flex-wrap:wrap;gap:8px;margin-block:18px}
+.nd-lesson .lesson-explorer{margin-block:20px;border:1px solid var(--sc-line);border-radius:14px;overflow:hidden;background:var(--sc-surface-2)}
+.nd-lesson .lesson-choices{display:flex;flex-wrap:wrap;gap:8px;padding:16px;border-bottom:1px solid var(--sc-line)}
+.nd-lesson .lesson-choices .btn{min-height:44px;white-space:normal;text-align:left;line-height:1.45;text-transform:none;letter-spacing:normal}
+.nd-lesson .lesson-choices .btn[aria-pressed="true"]{background:var(--sc-accent-soft);color:var(--sc-accent);border-color:var(--sc-accent)}
+.nd-lesson .lesson-result{padding:20px 24px}
+.nd-lesson [data-lesson-panel][hidden]{display:none!important}
+.nd-lesson .lesson-result h5{font-family:inherit;font-size:1.1em;line-height:1.5;margin:0 0 14px;color:var(--sc-text)}
+.nd-lesson .lesson-result p:last-child{margin-bottom:0}
+.nd-lesson .lesson-packet{font-family:var(--mono);font-size:.92em;padding:12px 14px;border:1px solid var(--sc-line);border-radius:8px;overflow-wrap:anywhere;background:var(--sc-surface);color:var(--sc-accent)}
+.nd-lesson .lesson-figure{margin:18px 0;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--sc-line);border-radius:10px;background:var(--sc-surface)}
+.nd-lesson .lesson-diagram{display:block;width:100%;min-width:600px;max-width:760px;height:auto;margin:0 auto;font-family:var(--sc-font-sans,var(--sans));font-size:16px;color:var(--sc-text)}
+.nd-lesson .lesson-diagram text{fill:var(--sc-text);font-family:inherit}
+.nd-lesson .lesson-node{fill:var(--sc-accent-soft);stroke:var(--sc-accent);stroke-width:1.5}
+.nd-lesson .lesson-label{fill:var(--sc-surface)}
+.nd-lesson .lesson-wire{fill:none;stroke:var(--sc-muted);stroke-width:2}
+.nd-lesson .lesson-boundary{fill:none;stroke:var(--sc-accent);stroke-dasharray:7 6;stroke-width:1.5}
+.nd-lesson .lesson-active{fill:none;stroke:var(--sc-accent);stroke-width:3}
+.nd-lesson .lesson-client{fill:var(--sc-accent)}
+.nd-lesson .lesson-emphasis{font-weight:700}
+.nd-lesson figcaption{padding:12px 16px;border-top:1px solid var(--sc-line);font-size:.85em;line-height:1.6;color:var(--sc-muted)}
+.nd-lesson .lesson-check{margin-block:24px;border-color:var(--sc-accent)}
+@media(max-width:600px){.nd-lesson .lesson-result{padding:16px}.nd-lesson .lesson-choices{padding:12px}.nd-lesson .lesson-choices .btn{flex:1 1 130px}.lesson-links .btn{flex:1 1 auto}}
+@media print{.nd-lesson [data-lesson-panel][hidden]{display:block!important}.nd-lesson .lesson-choices{display:none}.nd-lesson .lesson-figure{overflow:visible}.nd-lesson .lesson-diagram{min-width:0}}

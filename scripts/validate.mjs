@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import vm from "node:vm";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
@@ -209,18 +210,56 @@ for (const id of expectedLabs) {
 
 const cardCount = (html.match(/^C\(/gm) || []).length;
 const questionCount = (html.match(/^Q\(/gm) || []).length;
-check(cardCount === 151, "expected 151 flashcards, found " + cardCount);
-check(questionCount === 87, "expected 87 practice questions, found " + questionCount);
+check(cardCount === 196, "expected 196 flashcards, found " + cardCount);
+check(questionCount === 111, "expected 111 practice questions, found " + questionCount);
 for (const fragment of [
-  "<b>16</b><span>Topics</span>",
+  "<b>19</b><span>Topics</span>",
   "<b>13</b><span>Labs</span>",
-  "<b>151</b><span>Cards</span>",
-  "<b>87</b><span>Practice Qs</span>",
-  'id="vTop">0/16',
+  "<b>196</b><span>Cards</span>",
+  "<b>111</b><span>Practice Qs</span>",
+  'id="vTop">0/19',
   'id="vLab">0/13',
 ]) {
   check(html.includes(fragment), "home fallback count missing: " + fragment);
 }
+
+// Every lesson must be reachable, trackable, and represented in both practice banks.
+const expectedTopics = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "10B", "11", "12", "13", "14", "15", "16", "17", "18"];
+const topicSource = html.match(/var TOPICS=(\{[\s\S]*?\});/);
+const orderSource = html.match(/var TORDER=(\[[\s\S]*?\]);/);
+check(Boolean(topicSource && orderSource), "topic data or order is missing");
+if (topicSource && orderSource) {
+  const topicMap = vm.runInNewContext("(" + topicSource[1] + ")", {}, { timeout: 1000 });
+  const order = vm.runInNewContext(orderSource[1], {}, { timeout: 1000 });
+  equal(order, expectedTopics, "topic study order has changed");
+  equal(Object.keys(topicMap).sort(), [...expectedTopics].sort(), "topic map membership is incorrect");
+  equal(matches(/class="dn" data-k="(t[0-9B]+)"/g), expectedTopics.map((key) => "t" + key), "topic completion keys are incorrect");
+  const banks = {};
+  for (const kind of ["C", "Q"]) {
+    banks[kind] = [...html.matchAll(new RegExp("^" + kind + "\\((.*)\\);$", "gm"))].map((match) => vm.runInNewContext("[" + match[1] + "]", {}, { timeout: 1000 }));
+    for (const entry of banks[kind]) {
+      check(Boolean(topicMap[entry[0]]), kind + " entry refers to a missing topic: " + entry[0]);
+      if (kind === "Q") {
+        check(entry[2].length === 4 && new Set(entry[2]).size === 4, "question must have four distinct choices: " + entry[1]);
+        check(Number.isInteger(entry[3]) && entry[3] >= 0 && entry[3] < entry[2].length && Boolean(entry[4]), "question answer or explanation is invalid: " + entry[1]);
+      }
+    }
+  }
+  for (const key of expectedTopics) {
+    check(idSet.has("t" + key), "missing topic article: " + key);
+    check(html.includes('data-drill="' + key + '"'), "topic drill link is missing: " + key);
+    for (const kind of ["C", "Q"]) check(banks[kind].some((entry) => entry[0] === key), "topic has no " + kind + " practice: " + key);
+  }
+  for (const [key, count] of [["16", 12], ["17", 13], ["18", 20]]) {
+    check(banks.C.filter((entry) => entry[0] === key).length === count, "new topic card coverage is incomplete: " + key);
+    check(banks.Q.filter((entry) => entry[0] === key).length === 8, "new topic scenario coverage is incomplete: " + key);
+  }
+}
+for (const target of matches(/data-lesson-choice="([a-z-]+)"/g)) {
+  check(idSet.has(target), "lesson explorer points to a missing panel: " + target);
+  check(html.includes('aria-controls="' + target + '"'), "lesson explorer has no accessible control relationship: " + target);
+}
+check(html.includes('"L13":["DHCP","pools, exclusions, SLAAC","16"]'), "DHCP lab does not link to its new topic");
 
 const anchors = {
   L01: [

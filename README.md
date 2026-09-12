@@ -12,13 +12,19 @@ The app is intentionally lightweight: the console is a single `index.html` page 
 |---|---|
 | **Blueprint** | Connects the switching and routing concepts as one system |
 | **Flow** | Shows the prepare → configure → verify → troubleshoot workflow |
-| **Topics** | Sixteen technical explanations with IOS commands and failure modes |
+| **Topics** | Nineteen technical explanations with IOS commands and failure modes |
 | **Labs** | LAB 01 through LAB 13 with original numbering and source-matched details |
-| **Drills** | 151 flashcards, 87 practice questions, and generated exercises |
+| **Drills** | 196 flashcards, 111 practice questions, and generated exercises |
 | **Practice** | Timed review, weak-point tracking, and an STP port-role solver |
 | **Cheatsheet / Terms** | Compact reference tables and terminology |
 
 The IPv4 subnetting Review is intentionally unnumbered and does not affect the 13-lab progress count.
+
+## Latest topic update
+
+Topics 16–18 cover DHCP and relay, enterprise campus design, and integrating WLANs. The new material includes a DORA walkthrough, switch-block comparisons, a source-matched Layer 3 roaming diagram, 45 additional flashcards, 24 scenario questions, 5 command-recall tasks, and 30 glossary entries. Existing card/question indices and LAB 01–LAB 13 content remain stable.
+
+[Topic source audit](docs/TOPIC-SOURCE-AUDIT.md) records slide coverage and technical clarifications.
 
 ## Authoritative lab set
 

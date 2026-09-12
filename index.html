@@ -511,7 +511,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 </style>
 <link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/study-system.css?v=20260911-width1">
 <link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/legacy-console.css">
-<link rel="stylesheet" href="./study-console-adapter.css">
+<link rel="stylesheet" href="./study-console-adapter.css?v=20260912-topics">
 <link rel="stylesheet" href="./lab-workbench.css">
 <link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/reading.css?v=20260910-layout2">
 </head>
@@ -615,7 +615,7 @@ body.light .bpmap .hot text{fill:#4f6180}
     <p style="color:var(--dim);margin-top:8px;font-size:15px">Sixteen technical topics, all thirteen original labs, verified walkthroughs, and focused practice in one console. Progress saves in this browser.</p>
     <div class="pathgrid">
       <button class="path" data-w="blueprint"><span class="ic">[1]</span><b>Understand</b><span>See the switching system as one network and connect the concepts</span></button>
-      <button class="path" data-w="notes"><span class="ic">[2]</span><b>Study</b><span>Review 16 technical topics and every numbered lab</span></button>
+      <button class="path" data-w="notes"><span class="ic">[2]</span><b>Study</b><span>Review 19 technical topics and every numbered lab</span></button>
       <button class="path" data-w="intensive"><span class="ic">[3]</span><b>Perform</b><span>Timed exams, a weak-point radar and the port-role solver</span></button>
     </div>
     <div class="row" style="margin-top:18px">
@@ -648,13 +648,23 @@ body.light .bpmap .hot text{fill:#4f6180}
 <!-- ============ HOME ============ -->
 <section class="tab on" id="home"><div class="wrap">
   <h1><span class="pre">// NETWORK ENGINEERING STUDY CONSOLE</span>Build, verify, troubleshoot. One console.</h1>
-  <p class="lede">An independent switching and routing workspace with 16 study topics, the authoritative LAB 01–LAB 13 sequence, 151 flashcards, and 87 practice questions.</p>
+  <p class="lede">An independent switching and routing workspace with 19 study topics, the authoritative LAB 01–LAB 13 sequence, 196 flashcards, and 111 practice questions.</p>
 
   <div class="stats">
-    <div class="stat"><b>16</b><span>Topics</span></div>
+    <div class="stat"><b>19</b><span>Topics</span></div>
     <div class="stat g"><b>13</b><span>Labs</span></div>
-    <div class="stat v"><b>151</b><span>Cards</span></div>
-    <div class="stat"><b>87</b><span>Practice Qs</span></div>
+    <div class="stat v"><b>196</b><span>Cards</span></div>
+    <div class="stat"><b>111</b><span>Practice Qs</span></div>
+  </div>
+
+  <div class="panel lesson-update">
+    <div class="ph"><h2>New study material</h2><span class="badge cy right">Topics 16–18</span></div>
+    <p class="sub2">Follow a client from receiving an address to reaching campus services and roaming between access points.</p>
+    <div class="pathgrid">
+      <button class="path" data-goto="t16"><span class="ic">16</span><b>DHCP &amp; Relay</b><span>Follow DORA, configure pools and helpers, then practice in LAB 13.</span></button>
+      <button class="path" data-goto="t17"><span class="ic">17</span><b>Enterprise Campus Design</b><span>Compare switch blocks, routing boundaries, and core designs.</span></button>
+      <button class="path" data-goto="t18"><span class="ic">18</span><b>Integrating WLAN</b><span>Understand shared airtime, controllers, and Layer 3 roaming.</span></button>
+    </div>
   </div>
 
   <div class="panel pv">
@@ -665,7 +675,7 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div class="row" style="align-items:flex-start;gap:24px">
       <div class="ringwrap"><svg class="ring" viewBox="0 0 110 110"><circle class="rbg" cx="55" cy="55" r="50"/><circle class="rfg" id="ringFg" cx="55" cy="55" r="50"/></svg><div class="rtx" id="readyPct">0%</div></div>
       <div class="bars">
-        <div class="bar"><span class="bl">TOPICS</span><span class="bt"><i id="bTop"></i></span><span class="bv" id="vTop">0/16</span></div>
+        <div class="bar"><span class="bl">TOPICS</span><span class="bt"><i id="bTop"></i></span><span class="bv" id="vTop">0/19</span></div>
         <div class="bar"><span class="bl">LABS</span><span class="bt"><i id="bLab"></i></span><span class="bv" id="vLab">0/13</span></div>
         <div class="bar"><span class="bl">CARDS</span><span class="bt"><i id="bCard"></i></span><span class="bv" id="vCard">0</span></div>
         <div class="bar"><span class="bl">BEST QUIZ</span><span class="bt"><i id="bQuiz"></i></span><span class="bv" id="vQuiz">—</span></div>
@@ -677,7 +687,7 @@ body.light .bpmap .hot text{fill:#4f6180}
     <p class="sub2">Not sure where to begin? Pick the one that matches where you are right now.</p>
     <div class="pathgrid">
       <button class="path" data-tabgo="blueprint"><span class="ic">[1]</span><b data-th="ทำความเข้าใจ">Understand</b><span>See the switching system as one network and connect the concepts</span></button>
-      <button class="path" data-tabgo="notes"><span class="ic">[2]</span><b data-th="เรียน">Study</b><span>Review 16 technical topics, then perform LAB 01–LAB 13</span></button>
+      <button class="path" data-tabgo="notes"><span class="ic">[2]</span><b data-th="เรียน">Study</b><span>Review 19 technical topics, then perform LAB 01–LAB 13</span></button>
       <button class="path" data-tabgo="intensive"><span class="ic">[3]</span><b data-th="ทำให้ได้จริง">Perform</b><span data-th="ข้อสอบจับเวลา เรดาร์จุดอ่อน และเครื่องฝึกวิเคราะห์พอร์ต">Timed exams, a weak-point radar and the port-role solver</span></button>
     </div>
     <p style="margin-top:15px">The short version of the syllabus: address the network (<b>IPv6</b>) → power the switch (<b>ports, SSH, security</b>) → split it (<b>VLANs, trunks, VTP</b>) → widen it (<b>EtherChannel</b>) → route it (<b>L3 switch</b>) → isolate it (<b>Private VLAN</b>) → and stop the loops (<b>STP → RSTP → MST</b>).</p>
@@ -713,10 +723,11 @@ body.light .bpmap .hot text{fill:#4f6180}
 <!-- ============ BLUEPRINT ============ -->
 <section class="tab" id="blueprint"><div class="wrap">
   <h1><span class="pre">// SYSTEM VIEW</span>The whole switching system as one network</h1>
-  <p class="lede">Every topic lives somewhere on this diagram. Click any numbered tag to open its technical notes.</p>
+  <p class="lede">Connect the switching diagram with addressing, campus architecture, and wireless integration. Use the numbered tags and topic links to open the notes.</p>
 
+  <div class="lesson-links" aria-label="Campus service topics"><button class="btn" data-goto="t16">16 · DHCP &amp; Relay</button><button class="btn" data-goto="t17">17 · Campus design</button><button class="btn" data-goto="t18">18 · WLAN integration</button></div>
   <div class="panel pv">
-    <div class="ph"><h2 data-th="หนึ่งเครือข่าย ครบทั้ง 16 หัวข้อ">One campus, all 16 topics</h2><span class="badge vi right">click the tags</span></div>
+    <div class="ph"><h2 data-th="แนวคิดการสวิตชิงหลัก">Core switching concepts</h2><span class="badge vi right">click the tags</span></div>
     <svg class="topo bpmap" viewBox="0 0 880 560" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
@@ -944,7 +955,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 </div></section>
 <!-- ============ TOPICS ============ -->
 <section class="tab" id="notes"><div class="wrap">
-  <h1><span class="pre">// TECHNICAL TOPICS</span>16 connected network-engineering topics</h1>
+  <h1><span class="pre">// TECHNICAL TOPICS</span>19 connected network-engineering topics</h1>
   <p class="lede">Concepts, IOS commands, failure modes, and verification evidence arranged as one study path. Use <b>‹ ›</b> or <b>J / K</b> to move.</p>
 
   <!-- 01 -->
@@ -2284,6 +2295,285 @@ show spanning-tree summary</pre></div></details>
     </ul></div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t15"><span data-th="ทำเสร็จแล้ว"> mark done</span></label><button class="btn" data-drill="15" data-th="ฝึกการ์ด →">drill cards →</button></div>
   </article>
+  <!-- 16 · DHCP -->
+  <article class="item nd-lesson" id="t16">
+    <div class="ph"><span class="badge cy">16</span><h3>DHCP &amp; Relay</h3><span class="tag">Addressing · Pools · SLAAC</span></div>
+    <p class="tldr"><b>Dynamic Host Configuration Protocol (DHCP)</b> gives a host an IP address and the settings it needs to use the network. A relay lets clients reach a server in another subnet.</p>
+    <div class="lesson-links" aria-label="DHCP connections"><button class="btn" data-goto="t02">Review IPv6</button><button class="btn" data-goto="t08">Review inter-VLAN routing</button><button class="btn go" data-goto="L13">Open LAB 13</button></div>
+
+    <h4>What the client receives</h4>
+    <p>A <b>lease</b> is permission to use an address for a limited time. Along with that address, a DHCP server can supply the <b>subnet mask</b>, <b>default gateway</b>, and <b>Domain Name System (DNS)</b> servers. The gateway reaches other networks; DNS resolves names. They solve different problems.</p>
+    <div class="box wild"><b>First understand the boundary</b>A client's initial broadcast stays inside its VLAN. A local DHCP server can answer directly. To reach a central server across a Layer 3 boundary, configure a DHCP relay on the client's gateway interface.</div>
+
+    <h4>DORA: follow one new lease</h4>
+    <p>Choose a message to see who sends it and why. <b>DORA</b> means Discover → Offer → Request → Acknowledge. <b>User Datagram Protocol (UDP)</b> port <b>67</b> belongs to the server; port <b>68</b> belongs to the client.</p>
+    <div class="lesson-explorer" data-lesson-switch>
+      <div class="lesson-choices" role="group" aria-label="DHCP messages">
+        <button class="btn on" data-lesson-choice="dhcp-discover" aria-controls="dhcp-discover" aria-pressed="true">1 · Discover</button>
+        <button class="btn" data-lesson-choice="dhcp-offer" aria-controls="dhcp-offer" aria-pressed="false">2 · Offer</button>
+        <button class="btn" data-lesson-choice="dhcp-request" aria-controls="dhcp-request" aria-pressed="false">3 · Request</button>
+        <button class="btn" data-lesson-choice="dhcp-ack" aria-controls="dhcp-ack" aria-pressed="false">4 · Acknowledge</button>
+      </div>
+      <div class="lesson-result" aria-live="polite" aria-atomic="true">
+        <div id="dhcp-discover" data-lesson-panel><h5>Client → local broadcast</h5><p class="lesson-packet">0.0.0.0 : 68 → 255.255.255.255 : 67</p><p>“Is a DHCP server available?” The client has no usable IPv4 address yet, so it broadcasts a <b>DHCPDISCOVER</b>.</p></div>
+        <div id="dhcp-offer" data-lesson-panel hidden><h5>Server → client</h5><p class="lesson-packet">Server IP : 67 → client / broadcast : 68</p><p>A <b>DHCPOFFER</b> proposes an address and configuration. Several servers can offer a lease; the client chooses one. The slide example shows a broadcast reply.</p></div>
+        <div id="dhcp-request" data-lesson-panel hidden><h5>Client → local broadcast</h5><p class="lesson-packet">0.0.0.0 : 68 → 255.255.255.255 : 67</p><p>The client broadcasts a <b>DHCPREQUEST</b> identifying its selected offer. This tells the other servers that their offers were not selected. This is the initial selection step, not lease renewal.</p></div>
+        <div id="dhcp-ack" data-lesson-panel hidden><h5>Server → client</h5><p class="lesson-packet">Server IP : 67 → client / broadcast : 68</p><p>A <b>DHCPACK</b> confirms the lease and settings. The client can then configure the address. An offer alone is not the completed lease.</p></div>
+      </div>
+    </div>
+    <p class="sub2">The slides draw all four messages as broadcasts. In the protocol, Offer and ACK delivery depends on client state and the broadcast flag; renewal can use unicast. See <a href="https://www.rfc-editor.org/rfc/rfc2131.html#section-4.1" target="_blank" rel="noopener">RFC 2131, message delivery</a>.</p>
+
+    <h4>Configure a local DHCP server</h4>
+    <ol class="steps">
+      <li><b>Prepare Layer 3.</b> Configure an active gateway interface for the client subnet: an SVI on a multilayer switch or a router subinterface.</li>
+      <li><b>Exclude fixed addresses.</b> Protect gateways and statically addressed devices from dynamic allocation.</li>
+      <li><b>Create a named pool.</b> Use its subnet ID and mask, then supply the clients' gateway, DNS, and lease duration.</li>
+      <li><b>Repeat per subnet.</b> Multiple VLAN subnets need matching pools. A local server uses the receiving interface's subnet; a relayed request identifies the remote client subnet.</li>
+    </ol>
+    <details open><summary>IOS command pattern</summary><div class="dbody"><pre>ip dhcp excluded-address start-ip [end-ip]
+ip dhcp pool pool-name
+ network subnet-id subnet-mask
+ default-router gateway-ip
+ dns-server dns-ip [second-dns-ip]
+ lease days [hours [minutes]]
+ exit</pre><p class="sub2">Replace the descriptive placeholders before typing. Square brackets mean optional arguments. <code>lease infinite</code> is the alternative to a timed lease; the slide's IOS default is one day.</p></div></details>
+    <div class="tscroll"><table><tr><th>Command</th><th>What it controls</th><th>Common mistake</th></tr>
+      <tr><td><code>excluded-address</code></td><td>Addresses the server must not lease; both range endpoints are included</td><td>An exclusion protects an address but does not bind it to a particular client.</td></tr>
+      <tr><td><code>network</code></td><td>The pool's client subnet and mask</td><td>Entering one host's IP instead of the subnet ID.</td></tr>
+      <tr><td><code>default-router</code></td><td>The gateway delivered to clients</td><td>Using the DHCP server's IP when it is not the client gateway.</td></tr>
+      <tr><td><code>dns-server</code></td><td>Name resolution servers delivered to clients</td><td>Expecting a correct IP lease to prove DNS works.</td></tr>
+      <tr><td><code>lease</code></td><td>How long an address allocation lasts</td><td>Confusing a lease duration with a permanent static address.</td></tr>
+    </table></div>
+    <p class="sub2">Use <code>ip dhcp excluded-address</code>, including the final <b>d</b>. This corrects the command typo in the slides; the syntax is confirmed in <a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr_dhcp/configuration/15-mt/dhcp-15-mt-book/config-dhcp-server.html" target="_blank" rel="noopener">Cisco's DHCP server guide</a>.</p>
+
+    <h4>DHCP relay: keep the server central</h4>
+    <p>In the supplied example, clients use <b>VLAN 10</b>, whose gateway is <b>10.1.10.1/24</b>. The DHCP server is <b>20.5.5.5</b>, across the routed network. The helper belongs on the interface that receives the client broadcast.</p>
+    <details open><summary>Configure the client-facing relay interface</summary><div class="dbody"><pre>interface vlan 10
+ ip address 10.1.10.1 255.255.255.0
+ ip helper-address 20.5.5.5</pre></div></details>
+    <p>The relay forwards the request to the server and identifies the client's subnet. The server still needs a pool for <b>10.1.10.0/24</b>, with <b>10.1.10.1</b> as its default router. Routing must work between the relay and server in both directions. The helper command itself does not create a pool or a route.</p>
+
+    <h4>Verify the result, then isolate the failure</h4>
+    <div class="tscroll"><table><tr><th>Evidence</th><th>What to check</th></tr>
+      <tr><td><code>show ip dhcp binding</code></td><td>On the DHCP server, find the client's allocated address and binding.</td></tr>
+      <tr><td>Client configuration</td><td>Address, mask, gateway, and DNS all match the intended VLAN.</td></tr>
+      <tr><td>No lease</td><td>Check VLAN membership, active gateway interface, pool subnet and free addresses; then helper placement and server reachability.</td></tr>
+      <tr><td>Lease works, remote network fails</td><td>Check the delivered default gateway and routing.</td></tr>
+      <tr><td>IP connectivity works, names fail</td><td>Check the delivered DNS setting and DNS server reachability.</td></tr>
+    </table></div>
+
+    <h4>IPv6 SLAAC alongside IPv4 DHCP</h4>
+    <p><b>Stateless Address Autoconfiguration (SLAAC)</b> lets a host form an IPv6 address using a prefix in a <b>Router Advertisement (RA)</b>. It does not need a DHCPv6 address lease. LAB 13 deliberately uses IPv4 DHCP and IPv6 Automatic together.</p>
+    <details><summary>SLAAC interface pattern and flags</summary><div class="dbody"><pre>ipv6 unicast-routing
+interface vlan 10
+ ipv6 address 2001:DB8:10::1/64
+ ipv6 enable
+ no ipv6 nd managed-config-flag
+ no ipv6 nd other-config-flag</pre><p>The documentation prefix here is a separate teaching example. Keep LAB 13's original IPv6 addresses when doing that lab.</p><p><b>M flag:</b> managed address configuration through DHCPv6. <b>O flag:</b> other configuration, such as DNS, through DHCPv6. Clearing them follows the slides' SLAAC-only setup. The advertised prefix must allow autonomous configuration; DNS needs a separate mechanism such as an RA DNS option.</p></div></details>
+    <details class="lesson-check"><summary>Check yourself: the server is reachable, but only VLAN 20 has no leases. What next?</summary><div class="dbody"><p>Check VLAN 20's gateway interface, helper address if the server is remote, and matching DHCP pool. A working lease in VLAN 10 does not prove that VLAN 20 has a pool or a working relay.</p></div></details>
+    <div class="box trap"><b>Exam answer to remember</b>DHCP allocates an address and configuration through Discover, Offer, Request, and ACK. Broadcasts stay within the client's VLAN; a relay forwards requests to a remote server. The server's pool must match the client subnet.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t16"><span> mark done</span></label><button class="btn" data-drill="16">drill cards →</button></div>
+  </article>
+
+  <!-- 17 · Enterprise campus -->
+  <article class="item nd-lesson" id="t17">
+    <div class="ph"><span class="badge vi">17</span><h3>Enterprise Campus Network Design</h3><span class="tag">Hierarchy · Modules · Resilience</span></div>
+    <p class="tldr">A campus network should grow and recover in predictable ways. Give each layer a clear job, group access and distribution switches into blocks, and provide deliberate redundant paths.</p>
+    <div class="lesson-links" aria-label="Campus design connections"><button class="btn" data-goto="t01">Review the three layers</button><button class="btn" data-goto="t08">Review routing boundaries</button><button class="btn" data-goto="t10">Review STP</button></div>
+
+    <h4>From one shared segment to a hierarchy</h4>
+    <p>The opening slide example is a <b>shared Ethernet segment</b>: hosts compete for the same bandwidth and share broadcast and collision domains. A switched Ethernet port separates collision domains; a Layer 3 boundary separates broadcast domains. Do not apply the shared-segment collision description to every modern switched LAN.</p>
+    <p>As users, switches, VLANs, and voice applications are added, an improvised network becomes hard to explain. Design around <b>traffic flows</b>, sufficient capacity, room to grow, and a known response to failures. Users should reach their required resources through consistent, understandable paths.</p>
+
+    <h4>Three layers, three responsibilities</h4>
+    <div class="tscroll"><table><tr><th>Layer</th><th>Role</th><th>Choose for</th></tr>
+      <tr><td><b>Access</b><br>Building access switches</td><td>Connect end devices and provide VLAN membership, filtering, and traffic priority.</td><td>Low cost per port, high port density, scalable uplinks, and redundant paths upstream.</td></tr>
+      <tr><td><b>Distribution</b><br>Building distribution switches</td><td>Aggregate access switches; route between VLANs; apply security and connectivity policy.</td><td>High Layer 3 throughput, enough fast ports, access lists, Quality of Service (QoS), and resilient links.</td></tr>
+      <tr><td><b>Core</b><br>Campus backbone</td><td>Connect distribution blocks and carry aggregate campus traffic efficiently.</td><td>Very high Layer 3 throughput, redundancy, fast recovery, QoS, and a simple forwarding design.</td></tr>
+    </table></div>
+    <div class="box wild"><b>Where does policy belong?</b>The distribution layer is the usual policy and routing boundary in this model. Keep unnecessary filtering and expensive packet manipulation out of the core so the backbone can move campus traffic efficiently.</div>
+
+    <h4>Classify the service before tracing the path</h4>
+    <div class="tscroll"><table><tr><th>Service type</th><th>Resource location</th><th>Path in the slide model</th></tr>
+      <tr><td><b>Local</b></td><td>Same segment or VLAN as the user</td><td>Access layer only</td></tr>
+      <tr><td><b>Remote</b></td><td>A different segment or VLAN within the local block</td><td>Access → distribution</td></tr>
+      <tr><td><b>Enterprise</b></td><td>A central resource shared by campus users</td><td>Access → distribution → core</td></tr>
+    </table></div>
+    <p>The table describes the deck's hierarchy. Trace the actual topology when answering a scenario: a resource in another block also needs the core, even if someone informally calls it “remote.”</p>
+
+    <h4>A switch block limits the failure domain</h4>
+    <p>A <b>switch block</b> contains access switches and their distribution switches. The <b>core block</b> joins these modules. In the conventional design, distribution is the Layer 3 boundary: VLANs, subnets, and broadcasts terminate there, and <b>Spanning Tree Protocol (STP)</b> remains inside each block.</p>
+    <p>A second cable does not protect against failure of the only upstream switch. Use a pair of distribution switches, with each access switch connected to both. A separate core also needs redundancy; one core switch would remain a single point of failure.</p>
+
+    <h4>Compare three switch-block designs</h4>
+    <p>Change the design and watch where the Layer 3 boundary belongs. These redraws retain the two-distribution / two-access arrangement of the supplied figures.</p>
+    <div class="lesson-explorer" data-lesson-switch>
+      <div class="lesson-choices" role="group" aria-label="Switch block designs"><button class="btn on" data-lesson-choice="campus-shared" aria-controls="campus-shared" aria-pressed="true">VLAN spans access switches</button><button class="btn" data-lesson-choice="campus-local" aria-controls="campus-local" aria-pressed="false">VLAN local to one access switch</button><button class="btn" data-lesson-choice="campus-routed" aria-controls="campus-routed" aria-pressed="false">Routed access</button></div>
+      <div class="lesson-result" aria-live="polite">
+        <div id="campus-shared" data-lesson-panel><h5>Shared VLAN · larger Layer 2 domain</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 405" role="img" aria-label="Two distribution switches above two access switches, dual uplinks, Layer 2 link, Layer 2 uplinks">
+      <title>Switch block with a shared VLAN</title>
+      <g class="lesson-wire"><path d="M230 80 L300 26 M490 80 L420 26"/><path d="M230 130 L230 270 M230 130 L490 270 M490 130 L230 270 M490 130 L490 270"/><path d="M292 105 H428"/></g>
+      <text x="360" y="24" text-anchor="middle">To core layer</text>
+      <rect class="lesson-node" x="158" y="80" width="144" height="50" rx="9"/><rect class="lesson-node" x="418" y="80" width="144" height="50" rx="9"/>
+      <text x="230" y="111" text-anchor="middle">Distribution</text><text x="490" y="111" text-anchor="middle">Distribution</text>
+      <rect class="lesson-label" x="301" y="72" width="118" height="26" rx="4"/><text x="360" y="91" text-anchor="middle">Layer 2 link</text>
+      <rect class="lesson-label" x="286" y="193" width="148" height="30" rx="4"/><text x="360" y="213" text-anchor="middle">Layer 2 uplinks</text>
+      <rect class="lesson-node" x="165" y="270" width="130" height="50" rx="9"/><rect class="lesson-node" x="425" y="270" width="130" height="50" rx="9"/>
+      <text x="230" y="301" text-anchor="middle">Access</text><text x="490" y="301" text-anchor="middle">Access</text>
+      <text x="230" y="383" text-anchor="middle">VLAN A</text><text x="490" y="383" text-anchor="middle">VLAN A</text>
+      <path class="lesson-boundary" d="M65 158 H650"/><rect class="lesson-label" x="55" y="141" width="178" height="29" rx="4"/><text x="66" y="161">Layer 3 boundary</text>
+    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>VLAN A appears on both access switches and both distribution switches. It must cross the required trunks throughout the block. Redundancy works, but STP and VLAN propagation involve more links.</p></div>
+        <div id="campus-local" data-lesson-panel hidden><h5>Local VLANs · smaller Layer 2 domains</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 405" role="img" aria-label="Two distribution switches above two access switches, dual uplinks, Layer 3 link, Layer 2 uplinks">
+      <title>Switch block with local VLANs</title>
+      <g class="lesson-wire"><path d="M230 80 L300 26 M490 80 L420 26"/><path d="M230 130 L230 270 M230 130 L490 270 M490 130 L230 270 M490 130 L490 270"/><path d="M292 105 H428"/></g>
+      <text x="360" y="24" text-anchor="middle">To core layer</text>
+      <rect class="lesson-node" x="158" y="80" width="144" height="50" rx="9"/><rect class="lesson-node" x="418" y="80" width="144" height="50" rx="9"/>
+      <text x="230" y="111" text-anchor="middle">Distribution</text><text x="490" y="111" text-anchor="middle">Distribution</text>
+      <rect class="lesson-label" x="301" y="72" width="118" height="26" rx="4"/><text x="360" y="91" text-anchor="middle">Layer 3 link</text>
+      <rect class="lesson-label" x="286" y="193" width="148" height="30" rx="4"/><text x="360" y="213" text-anchor="middle">Layer 2 uplinks</text>
+      <rect class="lesson-node" x="165" y="270" width="130" height="50" rx="9"/><rect class="lesson-node" x="425" y="270" width="130" height="50" rx="9"/>
+      <text x="230" y="301" text-anchor="middle">Access</text><text x="490" y="301" text-anchor="middle">Access</text>
+      <text x="230" y="383" text-anchor="middle">VLAN A</text><text x="490" y="383" text-anchor="middle">VLAN B</text>
+      <path class="lesson-boundary" d="M65 158 H650"/><rect class="lesson-label" x="55" y="141" width="178" height="29" rx="4"/><text x="66" y="161">Layer 3 boundary</text>
+    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>VLAN A stays on one access switch; VLAN B stays on the other. Access uplinks remain Layer 2, while the distribution interconnect is Layer 3. There is no Layer 2 connection between the access switches. This removes the loop across the two access switches shown in the shared-VLAN design.</p></div>
+        <div id="campus-routed" data-lesson-panel hidden><h5>Routed access · Layer 3 moves down</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 405" role="img" aria-label="Two distribution switches above two access switches, dual uplinks, Layer 3 link, Layer 3 uplinks">
+      <title>Switch block with routed access</title>
+      <g class="lesson-wire"><path d="M230 80 L300 26 M490 80 L420 26"/><path d="M230 130 L230 270 M230 130 L490 270 M490 130 L230 270 M490 130 L490 270"/><path d="M292 105 H428"/></g>
+      <text x="360" y="24" text-anchor="middle">To core layer</text>
+      <rect class="lesson-node" x="158" y="80" width="144" height="50" rx="9"/><rect class="lesson-node" x="418" y="80" width="144" height="50" rx="9"/>
+      <text x="230" y="111" text-anchor="middle">Distribution</text><text x="490" y="111" text-anchor="middle">Distribution</text>
+      <rect class="lesson-label" x="301" y="72" width="118" height="26" rx="4"/><text x="360" y="91" text-anchor="middle">Layer 3 link</text>
+      <rect class="lesson-label" x="286" y="193" width="148" height="30" rx="4"/><text x="360" y="213" text-anchor="middle">Layer 3 uplinks</text>
+      <rect class="lesson-node" x="165" y="270" width="130" height="50" rx="9"/><rect class="lesson-node" x="425" y="270" width="130" height="50" rx="9"/>
+      <text x="230" y="301" text-anchor="middle">Access</text><text x="490" y="301" text-anchor="middle">Access</text>
+      <text x="230" y="383" text-anchor="middle">VLAN A</text><text x="490" y="383" text-anchor="middle">VLAN B</text>
+      <path class="lesson-boundary" d="M65 345 H650"/><rect class="lesson-label" x="55" y="328" width="178" height="29" rx="4"/><text x="66" y="348">Layer 3 boundary</text>
+    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>The access switches now route. Their uplinks and the distribution interconnect are Layer 3. Routing protocols provide convergence and can use equal-cost uplinks together. VLANs remain at access; the Layer 2 boundary moves below the routed uplinks.</p></div>
+      </div>
+    </div>
+
+    <h4>Size the block by traffic, not just headcount</h4>
+    <ul class="pts"><li><b>Access capacity:</b> enough ports for users and devices, plus uplink capacity for their traffic.</li><li><b>Distribution capacity:</b> total traffic from connected access switches, inter-VLAN forwarding, and the cost of security and policy processing.</li><li><b>Domain size:</b> geographic VLAN boundaries, broadcast and multicast volume, and the extent of STP.</li><li><b>Growth pattern:</b> common workgroups, applications, and where their services are located.</li></ul>
+    <p>The slides give <b>about 2,000 users per block</b> as a historical sizing guideline. It is not a protocol limit. Traffic behavior and device capacity decide when to split a block.</p>
+    <div class="box trap"><b>Signs the block is too large</b>Distribution switches become bottlenecks because of routing or policy load, or broadcast/multicast traffic slows the block. Add capacity or divide the block; simply adding more access ports can deepen the bottleneck.</div>
+
+    <h4>Core, dual core, and collapsed core</h4>
+    <div class="tscroll"><table><tr><th>Design</th><th>Structure</th><th>Reason to use it</th></tr>
+      <tr><td><b>Dual core</b></td><td>Two multilayer core switches connect multiple switch blocks. Distribution has redundant Layer 3 paths into the core.</td><td>Remove the single core failure point; allow active equal-cost routing paths.</td></tr>
+      <tr><td><b>Multinode core</b></td><td>Additional core pairs are interconnected. In the slide example, each switch block attaches to one core pair, not every core switch.</td><td>Expand a very large campus while retaining identifiable modules.</td></tr>
+      <tr><td><b>Collapsed core</b></td><td>The same pair of devices performs distribution and core functions. Access switches connect redundantly to that pair.</td><td>A smaller campus can reduce cost and complexity without a separate core tier.</td></tr>
+    </table></div>
+    <p><b>Collapsed core combines roles; it does not mean “remove all redundancy.”</b> Size the combined devices for both policy work and backbone traffic.</p>
+
+    <h4>Design review: explain every link</h4>
+    <ol class="steps"><li>Mark the access, distribution, and core roles.</li><li>Draw the VLAN and Layer 3 boundaries. Identify which links are trunks and which are routed.</li><li>Give each access switch two upstream paths to distinct distribution switches.</li><li>Connect the distribution pair as required by the design; do not casually connect access switches to each other. A supported logical stack or chassis is a separate case.</li><li>Check both a link failure and an upstream switch failure. Know which protocol restores forwarding.</li><li>Check aggregate capacity after a failure, when the surviving path carries more traffic.</li></ol>
+    <details class="lesson-check"><summary>Check yourself: two access uplinks end on one distribution switch. Is that enough?</summary><div class="dbody"><p>It protects against some link failures, but the distribution switch is still a single point of failure. Connect to a second distribution device and verify the intended Layer 2 or Layer 3 failover behavior.</p></div></details>
+    <div class="box wild"><b>Exam answer to remember</b>Hierarchy separates access, policy/routing, and backbone responsibilities. Modularity groups access and distribution into switch blocks, confines failures, and makes expansion predictable. Redundant devices and paths preserve connectivity when a component fails.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t17"><span> mark done</span></label><button class="btn" data-drill="17">drill cards →</button></div>
+  </article>
+
+  <!-- 18 · Integrating WLAN -->
+  <article class="item nd-lesson" id="t18">
+    <div class="ph"><span class="badge am">18</span><h3>Integrating Wireless LAN</h3><span class="tag">RF · CAPWAP · Roaming</span></div>
+    <p class="tldr">A wireless LAN shares radio airtime. The access point connects that radio network to the campus; the architecture decides where traffic is forwarded, where policy lives, and how a moving client keeps its connection.</p>
+    <div class="lesson-links" aria-label="WLAN connections"><button class="btn" data-goto="t04">Review VLANs and trunks</button><button class="btn" data-goto="t16">Review DHCP</button><button class="btn" data-goto="t17">Review campus design</button></div>
+
+    <h4>Shared airtime: CSMA/CA and backoff</h4>
+    <p>The slides' basic <b>IEEE 802.11</b> model is half-duplex on a shared radio channel. A station uses <b>Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA)</b>: listen before transmitting and use a random delay to reduce simultaneous transmissions.</p>
+    <ol class="steps"><li>Wait for the channel to become idle, then wait the <b>Distributed Coordination Function Interframe Space (DIFS)</b>.</li><li>Count down a random backoff while the channel stays idle.</li><li>If another station starts transmitting, pause the countdown. Resume after the medium is idle and the required interframe wait has passed.</li><li>Transmit when the counter reaches zero. Collisions can still occur, for example when two counters expire together.</li></ol>
+    <p>In the slide's A/B/C example, A transmits first; B and C defer. C's shorter backoff wins the next turn, so B waits again. Collision <b>avoidance reduces the risk</b>; it does not promise that collisions never happen.</p>
+
+    <h4>Wi-Fi standards: compare the slide values</h4>
+    <p><b>Physical-layer (PHY) rates are theoretical signaling limits, not application throughput.</b> Bandwidth, spatial streams, clients, signal quality, and shared airtime affect actual performance. <b>MIMO</b> means Multiple Input, Multiple Output; SU and MU mean single-user and multi-user.</p>
+    <div class="tscroll"><table><tr><th>IEEE standard</th><th>Generation</th><th>Bands in the deck</th><th>Maximum PHY rate</th><th>MIMO</th></tr>
+      <tr><td>802.11</td><td>Original</td><td>2.4 GHz</td><td>2 Mbps</td><td>No</td></tr><tr><td>802.11b</td><td>—</td><td>2.4 GHz</td><td>11 Mbps</td><td>No</td></tr><tr><td>802.11a</td><td>—</td><td>5 GHz</td><td>54 Mbps</td><td>No</td></tr><tr><td>802.11g</td><td>—</td><td>2.4 GHz</td><td>54 Mbps</td><td>No</td></tr>
+      <tr><td>802.11n</td><td>Wi-Fi 4</td><td>2.4 / 5 GHz</td><td>600 Mbps</td><td>SU-MIMO</td></tr><tr><td>802.11ac</td><td>Wi-Fi 5</td><td>5 GHz</td><td>6.9 Gbps</td><td>MU-MIMO in Wave 2</td></tr><tr><td>802.11ax</td><td>Wi-Fi 6</td><td>2.4 / 5 GHz</td><td>9.6 Gbps</td><td>MU-MIMO</td></tr><tr><td>802.11ax</td><td>Wi-Fi 6E</td><td>2.4 / 5 / 6 GHz</td><td>9.6 Gbps</td><td>MU-MIMO</td></tr><tr><td>802.11be</td><td>Wi-Fi 7</td><td>2.4 / 5 / 6 GHz</td><td>About 46 Gbps</td><td>MU-MIMO</td></tr>
+    </table></div>
+
+    <h4>Building blocks: IBSS, BSS, ESS, and SSID</h4>
+    <div class="tscroll"><table><tr><th>Term</th><th>Meaning</th><th>Picture in words</th></tr>
+      <tr><td><b>IBSS</b><br>Independent Basic Service Set</td><td>Ad hoc network without an AP</td><td>Stations communicate directly.</td></tr>
+      <tr><td><b>BSS</b><br>Basic Service Set</td><td>One AP and its associated stations in the infrastructure example</td><td>The AP is the center of the cell.</td></tr>
+      <tr><td><b>ESS</b><br>Extended Service Set</td><td>Connected infrastructure BSSs using a distribution system</td><td>Multiple AP cells form one extended wireless network.</td></tr>
+      <tr><td><b>SSID</b><br>Service Set Identifier</td><td>The wireless network's name</td><td>Clients select a network; AP configuration maps its traffic to the intended VLAN.</td></tr>
+      <tr><td><b>Association</b></td><td>The client's membership relationship with an AP</td><td>Compatible SSID, rates, and the required security credentials are part of joining.</td></tr>
+    </table></div>
+    <p>An <b>Access Point (AP)</b> bridges wireless and wired traffic. Infrastructure clients normally exchange data through the AP, including traffic between clients on that AP. Direct-link features are a separate exception, not ordinary IBSS behavior inside an infrastructure BSS.</p>
+
+    <h4>Cells, channel reuse, and BSS coloring</h4>
+    <p>A <b>cell</b> is an AP's coverage area. Place adjacent cells with enough overlap for roaming while checking for coverage holes. The slides compare a grid with a honeycomb arrangement and extend channel planning across floors: interference has a vertical dimension too.</p>
+    <ul class="pts"><li><b>Coverage and capacity differ.</b> Maximum transmit power covers a larger area but can place more clients on the same shared airtime.</li><li><b>Smaller cells</b> can support a denser deployment. The slides call reduced-power cells microcells and very small cells picocells.</li><li><b>Reuse channels deliberately.</b> Nearby same-channel cells still contend; overlapping coverage does not mean overlapping channels are always desirable.</li><li><b>BSS coloring</b>, introduced with Wi-Fi 6, adds a 6-bit identifier in the PHY header. It helps distinguish a neighboring BSS early, before reading the 48-bit BSSID in the MAC header.</li></ul>
+    <div class="box wild"><b>Different color is not automatic permission</b>A station may reuse airtime when a differently colored BSS's signal is weak enough under the spatial-reuse rules. It still must follow channel-access rules. A BSS color is an identifier, not encryption or a security boundary.</div>
+
+    <h4>Autonomous AP or controller-based WLAN?</h4>
+    <div class="tscroll"><table><tr><th>Decision</th><th>Autonomous architecture</th><th>Unified architecture in the slides</th></tr>
+      <tr><td>Management</td><td>Each AP is configured and managed individually.</td><td>A Wireless LAN Controller (WLC) centrally manages lightweight APs (LAPs).</td></tr>
+      <tr><td>Forwarding</td><td>The AP bridges client data directly to the wired VLAN.</td><td>In central switching, the LAP tunnels client data to the WLC.</td></tr>
+      <tr><td>VLAN transport</td><td>Multiple SSIDs/VLANs normally require a trunk to the AP.</td><td>Client VLANs need not be trunked across the routed path between LAP and WLC; the WLC's switch connection carries the required VLANs.</td></tr>
+      <tr><td>Scaling</td><td>RF changes and roaming configuration become harder across many independent APs.</td><td>Central channel/power control, client management, and mobility coordination support larger deployments.</td></tr>
+    </table></div>
+    <p>With autonomous APs, extending the same SSID and VLAN across the roaming area resembles an end-to-end VLAN. The unified architecture carries the client traffic across the campus inside tunnels, so the client VLAN does not need to exist on every intermediate link.</p>
+
+    <h4>Split-MAC: divide the work</h4>
+    <p><b>Cisco Unified Wireless Network (CUWN)</b> splits the AP's duties. The LAP retains time-sensitive radio work: transmitting and receiving frames, beacons, probes, low-level media access, and wireless encryption. The WLC manages authentication, security policy, association/roaming information, RF channels, power, and QoS policy.</p>
+    <p><b>Control and Provisioning of Wireless Access Points (CAPWAP)</b> connects the LAP and WLC over IP. It follows the earlier Lightweight Access Point Protocol (LWAPP). The deck separates two logical tunnels:</p>
+    <div class="tscroll"><table><tr><th>Tunnel</th><th>Carries</th><th>Protection in the slide model</th></tr><tr><td><b>Control</b></td><td>Configuration and AP management messages</td><td>Authenticated and encrypted</td></tr><tr><td><b>Data</b></td><td>Wireless client traffic between LAP and WLC</td><td>Encryption is optional; Datagram Transport Layer Security (DTLS) can protect it.</td></tr></table></div>
+    <p>The deck describes certificate-based mutual authentication using <b>X.509 certificates</b>. Do not confuse encryption over the wireless link with encryption inside the CAPWAP data tunnel: they protect different segments of the path.</p>
+    <p>A controller can coordinate dynamic channel assignment, transmit power, coverage recovery, client load balancing, RF monitoring, security, and wireless intrusion protection.</p>
+
+    <h4>How a lightweight AP becomes ready</h4>
+    <ol class="steps"><li><b>Get an IP address</b> from DHCP.</li><li><b>Discover available controllers</b> and learn their addresses.</li><li><b>Join a controller.</b> The slide sequence tries a controller and proceeds to another if joining fails.</li><li><b>Match the software image.</b> If needed, download the controller-provided image and reboot.</li><li><b>Establish the secure controller relationship</b> and obtain operational configuration through CAPWAP.</li></ol>
+    <p>The slides describe a dependent, centrally switched LAP: loss of its controller can disrupt associated clients and trigger rediscovery. Exact recovery depends on AP mode and controller redundancy; do not treat that example as the behavior of every deployment.</p>
+
+    <h4>Trace client traffic before troubleshooting</h4>
+    <div class="tscroll"><table><tr><th>Situation</th><th>Data path</th></tr><tr><td>Autonomous AP → wired resource</td><td>Client → AP → switched campus</td></tr><tr><td>Centrally switched LAP → wired resource</td><td>Client → LAP → CAPWAP data tunnel → WLC → campus</td></tr><tr><td>Two clients, central switching</td><td>Client A → LAP → WLC → LAP → client B, including the slide's same-AP example</td></tr><tr><td>Exceptions mentioned in the deck</td><td>Direct Link Setup (DLS) can allow direct client communication; FlexConnect can forward selected traffic locally at the AP.</td></tr></table></div>
+    <p>If a client associates but cannot reach resources, follow the selected forwarding path. Check the client VLAN and address, the tunnel/controller where applicable, and onward routing.</p>
+
+    <h4>Roaming: what changes and what stays?</h4>
+    <p><b>Roaming</b> changes the client's AP association. Autonomous APs each maintain their own association records; the slides show the old AP forwarding leftover frames toward the new AP. A controller-based network centralizes client state and coordinates its transfer.</p>
+    <div class="tscroll"><table><tr><th>Roam</th><th>What changes</th><th>How the client is reached</th></tr><tr><td><b>Intracontroller</b></td><td>AP changes; WLC stays the same.</td><td>The WLC updates its association entry to the new LAP's CAPWAP tunnel.</td></tr><tr><td><b>Layer 2 intercontroller</b></td><td>AP and WLC change; the client subnet stays the same.</td><td>Client state moves to the new WLC. The client retains its IP address; the slides call this local-to-local.</td></tr><tr><td><b>Layer 3 intercontroller</b></td><td>The client moves to a WLC serving a different subnet.</td><td>An anchor/foreign relationship and mobility tunnel preserve the original client IP; the slides call this local-to-foreign.</td></tr></table></div>
+    <p>The slide examples quote under 10 ms for an intracontroller roam and under 20 ms for a Layer 2 intercontroller roam. These are cited platform claims, not guaranteed end-to-end outage times. Authentication, client support, and network conditions matter.</p>
+
+    <h4>Layer 3 roam: follow the same client IP</h4>
+    <p>In the supplied example, Client-1 starts at <b>192.168.100.199/24</b>. AP-1 serves the staff WLAN in <b>192.168.100.0/24</b>; AP-2's local subnet is <b>192.168.200.0/24</b>. Compare the association before and after movement.</p>
+    <div class="lesson-explorer" data-lesson-switch>
+      <div class="lesson-choices" role="group" aria-label="Layer 3 roaming stages"><button class="btn on" data-lesson-choice="roam-before" aria-controls="roam-before" aria-pressed="true">Before roaming</button><button class="btn" data-lesson-choice="roam-after" aria-controls="roam-after" aria-pressed="false">After roaming</button></div>
+      <div class="lesson-result" aria-live="polite"><div id="roam-before" data-lesson-panel><h5>Associated with AP-1</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 760 395" role="img" aria-label="Before roaming: client 192.168.100.199 at AP-1 and WLC-1">
+      <title>Layer 3 roaming: before movement</title>
+      <g class="lesson-wire"><path d="M274 115 H506 M274 290 H506"/></g>
+      <rect class="lesson-node" x="155" y="88" width="120" height="54" rx="9"/><rect class="lesson-node" x="155" y="263" width="120" height="54" rx="9"/>
+      <rect class="lesson-node" x="506" y="88" width="136" height="54" rx="9"/><rect class="lesson-node" x="506" y="263" width="136" height="54" rx="9"/>
+      <text x="215" y="122" text-anchor="middle">AP-1</text><text x="215" y="297" text-anchor="middle">AP-2</text><text x="574" y="122" text-anchor="middle">WLC-1</text><text x="574" y="297" text-anchor="middle">WLC-2</text>
+      <text x="215" y="46" text-anchor="middle">SSID Staff</text><text x="215" y="70" text-anchor="middle">192.168.100.0/24</text><text x="215" y="343" text-anchor="middle">SSID Staff</text><text x="215" y="367" text-anchor="middle">192.168.200.0/24</text>
+      <text x="574" y="65" text-anchor="middle">VLAN 100</text><text x="574" y="343" text-anchor="middle">VLAN 200</text>
+      <rect class="lesson-label" x="319" y="98" width="130" height="32" rx="4"/><text x="384" y="121" text-anchor="middle">CAPWAP</text><rect class="lesson-label" x="319" y="273" width="130" height="32" rx="4"/><text x="384" y="296" text-anchor="middle">CAPWAP</text>
+      <circle class="lesson-client" cx="70" cy="115" r="17"/><path class="lesson-active" d="M90 115 H150"/><text x="70" y="83" text-anchor="middle">Client-1</text>
+      <text x="215" y="205" text-anchor="middle" class="lesson-emphasis">Client IP: 192.168.100.199</text>
+    </svg><figcaption>Client-1 is associated with AP-1 through WLC-1. The client IP remains 192.168.100.199/24.</figcaption></figure><p>WLC-1 serves the client's original VLAN 100 and subnet. The client reaches the network through AP-1 and WLC-1.</p></div><div id="roam-after" data-lesson-panel hidden><h5>Associated with AP-2 · original address retained</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 760 395" role="img" aria-label="After roaming: client 192.168.100.199 at AP-2, WLC-2 foreign, WLC-1 anchor">
+      <title>Layer 3 roaming: after movement</title>
+      <g class="lesson-wire"><path d="M274 115 H506 M274 290 H506"/></g>
+      <rect class="lesson-node" x="155" y="88" width="120" height="54" rx="9"/><rect class="lesson-node" x="155" y="263" width="120" height="54" rx="9"/>
+      <rect class="lesson-node" x="506" y="88" width="136" height="54" rx="9"/><rect class="lesson-node" x="506" y="263" width="136" height="54" rx="9"/>
+      <text x="215" y="122" text-anchor="middle">AP-1</text><text x="215" y="297" text-anchor="middle">AP-2</text><text x="574" y="122" text-anchor="middle">WLC-1</text><text x="574" y="297" text-anchor="middle">WLC-2</text>
+      <text x="215" y="46" text-anchor="middle">SSID Staff</text><text x="215" y="70" text-anchor="middle">192.168.100.0/24</text><text x="215" y="343" text-anchor="middle">SSID Staff</text><text x="215" y="367" text-anchor="middle">192.168.200.0/24</text>
+      <text x="574" y="65" text-anchor="middle">Anchor · VLAN 100</text><text x="574" y="343" text-anchor="middle">Foreign · VLAN 200</text>
+      <rect class="lesson-label" x="319" y="98" width="130" height="32" rx="4"/><text x="384" y="121" text-anchor="middle">CAPWAP</text><rect class="lesson-label" x="319" y="273" width="130" height="32" rx="4"/><text x="384" y="296" text-anchor="middle">CAPWAP</text>
+      <circle class="lesson-client" cx="70" cy="290" r="17"/><path class="lesson-active" d="M90 290 H150"/><text x="70" y="258" text-anchor="middle">Client-1</text>
+      <text x="215" y="205" text-anchor="middle" class="lesson-emphasis">Client IP: 192.168.100.199</text><path class="lesson-active" d="M574 144 V259"/><text x="590" y="200">EoIP</text><text x="590" y="223">mobility tunnel</text>
+    </svg><figcaption>WLC-1 anchors the original subnet; WLC-2 is foreign. The client IP remains 192.168.100.199/24.</figcaption></figure><p><b>WLC-1 becomes the anchor controller; WLC-2 becomes the foreign controller.</b> Data travels via AP-2 and WLC-2, then through the mobility tunnel to WLC-1. Client-1 keeps <b>192.168.100.199</b>. The controller roles belong to WLCs, not to the APs.</p></div></div>
+    </div>
+    <p>The supplied architecture uses an <b>Ethernet over IP (EoIP)</b> tunnel between controllers. The original anchor remains tied to the client's subnet across subsequent controller roams. A configured guest anchor can also force a WLAN to use a particular controller. Tunnel details vary across controller generations.</p>
+
+    <h4>Fast authentication and mobility groups</h4>
+    <p>Association is only part of a roam. Authentication-server exchanges and key negotiation can add delay. These techniques reduce repeated work when both client and infrastructure support them:</p>
+    <div class="tscroll"><table><tr><th>Method</th><th>What to remember</th></tr><tr><td><b>CCKM</b><br>Cisco Centralized Key Management</td><td>Central management of client key information; the slide model requires compatible Cisco client extensions (CCX).</td></tr><tr><td><b>PKC / OKC</b><br>Proactive / Opportunistic Key Caching</td><td>Reuse cached master-key material across compatible APs so roaming can avoid a full authentication-server exchange.</td></tr><tr><td><b>802.11r / FT</b><br>Fast BSS Transition</td><td>A standardized fast transition mechanism using a key hierarchy; it requires compatible client and WLAN support.</td></tr></table></div>
+    <p class="sub2">Terminology correction: the slide's “previous APs / eight entries” description matches Sticky Key Caching (SKC), not a universal PKC limit. Cisco distinguishes these mechanisms in its <a href="https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/116493-technote-technology-00.html" target="_blank" rel="noopener">fast-secure roaming explanation</a>.</p>
+    <p>A <b>mobility group</b> organizes cooperating controllers for client-state exchange and roaming. The slides describe a mobility list containing controller MAC addresses and group names: trust is configured, not inferred merely because controllers share a network. Same-group operation helps coordinated roaming; different groups can reduce the available optimizations.</p>
+    <details class="lesson-check"><summary>Check yourself: a client crosses into another controller's subnet. Must it obtain a new IP?</summary><div class="dbody"><p>Not in the Layer 3 mobility example. The foreign controller tunnels traffic back to the anchor so the client keeps its original IP and sessions. Both Layer 2 and this Layer 3 roaming mechanism can preserve the client IP; distinguish them by the subnet relationship and forwarding path.</p></div></details>
+    <div class="box trap"><b>Exam distinctions</b>SSID is a name; VLAN is a wired broadcast domain. A LAP is not a WLC. CAPWAP connects AP and controller; the illustrated mobility tunnel connects controllers. Layer 3 roaming can preserve an IP address even though the client has moved to a different local subnet.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t18"><span> mark done</span></label><button class="btn" data-drill="18">drill cards →</button></div>
+  </article>
+
 </div></section>
 
 <!-- ============ LABS ============ -->
@@ -4050,6 +4340,27 @@ show ip ssh
 show port-security interface Fa0/1</pre></div></details>
   </div>
 
+  <div class="panel">
+    <div class="ph"><h2>DHCP, campus design &amp; WLAN</h2></div>
+    <details><summary>DHCP and SLAAC quick reference</summary><div class="dbody"><p><b>DORA:</b> Discover → Offer → Request → ACK. UDP server 67 / client 68. Use one matching pool per client subnet; exclude fixed addresses before allocating leases.</p><pre>ip dhcp excluded-address start-ip [end-ip]
+ip dhcp pool pool-name
+ network subnet-id subnet-mask
+ default-router gateway-ip
+ dns-server dns-ip
+ lease 1
+ exit
+
+<span class="c">! Relay example: client-facing interface</span>
+interface vlan 10
+ ip address 10.1.10.1 255.255.255.0
+ ip helper-address 20.5.5.5
+
+<span class="c">! Verify on the DHCP server</span>
+show ip dhcp binding</pre><p>Replace placeholders in the pool pattern. The concrete relay example needs a remote pool for 10.1.10.0/24 and working routing. For IPv6 SLAAC, advertise an autonomous prefix; the deck clears the M/O flags with <code>no ipv6 nd managed-config-flag</code> and <code>no ipv6 nd other-config-flag</code>.</p><button class="btn" data-goto="t16">Open the DHCP lesson</button></div></details>
+    <details><summary>Campus design decisions</summary><div class="dbody"><p><b>Access:</b> endpoints and VLAN membership. <b>Distribution:</b> aggregation, routing boundary, policy. <b>Core:</b> efficient resilient backbone. A <b>switch block</b> is access plus distribution.</p><p>Use two upstream devices and redundant links; know which links are Layer 2 and Layer 3. Keep VLANs within the intended block. Routed access moves the routing boundary downward; a collapsed core combines distribution/core roles. Size by traffic and failure conditions, not only user count.</p><button class="btn" data-goto="t17">Compare the designs</button></div></details>
+    <details><summary>Wireless architecture and roaming</summary><div class="dbody"><p><b>IBSS:</b> ad hoc. <b>BSS:</b> AP plus clients. <b>ESS:</b> connected BSSs. <b>SSID:</b> network name. A PHY rate is not actual throughput.</p><p><b>Split-MAC:</b> LAP handles real-time radio work; WLC handles central management. CAPWAP control is protected; data-tunnel encryption is optional in the deck. Centrally switched traffic passes through the WLC.</p><p><b>Intracontroller:</b> same WLC, new AP tunnel. <b>Layer 2 intercontroller:</b> new WLC, same subnet. <b>Layer 3 intercontroller:</b> new local subnet, anchor/foreign tunnel preserves the original client IP. CCKM, PKC/OKC, and 802.11r reduce repeated authentication work with compatible support.</p><button class="btn" data-goto="t18">Follow the roaming example</button></div></details>
+  </div>
+
   <div class="panel pa">
     <div class="ph"><h2 data-th="วิธีทำข้อสอบในห้องสอบ">Exam-day method</h2></div>
     <ul class="pts">
@@ -4110,6 +4421,36 @@ show port-security interface Fa0/1</pre></div></details>
     <tr><td class="mono ok">IOS / IOU</td><td>Internetwork OS / IOS on Unix</td><td>Switch OS / virtual image for GNS3</td></tr>
     <tr><td class="mono ok">QoS / HA</td><td>Quality of Service / High Availability</td><td>Priority traffic / survive failures</td></tr>
     <tr><td class="mono ok">err-disable</td><td>error-disabled</td><td>Port shut by a protection feature</td></tr>
+    <tr><td class="mono ok">DHCP</td><td>Dynamic Host Configuration Protocol</td><td>Leases IP addresses and supplies host configuration.</td></tr>
+    <tr><td class="mono ok">DORA</td><td>Discover, Offer, Request, Acknowledge</td><td>The initial DHCP lease exchange.</td></tr>
+    <tr><td class="mono ok">DNS</td><td>Domain Name System</td><td>Resolves names to addresses and other records.</td></tr>
+    <tr><td class="mono ok">UDP</td><td>User Datagram Protocol</td><td>Transport used by DHCP: server port 67, client port 68.</td></tr>
+    <tr><td class="mono ok">RA</td><td>Router Advertisement</td><td>IPv6 router message containing prefixes and configuration indicators.</td></tr>
+    <tr><td class="mono ok">WLAN</td><td>Wireless Local Area Network</td><td>A LAN using radio links, including IEEE 802.11.</td></tr>
+    <tr><td class="mono ok">AP / LAP</td><td>Access Point / Lightweight Access Point</td><td>Connects wireless stations; a LAP uses a controller in the unified model.</td></tr>
+    <tr><td class="mono ok">WLC</td><td>Wireless LAN Controller</td><td>Central AP management, policy, and client state.</td></tr>
+    <tr><td class="mono ok">CUWN</td><td>Cisco Unified Wireless Network</td><td>The controller-based architecture studied in Topic 18.</td></tr>
+    <tr><td class="mono ok">IBSS</td><td>Independent Basic Service Set</td><td>Ad hoc stations communicating without an AP.</td></tr>
+    <tr><td class="mono ok">BSS / ESS</td><td>Basic / Extended Service Set</td><td>An infrastructure AP cell / connected BSSs through a distribution system.</td></tr>
+    <tr><td class="mono ok">SSID</td><td>Service Set Identifier</td><td>Wireless network name mapped to a VLAN by configuration.</td></tr>
+    <tr><td class="mono ok">BSSID</td><td>Basic Service Set Identifier</td><td>48-bit identifier of a BSS; different from a 6-bit BSS color.</td></tr>
+    <tr><td class="mono ok">DS</td><td>Distribution System</td><td>Connects infrastructure BSSs in the wireless architecture.</td></tr>
+    <tr><td class="mono ok">RF</td><td>Radio Frequency</td><td>The radio medium used by wireless devices.</td></tr>
+    <tr><td class="mono ok">CSMA/CA</td><td>Carrier Sense Multiple Access with Collision Avoidance</td><td>Listen and use backoff to reduce collisions on shared airtime.</td></tr>
+    <tr><td class="mono ok">DCF / DIFS</td><td>Distributed Coordination Function / DCF Interframe Space</td><td>Basic contention mechanism and its interframe waiting interval.</td></tr>
+    <tr><td class="mono ok">PHY</td><td>Physical layer</td><td>Signaling rate is a theoretical rate, not application throughput.</td></tr>
+    <tr><td class="mono ok">MIMO</td><td>Multiple Input, Multiple Output</td><td>Multiple spatial streams; SU is single-user and MU is multi-user.</td></tr>
+    <tr><td class="mono ok">CAPWAP</td><td>Control and Provisioning of Wireless Access Points</td><td>Control and data tunnels between LAP and WLC.</td></tr>
+    <tr><td class="mono ok">LWAPP</td><td>Lightweight Access Point Protocol</td><td>Earlier AP/controller protocol preceding CAPWAP.</td></tr>
+    <tr><td class="mono ok">DTLS</td><td>Datagram Transport Layer Security</td><td>Protects datagram communication; optional CAPWAP data protection in the deck.</td></tr>
+    <tr><td class="mono ok">DLS</td><td>Direct Link Setup</td><td>A supported exception allowing direct wireless client communication.</td></tr>
+    <tr><td class="mono ok">EoIP</td><td>Ethernet over IP</td><td>Controller mobility tunnel in the supplied Layer 3 roaming example.</td></tr>
+    <tr><td class="mono ok">CCKM</td><td>Cisco Centralized Key Management</td><td>Cisco mechanism for fast secure roaming.</td></tr>
+    <tr><td class="mono ok">CCX</td><td>Cisco Compatible Extensions</td><td>Client compatibility extensions used by the deck&#x27;s CCKM model.</td></tr>
+    <tr><td class="mono ok">PKC / OKC</td><td>Proactive / Opportunistic Key Caching</td><td>Reuses cached key material across compatible APs during roaming.</td></tr>
+    <tr><td class="mono ok">SKC</td><td>Sticky Key Caching</td><td>Caches keys for previously visited APs; distinct from PKC/OKC.</td></tr>
+    <tr><td class="mono ok">FT</td><td>Fast BSS Transition</td><td>IEEE 802.11r mechanism for fast secure transitions.</td></tr>
+    <tr><td class="mono ok">RADIUS</td><td>Remote Authentication Dial-In User Service</td><td>Authentication service whose exchanges can contribute to roaming delay.</td></tr>
   </table></div></div>
 </div></section>
 
@@ -4133,16 +4474,16 @@ show port-security interface Fa0/1</pre></div></details>
     <div class="ph"><h2 data-th="เกี่ยวกับงานชิ้นนี้">Build inventory</h2><span class="badge am right">offline-capable</span></div>
     <p style="margin-top:6px">A focused single-page workspace for switching, routing, redundancy, addressing, and service configuration. Progress is kept locally in the browser.</p>
     <div class="buildgrid">
-      <div class="bstat"><b id="bs1">16</b><span>Topics</span></div>
+      <div class="bstat"><b id="bs1">19</b><span>Topics</span></div>
       <div class="bstat"><b id="bs2">13</b><span>Labs mapped</span></div>
-      <div class="bstat"><b id="bs3">151</b><span>Flashcards</span></div>
-      <div class="bstat"><b id="bs4">87</b><span>Practice items</span></div>
+      <div class="bstat"><b id="bs3">196</b><span>Flashcards</span></div>
+      <div class="bstat"><b id="bs4">111</b><span>Practice items</span></div>
       <div class="bstat"><b id="bs5">1</b><span>HTML app</span></div>
       <div class="bstat"><b id="bs6">0</b><span>Frameworks</span></div>
     </div>
     <h4 data-th="ทำอะไรได้บ้าง">What it does</h4>
     <ul class="pts">
-      <li>Connects 16 technical topics with the complete LAB 01–LAB 13 sequence.</li>
+      <li>Connects 19 technical topics with the complete LAB 01–LAB 13 sequence.</li>
       <li>Preserves topology, addressing, VLANs, interface mappings, protocol values, IOS order, expected results, and troubleshooting notes.</li>
       <li>Includes an interactive STP simulator with verified scenarios across LAB 07–LAB 09.</li>
       <li>Provides flashcards, practice questions, command recall, and generators for EUI-64, bridge election, and protocol modes.</li>
@@ -4175,7 +4516,7 @@ show port-security interface Fa0/1</pre></div></details>
     <button data-tabgo="cheat">Cheatsheet</button><button data-tabgo="terms">Terms</button>
     <button data-tabgo="author">About</button><button id="fHelp">Shortcuts</button>
   </div>
-  // 16 technical topics · 13 original-numbered labs · 151 cards · 87 practice questions<br>
+  // 19 technical topics · 13 original-numbered labs · 196 cards · 111 practice questions<br>
   NETDES study console · built for repeatable configuration and verification
 </div>
 <script>
@@ -4198,8 +4539,11 @@ var TOPICS={
  "12":["Loop Guard & UDLD","missing BPDUs"],
  "13":["Rapid STP","roles, handshake"],
  "14":["RSTP Changes","vs 802.1D"],
- "15":["MST","instances, regions"]};
-var TORDER=["01","02","03","04","05","06","07","08","09","10","10B","11","12","13","14","15"];
+ "15":["MST","instances, regions"],
+ "16":["DHCP & Relay","DORA, pools, helpers, SLAAC"],
+ "17":["Enterprise Campus Design","hierarchy, switch blocks, resilient core"],
+ "18":["Integrating WLAN","cells, CAPWAP, controllers, roaming"]};
+var TORDER=["01","02","03","04","05","06","07","08","09","10","10B","11","12","13","14","15","16","17","18"];
 
 var LABS={
  "L01":["Basic Switch","SSH, port security","03"],
@@ -4214,7 +4558,7 @@ var LABS={
  "L10":["STP Changes","PortFast proof","11"],
  "L11":["Rapid STP","802.1w vs 802.1D","13"],
  "L12":["MST","regions and instances","15"],
- "L13":["DHCP","pools, exclusions, SLAAC","08"]};
+ "L13":["DHCP","pools, exclusions, SLAAC","16"]};
 
 var CARDS=[];function C(t,q,a){CARDS.push({t:t,q:q,a:a})}
 C("01","The 3 layers of the Cisco campus model?","Access, Distribution, Core.");
@@ -4370,6 +4714,52 @@ C("10B","How does the root bridge answer an RLQ?","It sends an RLQ Reply (RLQ R)
 C("10B","RLQ R arrives on the ROOT port — what happens?","The tree is unchanged; only the port that received the inferior BPDU moves to Listening.");
 C("10B","RLQ R arrives on a BLOCKED port — what happens?","Both the blocked port and the inferior-BPDU port move to Listening; the election decides which becomes root port.");
 
+C("16","What does DHCP provide besides an IPv4 address?","A subnet mask, default gateway, DNS servers, and other configured options.");
+C("16","Expand DORA in order.","Discover, Offer, Request, Acknowledge.");
+C("16","DHCP server and client UDP ports?","Server: 67. Client: 68.");
+C("16","Initial DHCPDISCOVER source and destination IPs?","0.0.0.0 to 255.255.255.255 in the local broadcast domain.");
+C("16","Does a DHCPOFFER finish the lease process?","No. The client requests a selected offer and the server acknowledges it.");
+C("16","Can every DHCP message be assumed to be broadcast?","No. The slides show a broadcast example; replies and renewals can use unicast depending on state and flags.");
+C("16","Correct IOS command to protect fixed addresses from allocation?","ip dhcp excluded-address start-ip [end-ip]. Both endpoints are included.");
+C("16","Does an excluded address create a reservation for a specific client?","No. It prevents dynamic allocation; it does not create a client binding.");
+C("16","What does default-router mean inside a DHCP pool?","The default gateway delivered to clients, not necessarily the DHCP server.");
+C("16","Where does ip helper-address belong?","On the client-facing Layer 3 interface that receives DHCP broadcasts.");
+C("16","Which show command verifies DHCP leases on the server?","show ip dhcp binding.");
+C("16","IPv6 RA M and O flags indicate what?","M: managed address configuration through DHCPv6. O: other configuration through DHCPv6. The slide's SLAAC-only setup clears both.");
+C("17","What is a switch block?","Access switches together with their distribution switches; the block connects to the campus core.");
+C("17","Why use a hierarchical campus design?","Separate roles, keep traffic paths predictable, support growth, and plan recovery from failures.");
+C("17","What should drive access-switch selection?","Port density and cost, user functions, uplink capacity, and resilient upstream connectivity.");
+C("17","Usual policy and inter-VLAN routing boundary in the campus model?","Distribution. It aggregates access traffic and applies security and QoS policy.");
+C("17","Why keep the core simple?","It carries aggregate campus traffic, so unnecessary packet manipulation can reduce forwarding efficiency.");
+C("17","Local, remote, and enterprise service paths in the slides?","Local: access. Remote within the block: access to distribution. Enterprise: access to distribution to core.");
+C("17","Where should VLANs and broadcasts end in a conventional switch block?","At the distribution Layer 3 boundary; STP stays within the block.");
+C("17","Do two uplinks to one upstream switch remove its failure risk?","No. The device is still a single point of failure; use distinct redundant upstream devices.");
+C("17","What is the benefit of a VLAN local to one access switch?","A smaller Layer 2 domain and fewer links over which that VLAN must be carried.");
+C("17","What changes with routed access?","Layer 3 moves to access; routed uplinks use routing convergence and can load-balance over equal-cost paths.");
+C("17","Is 2,000 users per switch block a protocol limit?","No. It is the slides' historical guideline. Traffic, capacity, policy load, and domain size determine actual sizing.");
+C("17","Two signs a switch block is too large?","Distribution becomes a forwarding or policy bottleneck; broadcast/multicast traffic slows the block.");
+C("17","Collapsed core versus dual core?","Collapsed core combines distribution and core roles. Dual core provides two core devices; collapsing roles need not remove redundancy.");
+C("18","Expand CSMA/CA and explain its purpose.","Carrier Sense Multiple Access with Collision Avoidance: listen and use backoff to reduce collisions on shared airtime.");
+C("18","What happens to backoff when the wireless medium becomes busy?","Pause the countdown; resume after the channel is idle and the required interframe interval has passed.");
+C("18","IBSS versus infrastructure BSS versus ESS?","IBSS: ad hoc peers. BSS: an AP and associated stations. ESS: connected infrastructure BSSs through a distribution system.");
+C("18","SSID versus VLAN?","SSID names a wireless network. VLAN identifies a wired broadcast domain. Configuration maps their traffic.");
+C("18","Why does maximum AP power not automatically maximize capacity?","A large cell can put too many clients on the same shared airtime.");
+C("18","What is BSS coloring?","A Wi-Fi 6 feature using a 6-bit PHY identifier to distinguish BSSs and support conditional spatial reuse.");
+C("18","Does a different BSS color allow unconditional transmission?","No. Signal strength and channel-access rules still apply; color is not a security mechanism.");
+C("18","Which Wi-Fi generation in the deck extends 802.11ax to 6 GHz?","Wi-Fi 6E. The deck lists 2.4, 5, and 6 GHz support.");
+C("18","Is a maximum PHY rate the same as application throughput?","No. It is a theoretical signaling rate; contention, overhead, signal conditions, and capabilities reduce useful throughput.");
+C("18","Autonomous AP versus lightweight AP?","Autonomous APs manage and bridge locally. In the slide's unified model, LAPs depend on a WLC for central management and forwarding.");
+C("18","What stays at the LAP in split-MAC?","Time-sensitive radio/MAC operations, frames, beacons/probes, and wireless encryption. The WLC handles central management and policy.");
+C("18","Expand CAPWAP and name its two logical tunnels.","Control and Provisioning of Wireless Access Points. Control carries management; data carries client traffic.");
+C("18","CAPWAP control versus data encryption in the deck?","Control is authenticated and encrypted. Data encryption is optional using DTLS; radio encryption is a separate segment.");
+C("18","Must client VLANs be trunked across the entire LAP-to-WLC path?","No in the centrally switched model: CAPWAP carries them over IP. The WLC switch connection must carry the required client VLANs.");
+C("18","Five stages of LAP startup in the slides?","Obtain an IP, discover WLCs, join, match/download the software image if needed, then establish secure CAPWAP operation.");
+C("18","Same-AP client traffic under central switching goes where?","Through the LAP to the WLC and back, unless an applicable direct-link or local-switching exception is configured.");
+C("18","Intracontroller roaming changes which mapping?","The same controller updates the client association to the new AP's CAPWAP tunnel.");
+C("18","Layer 2 versus Layer 3 intercontroller roaming?","Layer 2 retains the same client subnet. Layer 3 crosses local subnets and uses an anchor/foreign tunnel to retain the original client IP.");
+C("18","Which devices are anchor and foreign in the supplied Layer 3 roam?","WLC-1 is the anchor and WLC-2 is the foreign controller. The APs are not the controllers. Client-1 keeps 192.168.100.199.");
+C("18","Why use fast-roaming methods and mobility groups?","Compatible CCKM, PKC/OKC, or 802.11r reduce authentication work; mobility groups coordinate trusted controllers and client state.");
+
 var QB=[];function Q(t,q,o,a,w){QB.push({t:t,q:q,o:o,a:a,w:w})}
 Q("01","Which layer connects PCs and phones?",["Access","Distribution","Core","Spine"],0,"Access = user-facing ports.");
 Q("02","Correct short form of 2001:0DB8:0000:0000:0000:0000:0000:0001?",["2001:DB8::1","2001:DB8:::1","2001:DB8::0::1","2001:0DB8::::1"],0,"Drop leading zeros, one :: only.");
@@ -4459,6 +4849,31 @@ Q("10B","BackboneFast eliminates which timer?",["Max Age (20 s)","Forward Delay"
 Q("10B","What triggers BackboneFast?",["An inferior BPDU","A superior BPDU","Missing BPDUs","A link going down"],0,"Superior = Root Guard, missing = Loop Guard.");
 Q("10B","RLQ stands for?",["Root Link Query","Rapid Link Queue","Root Loop Quench","Redundant Link Query"],0,"It asks upstream whether the root is still reachable.");
 Q("10B","With BackboneFast, indirect-failure recovery drops from 52 s to about?",["30 s","0 s","20 s","6 s"],0,"Max Age is skipped, but Listening + Learning remain.");
+
+Q("16","A new client receives offers from two DHCP servers. Which message identifies its selected offer?",["DHCPACK", "DHCPREQUEST", "DHCPDISCOVER", "Router Advertisement"],1,"The selecting client broadcasts DHCPREQUEST identifying its chosen server/offer. ACK comes from the selected server.");
+Q("16","A new client's DHCPDISCOVER uses which UDP ports?",["67 to 68", "68 to 68", "68 to 67", "53 to 67"],2,"The DHCP client uses UDP 68 and the server listens on UDP 67.");
+Q("16","Which command excludes .1 through .20 inclusive from dynamic allocation?",["ip dhcp excluded-address 10.1.10.1 10.1.10.20", "ip dhcp exclude-address 10.1.10.1 10.1.10.20", "default-router 10.1.10.20", "network 10.1.10.1 10.1.10.20"],0,"The IOS keyword is excluded-address. An exclusion range includes both endpoints.");
+Q("16","Clients in VLAN 10 use gateway 10.1.10.1; their server is 20.5.5.5. Where should the relay be configured?",["Only on each client's Ethernet port", "Only inside the DHCP pool", "On an unrelated management VLAN", "On interface vlan 10 with helper 20.5.5.5"],3,"The client-facing Layer 3 interface receives the broadcast and relays it to the remote server.");
+Q("16","The remote server receives a relayed request for VLAN 10, subnet 10.1.10.0/24. Which pool gateway is appropriate?",["20.5.5.5 because it runs DHCP", "10.1.10.1, the client gateway", "255.255.255.255", "Any server interface"],1,"default-router is the gateway delivered to clients. It must be appropriate for their subnet.");
+Q("16","A client can reach remote IP addresses but cannot resolve names after leasing. Which delivered setting should you check first?",["STP priority", "VTP revision", "DNS server", "MST region name"],2,"Working routed IP connectivity with failing names points toward DNS configuration or reachability.");
+Q("16","Which command checks allocated DHCP bindings on the server?",["show ip dhcp binding", "show spanning-tree root", "show vtp status", "show interface trunk"],0,"A binding associates a leased IP with a DHCP client.");
+Q("16","An IPv6 interface clears managed-config-flag and other-config-flag in the SLAAC example. What does that imply?",["IPv6 is disabled", "Every host must use stateful DHCPv6", "IPv4 DHCP stops working", "RA flags do not request DHCPv6 address or other configuration"],3,"These are the M and O indicators. SLAAC also relies on a suitable autonomous prefix advertisement; IPv4 DHCP is separate.");
+Q("17","Which devices make up a switch block?",["Only the core routers", "Access switches and their distribution switches", "Every server in the data center", "Only the wireless clients"],1,"The modular campus model groups access and distribution into blocks that connect to a core.");
+Q("17","Where is the usual policy and inter-VLAN routing boundary in the conventional campus model?",["At every end host", "Only in the core", "Distribution", "Inside each Ethernet cable"],2,"Distribution aggregates access traffic and applies Layer 3 routing and policy.");
+Q("17","An access switch has two cables to one distribution switch. Which failure remains unprotected?",["Failure of that distribution device", "Either individual cable failing", "A single unused access port failing", "One cable being unplugged while the other is usable"],0,"Link redundancy does not provide device redundancy. A second upstream switch removes that single device failure point.");
+Q("17","Why avoid unnecessary packet filtering in the core of this model?",["The core carries no IP traffic", "Filtering is impossible on core hardware", "VLANs require every packet to be broadcast", "The core should forward aggregate traffic efficiently"],3,"Keep the backbone simple and fast; apply the usual security/policy functions at distribution.");
+Q("17","What changes when the Layer 3 boundary moves to access?",["Every access uplink must be blocked by STP", "Routed uplinks can use routing convergence and equal-cost paths", "The core becomes a hub", "Every campus VLAN must span every access switch"],1,"Routed access replaces the Layer 2 uplink domain with Layer 3 forwarding.");
+Q("17","Distribution CPU and inter-VLAN traffic become a bottleneck as a block grows. What is the design implication?",["Add access ports without checking uplinks", "Extend every VLAN campus-wide", "Reassess capacity and split or resize the block", "Disable all redundancy"],2,"Size by traffic and processing capacity. Adding users can worsen the distribution bottleneck.");
+Q("17","What is a collapsed core?",["Combined distribution and core functions on the same devices", "A failed core switch", "A network with no Layer 3 routing", "A mandatory single-switch design"],0,"A smaller campus may combine roles while keeping a redundant pair of devices.");
+Q("17","How should the slide's roughly 2,000-user switch-block figure be understood?",["An Ethernet address limit", "An absolute STP protocol limit", "A requirement for every access switch", "A historical guideline subordinate to traffic and capacity"],3,"Actual sizing depends on workgroups, traffic, policy processing, geography, and broadcast/STP domain size.");
+Q("18","A station is counting down backoff when another station transmits. What happens?",["It transmits immediately at higher power", "It pauses and resumes after the required idle interval", "It switches to full-duplex Ethernet", "It permanently gives up its association"],1,"Shared-medium access requires deferring while the channel is busy. Avoidance reduces collisions rather than eliminating them.");
+Q("18","Which describes an IBSS?",["A controller-to-controller tunnel", "An 802.1Q trunk", "An ad hoc group of stations without an AP", "A DHCP address pool"],2,"Independent Basic Service Set is the ad hoc service-set model.");
+Q("18","A Wi-Fi 6 station detects a weak transmission with a different BSS color. What can coloring help it decide?",["Whether conditional spatial reuse is possible", "Whether to skip all channel-access rules", "Which DHCP gateway password to use", "Whether the transmission is cryptographically trusted"],0,"Color identifies a BSS. Signal strength and channel-access rules still control spatial reuse.");
+Q("18","In split-MAC, which job stays with the lightweight AP?",["All campus routing policy", "The entire controller mobility database", "Choosing policies for every controller", "Time-sensitive radio/MAC frame operations"],3,"The LAP performs real-time wireless functions; the controller manages centralized policy and coordination.");
+Q("18","In the slides' centrally switched WLAN, must a client VLAN exist on every link between LAP and WLC?",["Yes, every intermediate link must be its Layer 2 trunk", "No, CAPWAP carries client traffic across the IP path", "Only if the client has an IPv4 address", "No VLAN is needed at the WLC either"],1,"The IP underlay transports CAPWAP. The WLC still needs the proper client VLAN connection to the campus.");
+Q("18","Client-1 roams from AP-1/WLC-1 to AP-2/WLC-2 in a different subnet. Which statement matches the supplied Layer 3 example?",["AP-1 becomes a controller", "The client must use 192.168.200.199", "WLC-1 anchors the original IP; WLC-2 tunnels as foreign", "The client stops using any IP address"],2,"The controller mobility tunnel preserves 192.168.100.199. Anchor and foreign are WLC roles.");
+Q("18","What changes in an intracontroller roam?",["The controller maps the client to a new LAP tunnel", "The client necessarily gets a new subnet", "Both controllers exchange their hardware", "The AP stops using 802.11"],0,"The WLC stays the same and updates its client association information.");
+Q("18","Which accurately describes the fast-roaming material?",["Every PKC implementation is limited to eight APs", "BSS coloring replaces authentication", "A mobility group removes the need for client compatibility", "Compatible key-management methods reduce repeated authentication work"],3,"CCKM, PKC/OKC, and 802.11r depend on compatible support. The eight-AP cache example belongs to SKC, not a universal PKC limit.");
 
 var SC={
  l8v1:{crown:"SW1",dash:["L2","L5"],pr:["32769","32769","32769","32769"],
@@ -5355,7 +5770,12 @@ function boom(){
     ["OSPFv3 on an interface, area 0, with router-id","ipv6 router ospf 1\n router-id 1.1.1.1\ninterface Fa0/0\n ipv6 ospf 1 area 0"],
     ["Show which ports STP has put in an inconsistent state","show spanning-tree inconsistentports"],
     ["Show the root bridge for every VLAN","show spanning-tree root"],
-    ["Show all trunk links","show interface trunk"]
+    ["Show all trunk links","show interface trunk"],
+    ["Exclude the gateway range 10.1.10.1 through 10.1.10.20 from DHCP", "ip dhcp excluded-address 10.1.10.1 10.1.10.20"],
+    ["Create DHCP pool vlan10 for 10.1.10.0/24, gateway 10.1.10.1", "ip dhcp pool vlan10\n network 10.1.10.0 255.255.255.0\n default-router 10.1.10.1"],
+    ["Relay VLAN 10 DHCP requests to server 20.5.5.5", "interface vlan 10\n ip helper-address 20.5.5.5"],
+    ["Show allocated DHCP leases on the server", "show ip dhcp binding"],
+    ["Clear the DHCPv6 M and O flags on VLAN 10 for the SLAAC-only example", "interface vlan 10\n no ipv6 nd managed-config-flag\n no ipv6 nd other-config-flag"]
   ];
   var ci=-1,shown=false;
   function cmdNext(){
@@ -5381,7 +5801,7 @@ function boom(){
       "20-question timed exam, then review every miss"]},
     sweep:{name:"FULL SWEEP · 90 min",steps:[
       "Blueprint tab — read the problem→solution chain out loud",
-      "Skim all 16 topic summaries and analogies",
+      "Skim all 19 topic summaries and analogies",
       "Cheatsheet: memorise the numbers table",
       "Mode matcher — all three protocols, every combination",
       "EUI-64 generator — 5 correct in a row",
@@ -5534,10 +5954,29 @@ function boom(){
   if(fh)fh.addEventListener("click",function(){document.getElementById("keys").classList.add("on")});
 })();
 
+/* ============ CONNECTED LESSON EXPLORERS ============ */
+(function(){
+  document.querySelectorAll("[data-lesson-switch]").forEach(function(explorer){
+    var choices=explorer.querySelectorAll("[data-lesson-choice]");
+    var panels=explorer.querySelectorAll("[data-lesson-panel]");
+    choices.forEach(function(button){
+      button.addEventListener("click",function(){
+        var target=button.dataset.lessonChoice;
+        choices.forEach(function(choice){
+          var selected=choice===button;
+          choice.classList.toggle("on",selected);
+          choice.setAttribute("aria-pressed",String(selected));
+        });
+        panels.forEach(function(panel){panel.hidden=panel.id!==target});
+      });
+    });
+  });
+})();
+
 /* ============ SEARCH PALETTE ============ */
 (function(){
   var SECT=[["home","Home","overview and progress"],["blueprint","Blueprint","the whole system as one network"],
-    ["flow","Flow","prepare, configure, verify, troubleshoot"],["notes","Topics","16 technical topics"],
+    ["flow","Flow","prepare, configure, verify, troubleshoot"],["notes","Topics","19 technical topics"],
     ["labs","Labs","LAB 01 through LAB 13"],["drills","Drills","flashcards and generators"],
     ["intensive","Practice","timed practice and trainers"],["cheat","Cheatsheet","numbers and tables"],
     ["terms","Terms","acronym glossary"],["author","About","about NETDES"]];
