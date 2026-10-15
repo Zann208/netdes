@@ -210,21 +210,21 @@ for (const id of expectedLabs) {
 
 const cardCount = (html.match(/^C\(/gm) || []).length;
 const questionCount = (html.match(/^Q\(/gm) || []).length;
-check(cardCount === 196, "expected 196 flashcards, found " + cardCount);
-check(questionCount === 111, "expected 111 practice questions, found " + questionCount);
+check(cardCount === 262, "expected 262 flashcards, found " + cardCount);
+check(questionCount === 151, "expected 151 practice questions, found " + questionCount);
 for (const fragment of [
-  "<b>19</b><span>Topics</span>",
+  "<b>24</b><span>Topics</span>",
   "<b>13</b><span>Labs</span>",
-  "<b>196</b><span>Cards</span>",
-  "<b>111</b><span>Practice Qs</span>",
-  'id="vTop">0/19',
+  "<b>262</b><span>Cards</span>",
+  "<b>151</b><span>Practice Qs</span>",
+  'id="vTop">0/24',
   'id="vLab">0/13',
 ]) {
   check(html.includes(fragment), "home fallback count missing: " + fragment);
 }
 
 // Every lesson must be reachable, trackable, and represented in both practice banks.
-const expectedTopics = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "10B", "11", "12", "13", "14", "15", "16", "17", "18"];
+const expectedTopics = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "10B", "11", "12", "13", "14", "15", "16", "17", "18", "18B", "19", "20", "21", "22"];
 const topicSource = html.match(/var TOPICS=(\{[\s\S]*?\});/);
 const orderSource = html.match(/var TORDER=(\[[\s\S]*?\]);/);
 check(Boolean(topicSource && orderSource), "topic data or order is missing");
@@ -250,7 +250,7 @@ if (topicSource && orderSource) {
     check(html.includes('data-drill="' + key + '"'), "topic drill link is missing: " + key);
     for (const kind of ["C", "Q"]) check(banks[kind].some((entry) => entry[0] === key), "topic has no " + kind + " practice: " + key);
   }
-  for (const [key, count] of [["16", 12], ["17", 13], ["18", 20]]) {
+  for (const [key, count] of [["16", 12], ["17", 13], ["18", 20], ["18B", 12], ["19", 12], ["20", 16], ["21", 16], ["22", 10]]) {
     check(banks.C.filter((entry) => entry[0] === key).length === count, "new topic card coverage is incomplete: " + key);
     check(banks.Q.filter((entry) => entry[0] === key).length === 8, "new topic scenario coverage is incomplete: " + key);
   }
@@ -260,6 +260,49 @@ for (const target of matches(/data-lesson-choice="([a-z-]+)"/g)) {
   check(html.includes('aria-controls="' + target + '"'), "lesson explorer has no accessible control relationship: " + target);
 }
 check(html.includes('"L13":["DHCP","pools, exclusions, SLAAC","16"]'), "DHCP lab does not link to its new topic");
+
+// Topics 18B–22: technical anchors that must survive future edits.
+const topicAnchors = {
+  t18B: ["standby 1 ip 10.1.1.1", "standby 1 priority 110", "10.1.1.129", "0000.0C07.ACxx", "0000.0C9F.Fxxx", "224.0.0.102", "gratuitous ARP", "preempt"],
+  t19: ["StackWise", "VSS", "RPR+", "SSO", "Nonstop Forwarding", "RIB", "FIB", "nine"],
+  t20: ["DSCP 46", "AFxy = 8x + 2y", "ECN", "WRED", "token bucket", 'id="dscpTool"', "IntServ", "DiffServ"],
+  t21: ["%SYS-5-CONFIG_I", "service timestamps log datetime", "show ntp associations", "UDP 161", "UDP 162", "snmp-server group NetOps v3 priv", "remote-span", "encapsulation replicate", 'id="sevTool"'],
+  t22: ["Availability", "Integrity", "Confidentiality", "DMZ", "stateful", "signatures", "NGFW", "NGIPS"],
+};
+for (const [id, required] of Object.entries(topicAnchors)) {
+  const start = html.indexOf('id="' + id + '"');
+  const body = start < 0 ? "" : html.slice(start, html.indexOf("</article>", start));
+  check(Boolean(body), "missing topic article " + id);
+  for (const fragment of required) check(body.includes(fragment), id + " is missing anchor: " + fragment);
+}
+
+// Final exam center: tab, exam facts, practice tools, and printable sheet.
+check(html.includes('data-tab="final">FINAL</button>') && html.includes('<section class="tab" id="final">'), "FINAL tab or section is missing");
+for (const fragment of [
+  "Tuesday 20 October 2026",
+  "15:30–18:30",
+  "<b>620</b>",
+  "one A4 sheet, both sides",
+  "midterm A4 sheet is returned during the exam",
+  "Pencil, eraser, pen",
+  "Theory · device configuration · system analysis",
+  "from DHCP to the end of the slides",
+  'new Date("2026-10-20T15:30:00+07:00")',
+  'var FKEYS=["16","17","18","18B","19","20","21","22"]',
+  'id="finMockPanel"',
+  'id="finCfgPanel"',
+  'id="finAnaPanel"',
+  'id="a4sheet"',
+  'classList.add("print-a4")',
+]) {
+  check(html.includes(fragment), "final exam center is missing: " + fragment);
+}
+const cfgCount = (html.match(/\{t:"(?:16|17|18|18B|19|20|21|22)",title:"[^"]+",\s*task:/g) || []).length;
+const anaCount = (html.match(/\{t:"(?:16|17|18|18B|19|20|21|22)",title:"[^"]+",x:/g) || []).length;
+check(cfgCount === 12, "expected 12 configuration tasks, found " + cfgCount);
+check(anaCount === 20, "expected 20 analysis cases, found " + anaCount);
+const adapterCss = fs.readFileSync(path.join(root, "study-console-adapter.css"), "utf8");
+check(adapterCss.includes("@media print") && adapterCss.includes("body.print-a4 .a4page"), "A4 print styles are missing");
 
 const anchors = {
   L01: [

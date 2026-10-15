@@ -37,3 +37,112 @@ body[data-study-console="netdes"] #pal .palbox,body[data-study-console="netdes"]
 .nd-lesson .lesson-check{margin-block:24px;border-color:var(--sc-accent)}
 @media(max-width:600px){.nd-lesson .lesson-result{padding:16px}.nd-lesson .lesson-choices{padding:12px}.nd-lesson .lesson-choices .btn{flex:1 1 130px}.lesson-links .btn{flex:1 1 auto}}
 @media print{.nd-lesson [data-lesson-panel][hidden]{display:block!important}.nd-lesson .lesson-choices{display:none}.nd-lesson .lesson-figure{overflow:visible}.nd-lesson .lesson-diagram{min-width:0}}
+
+/* Topics 18B–22: extra diagram states and interactive tools. */
+.nd-lesson .lesson-dim{opacity:.35}
+.nd-lesson .lesson-failed{fill:var(--sc-danger-soft,rgba(220,38,38,.12));stroke:var(--sc-danger,#dc2626);stroke-width:1.5;stroke-dasharray:6 5}
+.nd-lesson .lesson-cross{fill:none;stroke:var(--sc-danger,#dc2626);stroke-width:3;stroke-linecap:round}
+.nd-lesson .lesson-blocked{fill:none;stroke:var(--sc-danger,#dc2626);stroke-width:2;stroke-dasharray:7 6}
+.nd-lesson .lesson-bundle{fill:none;stroke:var(--sc-accent);stroke-width:1.5}
+.nd-lesson .lesson-zone{fill:var(--sc-surface-2);stroke:var(--sc-line-strong,var(--sc-line));stroke-width:1.5}
+.nd-lesson .ha-ladder{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.nd-lesson .ha-ladder>div{border:1px solid var(--sc-line);border-radius:10px;padding:12px 14px;background:var(--sc-surface)}
+.nd-lesson .ha-ladder>div>b{display:block;margin-bottom:6px}
+.nd-lesson .ha-ladder ol{margin:0 0 0 18px}
+.nd-lesson .ha-ladder li{margin-top:4px}
+.nd-lesson .ha-pre{border-left:3px solid var(--sc-ok,#16a34a)!important}
+.nd-lesson .ha-post{border-left:3px solid var(--sc-warn,#d97706)!important}
+.qos-tool{margin-block:18px;border:1px solid var(--sc-accent);border-radius:12px;padding:14px 16px;background:var(--sc-surface-2)}
+.qos-tool .chips{margin-top:10px}
+.qos-tool .fld{max-width:340px}
+.dscp-bits{display:inline-flex;margin-top:12px;border:1px solid var(--sc-line);border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:1.35em;font-weight:700;letter-spacing:3px}
+.dscp-bits span{padding:6px 12px}
+.dscp-bits .cl{background:var(--sc-accent-soft);color:var(--sc-accent)}
+.dscp-bits .dp{background:var(--sc-warn-soft,rgba(217,119,6,.12));color:var(--sc-warn,#b45309)}
+.dscp-bits .z{color:var(--sc-muted)}
+.sev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:12px}
+.sev{display:flex;gap:8px;align-items:baseline;border:1px solid var(--sc-line);border-radius:8px;padding:8px 10px;font-size:.92em}
+.sev b{font-family:var(--mono)}
+.sev i{margin-left:auto;font-style:normal;font-size:.85em}
+.sev.on{border-color:var(--sc-ok,#16a34a);background:var(--sc-ok-soft,rgba(22,163,74,.1))}
+.sev.on i{color:var(--sc-ok,#16a34a)}
+.sev.off{opacity:.55}
+@media(max-width:600px){.nd-lesson .ha-ladder{grid-template-columns:1fr}}
+
+/* Final exam center. */
+.fin-count{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
+.fin-count>div{min-width:92px;border:1px solid var(--sc-line);border-radius:12px;padding:10px 14px;background:var(--sc-surface-2);text-align:center}
+.fin-count b{display:block;font-family:var(--mono);font-size:2em;line-height:1.1;color:var(--sc-accent)}
+.fin-count span{font-size:.8em;color:var(--sc-muted);text-transform:uppercase;letter-spacing:.08em}
+.fin-count p{margin:0;color:var(--sc-muted)}
+.fin-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:16px}
+.fin-facts>div{border:1px solid var(--sc-line);border-radius:10px;padding:10px 14px;background:var(--sc-surface)}
+.fin-facts span{display:block;font-size:.78em;text-transform:uppercase;letter-spacing:.08em;color:var(--sc-muted)}
+.fin-facts b{display:block;margin-top:2px}
+.fin-grid .gcard .tick{min-width:40px;text-align:right}
+.fin-types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px}
+.fin-types>div{border:1px solid var(--sc-line);border-radius:12px;padding:14px 16px;background:var(--sc-surface-2)}
+.fin-types h3{font-size:1.05em;margin:0 0 6px}
+.fin-types p{color:var(--sc-muted);margin:0 0 6px}
+.fin-types .btn{margin-top:12px}
+.fin-mix{margin-left:6px}
+.fin-label{display:block;margin-top:14px;font-weight:650}
+.fin-draft{font-family:var(--mono);font-size:13.5px;line-height:1.6;resize:vertical;margin-top:6px}
+.fin-marks{display:grid;gap:6px;margin-top:8px}
+.fin-marks .chk{display:flex;gap:6px;font-family:inherit;font-size:14.5px;color:var(--sc-text)}
+.fin-plan{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:10px}
+.fin-day{border:1px solid var(--sc-line);border-radius:12px;padding:12px 14px;background:var(--sc-surface)}
+.fin-day.today{border-color:var(--sc-accent);box-shadow:0 0 0 1px var(--sc-accent)}
+.fin-day h4{margin:0 0 8px}
+.fin-day .chk{display:flex;gap:6px;margin-top:7px;font-family:inherit;font-size:14.5px;color:var(--sc-text)}
+.fin-struck{opacity:.5;text-decoration:line-through}
+@media(max-width:860px){.fin-types{grid-template-columns:1fr}}
+
+/* A4 sheet: screen preview and print. */
+.a4wrap{margin-top:16px;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--sc-line);border-radius:10px;background:var(--sc-surface-2);padding:14px}
+.a4sheet{display:grid;gap:14px;min-width:760px}
+.a4page{background:#fff;color:#111;border:1px solid #d5dbe5;border-radius:4px;padding:14px 16px;font-family:var(--sc-sans,var(--sans));font-size:10.5px;line-height:1.38;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.a4h{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:.04em;border-bottom:2px solid #111;padding-bottom:4px;margin-bottom:8px;color:#111}
+.a4h span{font-weight:500;color:#555}
+.a4cols{columns:3;column-gap:14px;column-rule:1px solid #e1e5ec}
+.a4b{break-inside:avoid;margin:0 0 7px}
+.a4b h6{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 2px;color:#0b5394;border-bottom:1px solid #e1e5ec}
+.a4b p{margin:2px 0 0;color:#111}
+.a4b b{color:#000}
+pre.a4c{background:#f4f6fa!important;color:#111!important;border:1px solid #e1e5ec!important;border-radius:3px;padding:4px 6px!important;margin:2px 0 0!important;font-size:9.4px!important;line-height:1.38!important;white-space:pre-wrap;overflow:visible}
+pre.a4c::before,pre.a4c .copy{display:none!important}
+.a4empty{color:#888}
+.a4notes{border:1px dashed #b6bfcc;border-radius:4px;padding:4px 6px;min-height:40px}
+
+@page{size:A4;margin:8mm}
+@media print{
+  body.print-a4 nav,body.print-a4 .sc-global-header,body.print-a4 .footer,body.print-a4 #wm,body.print-a4 #sbT,body.print-a4 #sb,body.print-a4 #sbB{display:none!important}
+  body.print-a4 section.tab{display:none!important}
+  body.print-a4 section#final{display:block!important}
+  body.print-a4 #final .wrap>*:not(#a4panel){display:none!important}
+  body.print-a4 #a4panel{border:0!important;padding:0!important;margin:0!important;box-shadow:none!important;background:#fff!important}
+  body.print-a4 #a4panel>*:not(.a4wrap){display:none!important}
+  body.print-a4 .a4wrap{border:0;padding:0;margin:0;overflow:visible;background:#fff}
+  body.print-a4 .a4sheet{display:block;min-width:0}
+  body.print-a4 .a4page{border:0;box-shadow:none;border-radius:0;padding:0;background:#fff!important;font-size:8.3pt;line-height:1.32;break-after:page;page-break-after:always}
+  body.print-a4 .a4page:last-child{break-after:auto;page-break-after:auto}
+  body.print-a4 pre.a4c{font-size:7.3pt!important}
+  body.print-a4 .a4b h6{font-size:7.2pt}
+  body.print-a4 .a4h{font-size:8pt}
+  body.print-a4 main,body.print-a4 .wrap{width:auto!important;max-width:none!important;margin:0!important;padding:0!important}
+  body.print-a4,html:has(body.print-a4),body.print-a4 main,body.print-a4 #final,body.print-a4 .a4sheet{background:#fff!important}
+}
+
+/* Code blocks take the reading surface; keep their text on the same theme tokens. */
+body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c){color:var(--sc-text)}
+body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c) .c{color:var(--sc-muted)}
+body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c) .k{color:var(--sc-ok,#16a34a)}
+body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c)::before{color:var(--sc-faint,var(--sc-muted))}
+
+/* Keep the A4 sheet dense: the reading layer's prose sizes must not apply inside it. */
+body[data-study-console="netdes"] .a4sheet .a4page :is(p,b,span,div,h6){font-size:inherit!important;line-height:inherit!important;letter-spacing:inherit}
+body[data-study-console="netdes"] .a4sheet .a4page p{margin:2px 0 0!important;max-width:none!important;color:#111!important}
+body[data-study-console="netdes"] .a4sheet .a4page b{color:#000!important;font-weight:700}
+body[data-study-console="netdes"] .a4sheet .a4b h6{font-size:10px!important;color:#0b5394!important;font-family:var(--mono)!important}
+body[data-study-console="netdes"] .a4sheet .a4h{font-size:11px!important}
+@media print{body.print-a4 .a4sheet .a4b h6{font-size:7.2pt!important}body.print-a4 .a4sheet .a4h{font-size:8pt!important}}

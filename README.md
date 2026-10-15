@@ -12,17 +12,22 @@ The app is intentionally lightweight: the console is a single `index.html` page 
 |---|---|
 | **Blueprint** | Connects the switching and routing concepts as one system |
 | **Flow** | Shows the prepare → configure → verify → troubleshoot workflow |
-| **Topics** | Nineteen technical explanations with IOS commands and failure modes |
+| **Final** | Final exam brief and countdown, final-scope readiness, a final-only timed mock, configuration writing, system analysis cases, a five-day plan, and a printable two-sided A4 sheet |
+| **Topics** | Twenty-four technical explanations with IOS commands and failure modes |
 | **Labs** | LAB 01 through LAB 13 with original numbering and source-matched details |
-| **Drills** | 196 flashcards, 111 practice questions, and generated exercises |
+| **Drills** | 262 flashcards, 151 practice questions, and generated exercises |
 | **Practice** | Timed review, weak-point tracking, and an STP port-role solver |
 | **Cheatsheet / Terms** | Compact reference tables and terminology |
 
 The IPv4 subnetting Review is intentionally unnumbered and does not affect the 13-lab progress count.
 
-## Latest topic update
+## Latest update: final exam
 
-Topics 16–18 cover DHCP and relay, enterprise campus design, and integrating WLANs. The new material includes a DORA walkthrough, switch-block comparisons, a source-matched Layer 3 roaming diagram, 45 additional flashcards, 24 scenario questions, 5 command-recall tasks, and 30 glossary entries. Existing card/question indices and LAB 01–LAB 13 content remain stable.
+Topics 18B–22 complete the final scope: first hop redundancy (HSRP), high availability, Quality of Service, monitoring, and basic security. They add an HSRP failover explorer, a logical-switch and supervisor-redundancy comparison, a DSCP decoder, a syslog threshold checker, a security-zone diagram, 66 flashcards, 40 scenario questions, 16 command-recall tasks, and 37 glossary entries.
+
+The **Final** tab collects the exam brief (20 October, 15:30–18:30, closed book with one A4 sheet), readiness for the eight final-scope topics (16, 17, 18, 18B, 19, 20, 21, 22), a final-only timed mock with an optional midterm mix, 12 configuration-writing tasks with mark checklists, 20 output-analysis cases, a five-day plan, and a two-sided A4 summary that prints on exactly two pages.
+
+Topics 16–18 cover DHCP and relay, enterprise campus design, and integrating WLANs. Existing card/question indices and LAB 01–LAB 13 content remain stable.
 
 [Topic source audit](docs/TOPIC-SOURCE-AUDIT.md) records slide coverage and technical clarifications.
 
@@ -71,7 +76,7 @@ Run the repository validator before publishing:
 node scripts/validate.mjs
 ```
 
-The validator checks the shared shell contract, HTML IDs and navigation targets, JavaScript syntax, exact LAB 01–LAB 13 membership, workbench coverage, dynamic data keys, study-item counts, retired metadata, and critical technical anchors from every source lab.
+The validator checks the shared shell contract, the Final tab's exam facts and practice sets, technical anchors for Topics 18B–22, HTML IDs and navigation targets, JavaScript syntax, exact LAB 01–LAB 13 membership, workbench coverage, dynamic data keys, study-item counts, retired metadata, and critical technical anchors from every source lab.
 
 ## Run locally
 

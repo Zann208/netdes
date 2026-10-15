@@ -511,7 +511,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 </style>
 <link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/study-system.css?v=20260911-width1">
 <link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/legacy-console.css">
-<link rel="stylesheet" href="./study-console-adapter.css?v=20260912-topics">
+<link rel="stylesheet" href="./study-console-adapter.css?v=20261015-final">
 <link rel="stylesheet" href="./lab-workbench.css">
 <link rel="stylesheet" href="https://zann208.github.io/study/shared/v2/reading.css?v=20260910-layout2">
 </head>
@@ -566,6 +566,7 @@ body.light .bpmap .hot text{fill:#4f6180}
   </div>
   <div class="tabstrip">
   <button class="tabbtn on" data-th="หน้าแรก" data-tab="home">HOME</button>
+  <button class="tabbtn" data-th="สอบปลายภาค" data-tab="final">FINAL</button>
   <button class="tabbtn" data-th="ภาพรวม" data-tab="blueprint">BLUEPRINT</button>
   <button class="tabbtn" data-th="ลำดับเรียน" data-tab="flow">FLOW</button>
   <span class="navsep"></span>
@@ -612,10 +613,10 @@ body.light .bpmap .hot text{fill:#4f6180}
   <div class="modbox">
     <span class="badge cy">NETWORK ENGINEERING</span>
     <h2 style="margin-top:11px">Your NETDES study console</h2>
-    <p style="color:var(--dim);margin-top:8px;font-size:15px">Sixteen technical topics, all thirteen original labs, verified walkthroughs, and focused practice in one console. Progress saves in this browser.</p>
+    <p style="color:var(--dim);margin-top:8px;font-size:15px">Twenty-four technical topics, all thirteen original labs, verified walkthroughs, and focused practice in one console. Progress saves in this browser.</p>
     <div class="pathgrid">
       <button class="path" data-w="blueprint"><span class="ic">[1]</span><b>Understand</b><span>See the switching system as one network and connect the concepts</span></button>
-      <button class="path" data-w="notes"><span class="ic">[2]</span><b>Study</b><span>Review 19 technical topics and every numbered lab</span></button>
+      <button class="path" data-w="notes"><span class="ic">[2]</span><b>Study</b><span>Review 24 technical topics and every numbered lab</span></button>
       <button class="path" data-w="intensive"><span class="ic">[3]</span><b>Perform</b><span>Timed exams, a weak-point radar and the port-role solver</span></button>
     </div>
     <div class="row" style="margin-top:18px">
@@ -648,23 +649,32 @@ body.light .bpmap .hot text{fill:#4f6180}
 <!-- ============ HOME ============ -->
 <section class="tab on" id="home"><div class="wrap">
   <h1><span class="pre">// NETWORK ENGINEERING STUDY CONSOLE</span>Build, verify, troubleshoot. One console.</h1>
-  <p class="lede">An independent switching and routing workspace with 19 study topics, the authoritative LAB 01–LAB 13 sequence, 196 flashcards, and 111 practice questions.</p>
+  <p class="lede">An independent switching and routing workspace with 24 study topics, the authoritative LAB 01–LAB 13 sequence, 262 flashcards, and 151 practice questions.</p>
 
   <div class="stats">
-    <div class="stat"><b>19</b><span>Topics</span></div>
+    <div class="stat"><b>24</b><span>Topics</span></div>
     <div class="stat g"><b>13</b><span>Labs</span></div>
-    <div class="stat v"><b>196</b><span>Cards</span></div>
-    <div class="stat"><b>111</b><span>Practice Qs</span></div>
+    <div class="stat v"><b>262</b><span>Cards</span></div>
+    <div class="stat"><b>151</b><span>Practice Qs</span></div>
+  </div>
+
+  <div class="panel lesson-update fin-banner">
+    <div class="ph"><h2>Final exam · 20 October, 15:30–18:30</h2><span class="badge cy right" id="homeFinBadge">room 620</span></div>
+    <p class="sub2">Written paper: multiple choice and written answers on theory, device configuration, and system analysis. Closed book with one A4 sheet (both sides); your midterm sheet is returned during the exam. Scope runs from DHCP to the end of the slides.</p>
+    <div class="row"><button class="btn go" data-tabgo="final">Open the final exam center →</button></div>
   </div>
 
   <div class="panel lesson-update">
-    <div class="ph"><h2>New study material</h2><span class="badge cy right">Topics 16–18</span></div>
-    <p class="sub2">Follow a client from receiving an address to reaching campus services and roaming between access points.</p>
+    <div class="ph"><h2>New study material</h2><span class="badge cy right">Topics 18B–22</span></div>
+    <p class="sub2">Finish the final scope: keep the gateway alive, survive device failures, prioritize traffic, watch the network, and secure its edge.</p>
     <div class="pathgrid">
-      <button class="path" data-goto="t16"><span class="ic">16</span><b>DHCP &amp; Relay</b><span>Follow DORA, configure pools and helpers, then practice in LAB 13.</span></button>
-      <button class="path" data-goto="t17"><span class="ic">17</span><b>Enterprise Campus Design</b><span>Compare switch blocks, routing boundaries, and core designs.</span></button>
-      <button class="path" data-goto="t18"><span class="ic">18</span><b>Integrating WLAN</b><span>Understand shared airtime, controllers, and Layer 3 roaming.</span></button>
+      <button class="path" data-goto="t18B"><span class="ic">18B</span><b>First Hop Redundancy</b><span>Share a virtual gateway with HSRP and follow a failover.</span></button>
+      <button class="path" data-goto="t19"><span class="ic">19</span><b>High Availability</b><span>Logical switches, StackWise, VSS, RPR/RPR+/SSO, and NSF.</span></button>
+      <button class="path" data-goto="t20"><span class="ic">20</span><b>Quality of Service</b><span>Decode DSCP, compare shaping and policing, and queue traffic.</span></button>
+      <button class="path" data-goto="t21"><span class="ic">21</span><b>Monitoring</b><span>Syslog levels, NTP stratum, SNMP versions, SPAN and RSPAN.</span></button>
+      <button class="path" data-goto="t22"><span class="ic">22</span><b>Basic Security</b><span>CIA, firewalls and zones, DMZ, IPS, NGFW and NGIPS.</span></button>
     </div>
+    <p class="sub2" style="margin-top:12px">Topics 16–18 cover DHCP and relay, enterprise campus design, and integrating WLANs.</p>
   </div>
 
   <div class="panel pv">
@@ -675,7 +685,7 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div class="row" style="align-items:flex-start;gap:24px">
       <div class="ringwrap"><svg class="ring" viewBox="0 0 110 110"><circle class="rbg" cx="55" cy="55" r="50"/><circle class="rfg" id="ringFg" cx="55" cy="55" r="50"/></svg><div class="rtx" id="readyPct">0%</div></div>
       <div class="bars">
-        <div class="bar"><span class="bl">TOPICS</span><span class="bt"><i id="bTop"></i></span><span class="bv" id="vTop">0/19</span></div>
+        <div class="bar"><span class="bl">TOPICS</span><span class="bt"><i id="bTop"></i></span><span class="bv" id="vTop">0/24</span></div>
         <div class="bar"><span class="bl">LABS</span><span class="bt"><i id="bLab"></i></span><span class="bv" id="vLab">0/13</span></div>
         <div class="bar"><span class="bl">CARDS</span><span class="bt"><i id="bCard"></i></span><span class="bv" id="vCard">0</span></div>
         <div class="bar"><span class="bl">BEST QUIZ</span><span class="bt"><i id="bQuiz"></i></span><span class="bv" id="vQuiz">—</span></div>
@@ -687,7 +697,7 @@ body.light .bpmap .hot text{fill:#4f6180}
     <p class="sub2">Not sure where to begin? Pick the one that matches where you are right now.</p>
     <div class="pathgrid">
       <button class="path" data-tabgo="blueprint"><span class="ic">[1]</span><b data-th="ทำความเข้าใจ">Understand</b><span>See the switching system as one network and connect the concepts</span></button>
-      <button class="path" data-tabgo="notes"><span class="ic">[2]</span><b data-th="เรียน">Study</b><span>Review 19 technical topics, then perform LAB 01–LAB 13</span></button>
+      <button class="path" data-tabgo="notes"><span class="ic">[2]</span><b data-th="เรียน">Study</b><span>Review 24 technical topics, then perform LAB 01–LAB 13</span></button>
       <button class="path" data-tabgo="intensive"><span class="ic">[3]</span><b data-th="ทำให้ได้จริง">Perform</b><span data-th="ข้อสอบจับเวลา เรดาร์จุดอ่อน และเครื่องฝึกวิเคราะห์พอร์ต">Timed exams, a weak-point radar and the port-role solver</span></button>
     </div>
     <p style="margin-top:15px">The short version of the syllabus: address the network (<b>IPv6</b>) → power the switch (<b>ports, SSH, security</b>) → split it (<b>VLANs, trunks, VTP</b>) → widen it (<b>EtherChannel</b>) → route it (<b>L3 switch</b>) → isolate it (<b>Private VLAN</b>) → and stop the loops (<b>STP → RSTP → MST</b>).</p>
@@ -713,11 +723,209 @@ body.light .bpmap .hot text{fill:#4f6180}
       <tr><td class="mono">D6</td><td>Topics 13–15 · LAB 11–12</td><td>RSTP states and MST regions.</td></tr>
       <tr><td class="mono">D7</td><td>LAB 13 · Cheatsheet · drills</td><td>DHCP pools, exclusions, final review.</td></tr>
     </table></div>
-    <p class="sub2" style="margin-top:10px">Daily: 20 min notes → 15 min cards → 20 min typing commands in Packet Tracer.</p>
+    <p class="sub2" style="margin-top:10px">Daily: 20 min notes → 15 min cards → 20 min typing commands in Packet Tracer. For the final, follow the five-day plan in the FINAL tab.</p>
   </div>
     <div class="grid" id="gridLabs"></div>
   </div>
 
+</div></section>
+
+<!-- ============ FINAL ============ -->
+<section class="tab" id="final"><div class="wrap">
+  <h1><span class="pre">// FINAL EXAM</span>Final exam command center</h1>
+  <p class="lede">Everything for the final in one place: the exam brief, the eight topics in scope, a final-only mock exam, configuration writing, output analysis, and a printable A4 sheet.</p>
+
+  <div class="panel fin-brief">
+    <div class="ph"><h2>Exam brief</h2><span class="badge cy right" id="finCountBadge">—</span></div>
+    <div class="fin-count" aria-live="polite">
+      <div><b id="finD">–</b><span>days</span></div>
+      <div><b id="finH">–</b><span>hours</span></div>
+      <div><b id="finM">–</b><span>minutes</span></div>
+      <p id="finCountTxt">until the paper starts</p>
+    </div>
+    <div class="fin-facts">
+      <div><span>Date</span><b>Tuesday 20 October 2026</b></div>
+      <div><span>Time</span><b>15:30–18:30 · 3 hours</b></div>
+      <div><span>Room</span><b>620</b></div>
+      <div><span>Bring</span><b>Pencil, eraser, pen</b></div>
+      <div><span>Format</span><b>Written on paper · multiple choice + written answers</b></div>
+      <div><span>Assesses</span><b>Theory · device configuration · system analysis</b></div>
+    </div>
+    <div class="box trap"><b>Use this date and time</b>The announcement says to ignore the date and time shown on the registration website. The paper is 20 October, 15:30–18:30.</div>
+    <div class="box wild"><b>Closed book, two sheets in hand</b>Bring <b>one A4 sheet, both sides</b> — handwritten, typed, or photocopied. Your <b>midterm A4 sheet is returned during the exam</b>, so you will have both. Put final-scope material on the new sheet and let the midterm sheet cover topics 01–15.</div>
+  </div>
+
+  <div class="panel pv">
+    <div class="ph"><h2>Scope and readiness</h2><span class="badge vi right" id="finStatus">STANDBY</span></div>
+    <p class="sub2">Coverage runs <b>from DHCP to the end of the slides</b>, and the paper may include some midterm topics. Readiness combines topics marked done, final-scope cards mastered, your best final mock, configuration tasks practiced, and analysis cases solved.</p>
+    <div class="row" style="align-items:flex-start;gap:24px">
+      <div class="ringwrap"><svg class="ring" viewBox="0 0 110 110"><circle class="rbg" cx="55" cy="55" r="50"/><circle class="rfg" id="finRing" cx="55" cy="55" r="50"/></svg><div class="rtx" id="finPct">0%</div></div>
+      <div class="bars">
+        <div class="bar"><span class="bl">TOPICS</span><span class="bt"><i id="fbTop"></i></span><span class="bv" id="fvTop">0/8</span></div>
+        <div class="bar"><span class="bl">CARDS</span><span class="bt"><i id="fbCard"></i></span><span class="bv" id="fvCard">0</span></div>
+        <div class="bar"><span class="bl">BEST MOCK</span><span class="bt"><i id="fbMock"></i></span><span class="bv" id="fvMock">—</span></div>
+        <div class="bar"><span class="bl">CONFIG</span><span class="bt"><i id="fbCfg"></i></span><span class="bv" id="fvCfg">0</span></div>
+        <div class="bar"><span class="bl">ANALYSIS</span><span class="bt"><i id="fbAna"></i></span><span class="bv" id="fvAna">0</span></div>
+      </div>
+    </div>
+    <h4>Final topics</h4>
+    <div class="grid fin-grid" id="finGrid"></div>
+    <h4>Midterm carry-over</h4>
+    <p class="sub2">The midterm sheet comes back to you, so review these for speed, not from scratch. They are the midterm topics most likely to reappear inside final-scope questions.</p>
+    <div class="lesson-links" aria-label="Midterm topics to refresh">
+      <button class="btn" data-goto="t04">04 VLANs &amp; trunks — SSID/VLAN mapping, RSPAN VLAN</button>
+      <button class="btn" data-goto="t06">06 EtherChannel — multichassis bundles</button>
+      <button class="btn" data-goto="t08">08 Inter-VLAN routing — gateways, SVIs, relays</button>
+      <button class="btn" data-goto="t10">10 STP — why logical switches remove blocking</button>
+      <button class="btn" data-goto="t13">13 RSTP — convergence comparisons</button>
+      <button class="btn" data-goto="L13">LAB 13 — DHCP pools and SLAAC</button>
+    </div>
+  </div>
+
+  <div class="panel pa">
+    <div class="ph"><h2>How the paper tests you</h2><span class="badge am right">three question types</span></div>
+    <div class="fin-types">
+      <div><h3>Theory</h3><p>Definitions, comparisons, and “why” questions.</p><ul class="pts"><li>DORA, relay, SLAAC flags</li><li>Access/distribution/core roles, switch blocks, collapsed core</li><li>CSMA/CA, BSS/ESS, autonomous vs lightweight, roaming types</li><li>HSRP vs VRRP vs GLBP</li><li>RPR vs RPR+ vs SSO, NSF, RIB vs FIB</li><li>IntServ vs DiffServ, PHBs, shaping vs policing, WRED</li><li>Syslog levels, SNMP versions, SPAN vs RSPAN</li><li>CIA, firewall, DMZ, IPS, NGFW/NGIPS</li></ul></div>
+      <div><h3>Device configuration</h3><p>Write the commands, in order, in the right mode.</p><ul class="pts"><li>DHCP pool + exclusions + relay</li><li>SLAAC-only interface</li><li>HSRP pair with priority and preempt</li><li>Syslog buffer, timestamps, clock, NTP</li><li>SNMPv2c with ACL; SNMPv3 group/user/host</li><li>Local SPAN; RSPAN across three switches</li></ul><button class="btn go" data-fin-jump="finCfgPanel">Practice writing configs →</button></div>
+      <div><h3>System analysis</h3><p>Read an exhibit or a topology and explain or predict.</p><ul class="pts"><li><code>show standby brief</code>: who is active, why, after failure</li><li><code>show ntp associations</code>: stratum, *, +</li><li>Syslog lines: severity and console filtering</li><li>DSCP values: AF/EF/CS decoding, trust maps</li><li>Roaming tables: anchor/foreign, Layer 2 vs Layer 3</li><li>Design flaws: single points of failure, blocked links</li></ul><button class="btn go" data-fin-jump="finAnaPanel">Practice analysis →</button></div>
+    </div>
+  </div>
+
+  <div class="panel pa" id="finMockPanel">
+    <div class="ph"><h2>Final mock exam</h2><span class="badge am right">best <b id="finBest">—</b></span></div>
+    <p class="sub2">Questions drawn only from the final scope. A running clock, no feedback until you submit, and a per-topic report at the end. Answers also feed the weak-point radar.</p>
+    <div class="row">
+      <span class="badge">LENGTH</span>
+      <button class="btn on" data-flen="20">20 Q · 30 min</button>
+      <button class="btn" data-flen="40">40 Q · 60 min</button>
+      <label class="chk fin-mix"><input type="checkbox" id="finMix"><span> include midterm topics (about 1 in 5)</span></label>
+    </div>
+    <div class="row"><button class="btn on" id="finStart">▶ BEGIN FINAL MOCK</button><span class="badge" id="finPool"></span></div>
+    <div id="finBody"></div>
+    <div id="finHist"></div>
+  </div>
+
+  <div class="panel pg" id="finCfgPanel">
+    <div class="ph"><h2>Configuration writing</h2><span class="badge gr right" id="cfgMeta">0 practiced</span></div>
+    <p class="sub2">Write the full answer as you would on paper, then compare with the model and tick the marks you earned. Your drafts are saved on this device.</p>
+    <div class="row"><select id="cfgSel" class="fld" style="width:auto;max-width:100%" aria-label="Configuration task"></select><button class="btn" id="cfgPrev">← prev</button><button class="btn" id="cfgNext">next →</button></div>
+    <div id="cfgTask"></div>
+    <label class="fin-label" for="cfgDraft">Your answer</label>
+    <textarea id="cfgDraft" class="fld fin-draft" rows="9" spellcheck="false" autocomplete="off" placeholder="Type the configuration from memory…"></textarea>
+    <div class="row"><button class="btn go" id="cfgShow">reveal model answer</button><button class="btn" id="cfgClear">clear draft</button></div>
+    <div id="cfgAns"></div>
+  </div>
+
+  <div class="panel pv" id="finAnaPanel">
+    <div class="ph"><h2>System analysis</h2><span class="badge vi right" id="anaMeta">0 solved</span></div>
+    <p class="sub2">Each case gives an exhibit or a situation. Decide, then read why. Your answers are recorded per case.</p>
+    <div class="row"><select id="anaSel" class="fld" style="width:auto;max-width:100%" aria-label="Analysis case"></select><button class="btn" id="anaPrev">← prev</button><button class="btn" id="anaNext">next →</button><button class="btn" id="anaReset">reset cases</button></div>
+    <div id="anaBody"></div>
+  </div>
+
+  <div class="panel" id="a4panel">
+    <div class="ph"><h2>Printable A4 sheet</h2><span class="badge cy right">both sides</span></div>
+    <p class="sub2">A dense two-sided summary of the final scope. Print it as it is, or use it as the plan for your handwritten sheet. Add your own lines in the box; they print at the end of side 2.</p>
+    <div class="row"><button class="btn go" id="a4Print">print A4 sheet</button><span class="sub2">In the print dialog choose A4, scale 100%, two-sided.</span></div>
+    <label class="fin-label" for="a4Notes">My additions</label>
+    <textarea id="a4Notes" class="fld fin-draft" rows="4" placeholder="Anything you keep forgetting…"></textarea>
+    <div class="a4wrap"><div class="a4sheet" id="a4sheet">
+      <div class="a4page">
+        <div class="a4h">FINAL · SIDE 1 · CONFIGURE AND VERIFY <span>DHCP · HSRP · syslog · NTP · SNMP · SPAN</span></div>
+        <div class="a4cols">
+          <div class="a4b"><h6>DHCP server (16)</h6><pre class="a4c">ip dhcp excluded-address 10.1.10.1 10.1.10.20
+ip dhcp pool VLAN10
+ network 10.1.10.0 255.255.255.0
+ default-router 10.1.10.1
+ dns-server 8.8.8.8
+ lease 1          ! days [hrs [min]] | infinite
+show ip dhcp binding</pre><p>Exclusions are inclusive; keyword is <b>excluded</b>. One pool per client subnet. Pools must match the gateway subnet (SVI or subinterface).</p></div>
+          <div class="a4b"><h6>DHCP relay + SLAAC</h6><pre class="a4c">interface vlan 10            ! client-facing
+ ip address 10.1.10.1 255.255.255.0
+ ip helper-address 20.5.5.5
+ipv6 unicast-routing
+interface vlan 10
+ ipv6 address 2001:DB8:10::1/64
+ ipv6 enable
+ no ipv6 nd managed-config-flag   ! M=0
+ no ipv6 nd other-config-flag     ! O=0</pre><p>Server still needs a pool for 10.1.10.0/24 and a route back. M = address via DHCPv6; O = other info (DNS) via DHCPv6.</p></div>
+          <div class="a4b"><h6>HSRP (18B)</h6><pre class="a4c">interface g0/0                ! R1
+ ip address 10.1.1.9 255.255.255.0
+ standby version 2
+ standby 1 ip 10.1.1.1
+ standby 1 priority 110         ! default 100
+ standby 1 preempt              ! off by default
+ standby 1 name GRP
+! R2: same group+VIP, own IP, default priority
+show standby [brief]</pre><p>Active = highest priority → highest interface IP. Existing active stays unless the better router has <b>preempt</b>. Hello 3 s, hold 10 s.</p></div>
+          <div class="a4b"><h6>Syslog + time (21)</h6><pre class="a4c">logging console 4         ! shows 0–4 (default 7)
+logging buffered 6        ! buffer off by default
+logging buffered 16384    ! size 4096–2147483647
+service timestamps log datetime msec localtime show-timezone year
+service timestamps log uptime
+show logging
+clock set 15:30:00 20 October 2026   ! EXEC
+clock timezone ICT 7                 ! config
+ntp server 200.1.1.10 prefer [version 4]
+show clock / show ntp status / show ntp associations</pre></div>
+          <div class="a4b"><h6>SNMP v1 / v2c</h6><pre class="a4c">access-list 10 permit 192.168.3.99
+snmp-server community PUBLIC ro 10
+snmp-server host 192.168.3.99 PUBLIC          ! v1 trap
+snmp-server host 192.168.3.99 informs version 2c PUBLIC</pre></div>
+          <div class="a4b"><h6>SNMPv3</h6><pre class="a4c">snmp-server view V1 iso included           ! optional
+snmp-server group NetOps v3 priv [read V1]
+snmp-server user mymonitor NetOps v3 auth sha AUTHPW priv aes 128 PRIVPW 10
+snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre><p>noauth = noAuthNoPriv · auth = authNoPriv · priv = authPriv.</p></div>
+          <div class="a4b"><h6>Local SPAN</h6><pre class="a4c">monitor session 1 source interface g1/0/1 both  ! rx|tx|both
+! or a VLAN source (not mixed with ports): source vlan 10 rx
+monitor session 1 destination interface g1/0/48 [encapsulation replicate]
+show monitor [session 1] [detail]
+no monitor session {1 | local | all}</pre><p>Destination port: STP off — never connect it back into the network. replicate = keep tags + L2 protocol frames.</p></div>
+          <div class="a4b"><h6>RSPAN (A → B → C)</h6><pre class="a4c">vlan 99                 ! A, B and C
+ remote-span
+! A (source)
+monitor session 1 source interface g1/0/1 both
+monitor session 1 destination remote vlan 99
+! C (destination)
+monitor session 1 source remote vlan 99
+monitor session 1 destination interface g1/0/48</pre><p>No MAC learning in RSPAN VLAN; allow on trunks only, never on access ports.</p></div>
+          <div class="a4b"><h6>Verify checklist</h6><p><b>DHCP</b> show ip dhcp binding · client IP/mask/GW/DNS · <b>HSRP</b> show standby brief (State, Active, Standby, VIP, P) · <b>NTP</b> * = sys.peer, stratum = peer + 1 · <b>Syslog</b> show logging · <b>SPAN</b> show monitor · show run | include monitor.</p></div>
+        </div>
+      </div>
+      <div class="a4page">
+        <div class="a4h">FINAL · SIDE 2 · RECALL AND ANALYZE <span>campus · WLAN · FHRP · HA · QoS · monitoring · security</span></div>
+        <div class="a4cols">
+          <div class="a4b"><h6>DHCP (16)</h6><p><b>DORA</b>: Discover (0.0.0.0:68 → 255.255.255.255:67) · Offer · Request (names chosen server) · ACK. Server UDP 67, client 68. Broadcast stays in VLAN → relay needed for remote server. Lease default 1 day.</p></div>
+          <div class="a4b"><h6>Campus (17)</h6><p><b>Access</b>: ports, VLAN, filtering, QoS, dual uplinks. <b>Distribution</b>: aggregate, L3 boundary, policy/ACL, QoS. <b>Core</b>: fast, no costly filtering, redundant. <b>Service paths</b>: local = access · remote = access→dist · enterprise = access→dist→core. <b>Switch block</b> = access + its distribution pair; STP and VLANs stay inside; ~2,000 users guideline. Best: pairs, two uplinks to different switches, link the distribution pair, don't link access switches, VLANs end at distribution. <b>Dual core</b> · <b>multinode core</b> (each block → one core pair) · <b>collapsed core</b> = dist + core in same devices.</p></div>
+          <div class="a4b"><h6>WLAN (18)</h6><p>Half-duplex, <b>CSMA/CA</b>: DIFS + random backoff. <b>IBSS</b> ad hoc · <b>BSS</b> AP · <b>ESS</b> APs on wired DS. Association needs SSID, data rate, credentials. AP maps SSID↔VLAN (trunk for many). 2.4 GHz non-overlap <b>1/6/11</b>, honeycomb, small overlap. <b>BSS color</b> 6-bit in PHY (Wi-Fi 6) vs 48-bit BSSID. Microcell / picocell = reduced power. Wi-Fi 4 n · 5 ac · 6 ax · 6E ax+6 GHz · 7 be.</p><p><b>Autonomous</b>: each AP alone, VLANs trunked everywhere. <b>Split-MAC</b>: LAP = RF, MAC mgmt, encryption · WLC = RF mgmt, association/roaming, auth, security, QoS. <b>CAPWAP</b> control UDP 5246 (encrypted) · data 5247 (DTLS optional); X.509 mutual auth; trunk only at WLC. LAP join: DHCP → find WLCs → join → image check → tunnel. Client-to-client goes via WLC (except DLS/FlexConnect).</p><p><b>Intra-controller</b> roam &lt; 10 ms. <b>L2 inter-controller</b> same VLAN, &lt; 20 ms. <b>L3</b> different VLAN: anchor (original WLC) ↔ foreign via <b>EoIP</b>, client keeps IP. Fast auth: CCKM (CCX), PKC/OKC, 802.11r. Mobility group = trusted WLC list.</p></div>
+          <div class="a4b"><h6>FHRP / HSRP (18B)</h6><p>HSRP Cisco active/standby per subnet · VRRP RFC 5798 master/backup per subnet · GLBP Cisco active/active per host. v1: groups 0–255, MAC 0000.0C07.ACxx, 224.0.0.2, hello in s. v2: 0–4095, 0000.0C9F.Fxxx, 224.0.0.102, ms, IPv6, unique ID. Failover: standby takes VIP + vMAC, sends <b>gratuitous ARP</b>; hosts unchanged.</p></div>
+          <div class="a4b"><h6>High availability (19)</h6><p>Pairs of switches + links; logical switch → EtherChannel, no STP block; <b>MEC</b> between two logical switches. <b>StackWise</b>: ≤ 9 switches, stack cables ring, stack master, one IP. <b>VSS</b>: 2 chassis, VSL, one active supervisor. <b>RPR</b> &gt; 2 min (reload modules) · <b>RPR+</b> &gt; 30 s (route engine ready, ports keep state) · <b>SSO</b> ≈ 1 s (configs + L2 state synced, FIB synced). <b>NSF</b> + SSO: FIB keeps forwarding, NSF-aware neighbors help rebuild RIB (BGP, EIGRP, OSPF, IS-IS). RIB = routing table (control) · FIB = CEF table (data).</p></div>
+          <div class="a4b"><h6>QoS (20)</h6><p>Voice: delay &lt; 150 ms, jitter &lt; 30 ms, loss &lt; 1%; data loss &lt; 5%. Best effort · <b>IntServ</b> hard, per-flow reservation · <b>DiffServ</b> soft, classes. Pipeline: classify → police → mark → queue → schedule. <b>CoS</b> 3 bits in 802.1Q · <b>IPP</b> top 3 of ToS · <b>DSCP</b> top 6, last 2 = ECN. CoS/IPP → DSCP = ×8. EF 46 (101110), IPP 5, CoS 5. <b>AFxy = 8x + 2y</b> (x class 1–4 better ↑, y drop 1–3 drops sooner ↑): AF11 10 · 12 · 14 · AF21 18 · 20 · 22 · AF31 26 · 28 · 30 · AF41 34 · 36 · 38. CSn = 8n. Untrusted → DSCP 0. Classify at access edge.</p><p><b>Shaping</b> buffers/delays (TCP, egress to slower SP) · <b>policing</b> drops/re-marks, no delay (token bucket, CIR/PIR conform-exceed-violate). FIFO · WRR share = weight ÷ Σ · priority queue (voice, LLQ) · custom queuing (WAN %). Tail drop → TCP sync. <b>RED</b> random early drop (TCP). <b>WRED</b> per-DSCP thresholds, e.g. 50% drop DSCP 0–20, 80% also &gt; 20. Best: strict PQ + WRR + WRED. AutoQoS templates.</p></div>
+          <div class="a4b"><h6>Monitoring (21)</h6><p>Syslog: timestamp %FAC-<b>SEV</b>-MNEMONIC: text. 0 emergencies · 1 alerts · 2 critical · 3 errors · 4 warnings · 5 notifications · 6 informational · 7 debugging. Threshold shows ≤ N. Clock starts 1 Mar 1993. Stratum: hops from reference (16 = unsynced). * sys.peer · + candidate · # selected · - outlier · x falseticker · ~ configured.</p><p><b>SNMP</b>: manager polls agent; MIB tree, OID (ASN.1), 1.3.6.1.2.1.2.2.1.10 = ifInOctets, Cisco = 1.3.6.1.4.1.9. Get/get-next/get-bulk/set UDP <b>161</b>; trap (no ACK) / inform (ACK) UDP <b>162</b>. v1 community, 32-bit · v2c + bulk, inform, 64-bit · v3 users, auth + encryption, views.</p></div>
+          <div class="a4b"><h6>Security (22)</h6><p><b>CIA</b>: availability reliable/timely · integrity only authorized change · confidentiality only authorized access. <b>Firewall</b> inline; filters address, port, URI, TCP state (stateful). <b>DMZ</b>: public servers; outside → DMZ allowed, outside → inside denied, inside → outside allowed. <b>IPS</b> inline, signatures (DoS, DDoS, worms), keep updated; IDS = monitor copy. <b>NGFW</b>: + AVC, malware protection, URL filtering, NGIPS. <b>NGIPS</b>: + AVC, contextual awareness, reputation filtering, event impact.</p></div>
+          <div class="a4b a4notes"><h6>My additions</h6><div id="a4NotesOut"></div></div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="panel pg">
+    <div class="ph"><h2>Five-day plan</h2><span class="badge gr right" id="planMeta">0 done</span></div>
+    <p class="sub2">One focused block per day, ending with the exam afternoon. Tick each step; progress is saved.</p>
+    <div id="finPlan" class="fin-plan"></div>
+  </div>
+
+  <div class="panel pa">
+    <div class="ph"><h2>Exam-room method</h2></div>
+    <ul class="pts">
+      <li><b>Budget 180 minutes:</b> first pass through multiple choice in about 50 minutes, leaving 2 hours for configuration and analysis, with 15 minutes to check.</li>
+      <li><b>Configuration answers:</b> show the mode (global vs interface), keep commands in order, use exact keywords (<code>excluded-address</code>, <code>remote-span</code>, <code>informs</code>), and finish with the <code>show</code> command that proves it works.</li>
+      <li><b>Analysis answers:</b> state what you see, the rule that applies, then the conclusion. Example: “R2 is active because R1 has no preempt and R2 became active first.”</li>
+      <li><b>Direction words matter:</b> HSRP picks the highest priority; STP picks the lowest. Syslog's lower number is more severe. A higher AF drop value is dropped sooner.</li>
+      <li><b>Compare questions:</b> answer in a small table — mechanism, guarantee, speed, cost.</li>
+      <li><b>Use both sheets:</b> topics 01–15 from the midterm sheet; topics 16–22 from the new one.</li>
+    </ul>
+  </div>
 </div></section>
 
 <!-- ============ BLUEPRINT ============ -->
@@ -725,7 +933,7 @@ body.light .bpmap .hot text{fill:#4f6180}
   <h1><span class="pre">// SYSTEM VIEW</span>The whole switching system as one network</h1>
   <p class="lede">Connect the switching diagram with addressing, campus architecture, and wireless integration. Use the numbered tags and topic links to open the notes.</p>
 
-  <div class="lesson-links" aria-label="Campus service topics"><button class="btn" data-goto="t16">16 · DHCP &amp; Relay</button><button class="btn" data-goto="t17">17 · Campus design</button><button class="btn" data-goto="t18">18 · WLAN integration</button></div>
+  <div class="lesson-links" aria-label="Campus service topics"><button class="btn" data-goto="t16">16 · DHCP &amp; Relay</button><button class="btn" data-goto="t17">17 · Campus design</button><button class="btn" data-goto="t18">18 · WLAN integration</button><button class="btn" data-goto="t18B">18B · HSRP</button><button class="btn" data-goto="t19">19 · High availability</button><button class="btn" data-goto="t20">20 · QoS</button><button class="btn" data-goto="t21">21 · Monitoring</button><button class="btn" data-goto="t22">22 · Security</button></div>
   <div class="panel pv">
     <div class="ph"><h2 data-th="แนวคิดการสวิตชิงหลัก">Core switching concepts</h2><span class="badge vi right">click the tags</span></div>
     <svg class="topo bpmap" viewBox="0 0 880 560" xmlns="http://www.w3.org/2000/svg">
@@ -955,7 +1163,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 </div></section>
 <!-- ============ TOPICS ============ -->
 <section class="tab" id="notes"><div class="wrap">
-  <h1><span class="pre">// TECHNICAL TOPICS</span>19 connected network-engineering topics</h1>
+  <h1><span class="pre">// TECHNICAL TOPICS</span>24 connected network-engineering topics</h1>
   <p class="lede">Concepts, IOS commands, failure modes, and verification evidence arranged as one study path. Use <b>‹ ›</b> or <b>J / K</b> to move.</p>
 
   <!-- 01 -->
@@ -2572,6 +2780,565 @@ interface vlan 10
     <details class="lesson-check"><summary>Check yourself: a client crosses into another controller's subnet. Must it obtain a new IP?</summary><div class="dbody"><p>Not in the Layer 3 mobility example. The foreign controller tunnels traffic back to the anchor so the client keeps its original IP and sessions. Both Layer 2 and this Layer 3 roaming mechanism can preserve the client IP; distinguish them by the subnet relationship and forwarding path.</p></div></details>
     <div class="box trap"><b>Exam distinctions</b>SSID is a name; VLAN is a wired broadcast domain. A LAP is not a WLC. CAPWAP connects AP and controller; the illustrated mobility tunnel connects controllers. Layer 3 roaming can preserve an IP address even though the client has moved to a different local subnet.</div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t18"><span> mark done</span></label><button class="btn" data-drill="18">drill cards →</button></div>
+  </article>
+
+  <!-- 18B · First hop redundancy -->
+  <article class="item nd-lesson" id="t18B">
+    <div class="ph"><span class="badge gr">18B</span><h3>First Hop Redundancy &amp; HSRP</h3><span class="tag">Gateway · Virtual IP · Failover</span></div>
+    <p class="tldr">A host sends every off-subnet packet to one default gateway. A <b>First Hop Redundancy Protocol (FHRP)</b> lets two or more routers share a virtual gateway address, so one router can fail without reconfiguring any host.</p>
+    <div class="lesson-links" aria-label="First hop redundancy connections"><button class="btn" data-goto="t08">Review inter-VLAN routing</button><button class="btn" data-goto="t17">Review campus redundancy</button><button class="btn" data-goto="t19">Next: high availability</button></div>
+
+    <h4>The gateway is a single point of failure</h4>
+    <p>In the supplied example, hosts in <b>VLAN 10 (10.1.1.0/24)</b> use <b>R1 at 10.1.1.9</b> as their default gateway. Redundant switch links do not help when R1, or its LAN interface, fails: nothing can leave the subnet.</p>
+    <p>Adding <b>R2 at 10.1.1.129</b> creates a second exit, but a host still has only one configured gateway. Hosts pointing at .9 keep sending to a dead router. Changing every host, or waiting for new DHCP leases, is not a failover plan.</p>
+    <div class="box wild"><b>The FHRP idea</b>The routers keep their own interface addresses and also share a <b>virtual IP address</b> and <b>virtual MAC address</b>. Hosts use the virtual IP as their gateway. One router normally answers for it; another takes over when that router fails.</div>
+
+    <h4>Three FHRPs</h4>
+    <div class="tscroll"><table><tr><th>Protocol</th><th>Origin</th><th>Forwarding model</th><th>Load-sharing unit</th></tr>
+      <tr><td><b>HSRP</b><br>Hot Standby Router Protocol</td><td>Cisco</td><td>One <b>active</b> router forwards; others are standby/listen.</td><td>Per subnet. Use different groups for different VLANs to spread work.</td></tr>
+      <tr><td><b>VRRP</b><br>Virtual Router Redundancy Protocol</td><td>Open standard, RFC 5798</td><td>One <b>master</b> forwards; others are backups.</td><td>Per subnet.</td></tr>
+      <tr><td><b>GLBP</b><br>Gateway Load Balancing Protocol</td><td>Cisco</td><td>Several routers forward at the same time: <b>active/active</b>.</td><td>Per host. Different hosts learn different virtual MAC addresses for the same gateway IP.</td></tr>
+    </table></div>
+    <p class="sub2">The deck compares all three and configures HSRP. HSRP is the protocol to configure and analyze for this topic.</p>
+
+    <h4>Follow one HSRP failover</h4>
+    <p>Choose a stage. The hosts' configuration never changes: every host keeps <b>gateway 10.1.1.1</b> and the same ARP entry for it.</p>
+    <div class="lesson-explorer" data-lesson-switch>
+      <div class="lesson-choices" role="group" aria-label="HSRP stages">
+        <button class="btn on" data-lesson-choice="hsrp-normal" aria-controls="hsrp-normal" aria-pressed="true">1 · Normal operation</button>
+        <button class="btn" data-lesson-choice="hsrp-fail" aria-controls="hsrp-fail" aria-pressed="false">2 · R1 fails</button>
+        <button class="btn" data-lesson-choice="hsrp-back" aria-controls="hsrp-back" aria-pressed="false">3 · R1 comes back</button>
+      </div>
+      <div class="lesson-result" aria-live="polite">
+        <div id="hsrp-normal" data-lesson-panel><h5>R1 is active and owns the virtual gateway</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 330" role="img" aria-label="Hosts send traffic for 10.1.1.1 to active router R1; R2 is standby">
+      <title>HSRP normal operation</title>
+      <rect class="lesson-node" x="30" y="110" width="180" height="110" rx="10"/><text x="120" y="145" text-anchor="middle" class="lesson-emphasis">VLAN 10 hosts</text><text x="120" y="172" text-anchor="middle">10.1.1.0/24</text><text x="120" y="199" text-anchor="middle">gateway = .1</text>
+      <path class="lesson-active" d="M210 140 L330 85"/><path class="lesson-wire" d="M210 190 L330 245"/>
+      <rect class="lesson-node" x="330" y="55" width="160" height="60" rx="9"/><text x="410" y="82" text-anchor="middle" class="lesson-emphasis">R1 · .9</text><text x="410" y="104" text-anchor="middle">priority 110</text>
+      <rect class="lesson-node" x="330" y="215" width="160" height="60" rx="9"/><text x="410" y="242" text-anchor="middle" class="lesson-emphasis">R2 · .129</text><text x="410" y="264" text-anchor="middle">priority 100</text>
+      <path class="lesson-boundary" d="M410 115 V215"/><rect class="lesson-label" x="420" y="150" width="120" height="28" rx="4"/><text x="430" y="170">HSRP hellos</text>
+      <path class="lesson-wire" d="M490 85 H610 M490 245 H610"/><text x="620" y="90">to R3</text><text x="620" y="250">to R4</text>
+      <rect class="lesson-label" x="250" y="10" width="320" height="30" rx="4"/><text x="410" y="31" text-anchor="middle">ACTIVE · VIP 10.1.1.1 · 0000.0C9F.F001</text>
+      <text x="410" y="306" text-anchor="middle">STANDBY · listening</text>
+    </svg><figcaption>Host ARP table: 10.1.1.1 → 0000.0C9F.F001, the version 2 virtual MAC for group 1.</figcaption></figure><p>R1 wins the active role with priority <b>110</b> against R2's default <b>100</b>. Only the active router uses the virtual IP and virtual MAC. R2 monitors R1's hellos and is ready to take over.</p></div>
+        <div id="hsrp-fail" data-lesson-panel hidden><h5>R2 becomes active; the hosts change nothing</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 330" role="img" aria-label="R1 has failed; R2 takes the virtual IP and MAC">
+      <title>HSRP failover</title>
+      <rect class="lesson-node" x="30" y="110" width="180" height="110" rx="10"/><text x="120" y="145" text-anchor="middle" class="lesson-emphasis">VLAN 10 hosts</text><text x="120" y="172" text-anchor="middle">10.1.1.0/24</text><text x="120" y="199" text-anchor="middle">gateway = .1</text>
+      <path class="lesson-wire lesson-dim" d="M210 140 L330 85"/><path class="lesson-active" d="M210 190 L330 245"/>
+      <rect class="lesson-failed" x="330" y="55" width="160" height="60" rx="9"/><text x="410" y="82" text-anchor="middle" class="lesson-emphasis">R1 · .9</text><text x="410" y="104" text-anchor="middle">failed</text>
+      <path class="lesson-cross" d="M480 60 L500 80 M500 60 L480 80"/>
+      <rect class="lesson-node" x="330" y="215" width="160" height="60" rx="9"/><text x="410" y="242" text-anchor="middle" class="lesson-emphasis">R2 · .129</text><text x="410" y="264" text-anchor="middle">priority 100</text>
+      <path class="lesson-wire" d="M490 245 H610"/><text x="620" y="250">to R4</text>
+      <rect class="lesson-label" x="250" y="290" width="320" height="30" rx="4"/><text x="410" y="311" text-anchor="middle">ACTIVE · VIP 10.1.1.1 · 0000.0C9F.F001</text>
+      <rect class="lesson-label" x="425" y="150" width="270" height="28" rx="4"/><text x="435" y="170">gratuitous ARP from the virtual MAC</text>
+    </svg><figcaption>Gateway IP and host ARP entry are unchanged. Only the switches relearn where the virtual MAC lives.</figcaption></figure><p>R2 stops hearing hellos; when the <b>hold time</b> expires (10 s by default, with 3 s hellos) it becomes active and starts using <b>10.1.1.1</b> and <b>0000.0C9F.F001</b>. It sends a <b>gratuitous ARP</b> — an ARP reply nobody requested — sourced from the virtual MAC. The switches update their MAC address tables, so frames for the gateway now go out the port toward R2.</p></div>
+        <div id="hsrp-back" data-lesson-panel hidden><h5>Preemption decides whether R1 takes the role back</h5><div class="tscroll"><table><tr><th>R1 configuration</th><th>Result when R1 recovers</th></tr>
+      <tr><td><code>standby 1 priority 110</code> only</td><td>R2 <b>stays active</b>. Without preemption, an existing active router keeps its role even if a higher-priority router appears. R1 becomes standby.</td></tr>
+      <tr><td><code>standby 1 priority 110</code> + <code>standby 1 preempt</code></td><td>R1 <b>preempts</b> and becomes active again; R2 returns to standby.</td></tr>
+    </table></div><p>Preemption is <b>off by default</b> in HSRP and is configured on the router that should reclaim the role. In <code>show standby brief</code>, a <b>P</b> beside the priority marks a router configured to preempt.</p></div>
+      </div>
+    </div>
+
+    <h4>Which router becomes active?</h4>
+    <ol class="steps">
+      <li><b>No other HSRP router on the subnet:</b> the local router becomes active.</li>
+      <li><b>No active router yet, several candidates:</b> the highest <b>priority</b> wins. Default priority is <b>100</b>.</li>
+      <li><b>Priorities tie:</b> the highest IP address on the HSRP interface wins.</li>
+      <li><b>An active router already exists:</b> it keeps the role unless a higher-priority router is configured with <b>preempt</b>.</li>
+    </ol>
+    <div class="box trap"><b>Exam trap</b>“Highest priority is always active” is false. Without preemption, the router that became active first stays active. Also note that HSRP uses the <b>highest</b> values, while STP elections use the lowest.</div>
+
+    <h4>HSRP version 1 and version 2</h4>
+    <div class="tscroll"><table><tr><th>Feature</th><th>Version 1</th><th>Version 2</th></tr>
+      <tr><td>IPv6 support</td><td>No</td><td>Yes</td></tr>
+      <tr><td>Hello timer resolution</td><td>Seconds</td><td>Milliseconds</td></tr>
+      <tr><td>Group numbers</td><td>0–255</td><td>0–4095</td></tr>
+      <tr><td>Virtual MAC (group in hex)</td><td class="mono">0000.0C07.ACxx</td><td class="mono">0000.0C9F.Fxxx</td></tr>
+      <tr><td>IPv4 multicast for hellos</td><td class="mono">224.0.0.2</td><td class="mono">224.0.0.102</td></tr>
+      <tr><td>Unique router identifier in messages</td><td>No</td><td>Yes</td></tr>
+    </table></div>
+    <p>Work out a virtual MAC from the group number in <b>hex</b>: version 1 group 10 → <code>0000.0C07.AC0A</code>; version 2 group 1 → <code>0000.0C9F.F001</code>. Both routers in a group must run the same version.</p>
+
+    <h4>Configure HSRP</h4>
+    <details open><summary>Interface command pattern</summary><div class="dbody"><pre>interface interface-id
+ standby version {1 | 2}
+ standby group ip virtual-ip
+ standby group priority value
+ standby group preempt
+ standby group name group-name</pre><p class="sub2">Only <code>standby <i>group</i> ip</code> is essential; version, priority, preempt, and name are optional. The group number and virtual IP must match on every router in the group.</p></div></details>
+    <details open><summary>Supplied example: R1 active, R2 standby</summary><div class="dbody"><pre><span class="c">! R1</span>
+interface GigabitEthernet0/0
+ ip address 10.1.1.9 255.255.255.0
+ standby version 2
+ standby 1 ip 10.1.1.1
+ standby 1 priority 110
+ standby 1 name HSRP-group-for-book
+
+<span class="c">! R2 — same group and virtual IP, own interface address, default priority</span>
+interface GigabitEthernet0/0
+ ip address 10.1.1.129 255.255.255.0
+ standby version 2
+ standby 1 ip 10.1.1.1
+ standby 1 name HSRP-group-for-book</pre><p>The example does not configure preemption, so <code>show standby</code> reports “Preemption disabled.” Add <code>standby 1 preempt</code> on R1 if R1 must always return to active.</p></div></details>
+
+    <h4>Read the verification output</h4>
+    <pre>R1# show standby brief
+                     P indicates configured to preempt.
+                     |
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Gi0/0       1    110   Active  local           10.1.1.129      10.1.1.1
+
+R2# show standby brief
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
+    <div class="tscroll"><table><tr><th>Field</th><th>How to read it</th></tr>
+      <tr><td><b>State</b></td><td>This router's own role: Active or Standby.</td></tr>
+      <tr><td><b>Active / Standby</b></td><td>The real interface address of the router in that role. <b>local</b> means “this router.”</td></tr>
+      <tr><td><b>P</b> column</td><td>Blank: not configured to preempt. <b>P</b>: preempt configured.</td></tr>
+      <tr><td><b>Virtual IP</b></td><td>The gateway address the hosts use. It must match on both routers.</td></tr>
+    </table></div>
+    <p>The longer <code>show standby</code> adds the virtual MAC, hello and hold timers, preemption, state-change history, and the active router's priority. Both routers should agree on who is active, who is standby, and the virtual IP.</p>
+    <details class="lesson-check"><summary>Check yourself: both routers show “State Active” for group 1. What is wrong?</summary><div class="dbody"><p>They are not exchanging hellos, so each thinks it is alone. Check that they are in the same VLAN/subnet, the interfaces are up, the group number and HSRP version match, and nothing filters the HSRP multicast. Two active routers mean duplicate virtual-MAC sources and unstable forwarding.</p></div></details>
+    <details class="lesson-check"><summary>Check yourself: why does a host not need a new ARP entry after failover?</summary><div class="dbody"><p>The virtual MAC moves with the active role. The host still maps 10.1.1.1 to the same virtual MAC; only the switches learn a new port for that MAC from the new active router's gratuitous ARP.</p></div></details>
+    <div class="box wild"><b>Exam answer to remember</b>HSRP gives hosts one virtual gateway IP and MAC shared by several routers. The highest priority (then highest interface IP) becomes active; standby takes over when hellos stop, then announces the virtual MAC with a gratuitous ARP. Preemption is needed for a higher-priority router to reclaim the active role.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t18B"><span> mark done</span></label><button class="btn" data-drill="18B">drill cards →</button></div>
+  </article>
+
+  <!-- 19 · High availability -->
+  <article class="item nd-lesson" id="t19">
+    <div class="ph"><span class="badge cy">19</span><h3>High Availability</h3><span class="tag">Logical switches · Supervisors · NSF</span></div>
+    <p class="tldr"><b>High availability (HA)</b> means a system keeps operating for long periods, measured against “always operational.” In a campus, that comes from paired devices, paired links, logical switches that remove STP-blocked paths, and redundant supervisors that take over quickly.</p>
+    <div class="lesson-links" aria-label="High availability connections"><button class="btn" data-goto="t06">Review EtherChannel</button><button class="btn" data-goto="t10">Review STP</button><button class="btn" data-goto="t17">Review switch blocks</button><button class="btn" data-goto="t18B">Review HSRP</button></div>
+
+    <h4>Pairs at every layer — and what they still waste</h4>
+    <p>The campus design rule is to build each layer in pairs and connect each lower switch to the next layer with two links. In the supplied figure, every access switch has an uplink to each distribution switch. That survives a link or distribution-switch failure, but two problems remain:</p>
+    <ul class="pts"><li>The two access switches do not back each other up; a host plugged into one depends on that one switch.</li><li>The redundant uplinks form loops, so <b>STP blocks</b> some of the bandwidth you paid for.</li></ul>
+    <p>The improvement is to make two physical switches behave as <b>one logical switch</b>. Links to a logical switch can be bundled into one EtherChannel, and STP sees one link rather than a loop.</p>
+
+    <h4>Three stages of the same switch block</h4>
+    <div class="lesson-explorer" data-lesson-switch>
+      <div class="lesson-choices" role="group" aria-label="Logical switch stages">
+        <button class="btn on" data-lesson-choice="ha-separate" aria-controls="ha-separate" aria-pressed="true">Separate switches</button>
+        <button class="btn" data-lesson-choice="ha-stack" aria-controls="ha-stack" aria-pressed="false">Logical access switch</button>
+        <button class="btn" data-lesson-choice="ha-mec" aria-controls="ha-mec" aria-pressed="false">Logical access + logical distribution</button>
+      </div>
+      <div class="lesson-result" aria-live="polite">
+        <div id="ha-separate" data-lesson-panel><h5>Four independent switches · STP blocks uplinks</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 360" role="img" aria-label="Two distribution and two access switches with crossed uplinks; two uplinks blocked">
+      <title>Separate switches with redundant uplinks</title>
+      <g class="lesson-wire"><path d="M245 60 L300 20 M475 60 L420 20"/><path d="M320 85 H400"/><path d="M245 110 L245 250 M475 110 L475 250"/></g>
+      <path class="lesson-blocked" d="M245 110 L475 250 M475 110 L245 250"/>
+      <path class="lesson-cross" d="M300 172 L320 192 M320 172 L300 192 M400 172 L420 192 M420 172 L400 192"/>
+      <text x="360" y="16" text-anchor="middle">To core layer</text>
+      <rect class="lesson-node" x="170" y="60" width="150" height="50" rx="9"/><rect class="lesson-node" x="400" y="60" width="150" height="50" rx="9"/>
+      <text x="245" y="91" text-anchor="middle">Distribution D1</text><text x="475" y="91" text-anchor="middle">Distribution D2</text>
+      <rect class="lesson-node" x="170" y="250" width="150" height="50" rx="9"/><rect class="lesson-node" x="400" y="250" width="150" height="50" rx="9"/>
+      <text x="245" y="281" text-anchor="middle">Access A1</text><text x="475" y="281" text-anchor="middle">Access A2</text>
+      <text x="360" y="340" text-anchor="middle">dashed + X = blocked by STP</text>
+    </svg><figcaption>Redundant, but some uplinks carry nothing until a failure.</figcaption></figure><p>Every switch is managed separately. Failover depends on STP reconverging, and blocked uplinks add no capacity during normal operation.</p></div>
+        <div id="ha-stack" data-lesson-panel hidden><h5>One logical access switch · one EtherChannel per distribution switch</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 360" role="img" aria-label="A1 and A2 form one logical access switch with an EtherChannel to each distribution switch">
+      <title>Logical access switch</title>
+      <g class="lesson-wire"><path d="M245 60 L300 20 M475 60 L420 20"/><path d="M320 85 H400"/></g>
+      <path class="lesson-active" d="M230 110 L290 250 M260 110 L430 250"/>
+      <path class="lesson-blocked" d="M460 110 L300 250 M490 110 L440 250"/>
+      <ellipse class="lesson-bundle" cx="274" cy="145" rx="44" ry="11"/><ellipse class="lesson-bundle" cx="459" cy="145" rx="36" ry="11"/>
+      <text x="360" y="16" text-anchor="middle">To core layer</text>
+      <rect class="lesson-node" x="170" y="60" width="150" height="50" rx="9"/><rect class="lesson-node" x="400" y="60" width="150" height="50" rx="9"/>
+      <text x="245" y="91" text-anchor="middle">Distribution D1</text><text x="475" y="91" text-anchor="middle">Distribution D2</text>
+      <path class="lesson-boundary" d="M225 240 H495 V310 H225 Z"/>
+      <rect class="lesson-node" x="235" y="250" width="122" height="50" rx="9"/><rect class="lesson-node" x="363" y="250" width="122" height="50" rx="9"/>
+      <text x="296" y="281" text-anchor="middle">A1</text><text x="424" y="281" text-anchor="middle">A2</text>
+      <text x="360" y="336" text-anchor="middle">one logical access switch (stack)</text>
+    </svg><figcaption>Each EtherChannel joins one link from A1 and one from A2. The channel to D2 can still be blocked by STP.</figcaption></figure><p>The access pair now protects each other and bundles its uplinks. But D1 and D2 are still separate switches, so the two EtherChannels form a loop through the distribution pair; STP may block one whole channel.</p></div>
+        <div id="ha-mec" data-lesson-panel hidden><h5>Two logical switches · one multichassis EtherChannel</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 360" role="img" aria-label="Logical distribution and logical access switch joined by one multichassis EtherChannel; all links forward">
+      <title>Logical distribution and access with MEC</title>
+      <g class="lesson-wire"><path d="M300 60 L330 20 M420 60 L390 20"/></g>
+      <path class="lesson-active" d="M290 110 L310 250 M330 110 L410 250 M390 110 L310 250 M430 110 L410 250"/>
+      <ellipse class="lesson-bundle" cx="360" cy="180" rx="92" ry="16"/>
+      <text x="360" y="16" text-anchor="middle">To core layer · also an EtherChannel</text>
+      <path class="lesson-boundary" d="M225 50 H495 V120 H225 Z"/>
+      <rect class="lesson-node" x="235" y="60" width="122" height="50" rx="9"/><rect class="lesson-node" x="363" y="60" width="122" height="50" rx="9"/>
+      <text x="296" y="91" text-anchor="middle">D1</text><text x="424" y="91" text-anchor="middle">D2</text>
+      <rect class="lesson-label" x="505" y="70" width="180" height="30" rx="4"/><text x="515" y="91">logical distribution</text>
+      <path class="lesson-boundary" d="M225 240 H495 V310 H225 Z"/>
+      <rect class="lesson-node" x="235" y="250" width="122" height="50" rx="9"/><rect class="lesson-node" x="363" y="250" width="122" height="50" rx="9"/>
+      <text x="296" y="281" text-anchor="middle">A1</text><text x="424" y="281" text-anchor="middle">A2</text>
+      <rect class="lesson-label" x="505" y="260" width="160" height="30" rx="4"/><text x="515" y="281">logical access</text>
+      <text x="360" y="336" text-anchor="middle">all four links forward as one channel</text>
+    </svg><figcaption>A multichassis EtherChannel (MEC) spans physical switches on both ends.</figcaption></figure><p>Between two logical switches there is no Layer 2 loop to break, so nothing is blocked. All links carry traffic, and losing one physical switch or link only reduces the channel's capacity.</p></div>
+      </div>
+    </div>
+
+    <h4>StackWise: many access switches, one logical switch</h4>
+    <ul class="pts">
+      <li>Cisco <b>StackWise / StackWise Plus</b> joins separate physical switches with special stacking cables, daisy-chained back to the first switch to close a <b>ring</b>.</li>
+      <li>Up to <b>nine</b> physical switches can form one stack in the deck's model.</li>
+      <li>One member is the <b>stack master</b>: it performs management for the whole stack, which is managed through <b>one IP address</b>.</li>
+      <li>The deck's examples are fixed-configuration access switches such as the Catalyst 3750-E, 3750-X, and 3850.</li>
+    </ul>
+
+    <h4>Virtual Switching System: two chassis, one logical switch</h4>
+    <ul class="pts">
+      <li>A <b>chassis</b> switch has slots for switching modules plus a <b>supervisor</b> module that runs management and control functions such as routing updates and forwarding tables.</li>
+      <li><b>Virtual Switching System (VSS)</b> configures two identical chassis as one logical switch, a <b>VSS pair</b>, joined by a <b>virtual switch link (VSL)</b>.</li>
+      <li>One supervisor, in one chassis, controls the logical switch; the other chassis' supervisor is the redundant standby.</li>
+      <li>VSS is typically used at distribution or core, where Fig. 3's logical distribution switch comes from.</li>
+    </ul>
+    <div class="box wild"><b>StackWise vs VSS in one line</b>StackWise stacks several fixed access switches with stack cables under a stack master. VSS pairs exactly two chassis over a VSL under one active supervisor. Both present one logical switch, enabling EtherChannels that span physical devices.</div>
+
+    <h4>Supervisor redundancy modes</h4>
+    <p>A chassis may hold two supervisors. The first to boot successfully becomes <b>active</b>; the other waits as <b>standby</b>. Redundant power supplies follow the same pattern: one active, one standby. The redundancy mode decides how much work the standby has already done when the active supervisor fails.</p>
+    <div class="lesson-explorer" data-lesson-switch>
+      <div class="lesson-choices" role="group" aria-label="Supervisor redundancy modes">
+        <button class="btn on" data-lesson-choice="sup-rpr" aria-controls="sup-rpr" aria-pressed="true">RPR</button>
+        <button class="btn" data-lesson-choice="sup-rprplus" aria-controls="sup-rprplus" aria-pressed="false">RPR+</button>
+        <button class="btn" data-lesson-choice="sup-sso" aria-controls="sup-sso" aria-pressed="false">SSO</button>
+      </div>
+      <div class="lesson-result" aria-live="polite">
+        <div id="sup-rpr" data-lesson-panel><h5>Route Processor Redundancy · partially booted standby</h5><div class="ha-ladder"><div class="ha-pre"><b>Done before the failure</b><ol><li>Bootstrap image loaded</li><li>IOS image loaded</li><li>Startup-config synchronized</li><li>Supervisor diagnostics</li></ol></div><div class="ha-post"><b>Still to do after the failure</b><ol><li>Reload <b>all switch modules</b></li><li>Initialize route engine</li><li>Initialize Layer 2 protocols</li><li>Initialize Layer 3 protocols</li><li>Routing protocols converge</li><li>FIB flushed and re-created</li></ol></div></div><p>Failover: <b>Good — over 2 minutes</b>. Reloading every module drops all ports.</p></div>
+        <div id="sup-rprplus" data-lesson-panel hidden><h5>RPR+ · booted standby, modules keep running</h5><div class="ha-ladder"><div class="ha-pre"><b>Done before the failure</b><ol><li>Bootstrap and IOS images loaded</li><li>Startup-config synchronized</li><li>Supervisor diagnostics</li><li>Route engine initialized</li></ol></div><div class="ha-post"><b>Still to do after the failure</b><ol><li>Initialize Layer 2 protocols</li><li>Initialize Layer 3 protocols</li><li>Routing protocols converge</li><li>FIB flushed and re-created</li></ol></div></div><p>Failover: <b>Better — over 30 seconds</b>. Other modules are not reloaded, so switch ports retain their state.</p></div>
+        <div id="sup-sso" data-lesson-panel hidden><h5>Stateful Switchover · fully initialized standby</h5><div class="ha-ladder"><div class="ha-pre"><b>Done before the failure</b><ol><li>Images loaded, diagnostics passed</li><li>Startup <b>and running</b> configuration synchronized</li><li>Route engine initialized</li><li>Layer 2 protocols initialized; Layer 2 state kept on both supervisors</li><li>FIB synchronized</li></ol></div><div class="ha-post"><b>Still to do after the failure</b><ol><li>Initialize Layer 3 protocols</li><li>Routing protocols converge</li><li>FIB updated (not flushed)</li></ol></div></div><p>Failover: <b>Best — about 1 second</b>. Hardware switching continues and interface state is shared, so links do not flap. <b>NSF</b> optionally speeds the remaining Layer 3 steps.</p></div>
+      </div>
+    </div>
+    <div class="tscroll"><table><tr><th>Mode</th><th>Standby readiness</th><th>Failover time in the deck</th></tr>
+      <tr><td><b>RPR</b></td><td>Partially booted; must reload other modules</td><td>Good: more than 2 minutes</td></tr>
+      <tr><td><b>RPR+</b></td><td>Booted with route engine ready; no Layer 2/3 protocols started</td><td>Better: more than 30 seconds</td></tr>
+      <tr><td><b>SSO</b></td><td>Fully booted; configurations and Layer 2 state synchronized</td><td>Best: about 1 second</td></tr>
+    </table></div>
+    <p class="sub2">The slides abbreviate RPR and RPR+ as “PRP” on one page; the modes are Route Processor Redundancy and RPR Plus. Treat the times as the deck's comparative guide, not platform guarantees.</p>
+
+    <h4>Nonstop Forwarding and the RIB vs FIB question</h4>
+    <div class="tscroll"><table><tr><th>Table</th><th>Built by</th><th>Used for</th></tr>
+      <tr><td><b>RIB</b><br>Routing Information Base</td><td>Routing protocols and static/connected routes — the control plane's routing table</td><td>Choosing best routes</td></tr>
+      <tr><td><b>FIB</b><br>Forwarding Information Base</td><td>Cisco Express Forwarding (CEF), derived from the RIB, with an adjacency table for next-hop rewrites</td><td>Forwarding packets in hardware — the data plane</td></tr>
+    </table></div>
+    <p><b>Nonstop Forwarding (NSF)</b> works with SSO. The synchronized FIB keeps forwarding packets during the switchover, so the router does not need to rebuild the FIB from scratch. The new active supervisor then rebuilds its RIB quickly with help from <b>NSF-aware neighbors</b>, which resend routing information without tearing down their adjacencies. Supported routing protocols: <b>BGP, EIGRP, OSPF, and IS-IS</b>.</p>
+    <p class="sub2">The slide spells these “NFS” and “EIRP”; the correct names are NSF and EIGRP.</p>
+    <details class="lesson-check"><summary>Check yourself: a network team wants links to stay up during a supervisor failure. Which mode?</summary><div class="dbody"><p>SSO. It keeps Layer 2 and interface state on both supervisors, so links do not flap; add NSF so routed forwarding continues while routing protocols recover. RPR reloads every module, and RPR+ still has to initialize Layer 2 and Layer 3 protocols.</p></div></details>
+    <details class="lesson-check"><summary>Check yourself: why does a logical switch improve on two separate switches with STP?</summary><div class="dbody"><p>The redundant links become one EtherChannel to one logical device, so there is no Layer 2 loop for STP to block. All links forward, and a physical member failure only reduces channel capacity instead of waiting for STP reconvergence.</p></div></details>
+    <div class="box wild"><b>Exam answer to remember</b>Pair devices and links at each layer; make pairs logical (StackWise at access, VSS at distribution/core) so multichassis EtherChannels replace STP-blocked links. Inside a chassis, supervisor redundancy ranges from RPR (slowest, reloads modules) through RPR+ to SSO (fastest, state synchronized), and NSF keeps forwarding while routing recovers.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t19"><span> mark done</span></label><button class="btn" data-drill="19">drill cards →</button></div>
+  </article>
+
+  <!-- 20 · Quality of service -->
+  <article class="item nd-lesson" id="t20">
+    <div class="ph"><span class="badge vi">20</span><h3>Introduction to Quality of Service</h3><span class="tag">Marking · Policing · Queuing · WRED</span></div>
+    <p class="tldr"><b>Quality of Service (QoS)</b> is the set of methods a network uses to protect and prioritize time-critical or important traffic. It classifies traffic, marks it, limits its rate, and decides what to queue, send first, or drop when a link is congested.</p>
+    <div class="lesson-links" aria-label="QoS connections"><button class="btn" data-goto="t04">Review the 802.1Q tag</button><button class="btn" data-goto="t17">Review campus design</button><button class="btn" data-goto="t18">Review WLAN</button></div>
+
+    <h4>Different traffic, different requirements</h4>
+    <div class="tscroll"><table><tr><th>Requirement</th><th>Data</th><th>Voice</th><th>Video</th></tr>
+      <tr><td>Bandwidth</td><td>High</td><td>Low</td><td>High</td></tr>
+      <tr><td>Delay</td><td>Not critical beyond a few ms</td><td>&lt; 150 ms</td><td>&lt; 150 ms for real-time video</td></tr>
+      <tr><td>Jitter</td><td>Not applicable</td><td>Low</td><td>Low</td></tr>
+      <tr><td>Packet loss</td><td>&lt; 5%</td><td>&lt; 1%</td><td>&lt; 1%</td></tr>
+      <tr><td>Availability</td><td>High</td><td>High</td><td>High</td></tr>
+      <tr><td>Inline power</td><td>No</td><td>Optional</td><td>Optional for some devices</td></tr>
+      <tr><td>Security</td><td>High</td><td>Medium</td><td>Low or medium</td></tr>
+      <tr><td>Provisioning effort</td><td>Medium</td><td>Significant</td><td>Medium</td></tr>
+    </table></div>
+    <p><b>Jitter</b> is variation in delay: packets sent at even intervals arrive unevenly. Typical acceptable jitter in the deck: <b>VoIP &lt; 30 ms</b>, video conferencing 30–50 ms, online gaming &lt; 30 ms, streaming media &lt; 100 ms, general data around 100 ms or higher.</p>
+    <div class="tscroll"><table><tr><th>Traffic</th><th>Shape</th><th>Packets</th><th>Sensitivity</th><th>Transport</th></tr>
+      <tr><td><b>Data</b></td><td>Steady or bursty</td><td>Average about 300 bytes</td><td>Drop- and delay-insensitive</td><td>TCP retransmits losses</td></tr>
+      <tr><td><b>Voice</b></td><td>Steady</td><td>Small, 480 bytes or less</td><td>Drop- and delay-sensitive</td><td>UDP; needs priority</td></tr>
+      <tr><td><b>Video</b></td><td>Bursty, mostly variable bit rate</td><td>Large, 800–1500 bytes</td><td>Drop- and delay-sensitive</td><td>UDP; needs priority</td></tr>
+      <tr><td><b>VDI</b> (virtual desktop)</td><td>Steady or bursty</td><td>Mix of large and small</td><td>Drop- and delay-sensitive</td><td>TCP (RDP, ICA) or UDP (PCoIP)</td></tr>
+    </table></div>
+
+    <h4>What QoS is for</h4>
+    <ul class="pts"><li><b>Control over resources</b> — for example, stop low-priority traffic from monopolizing a link.</li><li><b>More efficient use of resources</b> — measure traffic, then decide how each class is handled.</li><li><b>Tailored services</b> — offer different service grades to different customers or applications.</li><li><b>Coexistence of mission-critical applications</b> — critical applications get the most efficient use of the network.</li></ul>
+    <p>QoS manages <b>congestion</b>. The availability and stability problems it targets are <b>delay (latency)</b>, <b>delay variation (jitter)</b>, and <b>packet loss</b>. QoS cannot create bandwidth that does not exist; it chooses who suffers when demand exceeds the link.</p>
+
+    <h4>Three service models</h4>
+    <div class="tscroll"><table><tr><th>Model</th><th>Guarantee</th><th>How it works</th></tr>
+      <tr><td><b>Best effort</b></td><td>None</td><td>Every packet treated alike; one FIFO queue.</td></tr>
+      <tr><td><b>IntServ</b><br>Integrated Services</td><td>Hard QoS</td><td>Resources for each flow are reserved explicitly along the whole path (signaled per flow, e.g. with RSVP).</td></tr>
+      <tr><td><b>DiffServ</b><br>Differentiated Services</td><td>Soft QoS — no hard guarantee</td><td>Traffic is grouped into classes; some classes receive preferential treatment at each hop.</td></tr>
+    </table></div>
+    <p>DiffServ is the model used in campus switching because most switches support it and it scales: each device acts on a packet's marking rather than keeping per-flow reservations.</p>
+
+    <h4>The Cisco switch QoS pipeline</h4>
+    <ol class="steps"><li><b>Classify</b> each ingress packet: decide which class it belongs to and its internal DSCP.</li><li><b>Police:</b> check the class against a rate; out-of-profile traffic may be dropped or marked down.</li><li><b>Mark</b> (or re-mark) the packet's QoS field.</li><li><b>Choose a transmit queue</b> for the egress interface.</li><li><b>Congestion management</b> schedules the queues; <b>congestion avoidance</b> decides what to drop inside a queue before it fills.</li></ol>
+    <p>Without a congestion-avoidance mechanism, a queue simply drops new packets when it is full.</p>
+
+    <h4>Where the markings live: CoS, IP Precedence, DSCP</h4>
+    <div class="tscroll"><table><tr><th>Marking</th><th>Layer</th><th>Location</th><th>Bits</th><th>Values</th></tr>
+      <tr><td><b>CoS</b><br>Class of Service</td><td>2</td><td>802.1Q tag (user priority) — exists only on tagged frames</td><td>3</td><td>0–7</td></tr>
+      <tr><td><b>IP Precedence</b></td><td>3</td><td>Top 3 bits of the IPv4 ToS byte (P2–P0)</td><td>3</td><td>0–7</td></tr>
+      <tr><td><b>DSCP</b><br>Differentiated Services Code Point</td><td>3</td><td>Top 6 bits of the same byte (DS5–DS0)</td><td>6</td><td>0–63</td></tr>
+    </table></div>
+    <p>The remaining 2 bits of that byte are <b>Explicit Congestion Notification (ECN)</b>. The slide says “the last 2 bits of DSCP”; precisely, they are the last 2 bits of the ToS/DS byte, after the 6 DSCP bits. Because IP Precedence is the top 3 bits of DSCP, padding a precedence value with three zero bits gives its DSCP: <b>DSCP = IPP × 8</b>. DSCP is the leading method in enterprise switching.</p>
+    <p>Worked example: a Cisco IP phone marks voice <b>DSCP 46</b> = <code>101110</code>. Its top three bits <code>101</code> are <b>IP Precedence 5</b>, and the phone also uses <b>CoS 5</b>.</p>
+
+    <h4>Per-hop behaviors (the homework)</h4>
+    <div class="tscroll"><table><tr><th>PHB</th><th>DSCP</th><th>Treatment</th></tr>
+      <tr><td><b>Default</b></td><td class="mono">0 (000000)</td><td>Best effort.</td></tr>
+      <tr><td><b>EF</b> · Expedited Forwarding</td><td class="mono">46 (101110)</td><td>Low delay, low jitter, low loss — voice payload, served from a priority queue.</td></tr>
+      <tr><td><b>AF</b> · Assured Forwarding (RFC 2597)</td><td class="mono">AFxy = 8x + 2y</td><td>Four classes (queues) x = 1–4, each with three drop priorities y = 1–3. Higher x = better queue; higher y = dropped sooner under congestion.</td></tr>
+      <tr><td><b>CS</b> · Class Selector</td><td class="mono">CSn = 8n</td><td>Backward compatible with IP Precedence: only the top 3 bits are set (CS5 = 40).</td></tr>
+    </table></div>
+    <div class="tscroll"><table><tr><th>Queue</th><th>Drop 1 (low)</th><th>Drop 2</th><th>Drop 3 (high)</th></tr>
+      <tr><td>Class 4 · best</td><td class="mono">AF41 = 34</td><td class="mono">AF42 = 36</td><td class="mono">AF43 = 38</td></tr>
+      <tr><td>Class 3</td><td class="mono">AF31 = 26</td><td class="mono">AF32 = 28</td><td class="mono">AF33 = 30</td></tr>
+      <tr><td>Class 2</td><td class="mono">AF21 = 18</td><td class="mono">AF22 = 20</td><td class="mono">AF23 = 22</td></tr>
+      <tr><td>Class 1 · worst</td><td class="mono">AF11 = 10</td><td class="mono">AF12 = 12</td><td class="mono">AF13 = 14</td></tr>
+    </table></div>
+    <p><b>Decode AF from binary</b> <code>b5 b4 b3 b2 b1 b0</code>: <code>b5b4b3</code> is the class, <code>b2b1</code> is the drop priority, <code>b0</code> is always 0. Example: <code>011100</code> → class <code>011</code> = 3, drop <code>10</code> = 2 → <b>AF32</b>; all six bits as decimal → <b>DSCP 28</b>.</p>
+    <div class="qos-tool" id="dscpTool">
+      <div class="qos-tool-head"><label for="dscpIn"><b>DSCP decoder</b> — type 0–63, a 6-bit binary value, or a name such as AF32, EF, CS3</label></div>
+      <div class="row"><input id="dscpIn" class="fld" value="46" autocomplete="off" spellcheck="false" aria-describedby="dscpOut"></div>
+      <div class="chips" id="dscpQuick" aria-label="Common markings"></div>
+      <div id="dscpOut" aria-live="polite"></div>
+    </div>
+
+    <h4>Trust boundaries and default maps</h4>
+    <p>A switch handles every packet using an <b>internal DSCP</b>. Untrusted ports treat all ingress frames as <b>DSCP 0</b> — the default. A port configured to <b>trust</b> DSCP accepts the packet's DSCP as the internal value; trusting CoS or IP Precedence maps those values to DSCP:</p>
+    <div class="tscroll"><table><tr><th>CoS or IP Precedence</th><td class="mono">0</td><td class="mono">1</td><td class="mono">2</td><td class="mono">3</td><td class="mono">4</td><td class="mono">5</td><td class="mono">6</td><td class="mono">7</td></tr>
+      <tr><th>Default internal DSCP</th><td class="mono">0</td><td class="mono">8</td><td class="mono">16</td><td class="mono">24</td><td class="mono">32</td><td class="mono">40</td><td class="mono">48</td><td class="mono">56</td></tr></table></div>
+    <p>Example from the trust figure: a host sends <b>CoS 5</b>. On a port trusting CoS, the internal DSCP is <b>40</b>; on an untrusted port it is <b>0</b>. Note the default map gives 40, not voice's EF 46 — a reason to trust DSCP or change the map.</p>
+    <ul class="pts"><li><b>Classification methods:</b> per-interface trust; per-interface manual DSCP/IPP/CoS; per-packet with access lists; <b>Network-Based Application Recognition (NBAR)</b>.</li><li><b>Place classification as close to the edge as possible</b> — normally the access layer — to get end-to-end QoS that is easy to manage.</li><li><b>Marking</b> changes the DSCP, CoS, or IPP of ingress frames, per interface or through a policy map. Example: mark everything from a video server to DSCP 40, giving internal DSCP 40.</li></ul>
+
+    <h4>Shaping vs policing</h4>
+    <div class="tscroll"><table><tr><th></th><th>Shaping</th><th>Policing</th></tr>
+      <tr><td>Excess traffic</td><td><b>Delays (buffers)</b> it to stay within the rate</td><td><b>Drops or re-marks</b> it immediately</td></tr>
+      <tr><td>Effect on bursts</td><td>Smooths them into a steady flow; fewer drops downstream</td><td>Cuts them at the configured rate (burst size allows some)</td></tr>
+      <tr><td>Adds delay?</td><td>Yes</td><td>No</td></tr>
+      <tr><td>Good fit</td><td>Bursty TCP, especially toward a slower provider rate at the network edge</td><td>Enforcing limits on TCP and UDP classes; protecting the network at a trust boundary</td></tr>
+      <tr><td>Poor fit</td><td>Delay-sensitive voice and video</td><td>Traffic that cannot tolerate loss when it exceeds the rate</td></tr>
+    </table></div>
+    <p><b>Token bucket (the deck's “leaky token bucket”):</b> tokens proportional to each arriving packet's size are placed in a bucket whose depth is the <b>burst size</b>. At a regular interval the switch removes tokens at the configured <b>rate</b>. If a packet's tokens would overflow the full bucket, the packet is <b>out of profile</b> and is dropped or marked down, as policy says. A policer can act as a <b>dropper</b> (conform → transmit, exceed → drop at the CIR) or as a <b>marker</b> (conform AF11, exceed AF12, violate AF13 between the CIR and PIR).</p>
+
+    <h4>Congestion management: queuing and scheduling</h4>
+    <div class="tscroll"><table><tr><th>Mechanism</th><th>How it schedules</th><th>Key point</th></tr>
+      <tr><td><b>FIFO</b></td><td>One queue, first come first served, tail drop when full</td><td>Default; no classification, not QoS-enabled</td></tr>
+      <tr><td><b>WRR</b> · Weighted Round Robin</td><td>Visits each egress queue in turn; a queue's weight sets its share</td><td>Higher weight → higher priority and more implied bandwidth</td></tr>
+      <tr><td><b>Priority queuing</b></td><td>The priority queue is served first; WRR weights are ignored for it</td><td>Usually one strict-priority egress queue, for voice</td></tr>
+      <tr><td><b>Custom queuing</b></td><td>Reserves a percentage of bandwidth per traffic type; unused share can be borrowed</td><td>WAN interfaces; static, not adaptive; not recommended for high-speed WAN</td></tr>
+    </table></div>
+    <p><b>WRR worked example:</b> four queues weighted 50, 10, 25, 15 (sum 100) receive 50%, 10%, 25%, and 15% of the bandwidth. If weights do not sum to 100, the share is <b>weight ÷ sum of weights</b>. Buffers are split by the transmit-queue ratio: high and strict priority queues hold small, delay-sensitive flows and need little memory; low-priority queues hold delay-tolerant traffic and get more.</p>
+    <p><b>LLQ</b> (Low-Latency Queuing) is Cisco's addition of a strict priority queue to class-based weighted fair queuing (CBWFQ): voice is dequeued and sent before packets in other queues.</p>
+
+    <h4>Congestion avoidance: tail drop, RED, WRED</h4>
+    <p><b>Tail drop</b>, the default, drops every arriving packet once the queue is full. That hurts TCP: many sessions lose packets together and enter slow start together (<b>TCP synchronization</b>), aggressive flows can monopolize the queue, deep queues add delay and jitter, and premium traffic is dropped just like best effort.</p>
+    <p><b>RED</b> (Random Early Detection) drops packets <b>randomly before</b> the queue fills, with a probability that rises as the average queue grows past a threshold. Individual TCP senders shrink their windows at different times, so link utilization stays close to the bandwidth. RED works while the queue is not full; once it is full, tail drop applies. RED helps <b>TCP</b>, which slows down after loss; UDP does not back off.</p>
+    <p><b>WRED</b> (Weighted RED) adds classification: each IP Precedence or DSCP value can have its own minimum threshold, maximum threshold, and drop probability. Deck example for one queue: at <b>50%</b> full, randomly drop DSCP 0–20 (best effort); at <b>80%</b>, also drop DSCP above 20 (up to 31); when full, tail drop.</p>
+    <div class="box wild"><b>Best practice</b>Put high-priority, delay-sensitive traffic in a strict priority queue and use WRR for the others; apply WRED to the remaining data queues. Use WRED on highly congested interfaces, especially WAN links between data centers.</div>
+    <p><b>AutoQoS</b> generates traffic classes and policy-map templates automatically, simplifying classification, policy generation, configuration, monitoring and reporting, and consistency for converged voice and data networks.</p>
+    <details class="lesson-check"><summary>Check yourself: a packet arrives marked DSCP 30. What is it and how is it treated?</summary><div class="dbody"><p>30 = <code>011110</code>: class <code>011</code> = 3, drop <code>11</code> = 3 → <b>AF33</b>. It uses the class 3 queue with the highest drop priority, so WRED drops it before AF31 and AF32 traffic in that queue.</p></div></details>
+    <details class="lesson-check"><summary>Check yourself: voice through a shaper — good idea?</summary><div class="dbody"><p>No. Shaping buffers excess traffic, adding delay and jitter. Give voice a strict priority queue and police the priority class so it cannot starve the others.</p></div></details>
+    <div class="box wild"><b>Exam answer to remember</b>DiffServ classifies and marks at the edge (DSCP 6 bits, CoS 3 bits, IPP 3 bits), trusts markings only at the trust boundary, polices or shapes rates, schedules queues (priority for voice, WRR for the rest), and uses WRED instead of tail drop so TCP flows back off gradually.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t20"><span> mark done</span></label><button class="btn" data-drill="20">drill cards →</button></div>
+  </article>
+
+  <!-- 21 · Monitoring -->
+  <article class="item nd-lesson" id="t21">
+    <div class="ph"><span class="badge am">21</span><h3>Monitoring</h3><span class="tag">Syslog · NTP · SNMP · SPAN</span></div>
+    <p class="tldr">Monitoring answers “what happened, when, and what is flowing now.” Switches <b>log events</b> with syslog, keep the timestamps correct with <b>NTP</b>, report counters and alerts through <b>SNMP</b>, and <b>mirror traffic</b> to an analyzer with SPAN or RSPAN.</p>
+    <div class="lesson-links" aria-label="Monitoring connections"><button class="btn" data-goto="t04">Review VLANs and trunks</button><button class="btn" data-goto="t05">Review VTP</button><button class="btn" data-goto="t22">Next: security</button></div>
+
+    <h4>Syslog message format</h4>
+    <pre>00:30:39: %SYS-5-CONFIG_I: Configured from console by console
+<span class="c">! timestamp  facility-severity-mnemonic  message text</span></pre>
+    <div class="tscroll"><table><tr><th>Field</th><th>In the example</th><th>Meaning</th></tr>
+      <tr><td><b>Timestamp</b></td><td class="mono">00:30:39</td><td>Date/time or uptime of the event</td></tr>
+      <tr><td><b>Facility</b></td><td class="mono">%SYS</td><td>The module or function that generated it</td></tr>
+      <tr><td><b>Severity</b></td><td class="mono">5</td><td>0–7; a <b>lower</b> number is <b>more</b> severe</td></tr>
+      <tr><td><b>Mnemonic</b></td><td class="mono">CONFIG_I</td><td>Short code categorizing the event within the facility</td></tr>
+      <tr><td><b>Message text</b></td><td>Configured from console…</td><td>Description of the event</td></tr>
+    </table></div>
+    <div class="tscroll"><table><tr><th>Level</th><th>Keyword</th><th>Typical switch events in the deck</th></tr>
+      <tr><td class="mono">0</td><td>emergencies</td><td>Crashes, stopped processes</td></tr>
+      <tr><td class="mono">1</td><td>alerts</td><td>Platform errors</td></tr>
+      <tr><td class="mono">2</td><td>critical</td><td>Hardware issues, port security, STP</td></tr>
+      <tr><td class="mono">3</td><td>errors</td><td>ACL/TCAM issues, PAgP problems, Ethernet controller, interface up/down</td></tr>
+      <tr><td class="mono">4</td><td>warnings</td><td>DHCP snooping</td></tr>
+      <tr><td class="mono">5</td><td>notifications</td><td>802.1X, DTP, EtherChannel, inline power, STP, interface line protocol</td></tr>
+      <tr><td class="mono">6</td><td>informational</td><td>Stack events, port security, dynamic ARP inspection, VTP, UDLD, STP, hardware diagnostics</td></tr>
+      <tr><td class="mono">7</td><td>debugging</td><td>Debug output</td></tr>
+    </table></div>
+    <p class="sub2">Memory hook for 0–7: <b>E</b>very <b>A</b>wesome <b>C</b>isco <b>E</b>ngineer <b>W</b>ill <b>N</b>eed <b>I</b>ce-cream <b>D</b>aily.</p>
+    <div class="qos-tool" id="sevTool">
+      <div class="qos-tool-head"><label for="sevIn"><b>Logging threshold check</b> — a severity setting shows that level and everything more severe</label></div>
+      <div class="row"><select id="sevIn" class="fld" style="width:auto"></select></div>
+      <div id="sevOut" class="sev-grid" aria-live="polite"></div>
+    </div>
+
+    <h4>Where messages go</h4>
+    <details open><summary>Console, internal buffer, timestamps</summary><div class="dbody"><pre><span class="c">! Console: on by default at debugging (7); seen only when connected to the console port</span>
+logging console severity
+
+<span class="c">! Internal buffer: off by default; keeps messages to review later</span>
+logging buffered severity
+logging buffered size            <span class="c">! 4096–2147483647 bytes</span>
+show logging
+
+<span class="c">! Clock-time stamps (options in brackets)</span>
+service timestamps log datetime [localtime] [show-timezone] [msec] [year]
+<span class="c">! …or time since boot, e.g. 2w5d</span>
+service timestamps log uptime</pre><p><code>severity</code> is a number 0–7 or its keyword. <code>logging console 4</code> displays levels 0–4 and suppresses 5–7.</p></div></details>
+    <pre><span class="c">! datetime timestamps</span>
+Nov 10 13:55:24: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet1/1, changed state to down
+<span class="c">! uptime timestamps</span>
+00:17:58: %AMDP2_FE-6-EXCESSCOLL: Ethernet3/3 TDR=0, TRC=0</pre>
+
+    <h4>Correct time: the clock and NTP</h4>
+    <p>A datetime stamp is only useful if the switch clock is right. After boot the clock starts at <b>March 1, 1993</b>.</p>
+    <details open><summary>Clock and time zone</summary><div class="dbody"><pre>show clock
+clock set hh:mm:ss day month year          <span class="c">! privileged EXEC, not config mode</span>
+clock timezone name offset-hours [offset-minutes]   <span class="c">! config mode</span>
+
+<span class="c">! Example: Thailand, UTC+7</span>
+clock timezone ICT 7</pre><p>Day is 1–31, month is a name (January…), year is 1993–2035, offset-hours is −23…23 and offset-minutes 0–59.</p></div></details>
+    <p><b>Network Time Protocol (NTP)</b> synchronizes many devices to common time servers:</p>
+    <details open><summary>NTP client configuration and verification</summary><div class="dbody"><pre>ntp server ntp-server-ip [prefer] [version {3 | 4}]
+<span class="c">! version 3 is the default; version 4 adds IPv6. Configure several servers.</span>
+show ntp status
+show ntp associations</pre></div></details>
+    <pre>IOU3# show ntp status
+Clock is synchronized, stratum 4, reference is 200.1.1.10
+
+IOU3# show ntp associations
+  address         ref clock       st   when   poll reach  delay  offset   disp
++~200.1.1.240     127.127.1.1      5     90    128   377  0.000   0.000  2.850
+*~200.1.1.10      127.127.1.1      3     25    128   377  1.000   0.500  2.537
+ * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured</pre>
+    <div class="tscroll"><table><tr><th>Homework question</th><th>Answer</th></tr>
+      <tr><td><b>Stratum</b></td><td>Distance from the reference clock. A device attached directly to a reference clock is stratum 1; each NTP hop adds 1; stratum 16 means unsynchronized. Lower is closer to the source.</td></tr>
+      <tr><td><b>*</b> in associations</td><td><b>sys.peer</b>: the server the clock is synchronized to now. Here 200.1.1.10 at stratum 3, which is why IOU3 reports stratum <b>4</b>.</td></tr>
+      <tr><td><b>+</b> in associations</td><td><b>Candidate</b>: a usable server that could be selected. Here 200.1.1.240 at stratum 5.</td></tr>
+      <tr><td><b>~</b></td><td>Configured with <code>ntp server</code>. <b>#</b> selected, <b>-</b> outlier, <b>x</b> falseticker (disagrees, not trusted).</td></tr>
+    </table></div>
+    <p>The running configuration also marks 200.1.1.10 with <code>prefer</code>; preference and its lower stratum make it the system peer. <b>reach 377</b> (octal) means the last eight polls all succeeded.</p>
+
+    <h4>SNMP: manager, agent, MIB</h4>
+    <ul class="pts"><li><b>SNMP manager</b> — a network management system, usually a central application, that polls devices and receives alerts. Examples: Cacti, Munin.</li><li><b>SNMP agent</b> — a process on the monitored device.</li><li><b>MIB</b> (Management Information Base) — the device's database of variables, kept in memory and updated in real time, organized as a tree. Each variable has an <b>OID</b> (object identifier), defined with <b>ASN.1</b>.</li></ul>
+    <p>Example OID: <code>1.3.6.1.2.1.2.2.1.10</code> = iso(1).org(3).dod(6).internet(1).mgmt(2).mib-2(1).interfaces(2)… — the inbound-byte counter of an interface in the IF-MIB. Vendor MIBs live under private(4).enterprise(1): Cisco is <b>.9</b>, Microsoft .311, Juniper .2636.</p>
+    <div class="tscroll"><table><tr><th>Operation</th><th>Direction</th><th>Port</th><th>Purpose</th></tr>
+      <tr><td><b>Get</b></td><td>Manager → agent</td><td>UDP 161</td><td>Read one MIB variable</td></tr>
+      <tr><td><b>Get-next</b></td><td>Manager → agent</td><td>UDP 161</td><td>Read the next variable after the previous request</td></tr>
+      <tr><td><b>Get-bulk</b></td><td>Manager → agent</td><td>UDP 161</td><td>Read a whole table or list (v2c and later)</td></tr>
+      <tr><td><b>Set</b></td><td>Manager → agent</td><td>UDP 161</td><td>Write a MIB variable</td></tr>
+      <tr><td><b>Trap</b></td><td>Agent → manager</td><td>UDP 162</td><td>Unsolicited alert, <b>not acknowledged</b></td></tr>
+      <tr><td><b>Inform</b></td><td>Agent → manager</td><td>UDP 162</td><td>Unsolicited alert the manager <b>must acknowledge</b> (v2c and later)</td></tr>
+    </table></div>
+    <div class="tscroll"><table><tr><th>Version</th><th>Authentication</th><th>Data protection</th><th>Distinguishing features</th></tr>
+      <tr><td><b>SNMPv1</b> (RFC 1157)</td><td>Community string</td><td>None</td><td>Simple get/set and traps; 32-bit counters</td></tr>
+      <tr><td><b>SNMPv2c</b> (RFC 1901)</td><td>Community string</td><td>None</td><td>Adds get-bulk and inform; 64-bit counters</td></tr>
+      <tr><td><b>SNMPv3</b> (RFCs 3410–3415)</td><td>Username (users in groups)</td><td>HMAC with SHA or MD5; DES, 3DES or AES-128/192/256 encryption</td><td>Authentication, integrity, encryption, and restricted <b>views</b></td></tr>
+    </table></div>
+    <div class="tscroll"><table><tr><th>SNMPv3 level</th><th>Keyword</th><th>Authenticated</th><th>Encrypted</th></tr>
+      <tr><td>noAuthNoPriv</td><td class="mono">noauth</td><td class="no">no</td><td class="no">no</td></tr>
+      <tr><td>authNoPriv</td><td class="mono">auth</td><td class="ok">yes</td><td class="no">no</td></tr>
+      <tr><td>authPriv</td><td class="mono">priv</td><td class="ok">yes</td><td class="ok">yes</td></tr>
+    </table></div>
+    <div class="box trap"><b>Best practice</b>Use SNMPv3. If SNMPv1 is unavoidable, make it read-only and restrict it with an access list. A community string travels in clear text.</div>
+    <details open><summary>SNMPv1 / v2c configuration</summary><div class="dbody"><pre>access-list 10 permit manager-ip                       <span class="c">! optional, 1–99</span>
+snmp-server community community-string [ro | rw] [10]
+
+<span class="c">! v1 traps</span>
+snmp-server host host-ip community-string [trap-type]
+<span class="c">! v2c traps, or informs</span>
+snmp-server host host-ip [informs] version 2c community-string</pre></div></details>
+    <details open><summary>SNMPv3 configuration and the supplied example</summary><div class="dbody"><pre>snmp-server view view-name oid-tree {included | excluded}     <span class="c">! optional</span>
+snmp-server group group-name v3 {noauth | auth | priv} [read view] [write view] [notify view] [access acl]
+snmp-server user user-name group-name v3 [auth {md5 | sha} auth-password] [priv {des | 3des | aes {128 | 192 | 256}} priv-password] [acl]
+snmp-server host host-ip [informs] version 3 {noauth | auth | priv} user-name [trap-type]
+
+<span class="c">! Example: only 192.168.3.99 and 192.168.100.4 may poll</span>
+access-list 10 permit 192.168.3.99
+access-list 10 permit 192.168.100.4
+snmp-server group NetOps v3 priv
+snmp-server user mymonitor NetOps v3 auth sha s3cr3tauth priv aes 128 s3cr3tpr1v 10
+snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre><p>Read it as: group <b>NetOps</b> requires authPriv; user <b>mymonitor</b> authenticates with SHA and encrypts with AES-128, limited by ACL 10; informs go to 192.168.3.99 at the priv level. Without a view, every MIB variable is visible. The deck writes the view keywords as include/exclude; IOS uses <code>included</code>/<code>excluded</code>.</p></div></details>
+
+    <h4>Port mirroring: SPAN and RSPAN</h4>
+    <p><b>Switched Port Analyzer (SPAN)</b> copies traffic from source ports or VLANs to a destination port where a network analyzer (sniffer) captures it. Normal forwarding is unchanged.</p>
+    <div class="tscroll"><table><tr><th></th><th>Local SPAN</th><th>Remote SPAN (RSPAN)</th></tr>
+      <tr><td>Source and destination</td><td>Same switch (or one logical switch)</td><td>Different switches</td></tr>
+      <tr><td>Transport</td><td>Inside the switch</td><td>A special-purpose <b>RSPAN VLAN</b> carried over trunks</td></tr>
+      <tr><td>Use when</td><td>The analyzer can be plugged in at the source switch</td><td>The analyzer is elsewhere in a large or spread-out network</td></tr>
+    </table></div>
+    <details open><summary>Local SPAN</summary><div class="dbody"><pre>monitor session number source {interface interface | vlan vlan-id} [rx | tx | both]
+monitor session number destination interface interface [encapsulation replicate]
+
+<span class="c">! Supplied example: mirror Gi1/0/1 to the analyzer on Gi1/0/48</span>
+monitor session 1 source interface gigabitethernet1/0/1 both
+monitor session 1 destination interface gigabitethernet1/0/48</pre><p><b>rx</b> = traffic received on the source, <b>tx</b> = transmitted, <b>both</b> = default. Copies are normally untagged and exclude Layer 2 protocol frames the switch sends itself (STP BPDUs, CDP, VTP, DTP, PAgP). Add <code>encapsulation replicate</code> to keep the original encapsulation and include those frames.</p></div></details>
+    <div class="box trap"><b>Safety and capacity</b>STP is disabled on a local SPAN destination port, so <b>never connect a SPAN destination back into an active network</b> — use RSPAN to move mirrored traffic between switches. If the sources carry more than the destination port can send, some mirrored frames are dropped and never reach the analyzer.</div>
+    <details open><summary>RSPAN across switches A → B → C (VLAN 99)</summary><div class="dbody"><pre><span class="c">! Every switch, including intermediate Switch-B</span>
+vlan 99
+ remote-span
+ exit
+
+<span class="c">! Switch-A: source</span>
+monitor session 1 source interface gigabitethernet 1/0/1 both
+monitor session 1 destination remote vlan 99
+
+<span class="c">! Switch-C: destination</span>
+monitor session 1 source remote vlan 99
+monitor session 1 destination interface gigabitethernet 1/0/48</pre><ul class="pts"><li>MAC learning is <b>disabled</b> on the RSPAN VLAN, so intermediate switches flood the mirrored frames rather than delivering them to the real destination host.</li><li>Intermediate switches know nothing about the session — only the VLAN. Allow the RSPAN VLAN on the trunks between switches, but <b>do not assign it to access ports</b>.</li><li>VTP can carry the RSPAN VLAN to every switch, and VTP pruning keeps it off unnecessary trunks.</li></ul></div></details>
+    <details><summary>Verify and remove sessions</summary><div class="dbody"><pre>show running-config | include monitor
+show monitor [session {number | all | local | range list | remote}] [detail]
+no monitor session {number | range list | local | all}</pre></div></details>
+    <details class="lesson-check"><summary>Check yourself: logging console 3 is configured. Will “%LINEPROTO-5-UPDOWN” appear on the console?</summary><div class="dbody"><p>No. Level 5 is less severe than the threshold 3, so only levels 0–3 appear. Lowering the number shows fewer messages.</p></div></details>
+    <details class="lesson-check"><summary>Check yourself: why must intermediate RSPAN switches also have VLAN 99 with remote-span?</summary><div class="dbody"><p>They carry the mirrored copies across their trunks in that VLAN. Without it the frames have nowhere to go; with normal MAC learning they could be forwarded to real hosts instead of flooded toward the analyzer.</p></div></details>
+    <div class="box wild"><b>Exam answer to remember</b>Syslog = timestamp + facility-severity-mnemonic + text; lower severity number = worse, and a threshold shows itself and everything lower. NTP fixes time, with stratum counting hops from the reference. SNMP: manager polls agents on UDP 161, agents alert on UDP 162; v3 adds users, authentication, and encryption. SPAN mirrors locally; RSPAN carries mirrors in a remote-span VLAN.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t21"><span> mark done</span></label><button class="btn" data-drill="21">drill cards →</button></div>
+  </article>
+
+  <!-- 22 · Basic security -->
+  <article class="item nd-lesson" id="t22">
+    <div class="ph"><span class="badge rd">22</span><h3>Basic Security</h3><span class="tag">CIA · Firewall · DMZ · IPS · NGFW</span></div>
+    <p class="tldr">Security protects three properties of data: <b>availability, integrity, and confidentiality</b>. At the network edge, a firewall enforces which connections may cross between zones, a DMZ holds public servers, and an IPS looks inside traffic for known attacks.</p>
+    <div class="lesson-links" aria-label="Security connections"><button class="btn" data-goto="t03">Review port security and SSH</button><button class="btn" data-goto="t17">Review campus design</button><button class="btn" data-goto="t21">Review SPAN monitoring</button></div>
+
+    <h4>The CIA (AIC) triad</h4>
+    <div class="tscroll"><table><tr><th>Property</th><th>Meaning</th><th>Example threat</th></tr>
+      <tr><td><b>Availability</b></td><td>Data and services can be reached reliably and on time.</td><td>A denial-of-service (DoS) flood</td></tr>
+      <tr><td><b>Integrity</b></td><td>Only authorized people or systems can <b>change</b> data.</td><td>Altered configuration or records</td></tr>
+      <tr><td><b>Confidentiality</b></td><td>Only authorized people or systems can <b>access</b> data.</td><td>Eavesdropping on unencrypted traffic</td></tr>
+    </table></div>
+    <p>Connect it to earlier topics: HA and HSRP serve availability; SNMPv3 authentication serves integrity; SNMPv3 encryption and SSH serve confidentiality.</p>
+
+    <h4>Firewall</h4>
+    <p>A firewall sits <b>inline</b> in the forwarding path between the internal network and the external network, so every packet crossing the edge passes through it. It chooses which packets to allow and which to discard, using rules that can match:</p>
+    <ul class="pts"><li>source and destination addresses;</li><li>transport-layer port numbers;</li><li>text in an HTTP request's URI;</li><li>TCP connection state — a <b>stateful</b> firewall remembers connections and allows the return traffic of sessions started from inside.</li></ul>
+
+    <h4>Security zones and the DMZ</h4>
+    <figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 380" role="img" aria-label="Firewall connecting inside, outside, and DMZ zones; inside may initiate to outside; outside may initiate only to the DMZ">
+      <title>Inside, outside, and DMZ zones</title>
+      <rect class="lesson-zone" x="20" y="60" width="230" height="150" rx="12"/><text x="40" y="90" class="lesson-emphasis">Inside</text><text x="40" y="114">users · most protected</text>
+      <rect class="lesson-zone" x="470" y="60" width="230" height="150" rx="12"/><text x="490" y="90" class="lesson-emphasis">Outside</text><text x="490" y="114">Internet · untrusted</text>
+      <rect class="lesson-zone" x="245" y="250" width="230" height="115" rx="12"/><text x="265" y="278" class="lesson-emphasis">DMZ</text><text x="265" y="302">public web servers</text><text x="265" y="326">less protected than inside</text>
+      <rect class="lesson-node" x="300" y="120" width="120" height="50" rx="9"/><text x="360" y="151" text-anchor="middle">Firewall</text>
+      <path class="lesson-wire" d="M250 145 H300 M420 145 H470 M360 170 V250"/>
+      <path class="lesson-active" d="M150 60 C 220 30, 500 30, 570 58"/><path class="lesson-active" d="M556 54 L572 60 L567 44"/>
+      <text x="360" y="22" text-anchor="middle">inside → outside: allowed</text>
+      <path class="lesson-active" d="M600 210 C 600 290, 540 305, 480 305"/><path class="lesson-active" d="M494 297 L478 305 L494 313"/>
+      <text x="600" y="345" text-anchor="middle">outside → DMZ: allowed</text>
+      <path class="lesson-blocked" d="M470 192 L250 192"/><path class="lesson-cross" d="M350 182 L370 202 M370 182 L350 202"/>
+      <text x="135" y="240" text-anchor="middle">outside → inside: denied</text>
+    </svg><figcaption>Connections are judged by which zone <b>initiates</b> them. Return traffic of an allowed session is permitted by the stateful firewall.</figcaption></figure>
+    <p>A <b>demilitarized zone (DMZ)</b> is a less-secured zone for servers that outside users are allowed to reach, such as the public web servers for www.example.com. If a DMZ server is compromised, the attacker still has to pass the firewall to reach the inside zone.</p>
+
+    <h4>IPS: matching attack signatures</h4>
+    <p>A firewall filters by rules the administrator writes. An <b>Intrusion Prevention System (IPS)</b> uses different logic: it compares traffic with <b>attack signatures</b> — patterns of known attacks such as DoS, DDoS, viruses, and worms — and can drop matching packets or redirect them to another security application. An IPS is also placed inline between the external and internal networks. Its signature database must be kept updated.</p>
+    <p class="sub2">One figure caption in the deck says “IDS.” An <b>IDS</b> (intrusion detection system) usually monitors a copy of traffic — for example from a SPAN port — and alerts, while an <b>IPS</b> sits inline and can block. The figure shows the inline IPS.</p>
+
+    <h4>Next-generation firewall and IPS</h4>
+    <div class="tscroll"><table><tr><th>Device</th><th>Adds beyond the traditional device</th></tr>
+      <tr><td><b>NGFW</b><br>Next-Generation Firewall</td><td>All traditional firewall functions, plus <b>Application Visibility and Control (AVC)</b> that examines application data, <b>advanced malware protection</b>, <b>URL filtering</b>, and NGIPS capability.</td></tr>
+      <tr><td><b>NGIPS</b><br>Next-Generation IPS</td><td>Traditional IPS functions, plus AVC, <b>contextual awareness</b> (information gathered from hosts to judge their vulnerabilities), <b>reputation-based filtering</b> (groups of known-malicious URLs and IP addresses), and <b>event impact levels</b> to rank alerts.</td></tr>
+    </table></div>
+    <p class="sub2">The deck's product examples are Cisco ASA 5500-X with FirePOWER Services and Firepower 1000/2100/4100/9000 appliances, NGIPSv for VMware, and Firepower Threat Defense for ISR routers. Know the functions; product names are context.</p>
+    <div class="tscroll"><table><tr><th>Question</th><th>Firewall</th><th>IPS</th></tr>
+      <tr><td>Decision basis</td><td>Administrator rules: addresses, ports, URI, session state</td><td>Attack signatures (and reputation/context in NGIPS)</td></tr>
+      <tr><td>Placement</td><td>Inline at the edge</td><td>Inline at the edge</td></tr>
+      <tr><td>Must stay current?</td><td>Rules change with policy</td><td>Signatures must be updated continuously</td></tr>
+    </table></div>
+    <details class="lesson-check"><summary>Check yourself: where should a public web server go, and who may start connections to it?</summary><div class="dbody"><p>In the DMZ. Outside users may initiate connections to it; outside users may not initiate connections to the inside zone. Inside users may initiate connections outward, and the stateful firewall allows the replies.</p></div></details>
+    <details class="lesson-check"><summary>Check yourself: a new worm uses an allowed port. Which device can stop it?</summary><div class="dbody"><p>An IPS (or NGIPS/NGFW) with an updated signature for that worm. A traditional port-based firewall rule allows it because the port is permitted.</p></div></details>
+    <div class="box wild"><b>Exam answer to remember</b>CIA = availability (reachable), integrity (only authorized changes), confidentiality (only authorized access). A stateful firewall sits inline and filters by address, port, URI, and session state; the DMZ holds servers reachable from outside; an IPS sits inline and blocks by signature; NGFW/NGIPS add application visibility, malware protection, URL/reputation filtering, and context.</div>
+    <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t22"><span> mark done</span></label><button class="btn" data-drill="22">drill cards →</button></div>
   </article>
 
 </div></section>
@@ -4361,6 +5128,55 @@ show ip dhcp binding</pre><p>Replace placeholders in the pool pattern. The concr
     <details><summary>Wireless architecture and roaming</summary><div class="dbody"><p><b>IBSS:</b> ad hoc. <b>BSS:</b> AP plus clients. <b>ESS:</b> connected BSSs. <b>SSID:</b> network name. A PHY rate is not actual throughput.</p><p><b>Split-MAC:</b> LAP handles real-time radio work; WLC handles central management. CAPWAP control is protected; data-tunnel encryption is optional in the deck. Centrally switched traffic passes through the WLC.</p><p><b>Intracontroller:</b> same WLC, new AP tunnel. <b>Layer 2 intercontroller:</b> new WLC, same subnet. <b>Layer 3 intercontroller:</b> new local subnet, anchor/foreign tunnel preserves the original client IP. CCKM, PKC/OKC, and 802.11r reduce repeated authentication work with compatible support.</p><button class="btn" data-goto="t18">Follow the roaming example</button></div></details>
   </div>
 
+  <div class="panel pv">
+    <div class="ph"><h2>FHRP, HA, QoS, monitoring &amp; security</h2><span class="badge vi right">final scope</span></div>
+    <div class="tscroll"><table>
+      <tr><th>Item</th><th>Value</th></tr>
+      <tr><td>HSRP default priority / preempt</td><td class="mono ok">100 / off</td></tr>
+      <tr><td>HSRP hello / hold</td><td class="mono">3 s / 10 s</td></tr>
+      <tr><td>HSRP v1 MAC · multicast · groups</td><td class="mono">0000.0C07.ACxx · 224.0.0.2 · 0–255</td></tr>
+      <tr><td>HSRP v2 MAC · multicast · groups</td><td class="mono">0000.0C9F.Fxxx · 224.0.0.102 · 0–4095</td></tr>
+      <tr><td>HSRP / VRRP / GLBP</td><td class="mono">active-standby · master-backup · active-active per host</td></tr>
+      <tr><td>StackWise members</td><td class="mono">up to 9, one master, one IP</td></tr>
+      <tr><td>RPR / RPR+ / SSO failover</td><td class="mono ok">&gt; 2 min / &gt; 30 s / ≈ 1 s</td></tr>
+      <tr><td>NSF protocols</td><td class="mono">BGP · EIGRP · OSPF · IS-IS</td></tr>
+      <tr><td>CoS / IPP / DSCP bits</td><td class="mono">3 / 3 / 6 (+2 ECN)</td></tr>
+      <tr><td>EF · AFxy · CSn</td><td class="mono ok">46 · 8x + 2y · 8n</td></tr>
+      <tr><td>CoS or IPP → DSCP (default)</td><td class="mono">× 8</td></tr>
+      <tr><td>Voice delay / jitter / loss</td><td class="mono">&lt; 150 ms / &lt; 30 ms / &lt; 1%</td></tr>
+      <tr><td>Syslog 0–7</td><td class="mono">emerg · alert · crit · err · warn · notif · info · debug</td></tr>
+      <tr><td>SNMP ports</td><td class="mono ok">161 requests · 162 traps/informs</td></tr>
+      <tr><td>SNMPv3 levels</td><td class="mono">noauth · auth · priv</td></tr>
+      <tr><td>NTP stratum</td><td class="mono">peer + 1; 16 = unsynchronized</td></tr>
+    </table></div>
+    <details><summary>HSRP, logging, NTP, SNMP, SPAN commands</summary><div class="dbody"><pre>interface g0/0
+ standby version 2
+ standby 1 ip 10.1.1.1
+ standby 1 priority 110
+ standby 1 preempt
+show standby brief
+
+logging console 4
+logging buffered 16384 warnings
+service timestamps log datetime msec localtime show-timezone
+clock timezone ICT 7
+ntp server 10.0.0.1 prefer
+show logging / show ntp status / show ntp associations
+
+snmp-server community NETRO ro 20
+snmp-server group NetOps v3 priv
+snmp-server user mymonitor NetOps v3 auth sha AUTHPW priv aes 128 PRIVPW 10
+snmp-server host 192.168.3.99 informs version 3 priv mymonitor
+
+monitor session 1 source interface g1/0/1 both
+monitor session 1 destination interface g1/0/48
+vlan 99
+ remote-span
+monitor session 1 destination remote vlan 99
+show monitor</pre></div></details>
+    <p class="sub2" style="margin-top:8px">The printable two-sided version lives in the FINAL tab.</p>
+  </div>
+
   <div class="panel pa">
     <div class="ph"><h2 data-th="วิธีทำข้อสอบในห้องสอบ">Exam-day method</h2></div>
     <ul class="pts">
@@ -4451,6 +5267,43 @@ show ip dhcp binding</pre><p>Replace placeholders in the pool pattern. The concr
     <tr><td class="mono ok">SKC</td><td>Sticky Key Caching</td><td>Caches keys for previously visited APs; distinct from PKC/OKC.</td></tr>
     <tr><td class="mono ok">FT</td><td>Fast BSS Transition</td><td>IEEE 802.11r mechanism for fast secure transitions.</td></tr>
     <tr><td class="mono ok">RADIUS</td><td>Remote Authentication Dial-In User Service</td><td>Authentication service whose exchanges can contribute to roaming delay.</td></tr>
+    <tr><td class="mono ok">FHRP</td><td>First Hop Redundancy Protocol</td><td>Routers share a virtual gateway so hosts survive a router failure.</td></tr>
+    <tr><td class="mono ok">HSRP</td><td>Hot Standby Router Protocol</td><td>Cisco FHRP: one active, one standby router per group.</td></tr>
+    <tr><td class="mono ok">VRRP</td><td>Virtual Router Redundancy Protocol</td><td>Open-standard FHRP (RFC 5798): master and backups.</td></tr>
+    <tr><td class="mono ok">GLBP</td><td>Gateway Load Balancing Protocol</td><td>Cisco FHRP where several routers forward at once, per host.</td></tr>
+    <tr><td class="mono ok">VIP / vMAC</td><td>Virtual IP / virtual MAC address</td><td>The shared gateway identity the active router answers for.</td></tr>
+    <tr><td class="mono ok">GARP</td><td>Gratuitous ARP</td><td>Unrequested ARP reply that updates switch MAC tables after failover.</td></tr>
+    <tr><td class="mono ok">VSS / VSL</td><td>Virtual Switching System / Virtual Switch Link</td><td>Two chassis as one logical switch, joined by the VSL.</td></tr>
+    <tr><td class="mono ok">MEC</td><td>Multichassis EtherChannel</td><td>EtherChannel whose links end on different physical switches.</td></tr>
+    <tr><td class="mono ok">RPR / RPR+</td><td>Route Processor Redundancy / RPR Plus</td><td>Supervisor redundancy modes with partially or more fully booted standby.</td></tr>
+    <tr><td class="mono ok">SSO</td><td>Stateful Switchover</td><td>Fully synchronized standby supervisor; about one-second failover.</td></tr>
+    <tr><td class="mono ok">NSF</td><td>Nonstop Forwarding</td><td>Keeps forwarding during switchover while neighbors help rebuild routing.</td></tr>
+    <tr><td class="mono ok">RIB / FIB</td><td>Routing / Forwarding Information Base</td><td>Routing table (control plane) / CEF forwarding table (data plane).</td></tr>
+    <tr><td class="mono ok">CEF</td><td>Cisco Express Forwarding</td><td>Hardware forwarding using the FIB and adjacency table.</td></tr>
+    <tr><td class="mono ok">CoS</td><td>Class of Service</td><td>3-bit priority in the 802.1Q tag.</td></tr>
+    <tr><td class="mono ok">ToS / DS byte</td><td>Type of Service / Differentiated Services field</td><td>IPv4 byte holding IP Precedence or DSCP plus ECN.</td></tr>
+    <tr><td class="mono ok">DSCP</td><td>Differentiated Services Code Point</td><td>6-bit marking, values 0–63.</td></tr>
+    <tr><td class="mono ok">ECN</td><td>Explicit Congestion Notification</td><td>Last 2 bits of the DS byte.</td></tr>
+    <tr><td class="mono ok">PHB</td><td>Per-Hop Behavior</td><td>How each hop treats a DSCP class: Default, EF, AF, CS.</td></tr>
+    <tr><td class="mono ok">EF / AF / CS</td><td>Expedited / Assured Forwarding / Class Selector</td><td>DSCP 46 / 8x+2y / 8n.</td></tr>
+    <tr><td class="mono ok">IntServ / DiffServ</td><td>Integrated / Differentiated Services</td><td>Per-flow reservation vs class-based treatment.</td></tr>
+    <tr><td class="mono ok">CIR / PIR</td><td>Committed / Peak Information Rate</td><td>Rates a policer uses to decide conform, exceed, violate.</td></tr>
+    <tr><td class="mono ok">WRR</td><td>Weighted Round Robin</td><td>Schedules queues in proportion to their weights.</td></tr>
+    <tr><td class="mono ok">LLQ / CBWFQ</td><td>Low-Latency Queuing / Class-Based Weighted Fair Queuing</td><td>Strict priority queue added to class-based queuing.</td></tr>
+    <tr><td class="mono ok">RED / WRED</td><td>(Weighted) Random Early Detection</td><td>Random drops before a queue fills; WRED per class.</td></tr>
+    <tr><td class="mono ok">NBAR</td><td>Network-Based Application Recognition</td><td>Classifies traffic by application.</td></tr>
+    <tr><td class="mono ok">Syslog</td><td>System message log</td><td>Event messages with facility, severity, mnemonic, text.</td></tr>
+    <tr><td class="mono ok">NTP</td><td>Network Time Protocol</td><td>Synchronizes device clocks; stratum counts hops.</td></tr>
+    <tr><td class="mono ok">SNMP</td><td>Simple Network Management Protocol</td><td>Manager polls agents (UDP 161); alerts on UDP 162.</td></tr>
+    <tr><td class="mono ok">MIB / OID</td><td>Management Information Base / Object Identifier</td><td>Variable tree and the dotted ID of one variable.</td></tr>
+    <tr><td class="mono ok">ASN.1</td><td>Abstract Syntax Notation One</td><td>Notation that defines MIB objects.</td></tr>
+    <tr><td class="mono ok">SPAN / RSPAN</td><td>(Remote) Switched Port Analyzer</td><td>Mirror traffic to an analyzer locally or across switches.</td></tr>
+    <tr><td class="mono ok">CIA</td><td>Confidentiality, Integrity, Availability</td><td>The three security properties of data.</td></tr>
+    <tr><td class="mono ok">DMZ</td><td>Demilitarized Zone</td><td>Less-secured zone for servers reachable from outside.</td></tr>
+    <tr><td class="mono ok">IDS / IPS</td><td>Intrusion Detection / Prevention System</td><td>Alert on a copy vs block inline using signatures.</td></tr>
+    <tr><td class="mono ok">NGFW / NGIPS</td><td>Next-Generation Firewall / IPS</td><td>Add application visibility, malware, URL, reputation, context.</td></tr>
+    <tr><td class="mono ok">AVC</td><td>Application Visibility and Control</td><td>Inspects and controls traffic by application.</td></tr>
+    <tr><td class="mono ok">DoS / DDoS</td><td>(Distributed) Denial of Service</td><td>Attacks on availability by overwhelming a target.</td></tr>
   </table></div></div>
 </div></section>
 
@@ -4474,16 +5327,17 @@ show ip dhcp binding</pre><p>Replace placeholders in the pool pattern. The concr
     <div class="ph"><h2 data-th="เกี่ยวกับงานชิ้นนี้">Build inventory</h2><span class="badge am right">offline-capable</span></div>
     <p style="margin-top:6px">A focused single-page workspace for switching, routing, redundancy, addressing, and service configuration. Progress is kept locally in the browser.</p>
     <div class="buildgrid">
-      <div class="bstat"><b id="bs1">19</b><span>Topics</span></div>
+      <div class="bstat"><b id="bs1">24</b><span>Topics</span></div>
       <div class="bstat"><b id="bs2">13</b><span>Labs mapped</span></div>
-      <div class="bstat"><b id="bs3">196</b><span>Flashcards</span></div>
-      <div class="bstat"><b id="bs4">111</b><span>Practice items</span></div>
+      <div class="bstat"><b id="bs3">262</b><span>Flashcards</span></div>
+      <div class="bstat"><b id="bs4">151</b><span>Practice items</span></div>
       <div class="bstat"><b id="bs5">1</b><span>HTML app</span></div>
       <div class="bstat"><b id="bs6">0</b><span>Frameworks</span></div>
     </div>
     <h4 data-th="ทำอะไรได้บ้าง">What it does</h4>
     <ul class="pts">
-      <li>Connects 19 technical topics with the complete LAB 01–LAB 13 sequence.</li>
+      <li>Connects 24 technical topics with the complete LAB 01–LAB 13 sequence.</li>
+      <li>Includes a final exam center with a final-scope mock exam, configuration writing, output analysis, and a printable A4 sheet.</li>
       <li>Preserves topology, addressing, VLANs, interface mappings, protocol values, IOS order, expected results, and troubleshooting notes.</li>
       <li>Includes an interactive STP simulator with verified scenarios across LAB 07–LAB 09.</li>
       <li>Provides flashcards, practice questions, command recall, and generators for EUI-64, bridge election, and protocol modes.</li>
@@ -4510,13 +5364,13 @@ show ip dhcp binding</pre><p>Replace placeholders in the pool pattern. The concr
 </main>
 <div class="footer">
   <div class="fnav">
-    <button data-tabgo="home">Home</button><button data-tabgo="blueprint">Blueprint</button>
+    <button data-tabgo="home">Home</button><button data-tabgo="final">Final</button><button data-tabgo="blueprint">Blueprint</button>
     <button data-tabgo="notes">Topics</button><button data-tabgo="labs">Labs</button>
     <button data-tabgo="drills">Drills</button><button data-tabgo="intensive">Practice</button>
     <button data-tabgo="cheat">Cheatsheet</button><button data-tabgo="terms">Terms</button>
     <button data-tabgo="author">About</button><button id="fHelp">Shortcuts</button>
   </div>
-  // 19 technical topics · 13 original-numbered labs · 196 cards · 111 practice questions<br>
+  // 24 technical topics · 13 original-numbered labs · 262 cards · 151 practice questions<br>
   NETDES study console · built for repeatable configuration and verification
 </div>
 <script>
@@ -4542,8 +5396,13 @@ var TOPICS={
  "15":["MST","instances, regions"],
  "16":["DHCP & Relay","DORA, pools, helpers, SLAAC"],
  "17":["Enterprise Campus Design","hierarchy, switch blocks, resilient core"],
- "18":["Integrating WLAN","cells, CAPWAP, controllers, roaming"]};
-var TORDER=["01","02","03","04","05","06","07","08","09","10","10B","11","12","13","14","15","16","17","18"];
+ "18":["Integrating WLAN","cells, CAPWAP, controllers, roaming"],
+ "18B":["First Hop Redundancy","FHRP, HSRP virtual gateway"],
+ "19":["High Availability","logical switches, SSO, NSF"],
+ "20":["Quality of Service","DSCP, queuing, policing, WRED"],
+ "21":["Monitoring","syslog, NTP, SNMP, SPAN"],
+ "22":["Basic Security","CIA, firewall, DMZ, IPS"]};
+var TORDER=["01","02","03","04","05","06","07","08","09","10","10B","11","12","13","14","15","16","17","18","18B","19","20","21","22"];
 
 var LABS={
  "L01":["Basic Switch","SSH, port security","03"],
@@ -4760,6 +5619,73 @@ C("18","Layer 2 versus Layer 3 intercontroller roaming?","Layer 2 retains the sa
 C("18","Which devices are anchor and foreign in the supplied Layer 3 roam?","WLC-1 is the anchor and WLC-2 is the foreign controller. The APs are not the controllers. Client-1 keeps 192.168.100.199.");
 C("18","Why use fast-roaming methods and mobility groups?","Compatible CCKM, PKC/OKC, or 802.11r reduce authentication work; mobility groups coordinate trusted controllers and client state.");
 
+C("18B","What problem does a First Hop Redundancy Protocol solve?","A host has one default gateway; if that router fails nothing leaves the subnet. An FHRP lets several routers share one virtual gateway IP and MAC.");
+C("18B","Name the three FHRPs and their forwarding models.","HSRP (Cisco, active/standby), VRRP (RFC 5798, master/backup), GLBP (Cisco, active/active).");
+C("18B","Load-sharing unit of HSRP and VRRP vs GLBP?","HSRP/VRRP: per subnet (use one group per VLAN). GLBP: per host, by handing out different virtual MACs.");
+C("18B","What does a host configure as its gateway with HSRP?","The virtual IP address, not either router's real interface address.");
+C("18B","HSRP active router election order?","Highest priority (default 100), then highest interface IP — but an existing active router keeps the role unless a better router preempts.");
+C("18B","Is HSRP preemption on by default?","No. Configure standby <group> preempt on the router that should reclaim the active role.");
+C("18B","What does the new active router send after failover, and why?","A gratuitous ARP from the virtual MAC, so switches update their MAC tables. Hosts change nothing.");
+C("18B","HSRP v1 vs v2 groups and virtual MAC?","v1: groups 0–255, 0000.0C07.ACxx. v2: groups 0–4095, 0000.0C9F.Fxxx (group number in hex).");
+C("18B","HSRP v1 vs v2 hello multicast?","v1 224.0.0.2; v2 224.0.0.102. v2 also supports IPv6 and millisecond timers.");
+C("18B","Default HSRP hello and hold timers?","Hello 3 s, hold 10 s.");
+C("18B","Minimal command to join HSRP group 1 with VIP 10.1.1.1?","standby 1 ip 10.1.1.1 (in interface mode).");
+C("18B","In show standby brief, what do 'local' and 'P' mean?","local = this router holds that role. P = configured to preempt.");
+C("19","Define high availability.","A system or component that is continuously operational for a long time, measured against 100% operational / never failing.");
+C("19","Why make two physical switches one logical switch?","Redundant links to it bundle into one EtherChannel, so STP sees no loop and blocks nothing; the pair also backs each other up.");
+C("19","What is a multichassis EtherChannel (MEC)?","An EtherChannel whose member links end on different physical switches of a logical switch.");
+C("19","StackWise in three facts?","Stack cables in a daisy-chained ring, up to 9 switches, one stack master managing the stack through one IP.");
+C("19","What is VSS?","Virtual Switching System: two identical chassis act as one logical switch over a virtual switch link (VSL); one supervisor is active.");
+C("19","Supervisor module role?","The brain of a chassis switch: management and control functions such as routing updates and forwarding tables.");
+C("19","RPR in one line?","Standby partially booted; on failure it reloads every module and initializes everything — over 2 minutes.");
+C("19","RPR+ in one line?","Standby booted with route engine ready; modules are not reloaded so ports keep state, but L2/L3 protocols start after failure — over 30 s.");
+C("19","SSO in one line?","Standby fully initialized; startup and running configs plus Layer 2 state synchronized; links do not flap — about 1 s.");
+C("19","What does NSF add to SSO?","Forwarding continues on the synchronized FIB while NSF-aware neighbors help the new supervisor rebuild its RIB quickly.");
+C("19","RIB vs FIB?","RIB: routing table built by routing protocols (control plane). FIB: CEF forwarding table derived from the RIB (data plane).");
+C("19","Routing protocols that support NSF?","BGP, EIGRP, OSPF, IS-IS.");
+C("20","Define QoS.","Methods a network uses to protect and prioritize time-critical or important traffic.");
+C("20","Voice delay, jitter, and loss targets?","Delay under 150 ms, jitter under 30 ms, loss under 1%.");
+C("20","Three problems QoS manages besides bandwidth?","Delay (latency), delay variation (jitter), packet loss.");
+C("20","IntServ vs DiffServ?","IntServ: hard QoS, explicit per-flow reservation on every hop. DiffServ: soft QoS, per-class preferential treatment.");
+C("20","Cisco switch QoS order?","Classify → police → mark → choose transmit queue → schedule (congestion management/avoidance).");
+C("20","Bits and values: CoS, IP Precedence, DSCP?","CoS 3 bits (0–7, 802.1Q tag), IPP 3 bits (0–7), DSCP 6 bits (0–63) of the ToS/DS byte.");
+C("20","What are the last 2 bits of the ToS/DS byte?","ECN — Explicit Congestion Notification.");
+C("20","IP phone voice markings?","DSCP 46 (EF, 101110), IP Precedence 5, CoS 5.");
+C("20","AF formula and meaning?","AFxy = 8x + 2y. x = class 1–4 (higher better), y = drop priority 1–3 (higher dropped sooner).");
+C("20","Default CoS or IPP to DSCP map?","Multiply by 8: 0, 8, 16, 24, 32, 40, 48, 56.");
+C("20","Internal DSCP on an untrusted port?","0.");
+C("20","Where should classification happen?","As close to the edge as possible — normally the access layer.");
+C("20","Shaping vs policing in one line each?","Shaping buffers excess traffic (adds delay, smooths bursts). Policing drops or re-marks it (no delay).");
+C("20","WRR share of a queue?","Its weight divided by the sum of all weights.");
+C("20","Why is tail drop bad for TCP?","Many flows lose packets together and slow-start together (synchronization); premium traffic is dropped like best effort.");
+C("20","RED vs WRED?","RED randomly drops before the queue fills. WRED does it with thresholds per DSCP/IPP, so lower classes drop first.");
+C("21","Syslog message fields?","Timestamp, facility, severity, mnemonic, message text — e.g. %SYS-5-CONFIG_I.");
+C("21","Syslog levels 0–7?","0 emergencies, 1 alerts, 2 critical, 3 errors, 4 warnings, 5 notifications, 6 informational, 7 debugging.");
+C("21","What does logging console 4 display?","Levels 0–4 — the threshold and everything more severe.");
+C("21","Default console logging level? Internal buffer?","Console: debugging (7). Buffer: disabled by default.");
+C("21","Command for date, ms, local time, zone, and year in log stamps?","service timestamps log datetime msec localtime show-timezone year");
+C("21","Where is clock set entered, and what is the boot default?","Privileged EXEC; the clock starts at March 1, 1993.");
+C("21","NTP stratum?","Hops from the reference clock. Stratum 1 is attached to it; a client is its peer's stratum + 1; 16 = unsynchronized.");
+C("21","show ntp associations symbols * and +?","* = sys.peer (synchronized to), + = candidate. ~ configured, # selected, - outlier, x falseticker.");
+C("21","SNMP manager vs agent?","Manager: central system that polls and receives alerts. Agent: process on the monitored device.");
+C("21","MIB and OID?","MIB: tree of device variables. OID: dotted identifier of one variable, defined with ASN.1.");
+C("21","SNMP ports?","Get/get-next/get-bulk/set to agent UDP 161; traps and informs to manager UDP 162.");
+C("21","Trap vs inform?","Trap: no acknowledgement. Inform: manager echoes an acknowledgement.");
+C("21","SNMPv1 vs v2c vs v3?","v1: community, 32-bit. v2c: community, get-bulk, inform, 64-bit. v3: users, authentication, encryption, views.");
+C("21","SNMPv3 security levels?","noAuthNoPriv (noauth), authNoPriv (auth), authPriv (priv).");
+C("21","SPAN vs RSPAN?","SPAN: source and destination on one switch. RSPAN: different switches, mirrored frames carried in an RSPAN VLAN over trunks.");
+C("21","What does encapsulation replicate add to a SPAN destination?","Original encapsulation (tags) and the switch's own Layer 2 protocol frames such as BPDUs, CDP, VTP, DTP, PAgP.");
+C("22","CIA triad?","Availability: reliable, timely access. Integrity: only authorized changes. Confidentiality: only authorized access.");
+C("22","Where does a firewall sit?","Inline in the forwarding path between the internal and external networks.");
+C("22","What can a firewall filter on?","Source/destination addresses, transport ports, text in an HTTP URI, TCP connection state.");
+C("22","What makes a firewall stateful?","It tracks connections and permits return traffic of sessions initiated from the allowed side.");
+C("22","What is a DMZ?","A less-secured zone for servers that outside users may access, such as public web servers.");
+C("22","Which zone may initiate to which?","Inside → outside allowed; outside → DMZ allowed; outside → inside denied.");
+C("22","How does an IPS decide?","By matching traffic to attack signatures (DoS, DDoS, viruses, worms), which must be kept updated.");
+C("22","IDS vs IPS?","IDS usually analyzes a copy of traffic and alerts. IPS sits inline and can block.");
+C("22","What does an NGFW add?","Application Visibility and Control, advanced malware protection, URL filtering, NGIPS capability.");
+C("22","What does an NGIPS add?","AVC, contextual awareness of hosts, reputation-based filtering, event impact levels.");
+
 var QB=[];function Q(t,q,o,a,w){QB.push({t:t,q:q,o:o,a:a,w:w})}
 Q("01","Which layer connects PCs and phones?",["Access","Distribution","Core","Spine"],0,"Access = user-facing ports.");
 Q("02","Correct short form of 2001:0DB8:0000:0000:0000:0000:0000:0001?",["2001:DB8::1","2001:DB8:::1","2001:DB8::0::1","2001:0DB8::::1"],0,"Drop leading zeros, one :: only.");
@@ -4874,6 +5800,46 @@ Q("18","In the slides' centrally switched WLAN, must a client VLAN exist on ever
 Q("18","Client-1 roams from AP-1/WLC-1 to AP-2/WLC-2 in a different subnet. Which statement matches the supplied Layer 3 example?",["AP-1 becomes a controller", "The client must use 192.168.200.199", "WLC-1 anchors the original IP; WLC-2 tunnels as foreign", "The client stops using any IP address"],2,"The controller mobility tunnel preserves 192.168.100.199. Anchor and foreign are WLC roles.");
 Q("18","What changes in an intracontroller roam?",["The controller maps the client to a new LAP tunnel", "The client necessarily gets a new subnet", "Both controllers exchange their hardware", "The AP stops using 802.11"],0,"The WLC stays the same and updates its client association information.");
 Q("18","Which accurately describes the fast-roaming material?",["Every PKC implementation is limited to eight APs", "BSS coloring replaces authentication", "A mobility group removes the need for client compatibility", "Compatible key-management methods reduce repeated authentication work"],3,"CCKM, PKC/OKC, and 802.11r depend on compatible support. The eight-AP cache example belongs to SKC, not a universal PKC limit.");
+Q("18B","Hosts use R1 (10.1.1.9) as their only gateway. A second router R2 is added. Without an FHRP, what happens when R1 fails?",["Hosts automatically switch to R2","Hosts keep sending to 10.1.1.9 and lose off-subnet access","STP reroutes traffic through R2","DHCP immediately pushes R2 to every host"],1,"A host has one configured gateway. Without a shared virtual gateway, R2's presence alone does not change where hosts send traffic.");
+Q("18B","Which FHRP forwards with several routers at once, balancing per host?",["HSRP","VRRP","GLBP","STP"],2,"GLBP is active/active and hands different hosts different virtual MACs. HSRP and VRRP have one forwarding router per group.");
+Q("18B","R1 (priority 110, no preempt) reboots while R2 (priority 100) takes over. When R1 returns, which router is active?",["R1, because 110 > 100","R2, because R1 cannot preempt","Both are active","Neither until the hold timer resets"],1,"Without preemption the current active router keeps its role. Add standby <group> preempt on R1 to reclaim it.");
+Q("18B","Two HSRP routers both have the default priority. Which becomes active when they start together?",["The one with the lowest MAC","The one with the highest interface IP address","The one configured first","The one with the lowest interface IP address"],1,"Default priority is 100 on both, so the tie-break is the highest IP address on the HSRP interface.");
+Q("18B","What is the HSRP version 2 virtual MAC for group 1?",["0000.0C07.AC01","0000.0C9F.F001","0000.5E00.0101","0100.5E00.0066"],1,"Version 2 uses 0000.0C9F.Fxxx with the group in hex. Version 1 would be 0000.0C07.AC01.");
+Q("18B","After HSRP failover, how do the switches learn that the virtual MAC moved?",["Hosts send new ARP requests","The new active router sends a gratuitous ARP from the virtual MAC","STP sends a topology change","The virtual MAC is changed to the new router's burned-in MAC"],1,"The new active router sends an unsolicited ARP reply sourced from the virtual MAC; switches update the MAC address table.");
+Q("18B","Which HSRP feature is available only in version 2?",["Virtual IP address","Group numbers up to 4095 and IPv6 support","Preemption","Priority"],1,"Version 2 extends groups to 0–4095, adds IPv6, millisecond timers, and a unique router identifier.");
+Q("18B","In show standby brief on R2, State is Standby and the Active column shows 10.1.1.9. What does that mean?",["R2 is active","The router with interface address 10.1.1.9 is active; R2 is standby","10.1.1.9 is the virtual IP","R2 is configured to preempt"],1,"The Active and Standby columns give real interface addresses of the routers in those roles; local means this router.");
+Q("19","What is the main benefit of joining two access switches into one logical switch?",["It removes the need for any uplinks","Redundant uplinks can be bundled into an EtherChannel, so STP has no loop to block","It doubles the number of VLANs","It removes the distribution layer"],1,"To STP a bundle to one logical switch is a single link, so redundant links all forward.");
+Q("19","How many physical switches can join one StackWise stack in the deck?",["2","4","9","16"],2,"StackWise allows up to nine physical switches connected in a ring with stacking cables.");
+Q("19","In a VSS pair, which statement is correct?",["Both supervisors control the logical switch equally","One supervisor in one chassis controls; the other is redundant","Up to nine chassis join over stack cables","VSS is an access-layer stacking method"],1,"VSS joins exactly two chassis over a virtual switch link; one supervisor is active, the other standby.");
+Q("19","Which redundancy mode keeps Layer 2 state on both supervisors so links do not flap?",["RPR","RPR+","SSO","NSF only"],2,"SSO fully initializes the standby and synchronizes configurations and Layer 2/interface state.");
+Q("19","During an RPR failover, what happens to the other switch modules?",["They keep forwarding","They are reloaded","They are shut down permanently","They switch to SSO"],1,"RPR's partially booted standby must reload all switch modules before initializing the supervisor functions, so failover takes over 2 minutes.");
+Q("19","Order the modes from slowest to fastest failover.",["SSO, RPR+, RPR","RPR, SSO, RPR+","RPR, RPR+, SSO","RPR+, RPR, SSO"],2,"RPR (over 2 min), RPR+ (over 30 s), SSO (about 1 s).");
+Q("19","What does NSF rely on to rebuild routing quickly after an SSO switchover?",["Flooding all packets","NSF-aware neighbors resending routing information while forwarding continues on the FIB","Reloading the line cards","Static routes only"],1,"The FIB keeps forwarding; NSF-aware neighbors help the new supervisor reassemble its RIB without tearing down adjacencies.");
+Q("19","Which table does Cisco Express Forwarding use to forward packets in hardware?",["RIB","FIB","MIB","CAM for routes"],1,"The FIB is CEF's forwarding table, derived from the RIB that routing protocols build.");
+Q("20","Which traffic type is steady, uses small packets, and is drop- and delay-sensitive?",["Bulk data","Voice","Streaming video","Email"],1,"Voice is a steady flow of small packets (480 bytes or less) needing low delay, jitter, and loss.");
+Q("20","Which QoS model reserves resources explicitly for each flow along the path?",["Best effort","IntServ","DiffServ","WRED"],1,"IntServ is hard QoS with per-flow reservation. DiffServ is class-based soft QoS.");
+Q("20","How many distinct values can DSCP represent?",["8","16","64","256"],2,"DSCP uses 6 bits: 0–63. CoS and IP Precedence use 3 bits: 0–7.");
+Q("20","Decode DSCP 011100.",["AF31","AF32","CS3","EF"],1,"Class 011 = 3, drop 10 = 2, so AF32 = DSCP 28.");
+Q("20","A port trusts CoS with the default map. A frame arrives with CoS 3. What internal DSCP is used?",["3","24","26","0"],1,"The default CoS-to-DSCP map multiplies by 8: CoS 3 → DSCP 24.");
+Q("20","Which mechanism buffers excess traffic to keep a steady rate?",["Policing","Shaping","Tail drop","Marking"],1,"Shaping delays (buffers) excess traffic; policing drops or re-marks it without delay.");
+Q("20","WRR weights are 50, 10, 25, 15. What share does the weight-25 queue get?",["10%","15%","25%","50%"],2,"Share = weight ÷ total = 25 ÷ 100 = 25%.");
+Q("20","Why is WRED preferred over tail drop for TCP-heavy queues?",["It never drops packets","It drops randomly before the queue fills, by class, avoiding synchronized TCP slow starts","It gives voice strict priority","It only works on UDP"],1,"Early random drops make individual TCP flows back off at different times; weights let lower classes drop first.");
+Q("21","Which syslog severity is more severe: 2 or 6?",["2 (critical)","6 (informational)","They are equal","Depends on the facility"],0,"Lower numbers are more severe: 2 critical, 6 informational.");
+Q("21","logging console notifications is configured. Which levels appear on the console?",["5 only","5–7","0–5","0–4"],2,"notifications = 5. A threshold shows its level and everything more severe: 0–5.");
+Q("21","Which statement about the switch clock is correct?",["clock set is a global configuration command","After boot without NTP the clock starts at March 1, 1993","clock timezone is entered in EXEC mode","NTP version 3 supports IPv6"],1,"clock set is privileged EXEC, clock timezone is global config, and NTP v4 adds IPv6.");
+Q("21","An NTP client synchronizes to a stratum 2 server. What stratum does the client report?",["1","2","3","16"],2,"Each hop adds one: 2 + 1 = 3. Stratum 16 means unsynchronized.");
+Q("21","Which SNMP messages use UDP 162?",["Get and set","Get-bulk","Traps and informs","All SNMP traffic"],2,"Agents listen on UDP 161 for manager requests; managers receive traps and informs on UDP 162.");
+Q("21","Which SNMP version first adds get-bulk and informs?",["SNMPv1","SNMPv2c","SNMPv3 only","None"],1,"SNMPv2c adds get-bulk, inform, and 64-bit counters, still with community strings.");
+Q("21","Which SNMPv3 keyword gives authentication and encryption?",["noauth","auth","priv","encrypt"],2,"priv = authPriv. auth = authNoPriv; noauth = noAuthNoPriv.");
+Q("21","Why must the RSPAN VLAN be configured with remote-span on intermediate switches too?",["To run STP on the analyzer port","They carry the mirrored frames in that VLAN, with MAC learning disabled so frames are flooded toward the destination","To assign hosts to it","To encrypt the copies"],1,"Intermediate switches only know the RSPAN VLAN; it must exist on them, be allowed on trunks, and never be assigned to access ports.");
+Q("22","Only authorized people can change a record. Which CIA property is that?",["Availability","Integrity","Confidentiality","Authentication"],1,"Integrity = only authorized individuals or systems can change data. Confidentiality concerns access.");
+Q("22","Where should a public web server be placed?",["Inside zone","DMZ","Outside the firewall with no protection","On the same VLAN as users"],1,"Servers reachable from outside belong in the DMZ, which is less secured than the inside zone.");
+Q("22","Which flow is normally denied at a three-zone firewall?",["Inside initiates to outside","Outside initiates to DMZ","Outside initiates to inside","Return traffic to an inside user's session"],2,"Outside may initiate only to the DMZ. A stateful firewall allows returns of inside-initiated sessions.");
+Q("22","What allows a stateful firewall to permit replies automatically?",["Signature matching","Tracking the TCP connection state","URL filtering","Reputation lists"],1,"It records sessions initiated from the allowed side and matches returning packets to them.");
+Q("22","An IPS mainly decides using…",["Administrator-written port rules only","Attack signatures that must be kept updated","DHCP bindings","SNMP traps"],1,"An IPS compares traffic with signatures of known attacks such as DoS, DDoS, viruses and worms.");
+Q("22","Which capability belongs to an NGFW but not a traditional firewall?",["Filtering by destination port","Application Visibility and Control","Stateful inspection","Placement inline"],1,"NGFWs add AVC, advanced malware protection, URL filtering, and NGIPS on top of traditional functions.");
+Q("22","Which NGIPS feature gathers information from hosts to judge their vulnerabilities?",["Contextual awareness","Reputation-based filtering","Event impact level","Tail drop"],0,"Contextual awareness uses host information; reputation filtering uses lists of known-malicious URLs and IPs.");
+Q("22","An IDS fed from a SPAN destination port differs from an inline IPS because it…",["Can block packets directly","Analyzes a copy and alerts rather than blocking inline","Needs no signatures","Encrypts traffic"],1,"A SPAN-fed IDS sees mirrored copies. An inline IPS is in the forwarding path and can drop packets.");
 
 var SC={
  l8v1:{crown:"SW1",dash:["L2","L5"],pr:["32769","32769","32769","32769"],
@@ -5306,7 +6272,7 @@ rootNew();
 /* ============ EXAM DATE ============ */
 var ed=document.getElementById("examDate");
 function edU(){
-  var v=store.get("examDate",""),o=document.getElementById("examLeft");
+  var v=store.get("examDate","2026-10-20"),o=document.getElementById("examLeft");
   if(v)ed.value=v;
   if(!v){o.textContent="—";return}
   var d=Math.ceil((new Date(v+"T09:00:00")-new Date())/86400000);
@@ -5775,7 +6741,22 @@ function boom(){
     ["Create DHCP pool vlan10 for 10.1.10.0/24, gateway 10.1.10.1", "ip dhcp pool vlan10\n network 10.1.10.0 255.255.255.0\n default-router 10.1.10.1"],
     ["Relay VLAN 10 DHCP requests to server 20.5.5.5", "interface vlan 10\n ip helper-address 20.5.5.5"],
     ["Show allocated DHCP leases on the server", "show ip dhcp binding"],
-    ["Clear the DHCPv6 M and O flags on VLAN 10 for the SLAAC-only example", "interface vlan 10\n no ipv6 nd managed-config-flag\n no ipv6 nd other-config-flag"]
+    ["Clear the DHCPv6 M and O flags on VLAN 10 for the SLAAC-only example", "interface vlan 10\n no ipv6 nd managed-config-flag\n no ipv6 nd other-config-flag"],
+    ["Join HSRP group 1 with virtual IP 10.1.1.1, version 2", "interface g0/0\n standby version 2\n standby 1 ip 10.1.1.1"],
+    ["Make this router the preferred HSRP active router for group 1 and let it reclaim the role", "standby 1 priority 110\nstandby 1 preempt"],
+    ["Show a one-line HSRP summary", "show standby brief"],
+    ["Show only errors and more severe on the console", "logging console errors"],
+    ["Buffer warnings and above in a 16384-byte log buffer", "logging buffered 16384 warnings"],
+    ["Timestamp logs with date, milliseconds, local time and zone", "service timestamps log datetime msec localtime show-timezone"],
+    ["Set the time zone to ICT, UTC+7", "clock timezone ICT 7"],
+    ["Use 10.0.0.1 as the preferred NTP server", "ntp server 10.0.0.1 prefer"],
+    ["Check NTP synchronization and peers", "show ntp status\nshow ntp associations"],
+    ["Read-only SNMP community NETRO restricted by ACL 20", "snmp-server community NETRO ro 20"],
+    ["Send SNMPv2c informs to 10.0.0.50 with community NETRO", "snmp-server host 10.0.0.50 informs version 2c NETRO"],
+    ["Create SNMPv3 group NetOps at authPriv", "snmp-server group NetOps v3 priv"],
+    ["Mirror Gi1/0/1 in both directions to Gi1/0/48", "monitor session 1 source interface gigabitethernet1/0/1 both\nmonitor session 1 destination interface gigabitethernet1/0/48"],
+    ["Create RSPAN VLAN 99", "vlan 99\n remote-span"],
+    ["Send session 1 to RSPAN VLAN 99 on the source switch", "monitor session 1 destination remote vlan 99"]
   ];
   var ci=-1,shown=false;
   function cmdNext(){
@@ -5801,7 +6782,7 @@ function boom(){
       "20-question timed exam, then review every miss"]},
     sweep:{name:"FULL SWEEP · 90 min",steps:[
       "Blueprint tab — read the problem→solution chain out loud",
-      "Skim all 19 topic summaries and analogies",
+      "Skim all 24 topic summaries and analogies",
       "Cheatsheet: memorise the numbers table",
       "Mode matcher — all three protocols, every combination",
       "EUI-64 generator — 5 correct in a row",
@@ -5814,6 +6795,13 @@ function boom(){
       "Lab 09 key — recite why root primary gave 16384",
       "Lab 10 — recall the five experiments and expected states",
       "Command recall — 10 tasks without looking"]},
+    final:{name:"FINAL SWEEP · 60 min",steps:[
+      "FINAL tab — read the exam brief and check readiness",
+      "Skim Topics 16–22 exam boxes, including 18B",
+      "Decode five DSCP values and set three syslog thresholds",
+      "Write two configuration tasks without looking",
+      "Solve five analysis cases",
+      "20-question final mock, then open every red topic"]},
     night:{name:"NIGHT BEFORE · 25 min",steps:[
       "Cheatsheet numbers table only",
       "DTP table and EtherChannel table",
@@ -5867,6 +6855,441 @@ function boom(){
     store.set("progDone",d);spSec=0;document.getElementById("spClock").textContent="00:00";spPaint();
   });
   spPaint();
+})();
+
+/* ============ FINAL EXAM CENTER ============ */
+(function(){
+  var FKEYS=["16","17","18","18B","19","20","21","22"];
+  var EXAM_START=new Date("2026-10-20T15:30:00+07:00"),EXAM_END=new Date("2026-10-20T18:30:00+07:00");
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+  function inScope(t){return FKEYS.indexOf(t)>-1}
+
+  /* ---------- countdown ---------- */
+  function tick(){
+    var now=new Date(),b=$("finCountBadge"),txt=$("finCountTxt");
+    if(!b)return;
+    var ms=EXAM_START-now;
+    if(ms>0){
+      var m=Math.floor(ms/60000),d=Math.floor(m/1440),h=Math.floor((m%1440)/60);
+      $("finD").textContent=d;$("finH").textContent=h;$("finM").textContent=m%60;
+      txt.textContent="until the paper starts";
+      b.textContent=d>1?"T-"+d+" DAYS":d===1?"TOMORROW":"TODAY";
+    }else if(now<EXAM_END){
+      $("finD").textContent="0";$("finH").textContent="0";$("finM").textContent="0";
+      txt.textContent="The exam is in progress.";b.textContent="IN PROGRESS";
+    }else{
+      $("finD").textContent="–";$("finH").textContent="–";$("finM").textContent="–";
+      txt.textContent="The final has finished.";b.textContent="DONE";
+    }
+  }
+  tick();setInterval(tick,30000);
+
+  /* ---------- readiness ---------- */
+  var CFG_DONE=store.get("finCfgDone",{}),ANA_RES=store.get("finAna",{});
+  function finCards(){return CARDS.filter(function(c){return inScope(c.t)})}
+  function refresh(){
+    if(!$("finPct"))return;
+    var doneT=FKEYS.filter(function(k){return doneSet.indexOf("t"+k)>-1}).length;
+    var fc=finCards(),kn=fc.filter(function(c){return knownSet.indexOf(cardId(c))>-1}).length;
+    var best=store.get("finBest",-1);
+    var cfgN=Object.keys(CFG_DONE).filter(function(k){return CFG_DONE[k]}).length;
+    var anaOk=Object.keys(ANA_RES).filter(function(k){return ANA_RES[k]===1}).length;
+    var p=[doneT/FKEYS.length,fc.length?kn/fc.length:0,best<0?0:best/100,CFG.length?cfgN/CFG.length:0,ANA.length?anaOk/ANA.length:0];
+    var pct=Math.round((p[0]+p[1]+p[2]+p[3]+p[4])/5*100);
+    $("finPct").textContent=pct+"%";
+    $("finRing").style.strokeDashoffset=314*(1-pct/100);
+    [["fbTop","fvTop",p[0],doneT+"/"+FKEYS.length],["fbCard","fvCard",p[1],kn+"/"+fc.length],
+     ["fbMock","fvMock",p[2],best<0?"—":best+"%"],["fbCfg","fvCfg",p[3],cfgN+"/"+CFG.length],
+     ["fbAna","fvAna",p[4],anaOk+"/"+ANA.length]].forEach(function(r){$(r[0]).style.width=(r[2]*100)+"%";$(r[1]).textContent=r[3]});
+    var st=$("finStatus");
+    st.textContent=pct>=85?"EXAM READY":pct>=60?"ON TRACK":pct>=25?"WARMING UP":"STANDBY";
+    st.className="badge right "+(pct>=85?"gr":pct>=60?"cy":"am");
+    paintGrid();
+  }
+  window.finRefresh=refresh;
+
+  function paintGrid(){
+    var g=$("finGrid");if(!g)return;
+    var hist=store.get("hist",{});
+    g.innerHTML="";
+    FKEYS.forEach(function(k){
+      var cs=CARDS.filter(function(c){return c.t===k});
+      var kn=cs.filter(function(c){return knownSet.indexOf(cardId(c))>-1}).length;
+      var h=hist[k]||{r:0,w:0},n=h.r+h.w,acc=n?Math.round(h.r/n*100)+"%":"—";
+      var done=doneSet.indexOf("t"+k)>-1;
+      var b=document.createElement("button");b.className="gcard fin-topic"+(done?" done":"");
+      b.innerHTML='<span class="id">'+k+'</span><span style="flex:1"><b>'+TOPICS[k][0]+'</b><span>cards '+kn+'/'+cs.length+' · accuracy '+acc+'</span></span><span class="tick">'+(done?"DONE":"OPEN")+'</span>';
+      b.addEventListener("click",function(){jump("t"+k,"notes")});
+      g.appendChild(b);
+    });
+  }
+
+  /* ---------- final mock ---------- */
+  var fLen=20,fx=null,fT=null;
+  function poolFor(mix){
+    var fin=QB.filter(function(q){return inScope(q.t)}),mid=QB.filter(function(q){return !inScope(q.t)});
+    return {fin:fin,mid:mid,mix:mix};
+  }
+  function paintPool(){var p=poolFor(false);$("finPool").textContent=p.fin.length+" final-scope questions";}
+  document.querySelectorAll("[data-flen]").forEach(function(b){
+    b.addEventListener("click",function(){
+      fLen=parseInt(b.dataset.flen,10);
+      document.querySelectorAll("[data-flen]").forEach(function(x){x.classList.toggle("on",x===b)});
+    });
+  });
+  function fmt(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
+  function begin(){
+    var p=poolFor($("finMix").checked),nMid=p.mix?Math.round(fLen/5):0;
+    var qs=shuf(p.fin.slice()).slice(0,fLen-nMid).concat(shuf(p.mid.slice()).slice(0,nMid));
+    qs=shuf(qs);
+    fx={qs:qs,i:0,ans:[],left:Math.round(qs.length*1.5)*60,t0:Date.now()};
+    if(fT)clearInterval(fT);
+    fT=setInterval(function(){
+      fx.left--;var c=$("finClock");
+      if(c){c.textContent=fmt(fx.left);c.className="badge "+(fx.left<120?"rd":fx.left<300?"am":"cy")}
+      if(fx.left<=0)finish();
+    },1000);
+    render();
+  }
+  function render(){
+    var q=fx.qs[fx.i],ord=shuf([0,1,2,3]);
+    var h='<div class="row" style="margin-top:4px"><span class="badge" id="finClock">'+fmt(fx.left)+'</span><span class="badge">Q '+(fx.i+1)+' / '+fx.qs.length+'</span>'+
+      '<span class="badge gr">'+fx.ans.filter(function(x){return x!==null&&x!==undefined}).length+' answered</span><span class="badge">topic '+q.t+'</span></div>'+
+      '<p style="font-size:17px;font-weight:650;margin-top:10px">'+q.q+'</p>';
+    ord.forEach(function(o){h+='<button class="qopt'+(fx.ans[fx.i]===o?" sel":"")+'" data-o="'+o+'">'+q.o[o]+'</button>'});
+    h+='<div class="row">'+(fx.i>0?'<button class="btn" id="finPrevQ">← back</button>':'')+
+      '<button class="btn on" id="finNextQ">'+(fx.i===fx.qs.length-1?"SUBMIT":"next →")+'</button><button class="btn" id="finQuit">abandon</button></div>';
+    $("finBody").innerHTML=h;
+    document.querySelectorAll("#finBody .qopt").forEach(function(b){
+      b.addEventListener("click",function(){
+        fx.ans[fx.i]=parseInt(b.dataset.o,10);
+        document.querySelectorAll("#finBody .qopt").forEach(function(x){x.classList.toggle("sel",x===b)});
+      });
+    });
+    var pv=$("finPrevQ");if(pv)pv.addEventListener("click",function(){fx.i--;render()});
+    $("finNextQ").addEventListener("click",function(){if(fx.i===fx.qs.length-1)finish();else{fx.i++;render()}});
+    $("finQuit").addEventListener("click",function(){if(fT)clearInterval(fT);$("finBody").innerHTML=""});
+  }
+  function finish(){
+    if(fT)clearInterval(fT);
+    var score=0,per={},miss=[];
+    fx.qs.forEach(function(q,i){
+      var ok=fx.ans[i]===q.a;if(ok)score++;else miss.push({q:q,got:fx.ans[i]});
+      if(!per[q.t])per[q.t]={r:0,n:0};per[q.t].n++;if(ok)per[q.t].r++;
+      if(window.recordAns)window.recordAns(q.t,ok);
+    });
+    var pct=Math.round(score/fx.qs.length*100),used=Math.round((Date.now()-fx.t0)/1000);
+    if(pct>store.get("finBest",-1))store.set("finBest",pct);
+    var hist=store.get("finHist",[]);hist.unshift({d:Date.now(),n:fx.qs.length,s:score,t:used});store.set("finHist",hist.slice(0,10));
+    if(pct>=90)boom();
+    var h='<div class="row" style="margin-top:6px"><span class="badge '+(pct>=80?"gr":pct>=60?"am":"rd")+'">'+(pct>=80?"STRONG":pct>=60?"BORDERLINE":"NOT READY")+'</span></div>'+
+      '<div class="big">'+score+' / '+fx.qs.length+' <span style="font-size:19px;color:var(--dim)">'+pct+'% · '+fmt(used)+'</span></div><h4>By topic</h4><div class="tscroll"><table><tr><th>Topic</th><th>Score</th><th></th></tr>';
+    Object.keys(per).sort().forEach(function(t){
+      var r=per[t],p2=Math.round(r.r/r.n*100);
+      h+='<tr><td class="mono">'+t+' '+TOPICS[t][0]+'</td><td class="mono '+(p2>=80?"ok":p2>=50?"wn":"no")+'">'+r.r+'/'+r.n+'</td><td><button class="btn" data-fgo="t'+t+'" style="padding:4px 9px;font-size:11px">open</button></td></tr>';
+    });
+    h+='</table></div>';
+    if(miss.length){
+      h+='<h4>Every miss</h4>';
+      miss.forEach(function(m){
+        h+='<div class="why" style="margin-top:9px"><b>'+m.q.q+'</b><br><span class="no">your answer: '+(m.got===undefined||m.got===null?"— blank —":m.q.o[m.got])+'</span><br><span class="ok">correct: '+m.q.o[m.q.a]+'</span><br><span style="color:var(--dim)">'+m.q.w+'</span></div>';
+      });
+    }
+    h+='<div class="row"><button class="btn on" id="finAgain">new final mock</button></div>';
+    $("finBody").innerHTML=h;
+    $("finAgain").addEventListener("click",begin);
+    document.querySelectorAll("[data-fgo]").forEach(function(b){b.addEventListener("click",function(){jump(b.dataset.fgo,"notes")})});
+    paintHist();refresh();
+  }
+  function paintHist(){
+    var best=store.get("finBest",-1);$("finBest").textContent=best<0?"—":best+"%";
+    var hist=store.get("finHist",[]),el=$("finHist");
+    if(!hist.length){el.innerHTML="";return}
+    var h='<h4>Attempt history</h4><div class="tscroll"><table><tr><th>When</th><th>Length</th><th>Score</th><th>Time</th></tr>';
+    hist.forEach(function(a){var p=Math.round(a.s/a.n*100);
+      h+='<tr><td class="mono">'+new Date(a.d).toLocaleDateString()+'</td><td class="mono">'+a.n+'Q</td><td class="mono '+(p>=80?"ok":p>=60?"wn":"no")+'">'+a.s+'/'+a.n+' · '+p+'%</td><td class="mono">'+fmt(a.t)+'</td></tr>'});
+    el.innerHTML=h+'</table></div>';
+  }
+  $("finStart").addEventListener("click",begin);
+  paintPool();paintHist();
+
+  /* ---------- configuration writing ---------- */
+  var CFG=[
+    {t:"16",title:"DHCP pool on a multilayer switch",
+     task:"SW1 is the gateway for VLAN 20 at 192.168.20.1/24. Make SW1 the DHCP server: keep .1–.10 out of the pool, name the pool VLAN20, give clients the gateway, DNS server 192.168.20.5, and a 3-day lease. Then verify the leases.",
+     ans:"ip dhcp excluded-address 192.168.20.1 192.168.20.10\nip dhcp pool VLAN20\n network 192.168.20.0 255.255.255.0\n default-router 192.168.20.1\n dns-server 192.168.20.5\n lease 3\n exit\nshow ip dhcp binding",
+     marks:["excluded-address (with the d) and the inclusive range .1–.10","network uses the subnet ID 192.168.20.0 and mask, not a host IP","default-router is the VLAN 20 SVI address","dns-server 192.168.20.5","lease 3 (days)","show ip dhcp binding as verification"]},
+    {t:"16",title:"DHCP for two router subinterfaces",
+     task:"R1 routes for VLAN 10 on G0/0.10 (10.0.10.1/24) and VLAN 20 on G0/0.20 (10.0.20.1/24). Configure R1 to lease addresses in both VLANs, excluding each gateway address.",
+     ans:"ip dhcp excluded-address 10.0.10.1\nip dhcp excluded-address 10.0.20.1\nip dhcp pool V10\n network 10.0.10.0 255.255.255.0\n default-router 10.0.10.1\nip dhcp pool V20\n network 10.0.20.0 255.255.255.0\n default-router 10.0.20.1",
+     marks:["One exclusion per gateway (or a range per subnet)","Two pools — one per subnet","Each pool's default-router is that VLAN's subinterface IP","The server picks the pool matching the receiving subinterface's subnet"]},
+    {t:"16",title:"DHCP relay to a central server",
+     task:"Clients in VLAN 30 use DSW1's SVI 172.16.30.1/24 as gateway. The DHCP server is 10.10.10.10 in the data center. Configure the relay on DSW1, and state what the server needs.",
+     ans:"interface vlan 30\n ip address 172.16.30.1 255.255.255.0\n ip helper-address 10.10.10.10\n\n! On the server: a pool for 172.16.30.0/24\n! with default-router 172.16.30.1,\n! and routing in both directions.",
+     marks:["ip helper-address on the client-facing SVI (VLAN 30), not on the uplink","Helper points at the server IP 10.10.10.10","Server has a pool for 172.16.30.0/24 with gateway 172.16.30.1","Routing works between relay and server both ways"]},
+    {t:"16",title:"SLAAC-only IPv6 on an SVI",
+     task:"On VLAN 10, enable IPv6 routing, give the SVI 2001:DB8:10::1/64, and make hosts use SLAAC only — no DHCPv6 address and no DHCPv6 other information.",
+     ans:"ipv6 unicast-routing\ninterface vlan 10\n ipv6 address 2001:DB8:10::1/64\n ipv6 enable\n no ipv6 nd managed-config-flag\n no ipv6 nd other-config-flag",
+     marks:["ipv6 unicast-routing (global) so the switch sends RAs","An IPv6 unicast address in a /64 on the interface","ipv6 enable","no ipv6 nd managed-config-flag (M = 0)","no ipv6 nd other-config-flag (O = 0)"]},
+    {t:"18B",title:"HSRP pair with preemption",
+     task:"R1 G0/0 is 192.168.1.2/24 and R2 G0/0 is 192.168.1.3/24. Hosts use 192.168.1.1. Use HSRP version 2, group 10. R1 must be active and must take the role back after it recovers. Write both configurations and the verification command. Which MAC will hosts learn for 192.168.1.1?",
+     ans:"! R1\ninterface g0/0\n ip address 192.168.1.2 255.255.255.0\n standby version 2\n standby 10 ip 192.168.1.1\n standby 10 priority 110\n standby 10 preempt\n! R2\ninterface g0/0\n ip address 192.168.1.3 255.255.255.0\n standby version 2\n standby 10 ip 192.168.1.1\n\nshow standby brief\n! Virtual MAC: 0000.0C9F.F00A (v2, group 10 = 0x00A)",
+     marks:["Same group (10), same virtual IP and same version on both routers","R1 priority above 100 (default)","standby 10 preempt on R1","R2 keeps its own interface IP; no priority needed","show standby brief","Virtual MAC 0000.0C9F.F00A — group number in hex"]},
+    {t:"18B",title:"HSRP load sharing across two VLANs",
+     task:"DSW1 and DSW2 are gateways for VLAN 10 (10.1.10.0/24) and VLAN 20 (10.1.20.0/24). Virtual gateways are .1; DSW1 uses .2 and DSW2 uses .3 in each VLAN. Make DSW1 active for VLAN 10 and DSW2 active for VLAN 20, each reclaiming its role after recovery.",
+     ans:"! DSW1\ninterface vlan 10\n ip address 10.1.10.2 255.255.255.0\n standby 10 ip 10.1.10.1\n standby 10 priority 110\n standby 10 preempt\ninterface vlan 20\n ip address 10.1.20.2 255.255.255.0\n standby 20 ip 10.1.20.1\n! DSW2\ninterface vlan 10\n ip address 10.1.10.3 255.255.255.0\n standby 10 ip 10.1.10.1\ninterface vlan 20\n ip address 10.1.20.3 255.255.255.0\n standby 20 ip 10.1.20.1\n standby 20 priority 110\n standby 20 preempt",
+     marks:["One HSRP group per VLAN — HSRP balances per subnet","DSW1: higher priority + preempt in VLAN 10 only","DSW2: higher priority + preempt in VLAN 20 only","Each switch keeps its own SVI address; virtual IP .1 matches on both"]},
+    {t:"21",title:"Syslog buffer, console threshold, timestamps",
+     task:"Keep warnings and anything more severe in a 16384-byte buffer, show only errors and more severe on the console, timestamp messages with date, milliseconds and local time zone (ICT, UTC+7) shown, then display the buffer.",
+     ans:"clock timezone ICT 7\nlogging buffered 16384 warnings\nlogging console errors\nservice timestamps log datetime msec localtime show-timezone\nshow logging",
+     marks:["Buffer size 16384 and level warnings (4) — combined or as separate size/level commands","logging console errors (3) shows levels 0–3","service timestamps log datetime with msec, localtime, show-timezone","clock timezone ICT 7 so localtime is correct","show logging"]},
+    {t:"21",title:"Clock and NTP",
+     task:"Set the switch clock to 15:30 on 20 October 2026, time zone ICT (+7). Then synchronize to NTP servers 10.0.0.1 (preferred) and 10.0.0.2 with NTP version 4, and verify.",
+     ans:"configure terminal\n clock timezone ICT 7\n ntp server 10.0.0.1 prefer version 4\n ntp server 10.0.0.2 version 4\n end\nclock set 15:30:00 20 October 2026\nshow clock\nshow ntp status\nshow ntp associations",
+     marks:["clock timezone in global configuration","clock set in privileged EXEC (not config mode), hh:mm:ss day month year","prefer on 10.0.0.1 only","version 4 on each server","show ntp status (synchronized, stratum) and show ntp associations (* = sys.peer)"]},
+    {t:"21",title:"SNMPv2c read-only with ACL and informs",
+     task:"Allow read-only SNMP polling with community NETRO only from the manager at 10.0.0.50, and send SNMPv2c informs to that manager.",
+     ans:"access-list 20 permit 10.0.0.50\nsnmp-server community NETRO ro 20\nsnmp-server host 10.0.0.50 informs version 2c NETRO",
+     marks:["Standard ACL (1–99) permitting only 10.0.0.50","community NETRO with ro and the ACL number","snmp-server host … informs version 2c NETRO","Informs (acknowledged) need v2c or v3 — not v1"]},
+    {t:"21",title:"SNMPv3 authPriv",
+     task:"Create SNMPv3 group ADMINS at authPriv. Create user nms in it with SHA password Auth2026 and AES-256 password Priv2026, limited to the manager 10.0.0.50 by ACL 30. Send v3 traps to 10.0.0.50 at authPriv.",
+     ans:"access-list 30 permit 10.0.0.50\nsnmp-server group ADMINS v3 priv\nsnmp-server user nms ADMINS v3 auth sha Auth2026 priv aes 256 Priv2026 30\nsnmp-server host 10.0.0.50 version 3 priv nms",
+     marks:["group ADMINS v3 priv (authPriv)","user nms ADMINS v3 auth sha … priv aes 256 …","ACL 30 attached to the user (or the group's access option)","host line uses version 3 priv and the username, not a community"]},
+    {t:"21",title:"Local SPAN with tags",
+     task:"An analyzer is on Gi1/0/24. Mirror traffic in both directions on Gi1/0/1 and Gi1/0/2, keeping the original 802.1Q tags and Layer 2 protocol frames. Verify.",
+     ans:"monitor session 1 source interface gigabitethernet1/0/1 - 2 both\nmonitor session 1 destination interface gigabitethernet1/0/24 encapsulation replicate\nshow monitor session 1",
+     marks:["Same session number on source and destination","both (or omitted — both is the default)","destination interface Gi1/0/24","encapsulation replicate keeps tags and BPDUs/CDP/VTP/DTP/PAgP","show monitor"]},
+    {t:"21",title:"RSPAN across three switches",
+     task:"Mirror both directions of Gi1/0/3 on SW-A to an analyzer on SW-C Gi1/0/48. SW-B sits between them on trunks. Use VLAN 500. Write all three switches.",
+     ans:"! SW-A, SW-B and SW-C\nvlan 500\n remote-span\n exit\n! SW-A\nmonitor session 1 source interface gigabitethernet1/0/3 both\nmonitor session 1 destination remote vlan 500\n! SW-C\nmonitor session 1 source remote vlan 500\nmonitor session 1 destination interface gigabitethernet1/0/48",
+     marks:["VLAN 500 with remote-span on all three switches, including SW-B","SW-A: source interface + destination remote vlan 500","SW-C: source remote vlan 500 + destination interface","SW-B: no monitor session — only the VLAN, allowed on its trunks","RSPAN VLAN not assigned to access ports"]}
+  ];
+  var ci=Math.min(store.get("finCfgI",0),CFG.length-1),drafts=store.get("finDrafts",{});
+  var sel=$("cfgSel");
+  CFG.forEach(function(c,i){sel.add(new Option((i+1)+" · "+c.t+" · "+c.title,i))});
+  function cfgPaint(){
+    var c=CFG[ci];sel.value=ci;store.set("finCfgI",ci);
+    $("cfgTask").innerHTML='<div class="why" style="margin-top:10px;font-size:15.5px"><b>TASK · topic '+c.t+' · '+TOPICS[c.t][0]+'</b><br>'+esc(c.task)+'</div>';
+    $("cfgDraft").value=drafts[ci]||"";
+    $("cfgAns").innerHTML="";
+    var n=Object.keys(CFG_DONE).filter(function(k){return CFG_DONE[k]}).length;
+    $("cfgMeta").textContent=n+" / "+CFG.length+" practiced";
+  }
+  function cfgReveal(){
+    var c=CFG[ci],got=store.get("finCfgMarks",{})[ci]||{};
+    var h='<pre class="fin-model">'+esc(c.ans)+'</pre><h4>Marks</h4><div class="fin-marks">';
+    c.marks.forEach(function(m,j){h+='<label class="chk"><input type="checkbox" data-mk2="'+j+'"'+(got[j]?" checked":"")+'><span> '+esc(m)+'</span></label>'});
+    h+='</div><div class="row"><span class="badge" id="cfgScore"></span><label class="chk"><input type="checkbox" id="cfgDone"'+(CFG_DONE[ci]?" checked":"")+'><span> mark this task practiced</span></label></div>';
+    $("cfgAns").innerHTML=h;
+    function score(){var all=store.get("finCfgMarks",{}),g=all[ci]||{},n=c.marks.filter(function(m,j){return g[j]}).length;$("cfgScore").textContent=n+" / "+c.marks.length+" marks"}
+    document.querySelectorAll("#cfgAns [data-mk2]").forEach(function(x){
+      x.addEventListener("change",function(){var all=store.get("finCfgMarks",{});all[ci]=all[ci]||{};all[ci][x.dataset.mk2]=x.checked;store.set("finCfgMarks",all);score()});
+    });
+    $("cfgDone").addEventListener("change",function(){CFG_DONE[ci]=this.checked;store.set("finCfgDone",CFG_DONE);cfgPaint();cfgReveal();refresh()});
+    score();
+  }
+  sel.addEventListener("change",function(){ci=parseInt(sel.value,10);cfgPaint()});
+  $("cfgPrev").addEventListener("click",function(){ci=(ci-1+CFG.length)%CFG.length;cfgPaint()});
+  $("cfgNext").addEventListener("click",function(){ci=(ci+1)%CFG.length;cfgPaint()});
+  $("cfgShow").addEventListener("click",cfgReveal);
+  $("cfgClear").addEventListener("click",function(){drafts[ci]="";store.set("finDrafts",drafts);$("cfgDraft").value=""});
+  $("cfgDraft").addEventListener("input",function(){drafts[ci]=this.value;store.set("finDrafts",drafts)});
+  cfgPaint();
+
+  /* ---------- system analysis ---------- */
+  var ANA=[
+    {t:"18B",title:"HSRP: why is R2 active?",x:"R1# show standby brief\nInterface   Grp  Pri P State   Active          Standby         Virtual IP\nGi0/0       1    110   Standby 10.1.1.129      local           10.1.1.1\n\nR2# show standby brief\nInterface   Grp  Pri P State   Active          Standby         Virtual IP\nGi0/0       1    100   Active  local           10.1.1.9        10.1.1.1",
+     q:"R1 has the higher priority but is standby. What explains this, and what would make R1 active again?",
+     o:["R1 is not configured to preempt; R2 became active while R1 was down. Add standby 1 preempt on R1.","R2's interface IP is higher, so it always wins. Raise R1's IP address.","The virtual IPs differ. Correct the VIP on R1.","HSRP picks the lowest priority. Lower R1 to 90."],a:0,
+     w:"The P column is blank on both routers: no preemption. An existing active router keeps its role, so R2, which became active first, stays active until R1 is configured to preempt."},
+    {t:"18B",title:"HSRP virtual MAC",x:"interface Vlan10\n standby version 1\n standby 10 ip 10.1.10.1",
+     q:"Which MAC address do hosts in VLAN 10 store for 10.1.10.1?",o:["0000.0C07.AC0A","0000.0C07.AC10","0000.0C9F.F00A","0000.5E00.010A"],a:0,
+     w:"Version 1 uses 0000.0C07.ACxx with the group number in hex: group 10 = 0x0A. 0000.0C9F.Fxxx is version 2."},
+    {t:"18B",title:"Two active routers",x:"R1# show standby brief\nGi0/0  1  110  Active  local  unknown  10.1.1.1\nR2# show standby brief\nGi0/0  1  100  Active  local  unknown  10.1.1.1",
+     q:"Both routers report Active and an unknown standby. What is the most likely cause?",o:["They are not exchanging HSRP hellos — for example, mismatched HSRP versions or groups.","R1 lacks preemption.","Both use the default hello timer.","The virtual IP is in the same subnet as the interfaces."],a:0,
+     w:"Each router only becomes active alone when it hears no other router. A version or group mismatch, a down link, or filtered multicast hellos causes this split; preemption is irrelevant."},
+    {t:"18B",title:"What changes after failover?",x:"Before: R1 active (VIP 10.1.1.1, vMAC 0000.0C9F.F001)\nR1 fails → R2 becomes active",
+     q:"What changes on the hosts and switches after R2 takes over?",o:["Hosts change nothing; switches relearn the virtual MAC on R2's port after R2's gratuitous ARP.","Hosts update their default gateway to R2's real IP.","Hosts receive a new virtual MAC through DHCP.","Switches flush all MAC tables and STP reconverges."],a:0,
+     w:"The gateway IP and the virtual MAC stay the same. R2 sources a gratuitous ARP from the virtual MAC, so switches update the port for that MAC."},
+    {t:"21",title:"NTP stratum",x:"SW1# show ntp associations\n  address         ref clock       st   when   poll reach  delay  offset   disp\n+~10.0.0.2        127.127.1.1      4     40    128   377  1.000   0.700  2.100\n*~10.0.0.1        127.127.1.1      2     12    128   377  0.800   0.200  1.900",
+     q:"What stratum will SW1 report in show ntp status?",o:["3","2","4","5"],a:0,
+     w:"SW1 synchronizes to the sys.peer (*), 10.0.0.1 at stratum 2. A client is one hop farther: stratum 3. 10.0.0.2 (+) is only a candidate."},
+    {t:"21",title:"Console logging threshold",x:"logging console warnings\n\n%LINK-3-UPDOWN: Interface GigabitEthernet1/0/2, changed state to down\n%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/2, changed state to down",
+     q:"Which of these messages appear on the console?",o:["Only the %LINK-3 message","Only the %LINEPROTO-5 message","Both messages","Neither message"],a:0,
+     w:"warnings = 4 shows levels 0–4. LINK-3 is an error (3) and appears; LINEPROTO-5 is a notification (5) and is suppressed."},
+    {t:"21",title:"Decode a syslog line",x:"*Oct 20 15:31:07.412 ICT: %SYS-5-CONFIG_I: Configured from console by console",
+     q:"Which statement is correct?",o:["Facility SYS, severity 5 (notifications), mnemonic CONFIG_I; timestamps use datetime with msec and show-timezone","Facility CONFIG_I, severity 5, mnemonic SYS","Severity 5 is more severe than severity 3","The timestamp shows uptime"],a:0,
+     w:"Format is %FACILITY-SEVERITY-MNEMONIC. A date with milliseconds and a zone name means service timestamps log datetime msec … show-timezone. Lower numbers are more severe."},
+    {t:"21",title:"Where is the analyzer?",x:"SW2# show monitor\nSession 2\n---------\nType              : Remote Source Session\nSource Ports      :\n    Both          : Gi1/0/1\nDest RSPAN VLAN   : 99",
+     q:"What does this tell you?",o:["SW2 is the RSPAN source; the analyzer is on another switch that receives VLAN 99.","The analyzer is plugged into Gi1/0/1.","This is a local SPAN to VLAN 99 access ports.","Gi1/0/1 is the destination port."],a:0,
+     w:"A remote source session copies the source port into RSPAN VLAN 99. The destination session and analyzer are on a different switch."},
+    {t:"21",title:"SNMP choice",x:"Requirement: alerts must be acknowledged by the manager, and the payload must be encrypted.",
+     q:"Which configuration meets it?",o:["snmp-server host 10.0.0.50 informs version 3 priv nms","snmp-server host 10.0.0.50 version 2c PUBLIC","snmp-server host 10.0.0.50 informs version 2c PUBLIC","snmp-server host 10.0.0.50 version 3 auth nms"],a:0,
+     w:"Informs are acknowledged; traps are not. Only SNMPv3 priv (authPriv) encrypts. v2c informs are acknowledged but sent in clear text."},
+    {t:"20",title:"Decode DSCP 34",x:"DSCP 34 = 100010",
+     q:"Which PHB is DSCP 34?",o:["AF41","AF42","CS4","EF"],a:0,
+     w:"Class 100 = 4, drop 01 = 1, last bit 0 → AF41. Check: 8 × 4 + 2 × 1 = 34."},
+    {t:"20",title:"Trusting CoS",x:"IP phone sends CoS 5 → access port\nCase A: mls qos trust cos (default CoS-to-DSCP map)\nCase B: port untrusted",
+     q:"What internal DSCP results in each case?",o:["A: 40, B: 0","A: 46, B: 46","A: 5, B: 0","A: 40, B: 40"],a:0,
+     w:"The default CoS-to-DSCP map multiplies by 8: CoS 5 → 40. An untrusted port sets internal DSCP 0. EF 46 needs DSCP trust or a modified map."},
+    {t:"20",title:"WRR share",x:"Egress queues with WRR weights\nQ1 = 4   Q2 = 2   Q3 = 1   Q4 = 1",
+     q:"Under full congestion, what share of the bandwidth does Q1 receive?",o:["50%","40%","25%","4%"],a:0,
+     w:"Share = weight ÷ sum of weights = 4 ÷ 8 = 50%. Q2 gets 25%, Q3 and Q4 12.5% each."},
+    {t:"20",title:"WRED thresholds",x:"One output queue with WRED\nDSCP 0–20  : random drops start at 50% full\nDSCP 21–31 : random drops start at 80% full\nQueue is now 60% full",
+     q:"Which arriving packets are candidates for random drop now?",o:["DSCP 18 packets only","DSCP 26 packets only","Both DSCP 18 and DSCP 26","Neither — WRED waits for a full queue"],a:0,
+     w:"At 60%, only the profile with the 50% threshold (DSCP 0–20) is active. DSCP 26 starts at 80%. A full queue would tail-drop everything."},
+    {t:"20",title:"Shaping or policing?",x:"A 1 Gbps enterprise edge connects to a provider contract of 200 Mbps.\nTraffic above 200 Mbps is dropped by the provider.\nMost traffic is bursty TCP.",
+     q:"What should the enterprise apply on its egress interface?",o:["Shape to 200 Mbps","Police to 200 Mbps","FIFO with tail drop","Trust CoS"],a:0,
+     w:"Shaping buffers bursts so traffic leaves at the contracted rate instead of being dropped at the provider's policer — the best fit for bursty TCP."},
+    {t:"19",title:"Identify the redundancy mode",x:"Supervisor failover log:\n- standby was booted, route engine initialized\n- other line cards were NOT reloaded; ports kept their state\n- Layer 2 and Layer 3 protocols started after the failure\n- recovery took about 40 seconds",
+     q:"Which redundancy mode is this?",o:["RPR+","RPR","SSO","NSF only"],a:0,
+     w:"RPR reloads all modules; SSO has Layer 2 already initialized and fails over in about a second. A booted standby that keeps ports but still starts L2/L3 protocols is RPR+."},
+    {t:"19",title:"Why is an uplink idle?",x:"A1 and A2 form one StackWise access switch.\nEtherChannel Po1 → D1, EtherChannel Po2 → D2.\nD1 and D2 are separate switches joined by a Layer 2 link.\nshow spanning-tree on the stack: Po2 Altn BLK",
+     q:"What would let both channels forward?",o:["Make D1 and D2 one logical switch (for example VSS) and use one multichassis EtherChannel","Enable PortFast on Po2","Add more links to Po2","Change Po2 to LACP passive"],a:0,
+     w:"With separate distribution switches the two channels form a loop and STP blocks one. A logical distribution switch turns them into one MEC with no loop."},
+    {t:"17",title:"Spot the single point of failure",x:"Access switch AS1: two uplinks, both to DSW1\nAccess switch AS2: two uplinks, both to DSW1\nDSW2 is connected only to DSW1",
+     q:"What is the main design flaw?",o:["DSW1 is a single point of failure; each access switch should uplink to both distribution switches","There are too many uplinks","DSW2 should be connected to the access switches with a Layer 2 link to each other","The access switches should be connected to each other"],a:0,
+     w:"Two cables to the same switch protect against a link failure only. Losing DSW1 isolates both access switches. Give each access switch one uplink to each distribution switch."},
+    {t:"18",title:"Read the roaming tables",x:"WLC-1 (VLAN 100): WLC-2 | Client-1 (Mobile) | Staff | 100\nWLC-2 (VLAN 200): AP-2  | Client-1          | Staff |\nClient-1 IP: 192.168.100.199",
+     q:"Which statement is correct?",o:["Layer 3 roam: WLC-1 is the anchor, WLC-2 is foreign, traffic is tunneled between them with EoIP","Layer 2 roam: both controllers share VLAN 100","WLC-2 is the anchor because the client is now on AP-2","The client must get a 192.168.200.x address"],a:0,
+     w:"The VLANs differ (100 vs 200), so it is a Layer 3 intercontroller roam. The original controller anchors the client and keeps its IP; the foreign controller tunnels to it."},
+    {t:"16",title:"One VLAN gets no leases",x:"Central DHCP server 10.10.10.10 has pools for VLAN 10 and VLAN 20.\nVLAN 10 clients get addresses. VLAN 20 clients show 169.254.x.x.\n\ninterface vlan 10\n ip address 10.1.10.1 255.255.255.0\n ip helper-address 10.10.10.10\ninterface vlan 20\n ip address 10.1.20.1 255.255.255.0",
+     q:"What is the fix?",o:["Add ip helper-address 10.10.10.10 under interface vlan 20","Add ip helper-address under the uplink to the server","Create a pool for VLAN 10","Change the server's port to 68"],a:0,
+     w:"The DHCPDISCOVER broadcast stays in VLAN 20 unless that VLAN's gateway relays it. The helper belongs on each client-facing interface."},
+    {t:"22",title:"Which flow should the firewall deny?",x:"Zones: inside (users), DMZ (web server), outside (Internet)\nFlows:\n1. inside user → outside web site\n2. outside user → DMZ web server\n3. outside host → inside file server (new connection)\n4. reply from outside web site → inside user",
+     q:"Which flow should be denied?",o:["Flow 3","Flow 2","Flow 4","Flow 1"],a:0,
+     w:"Outside may initiate only to the DMZ. Flow 4 is return traffic of an inside-initiated session, allowed by the stateful firewall."}
+  ];
+  var ai=Math.min(store.get("finAnaI",0),ANA.length-1);
+  var asel=$("anaSel");
+  ANA.forEach(function(c,i){asel.add(new Option((i+1)+" · "+c.t+" · "+c.title,i))});
+  function anaPaint(){
+    var c=ANA[ai],ord=shuf([0,1,2,3]);asel.value=ai;store.set("finAnaI",ai);
+    var r=ANA_RES[ai];
+    var h='<div class="why" style="margin-top:10px"><b>CASE '+(ai+1)+' · topic '+c.t+' · '+TOPICS[c.t][0]+'</b>'+(r===1?' <span class="ok">· solved</span>':r===0?' <span class="no">· missed before</span>':'')+'</div>'+
+      '<pre class="fin-exhibit">'+esc(c.x)+'</pre><p style="font-size:16.5px;font-weight:650;margin-top:10px">'+esc(c.q)+'</p>';
+    ord.forEach(function(o){h+='<button class="qopt" data-ao="'+o+'">'+esc(c.o[o])+'</button>'});
+    h+='<div id="anaAfter"></div>';
+    $("anaBody").innerHTML=h;
+    var done=false;
+    document.querySelectorAll("#anaBody .qopt").forEach(function(b){
+      b.addEventListener("click",function(){
+        if(done)return;done=true;
+        var o=parseInt(b.dataset.ao,10),ok=o===c.a;
+        ANA_RES[ai]=ok?1:(ANA_RES[ai]===1?1:0);store.set("finAna",ANA_RES);
+        if(window.recordAns)window.recordAns(c.t,ok);
+        document.querySelectorAll("#anaBody .qopt").forEach(function(x){var i=parseInt(x.dataset.ao,10);if(i===c.a)x.classList.add("right");else if(i===o)x.classList.add("wrong");x.disabled=true});
+        $("anaAfter").innerHTML='<div class="why"><b>'+(ok?"✓ correct":"✗ not quite")+'</b> — '+esc(c.w)+'</div><div class="row"><button class="btn on" id="anaGo">next case →</button><button class="btn" data-ago="t'+c.t+'">open topic '+c.t+'</button></div>';
+        $("anaGo").addEventListener("click",function(){ai=(ai+1)%ANA.length;anaPaint()});
+        document.querySelector("#anaAfter [data-ago]").addEventListener("click",function(){jump(this.dataset.ago,"notes")});
+        anaMeta();refresh();
+      });
+    });
+  }
+  function anaMeta(){var n=Object.keys(ANA_RES).filter(function(k){return ANA_RES[k]===1}).length;$("anaMeta").textContent=n+" / "+ANA.length+" solved"}
+  asel.addEventListener("change",function(){ai=parseInt(asel.value,10);anaPaint()});
+  $("anaPrev").addEventListener("click",function(){ai=(ai-1+ANA.length)%ANA.length;anaPaint()});
+  $("anaNext").addEventListener("click",function(){ai=(ai+1)%ANA.length;anaPaint()});
+  $("anaReset").addEventListener("click",function(){if(!confirm("Clear your analysis results?"))return;ANA_RES={};store.set("finAna",ANA_RES);anaPaint();anaMeta();refresh()});
+  anaPaint();anaMeta();
+
+  /* ---------- A4 sheet ---------- */
+  var notes=$("a4Notes"),nout=$("a4NotesOut");
+  function paintNotes(){nout.innerHTML=esc(notes.value||"").replace(/\n/g,"<br>")||'<span class="a4empty">Add your own lines above.</span>'}
+  notes.value=store.get("a4Notes","");paintNotes();
+  notes.addEventListener("input",function(){store.set("a4Notes",notes.value);paintNotes()});
+  $("a4Print").addEventListener("click",function(){
+    document.body.classList.add("print-a4");
+    var done=function(){document.body.classList.remove("print-a4");window.removeEventListener("afterprint",done)};
+    window.addEventListener("afterprint",done);
+    setTimeout(function(){window.print();setTimeout(done,1500)},50);
+  });
+
+  /* ---------- five-day plan ---------- */
+  var PLAN=[
+    ["Thu 15 Oct","2026-10-15",["Topic 16 DHCP — write a pool and a relay from memory","Topic 17 campus — explain the three switch-block designs aloud","Final mock: 20 questions, then review every miss"]],
+    ["Fri 16 Oct","2026-10-16",["Topic 18 WLAN — split-MAC, CAPWAP, and the three roaming cases","Topic 18B HSRP — run the failover explorer and write both router configs","Analysis cases for HSRP and WLAN"]],
+    ["Sat 17 Oct","2026-10-17",["Topic 19 HA — StackWise vs VSS, RPR / RPR+ / SSO, NSF, RIB vs FIB","Topic 20 QoS — decode ten DSCP values with the decoder","Flashcards 19 and 20 until the WEAK pile is empty"]],
+    ["Sun 18 Oct","2026-10-18",["Topic 21 monitoring — syslog, NTP, SNMP, SPAN and RSPAN","Topic 22 security — CIA, zones, IPS vs firewall","Print or hand-write the A4 sheet"]],
+    ["Mon 19 Oct","2026-10-19",["Final mock: 40 questions with midterm topics mixed in","Every configuration task without looking","Every analysis case; repeat the misses","Skim the midterm sheet: STP, VLAN/DTP, EtherChannel"]],
+    ["Tue 20 Oct","2026-10-20",["Morning: read the A4 sheet once and do one rapid fire","Pack pencil, eraser, pen, and both A4 sheets","15:30 — final exam, room 620"]]
+  ];
+  var pd=store.get("finPlan",{});
+  function planPaint(){
+    var today=new Date(),y=today.getFullYear(),mo=("0"+(today.getMonth()+1)).slice(-2),da=("0"+today.getDate()).slice(-2),iso=y+"-"+mo+"-"+da;
+    var h="",tot=0,dn=0;
+    PLAN.forEach(function(d,i){
+      h+='<div class="fin-day'+(d[1]===iso?" today":"")+'"><h4>'+d[0]+(d[1]===iso?' <span class="badge cy">today</span>':'')+'</h4>';
+      d[2].forEach(function(s,j){
+        var k=i+"_"+j,on=!!pd[k];tot++;if(on)dn++;
+        h+='<label class="chk"><input type="checkbox" data-fp="'+k+'"'+(on?" checked":"")+'><span class="'+(on?"fin-struck":"")+'"> '+esc(s)+'</span></label>';
+      });
+      h+='</div>';
+    });
+    $("finPlan").innerHTML=h;$("planMeta").textContent=dn+" / "+tot+" done";
+    document.querySelectorAll("[data-fp]").forEach(function(c){c.addEventListener("change",function(){pd[c.dataset.fp]=c.checked;store.set("finPlan",pd);planPaint()})});
+  }
+  planPaint();
+
+  /* ---------- in-page jumps ---------- */
+  document.querySelectorAll("[data-fin-jump]").forEach(function(b){
+    b.addEventListener("click",function(){var el=$(b.dataset.finJump);if(el)el.scrollIntoView({behavior:"smooth"})});
+  });
+  document.querySelectorAll(".dn").forEach(function(c){c.addEventListener("change",refresh)});
+  ["bKnow","bAgain"].forEach(function(id){var b=$(id);if(b)b.addEventListener("click",function(){setTimeout(refresh,0)})});
+  refresh();
+})();
+
+/* ============ DSCP DECODER & SYSLOG THRESHOLD ============ */
+(function(){
+  var inp=document.getElementById("dscpIn"),out=document.getElementById("dscpOut"),quick=document.getElementById("dscpQuick");
+  if(inp&&out){
+    function parse(v){
+      v=String(v).trim().toUpperCase().replace(/\s+/g,"");var m;
+      if(v==="EF")return 46;
+      if(v==="BE"||v==="DF"||v==="DEFAULT")return 0;
+      if((m=v.match(/^AF([1-4])([1-3])$/)))return 8*+m[1]+2*+m[2];
+      if((m=v.match(/^CS([0-7])$/)))return 8*+m[1];
+      if(/^[01]{6}$/.test(v))return parseInt(v,2);
+      if(/^\d{1,2}$/.test(v)){var n=+v;return n<=63?n:null}
+      return null;
+    }
+    function name(n){
+      if(n===46)return ["EF","Expedited Forwarding: low delay, jitter and loss — voice, priority queue."];
+      if(n===0)return ["Default (CS0)","Best effort."];
+      var c=n>>3,d=(n>>1)&3;
+      if(n%8===0)return ["CS"+c,"Class Selector "+c+": matches IP Precedence "+c+" for backward compatibility."];
+      if((n&1)===0&&c>=1&&c<=4&&d>=1&&d<=3)return ["AF"+c+d,"Assured Forwarding class "+c+" (queue "+c+" of 4, higher is better), drop priority "+d+" of 3 (higher is dropped sooner)."];
+      return [null,"Not one of the standard Default, EF, AF, or CS code points."];
+    }
+    function paint(){
+      var n=parse(inp.value);
+      if(n===null){out.innerHTML='<p class="no" style="margin-top:8px">Enter 0–63, six binary digits, EF, AFxy (x 1–4, y 1–3), or CS0–CS7.</p>';return}
+      var b=("000000"+n.toString(2)).slice(-6),nm=name(n);
+      out.innerHTML='<div class="dscp-bits" aria-label="DSCP bits"><span class="cl">'+b.slice(0,3)+'</span><span class="dp">'+b.slice(3,5)+'</span><span class="z">'+b.slice(5)+'</span></div>'+
+        '<div class="tscroll"><table><tr><th>Decimal</th><th>Binary</th><th>PHB</th><th>IP Precedence</th><th>Class Selector check</th></tr>'+
+        '<tr><td class="mono ok">'+n+'</td><td class="mono">'+b+'</td><td class="mono ok">'+(nm[0]||"—")+'</td><td class="mono">'+(n>>3)+' (top 3 bits)</td><td class="mono">CS'+(n>>3)+' = '+(8*(n>>3))+'</td></tr></table></div>'+
+        '<p class="sub2" style="margin-top:6px">'+nm[1]+' Class bits <b>'+b.slice(0,3)+'</b> · drop bits <b>'+b.slice(3,5)+'</b> · last bit <b>'+b.slice(5)+'</b>.</p>';
+    }
+    ["EF","AF41","AF32","AF21","AF13","CS6","CS3","0"].forEach(function(x){
+      var c=document.createElement("button");c.className="chip";c.textContent=x;c.type="button";
+      c.addEventListener("click",function(){inp.value=x;paint()});quick.appendChild(c);
+    });
+    inp.addEventListener("input",paint);paint();
+  }
+  var sv=document.getElementById("sevIn"),so=document.getElementById("sevOut");
+  if(sv&&so){
+    var L=[["emergencies","system unusable"],["alerts","immediate action"],["critical","critical condition"],["errors","error condition"],["warnings","warning condition"],["notifications","normal but significant"],["informational","information only"],["debugging","debug output"]];
+    L.forEach(function(x,i){sv.add(new Option("logging console "+i+"  ("+x[0]+")",i))});
+    sv.value=4;
+    function sp(){
+      var t=parseInt(sv.value,10),h="";
+      L.forEach(function(x,i){var on=i<=t;h+='<div class="sev '+(on?"on":"off")+'"><b>'+i+'</b><span>'+x[0]+'</span><i>'+(on?"shown":"hidden")+'</i></div>'});
+      so.innerHTML=h;
+    }
+    sv.addEventListener("change",sp);sp();
+  }
 })();
 
 /* ============ ADAPTIVE NAV ============ */
@@ -5975,8 +7398,8 @@ function boom(){
 
 /* ============ SEARCH PALETTE ============ */
 (function(){
-  var SECT=[["home","Home","overview and progress"],["blueprint","Blueprint","the whole system as one network"],
-    ["flow","Flow","prepare, configure, verify, troubleshoot"],["notes","Topics","19 technical topics"],
+  var SECT=[["home","Home","overview and progress"],["final","Final","final exam brief, mock, configs, analysis, A4 sheet"],["blueprint","Blueprint","the whole system as one network"],
+    ["flow","Flow","prepare, configure, verify, troubleshoot"],["notes","Topics","24 technical topics"],
     ["labs","Labs","LAB 01 through LAB 13"],["drills","Drills","flashcards and generators"],
     ["intensive","Practice","timed practice and trainers"],["cheat","Cheatsheet","numbers and tables"],
     ["terms","Terms","acronym glossary"],["author","About","about NETDES"]];
@@ -6001,6 +7424,9 @@ function boom(){
       if(i===0)return;
       var c=r.children;if(c.length<3)return;
       IDX.push({k:"AB",t:c[0].textContent.trim(),s:c[1].textContent.trim()+" — "+c[2].textContent.trim(),tab:"terms",id:null,g:"Terms"});
+    });
+    document.querySelectorAll("#final .panel h2").forEach(function(x){
+      IDX.push({k:"FIN",t:x.textContent.trim(),s:"Final exam center",tab:"final",id:x.closest(".panel").id||null,g:"Final"});
     });
     document.querySelectorAll("#cheat .panel h2").forEach(function(x){
       IDX.push({k:"REF",t:x.textContent.trim(),s:"Cheatsheet",tab:"cheat",id:null,g:"Reference"});
@@ -6141,7 +7567,15 @@ function boom(){
     ["An indirect failure wastes 20 seconds of Max Age","Ask upstream if the root is reachable","BackboneFast + RLQ","10B"],
     ["A link goes silent and a blocked port starts forwarding","Distrust silence and one-way links","Loop Guard + UDLD","12"],
     ["Even a clean failover still costs 30 seconds","Replace timers with handshakes","RSTP 802.1w","13"],
-    ["One STP instance per VLAN wastes CPU at scale","Group VLANs into a few trees","MST 802.1s","15"]
+    ["One STP instance per VLAN wastes CPU at scale","Group VLANs into a few trees","MST 802.1s","15"],
+    ["Every host needs an address, gateway and DNS typed by hand","Lease them automatically, relayed across VLANs","DHCP + relay","16"],
+    ["The network grows as an unexplainable tangle","Give layers roles and build switch blocks","Hierarchical, modular campus","17"],
+    ["Users move and need the network without a cable","Shared airtime under controller management","WLAN · CAPWAP · roaming","18"],
+    ["Hosts have one gateway; if that router dies the subnet is cut off","Share a virtual gateway between routers","HSRP / FHRP","18B"],
+    ["Redundant uplinks sit blocked and every switch fails alone","Make pairs act as one logical switch","StackWise · VSS · SSO/NSF","19"],
+    ["Voice and video suffer when data floods a link","Classify, mark, queue, and drop early by class","QoS (DiffServ)","20"],
+    ["Nobody knows what failed, when, or what is flowing","Log, synchronize time, poll, and mirror","Syslog · NTP · SNMP · SPAN","21"],
+    ["Anyone outside can start connections inward","Filter by zone and inspect for attacks","Firewall · DMZ · IPS","22"]
   ];
   var box=document.getElementById("chain");
   if(box){
