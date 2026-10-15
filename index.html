@@ -838,7 +838,7 @@ ip dhcp pool VLAN10
  network 10.1.10.0 255.255.255.0
  default-router 10.1.10.1
  dns-server 8.8.8.8
- lease 1          ! days [hrs [min]] | infinite
+ lease 1          ! 1 day; lease 0 12 = 12 hours; lease infinite
 show ip dhcp binding</pre><p>Exclusions are inclusive; keyword is <b>excluded</b>. One pool per client subnet. Pools must match the gateway subnet (SVI or subinterface).</p></div>
           <div class="a4b"><h6>DHCP relay + SLAAC</h6><pre class="a4c">interface vlan 10            ! client-facing
  ip address 10.1.10.1 255.255.255.0
@@ -857,7 +857,8 @@ interface vlan 10
  standby 1 preempt              ! off by default
  standby 1 name GRP
 ! R2: same group+VIP, own IP, default priority
-show standby [brief]</pre><p>Active = highest priority → highest interface IP. Existing active stays unless the better router has <b>preempt</b>. Hello 3 s, hold 10 s.</p></div>
+show standby brief
+show standby          ! full detail: vMAC, timers</pre><p>Active = highest priority → highest interface IP. Existing active stays unless the better router has <b>preempt</b>. Hello 3 s, hold 10 s.</p></div>
           <div class="a4b"><h6>Syslog + time (21)</h6><pre class="a4c">logging console 4         ! shows 0–4 (default 7)
 logging buffered 6        ! buffer off by default
 logging buffered 16384    ! size 4096–2147483647
@@ -866,21 +867,23 @@ service timestamps log uptime
 show logging
 clock set 15:30:00 20 October 2026   ! EXEC
 clock timezone ICT 7                 ! config
-ntp server 200.1.1.10 prefer [version 4]
+ntp server 200.1.1.10 prefer
+ntp server 200.1.1.240 version 4
 show clock / show ntp status / show ntp associations</pre></div>
           <div class="a4b"><h6>SNMP v1 / v2c</h6><pre class="a4c">access-list 10 permit 192.168.3.99
 snmp-server community PUBLIC ro 10
 snmp-server host 192.168.3.99 PUBLIC          ! v1 trap
 snmp-server host 192.168.3.99 informs version 2c PUBLIC</pre></div>
           <div class="a4b"><h6>SNMPv3</h6><pre class="a4c">snmp-server view V1 iso included           ! optional
-snmp-server group NetOps v3 priv [read V1]
+snmp-server group NetOps v3 priv read V1
 snmp-server user mymonitor NetOps v3 auth sha AUTHPW priv aes 128 PRIVPW 10
 snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre><p>noauth = noAuthNoPriv · auth = authNoPriv · priv = authPriv.</p></div>
-          <div class="a4b"><h6>Local SPAN</h6><pre class="a4c">monitor session 1 source interface g1/0/1 both  ! rx|tx|both
-! or a VLAN source (not mixed with ports): source vlan 10 rx
-monitor session 1 destination interface g1/0/48 [encapsulation replicate]
-show monitor [session 1] [detail]
-no monitor session {1 | local | all}</pre><p>Destination port: STP off — never connect it back into the network. replicate = keep tags + L2 protocol frames.</p></div>
+          <div class="a4b"><h6>Local SPAN</h6><pre class="a4c">monitor session 1 source interface g1/0/1 both
+monitor session 2 source vlan 10 rx     ! VLAN source, own session
+monitor session 1 destination interface g1/0/48
+monitor session 2 destination interface g1/0/47 encapsulation replicate
+show monitor session 1 detail
+no monitor session 1        ! or: no monitor session all</pre><p>Destination port: STP off — never connect it back into the network. replicate = keep tags + L2 protocol frames.</p></div>
           <div class="a4b"><h6>RSPAN (A → B → C)</h6><pre class="a4c">vlan 99                 ! A, B and C
  remote-span
 ! A (source)
@@ -1283,7 +1286,7 @@ monitor session 1 destination interface g1/0/48</pre><p>No MAC learning in RSPAN
     <h4 data-th="Routing protocol สำหรับ IPv6">Routing protocols for IPv6</h4>
     <div class="tscroll"><table>
       <tr><th>Protocol</th><th>Spec</th><th>Notes</th></tr>
-      <tr><td class="mono">Static</td><td>—</td><td><code>ipv6 route {prefix} {next-hop|interface}</code></td></tr>
+      <tr><td class="mono">Static</td><td>—</td><td><code>ipv6 route 2001:DB8:2::/64 2001:DB8:1::2</code> or <code>ipv6 route 2001:DB8:2::/64 Fa0/1</code></td></tr>
       <tr><td class="mono">RIPng</td><td>RFC 2080</td><td>Same as RIPv2 but <b>UDP 521</b>; next hop is a link-local address</td></tr>
       <tr><td class="mono ok">OSPFv3</td><td>RFC 2740</td><td>OSPFv2 is IPv4-only. Needs a manual <b>32-bit router-id</b> if the router has no IPv4 address</td></tr>
       <tr><td class="mono">EIGRPv6 / MP-BGP4</td><td>—</td><td>Mentioned only</td></tr>
@@ -1314,8 +1317,9 @@ ipv6 router ospf 1
 interface Fa0/0
  ipv6 ospf 1 area 0
 
-show ipv6 interface [brief]
-show ipv6 route [rip|ospf]
+show ipv6 interface brief
+show ipv6 route
+show ipv6 route ospf             <span class="c">! only OSPF-learned routes</span>
 show interface Fa0/0            <span class="c">! find the burned-in MAC</span>
 ping ipv6 2001:DB8:1111:1::1</pre></div></details>
 
@@ -1435,7 +1439,7 @@ show ip ssh</pre></div></details>
 
     <details><summary>▸ GNS3 / IOU differences</summary><div class="dbody">
       <p>On IOU images you save with <code>copy running-config unix:initial-config.cfg</code> instead of <code>copy running-config startup-config</code>.</p>
-      <p>VPCS (the tiny virtual PC) uses <code>ip {addr} {mask} {gateway}</code>, <code>show ip</code>, and <code>save</code>.</p>
+      <p>VPCS (the tiny virtual PC) uses <code>ip 192.168.10.5 255.255.255.0 192.168.10.1</code>, <code>show ip</code>, and <code>save</code>.</p>
     </div></details>
 
     <div class="box trap"><b data-th="จุดที่ข้อสอบมักหลอก">Exam traps</b><ul>
@@ -1593,7 +1597,7 @@ show interface trunk</pre></div></details>
     </table></div>
     <p class="sub2">On IOU they live in the VM's <span class="mono">unix:</span> folder instead. A full factory reset needs <b>both</b> commands — this catches people out constantly.</p>
 
-    <details><summary>▸ commands, in configuration order</summary><div class="dbody"><pre>vtp mode {server | client | transparent}
+    <details><summary>▸ commands, in configuration order</summary><div class="dbody"><pre>vtp mode server          <span class="c">! or: vtp mode client / vtp mode transparent</span>
 vtp domain ENG
 vtp version 2
 vtp password 261434
@@ -1755,7 +1759,7 @@ show ip route</pre></div></details>
     <ol class="steps">
       <li>On the <b>switch</b>: make the link to the router a <b>trunk</b>.</li>
       <li>On the <b>router</b>: bring the physical interface up with <code>no shutdown</code> — subinterfaces inherit its state.</li>
-      <li>Create one subinterface per VLAN. <code>encapsulation dot1q {vlan-id}</code> <b>first</b>, then the IP address.</li>
+      <li>Create one subinterface per VLAN. <code>encapsulation dot1q 10</code> <b>first</b>, then the IP address.</li>
       <li>That IP becomes the <b>default gateway</b> for every host in that VLAN.</li>
     </ol>
     <p class="sub2">The subinterface <i>number</i> (e.g. G0/0.1010) is only a label — the <b>dot1q</b> number is what actually matches the tag. Naming them after the VLAN just keeps you sane.</p>
@@ -2206,7 +2210,7 @@ interface Fa0/5
 interface Gi0/2
  spanning-tree guard root
 
-show spanning-tree summary [total]
+show spanning-tree summary totals
 show spanning-tree inconsistentports
 show spanning-tree interface Fa0/11 portfast
 show spanning-tree uplinkfast
@@ -2286,9 +2290,9 @@ show spanning-tree backbonefast</pre></div></details>
 interface Gi0/1
  spanning-tree guard loop              <span class="c">! per port</span>
 
-udld {enable | aggressive}             <span class="c">! global, fibre ports</span>
+udld aggressive                        <span class="c">! global, fibre ports (or: udld enable)</span>
 interface Gi0/1
- udld {enable | aggressive | disable}
+ udld aggressive                       <span class="c">! per port (or: udld enable / udld disable)</span>
 
 interface Gi0/1
  switchport backup interface Gi0/2     <span class="c">! Flex Links</span>
@@ -2296,7 +2300,7 @@ interface Gi0/1
 
 show spanning-tree interface Gi0/1 detail
 show spanning-tree summary
-show udld [interface]
+show udld Gi0/1
 show interface switchport backup</pre></div></details>
 
     <div class="box trap"><b data-th="จุดที่ข้อสอบมักหลอก">Exam traps</b><ul>
@@ -2490,7 +2494,7 @@ A(config)# spanning-tree mst 1 root primary
 B(config)# spanning-tree mst 2 root primary
 
 show spanning-tree mst
-show spanning-tree mst 1 [detail]
+show spanning-tree mst 1 detail
 show spanning-tree mst interface Gi0/1
 show spanning-tree mst configuration
 show spanning-tree summary</pre></div></details>
@@ -2538,13 +2542,14 @@ show spanning-tree summary</pre></div></details>
       <li><b>Create a named pool.</b> Use its subnet ID and mask, then supply the clients' gateway, DNS, and lease duration.</li>
       <li><b>Repeat per subnet.</b> Multiple VLAN subnets need matching pools. A local server uses the receiving interface's subnet; a relayed request identifies the remote client subnet.</li>
     </ol>
-    <details open><summary>IOS command pattern</summary><div class="dbody"><pre>ip dhcp excluded-address start-ip [end-ip]
-ip dhcp pool pool-name
- network subnet-id subnet-mask
- default-router gateway-ip
- dns-server dns-ip [second-dns-ip]
- lease days [hours [minutes]]
- exit</pre><p class="sub2">Replace the descriptive placeholders before typing. Square brackets mean optional arguments. <code>lease infinite</code> is the alternative to a timed lease; the slide's IOS default is one day.</p></div></details>
+    <details open><summary>Example: a pool for VLAN 10</summary><div class="dbody"><pre>ip dhcp excluded-address 10.1.10.1 10.1.10.20   <span class="c">! range: .1 through .20</span>
+ip dhcp excluded-address 10.1.10.254             <span class="c">! a single address</span>
+ip dhcp pool VLAN10
+ network 10.1.10.0 255.255.255.0
+ default-router 10.1.10.1
+ dns-server 8.8.8.8 8.8.4.4                      <span class="c">! one or two servers</span>
+ lease 7                                         <span class="c">! 7 days; lease 0 12 = 12 hours; lease infinite</span>
+ exit</pre><p class="sub2">Without a <code>lease</code> line, IOS leases for one day.</p></div></details>
     <div class="tscroll"><table><tr><th>Command</th><th>What it controls</th><th>Common mistake</th></tr>
       <tr><td><code>excluded-address</code></td><td>Addresses the server must not lease; both range endpoints are included</td><td>An exclusion protects an address but does not bind it to a particular client.</td></tr>
       <tr><td><code>network</code></td><td>The pool's client subnet and mask</td><td>Entering one host's IP instead of the subnet ID.</td></tr>
@@ -2860,12 +2865,12 @@ interface vlan 10
     <p>Work out a virtual MAC from the group number in <b>hex</b>: version 1 group 10 → <code>0000.0C07.AC0A</code>; version 2 group 1 → <code>0000.0C9F.F001</code>. Both routers in a group must run the same version.</p>
 
     <h4>Configure HSRP</h4>
-    <details open><summary>Interface command pattern</summary><div class="dbody"><pre>interface interface-id
- standby version {1 | 2}
- standby group ip virtual-ip
- standby group priority value
- standby group preempt
- standby group name group-name</pre><p class="sub2">Only <code>standby <i>group</i> ip</code> is essential; version, priority, preempt, and name are optional. The group number and virtual IP must match on every router in the group.</p></div></details>
+    <details open><summary>Example: one router in group 1</summary><div class="dbody"><pre>interface GigabitEthernet0/0
+ standby version 2                  <span class="c">! both routers must match; default is version 1</span>
+ standby 1 ip 10.1.1.1              <span class="c">! group 1, virtual IP — the only required line</span>
+ standby 1 priority 110             <span class="c">! default 100; highest wins</span>
+ standby 1 preempt                  <span class="c">! reclaim active after recovery</span>
+ standby 1 name GATEWAY-VLAN10      <span class="c">! optional label</span></pre><p class="sub2">The group number (1) and virtual IP (10.1.1.1) must match on every router in the group; each router keeps its own interface address.</p></div></details>
     <details open><summary>Supplied example: R1 active, R2 standby</summary><div class="dbody"><pre><span class="c">! R1</span>
 interface GigabitEthernet0/0
  ip address 10.1.1.9 255.255.255.0
@@ -3164,17 +3169,17 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
 
     <h4>Where messages go</h4>
     <details open><summary>Console, internal buffer, timestamps</summary><div class="dbody"><pre><span class="c">! Console: on by default at debugging (7); seen only when connected to the console port</span>
-logging console severity
+logging console warnings         <span class="c">! same as: logging console 4 — shows 0–4</span>
 
 <span class="c">! Internal buffer: off by default; keeps messages to review later</span>
-logging buffered severity
-logging buffered size            <span class="c">! 4096–2147483647 bytes</span>
+logging buffered informational   <span class="c">! level 6 and more severe</span>
+logging buffered 16384           <span class="c">! size in bytes, 4096–2147483647</span>
 show logging
 
-<span class="c">! Clock-time stamps (options in brackets)</span>
-service timestamps log datetime [localtime] [show-timezone] [msec] [year]
+<span class="c">! Clock-time stamps with every option</span>
+service timestamps log datetime localtime show-timezone msec year
 <span class="c">! …or time since boot, e.g. 2w5d</span>
-service timestamps log uptime</pre><p><code>severity</code> is a number 0–7 or its keyword. <code>logging console 4</code> displays levels 0–4 and suppresses 5–7.</p></div></details>
+service timestamps log uptime</pre><p>A level can be typed as its number or keyword: <code>logging console 4</code> and <code>logging console warnings</code> are the same, displaying levels 0–4 and suppressing 5–7.</p></div></details>
     <pre><span class="c">! datetime timestamps</span>
 Nov 10 13:55:24: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet1/1, changed state to down
 <span class="c">! uptime timestamps</span>
@@ -3183,14 +3188,12 @@ Nov 10 13:55:24: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet1/1, ch
     <h4>Correct time: the clock and NTP</h4>
     <p>A datetime stamp is only useful if the switch clock is right. After boot the clock starts at <b>March 1, 1993</b>.</p>
     <details open><summary>Clock and time zone</summary><div class="dbody"><pre>show clock
-clock set hh:mm:ss day month year          <span class="c">! privileged EXEC, not config mode</span>
-clock timezone name offset-hours [offset-minutes]   <span class="c">! config mode</span>
-
-<span class="c">! Example: Thailand, UTC+7</span>
-clock timezone ICT 7</pre><p>Day is 1–31, month is a name (January…), year is 1993–2035, offset-hours is −23…23 and offset-minutes 0–59.</p></div></details>
+Switch# clock set 15:30:00 20 October 2026      <span class="c">! privileged EXEC, not config mode</span>
+Switch(config)# clock timezone ICT 7             <span class="c">! Thailand, UTC+7</span>
+Switch(config)# clock timezone IST 5 30          <span class="c">! India, UTC+5:30 — minutes are optional</span></pre><p>Day is 1–31, month is a name (January…), year is 1993–2035, the hour offset is −23…23 and the minute offset 0–59.</p></div></details>
     <p><b>Network Time Protocol (NTP)</b> synchronizes many devices to common time servers:</p>
-    <details open><summary>NTP client configuration and verification</summary><div class="dbody"><pre>ntp server ntp-server-ip [prefer] [version {3 | 4}]
-<span class="c">! version 3 is the default; version 4 adds IPv6. Configure several servers.</span>
+    <details open><summary>NTP client configuration and verification</summary><div class="dbody"><pre>ntp server 200.1.1.10 prefer      <span class="c">! preferred source</span>
+ntp server 200.1.1.240 version 4  <span class="c">! version 3 is the default; 4 adds IPv6</span>
 show ntp status
 show ntp associations</pre></div></details>
     <pre>IOU3# show ntp status
@@ -3231,24 +3234,24 @@ IOU3# show ntp associations
       <tr><td>authPriv</td><td class="mono">priv</td><td class="ok">yes</td><td class="ok">yes</td></tr>
     </table></div>
     <div class="box trap"><b>Best practice</b>Use SNMPv3. If SNMPv1 is unavoidable, make it read-only and restrict it with an access list. A community string travels in clear text.</div>
-    <details open><summary>SNMPv1 / v2c configuration</summary><div class="dbody"><pre>access-list 10 permit manager-ip                       <span class="c">! optional, 1–99</span>
-snmp-server community community-string [ro | rw] [10]
+    <details open><summary>SNMPv1 / v2c configuration</summary><div class="dbody"><pre>access-list 10 permit 192.168.3.99                 <span class="c">! optional ACL, numbered 1–99</span>
+snmp-server community NETRO ro 10                  <span class="c">! read-only, limited by ACL 10</span>
+snmp-server community NETRW rw 10                  <span class="c">! read-write (avoid with v1)</span>
 
-<span class="c">! v1 traps</span>
-snmp-server host host-ip community-string [trap-type]
-<span class="c">! v2c traps, or informs</span>
-snmp-server host host-ip [informs] version 2c community-string</pre></div></details>
-    <details open><summary>SNMPv3 configuration and the supplied example</summary><div class="dbody"><pre>snmp-server view view-name oid-tree {included | excluded}     <span class="c">! optional</span>
-snmp-server group group-name v3 {noauth | auth | priv} [read view] [write view] [notify view] [access acl]
-snmp-server user user-name group-name v3 [auth {md5 | sha} auth-password] [priv {des | 3des | aes {128 | 192 | 256}} priv-password] [acl]
-snmp-server host host-ip [informs] version 3 {noauth | auth | priv} user-name [trap-type]
+snmp-server host 192.168.3.99 NETRO                <span class="c">! v1 traps</span>
+snmp-server host 192.168.3.99 NETRO snmp           <span class="c">! v1 traps, only the snmp trap type</span>
+snmp-server host 192.168.3.99 version 2c NETRO     <span class="c">! v2c traps</span>
+snmp-server host 192.168.3.99 informs version 2c NETRO   <span class="c">! v2c informs</span></pre></div></details>
+    <details open><summary>SNMPv3 configuration and the supplied example</summary><div class="dbody"><pre><span class="c">! Optional view: let the group read only the interfaces subtree</span>
+snmp-server view IFONLY 1.3.6.1.2.1.2 included
+snmp-server group READERS v3 auth read IFONLY     <span class="c">! authNoPriv, restricted view</span>
 
-<span class="c">! Example: only 192.168.3.99 and 192.168.100.4 may poll</span>
+<span class="c">! Supplied example: only 192.168.3.99 and 192.168.100.4 may poll</span>
 access-list 10 permit 192.168.3.99
 access-list 10 permit 192.168.100.4
 snmp-server group NetOps v3 priv
 snmp-server user mymonitor NetOps v3 auth sha s3cr3tauth priv aes 128 s3cr3tpr1v 10
-snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre><p>Read it as: group <b>NetOps</b> requires authPriv; user <b>mymonitor</b> authenticates with SHA and encrypts with AES-128, limited by ACL 10; informs go to 192.168.3.99 at the priv level. Without a view, every MIB variable is visible. The deck writes the view keywords as include/exclude; IOS uses <code>included</code>/<code>excluded</code>.</p></div></details>
+snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre><p>Read it as: group <b>NetOps</b> requires authPriv; user <b>mymonitor</b> authenticates with SHA and encrypts with AES-128, limited by ACL 10; informs go to 192.168.3.99 at the priv level. Without a view, every MIB variable is visible. Other levels: <code>snmp-server group G1 v3 noauth</code> (noAuthNoPriv) and <code>snmp-server group G2 v3 auth</code> (authNoPriv); MD5 can replace SHA, and DES or 3DES can replace AES. The deck writes the view keywords as include/exclude; IOS uses <code>included</code>/<code>excluded</code>.</p></div></details>
 
     <h4>Port mirroring: SPAN and RSPAN</h4>
     <p><b>Switched Port Analyzer (SPAN)</b> copies traffic from source ports or VLANs to a destination port where a network analyzer (sniffer) captures it. Normal forwarding is unchanged.</p>
@@ -3257,12 +3260,13 @@ snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre><p>Read it a
       <tr><td>Transport</td><td>Inside the switch</td><td>A special-purpose <b>RSPAN VLAN</b> carried over trunks</td></tr>
       <tr><td>Use when</td><td>The analyzer can be plugged in at the source switch</td><td>The analyzer is elsewhere in a large or spread-out network</td></tr>
     </table></div>
-    <details open><summary>Local SPAN</summary><div class="dbody"><pre>monitor session number source {interface interface | vlan vlan-id} [rx | tx | both]
-monitor session number destination interface interface [encapsulation replicate]
-
-<span class="c">! Supplied example: mirror Gi1/0/1 to the analyzer on Gi1/0/48</span>
+    <details open><summary>Local SPAN</summary><div class="dbody"><pre><span class="c">! Supplied example: mirror Gi1/0/1 to the analyzer on Gi1/0/48</span>
 monitor session 1 source interface gigabitethernet1/0/1 both
-monitor session 1 destination interface gigabitethernet1/0/48</pre><p><b>rx</b> = traffic received on the source, <b>tx</b> = transmitted, <b>both</b> = default. Copies are normally untagged and exclude Layer 2 protocol frames the switch sends itself (STP BPDUs, CDP, VTP, DTP, PAgP). Add <code>encapsulation replicate</code> to keep the original encapsulation and include those frames.</p></div></details>
+monitor session 1 destination interface gigabitethernet1/0/48
+
+<span class="c">! A VLAN as the source, received traffic only, keeping tags</span>
+monitor session 2 source vlan 10 rx
+monitor session 2 destination interface gigabitethernet1/0/47 encapsulation replicate</pre><p><b>rx</b> = traffic received on the source, <b>tx</b> = transmitted, <b>both</b> = default. Keep ports and VLANs in separate sessions. Copies are normally untagged and exclude Layer 2 protocol frames the switch sends itself (STP BPDUs, CDP, VTP, DTP, PAgP). Add <code>encapsulation replicate</code> to keep the original encapsulation and include those frames.</p></div></details>
     <div class="box trap"><b>Safety and capacity</b>STP is disabled on a local SPAN destination port, so <b>never connect a SPAN destination back into an active network</b> — use RSPAN to move mirrored traffic between switches. If the sources carry more than the destination port can send, some mirrored frames are dropped and never reach the analyzer.</div>
     <details open><summary>RSPAN across switches A → B → C (VLAN 99)</summary><div class="dbody"><pre><span class="c">! Every switch, including intermediate Switch-B</span>
 vlan 99
@@ -3277,8 +3281,11 @@ monitor session 1 destination remote vlan 99
 monitor session 1 source remote vlan 99
 monitor session 1 destination interface gigabitethernet 1/0/48</pre><ul class="pts"><li>MAC learning is <b>disabled</b> on the RSPAN VLAN, so intermediate switches flood the mirrored frames rather than delivering them to the real destination host.</li><li>Intermediate switches know nothing about the session — only the VLAN. Allow the RSPAN VLAN on the trunks between switches, but <b>do not assign it to access ports</b>.</li><li>VTP can carry the RSPAN VLAN to every switch, and VTP pruning keeps it off unnecessary trunks.</li></ul></div></details>
     <details><summary>Verify and remove sessions</summary><div class="dbody"><pre>show running-config | include monitor
-show monitor [session {number | all | local | range list | remote}] [detail]
-no monitor session {number | range list | local | all}</pre></div></details>
+show monitor                         <span class="c">! every session</span>
+show monitor session 1 detail
+show monitor session remote          <span class="c">! RSPAN sessions only</span>
+no monitor session 1                 <span class="c">! remove one session</span>
+no monitor session all               <span class="c">! or: no monitor session local</span></pre></div></details>
     <details class="lesson-check"><summary>Check yourself: logging console 3 is configured. Will “%LINEPROTO-5-UPDOWN” appear on the console?</summary><div class="dbody"><p>No. Level 5 is less severe than the threshold 3, so only levels 0–3 appear. Lowering the number shows fewer messages.</p></div></details>
     <details class="lesson-check"><summary>Check yourself: why must intermediate RSPAN switches also have VLAN 99 with remote-span?</summary><div class="dbody"><p>They carry the mirrored copies across their trunks in that VLAN. Without it the frames have nowhere to go; with normal MAC learning they could be forwarded to real hosts instead of flooded toward the analyzer.</p></div></details>
     <div class="box wild"><b>Exam answer to remember</b>Syslog = timestamp + facility-severity-mnemonic + text; lower severity number = worse, and a threshold shows itself and everything lower. NTP fixes time, with stratum counting hops from the reference. SNMP: manager polls agents on UDP 161, agents alert on UDP 162; v3 adds users, authentication, and encryption. SPAN mirrors locally; RSPAN carries mirrors in a remote-span VLAN.</div>
@@ -5040,7 +5047,7 @@ interface Gi0/1
  switchport trunk encapsulation dot1q
  switchport mode trunk
  switchport trunk allowed vlan 10,20</pre></div></details>
-    <details><summary>▸ VTP</summary><div class="dbody"><pre>vtp mode {server|client|transparent}
+    <details><summary>▸ VTP</summary><div class="dbody"><pre>vtp mode client          <span class="c">! or: server / transparent</span>
 vtp domain ENG
 vtp version 2
 vtp password 261434
@@ -5059,7 +5066,7 @@ interface vlan 30
 interface Gi1/0/24
  no switchport
  ip address 192.168.100.2 255.255.255.252</pre></div></details>
-    <details><summary>▸ STP control &amp; protection</summary><div class="dbody"><pre>spanning-tree mode {pvst|rapid-pvst|mst}
+    <details><summary>▸ STP control &amp; protection</summary><div class="dbody"><pre>spanning-tree mode rapid-pvst    <span class="c">! or: pvst / mst</span>
 spanning-tree vlan 10 priority 20480
 spanning-tree vlan 10 root primary
 spanning-tree portfast default
@@ -5109,11 +5116,11 @@ show port-security interface Fa0/1</pre></div></details>
 
   <div class="panel">
     <div class="ph"><h2>DHCP, campus design &amp; WLAN</h2></div>
-    <details><summary>DHCP and SLAAC quick reference</summary><div class="dbody"><p><b>DORA:</b> Discover → Offer → Request → ACK. UDP server 67 / client 68. Use one matching pool per client subnet; exclude fixed addresses before allocating leases.</p><pre>ip dhcp excluded-address start-ip [end-ip]
-ip dhcp pool pool-name
- network subnet-id subnet-mask
- default-router gateway-ip
- dns-server dns-ip
+    <details><summary>DHCP and SLAAC quick reference</summary><div class="dbody"><p><b>DORA:</b> Discover → Offer → Request → ACK. UDP server 67 / client 68. Use one matching pool per client subnet; exclude fixed addresses before allocating leases.</p><pre>ip dhcp excluded-address 10.1.10.1 10.1.10.20
+ip dhcp pool VLAN10
+ network 10.1.10.0 255.255.255.0
+ default-router 10.1.10.1
+ dns-server 8.8.8.8
  lease 1
  exit
 
@@ -5624,7 +5631,7 @@ C("18B","Name the three FHRPs and their forwarding models.","HSRP (Cisco, active
 C("18B","Load-sharing unit of HSRP and VRRP vs GLBP?","HSRP/VRRP: per subnet (use one group per VLAN). GLBP: per host, by handing out different virtual MACs.");
 C("18B","What does a host configure as its gateway with HSRP?","The virtual IP address, not either router's real interface address.");
 C("18B","HSRP active router election order?","Highest priority (default 100), then highest interface IP — but an existing active router keeps the role unless a better router preempts.");
-C("18B","Is HSRP preemption on by default?","No. Configure standby <group> preempt on the router that should reclaim the active role.");
+C("18B","Is HSRP preemption on by default?","No. Configure it on the router that should reclaim the active role, e.g. standby 1 preempt.");
 C("18B","What does the new active router send after failover, and why?","A gratuitous ARP from the virtual MAC, so switches update their MAC tables. Hosts change nothing.");
 C("18B","HSRP v1 vs v2 groups and virtual MAC?","v1: groups 0–255, 0000.0C07.ACxx. v2: groups 0–4095, 0000.0C9F.Fxxx (group number in hex).");
 C("18B","HSRP v1 vs v2 hello multicast?","v1 224.0.0.2; v2 224.0.0.102. v2 also supports IPv6 and millisecond timers.");
@@ -5802,7 +5809,7 @@ Q("18","What changes in an intracontroller roam?",["The controller maps the clie
 Q("18","Which accurately describes the fast-roaming material?",["Every PKC implementation is limited to eight APs", "BSS coloring replaces authentication", "A mobility group removes the need for client compatibility", "Compatible key-management methods reduce repeated authentication work"],3,"CCKM, PKC/OKC, and 802.11r depend on compatible support. The eight-AP cache example belongs to SKC, not a universal PKC limit.");
 Q("18B","Hosts use R1 (10.1.1.9) as their only gateway. A second router R2 is added. Without an FHRP, what happens when R1 fails?",["Hosts automatically switch to R2","Hosts keep sending to 10.1.1.9 and lose off-subnet access","STP reroutes traffic through R2","DHCP immediately pushes R2 to every host"],1,"A host has one configured gateway. Without a shared virtual gateway, R2's presence alone does not change where hosts send traffic.");
 Q("18B","Which FHRP forwards with several routers at once, balancing per host?",["HSRP","VRRP","GLBP","STP"],2,"GLBP is active/active and hands different hosts different virtual MACs. HSRP and VRRP have one forwarding router per group.");
-Q("18B","R1 (priority 110, no preempt) reboots while R2 (priority 100) takes over. When R1 returns, which router is active?",["R1, because 110 > 100","R2, because R1 cannot preempt","Both are active","Neither until the hold timer resets"],1,"Without preemption the current active router keeps its role. Add standby <group> preempt on R1 to reclaim it.");
+Q("18B","R1 (priority 110, no preempt) reboots while R2 (priority 100) takes over. When R1 returns, which router is active?",["R1, because 110 > 100","R2, because R1 cannot preempt","Both are active","Neither until the hold timer resets"],1,"Without preemption the current active router keeps its role. Add standby 1 preempt on R1 to reclaim it.");
 Q("18B","Two HSRP routers both have the default priority. Which becomes active when they start together?",["The one with the lowest MAC","The one with the highest interface IP address","The one configured first","The one with the lowest interface IP address"],1,"Default priority is 100 on both, so the tie-break is the highest IP address on the HSRP interface.");
 Q("18B","What is the HSRP version 2 virtual MAC for group 1?",["0000.0C07.AC01","0000.0C9F.F001","0000.5E00.0101","0100.5E00.0066"],1,"Version 2 uses 0000.0C9F.Fxxx with the group in hex. Version 1 would be 0000.0C07.AC01.");
 Q("18B","After HSRP failover, how do the switches learn that the virtual MAC moved?",["Hosts send new ARP requests","The new active router sends a gratuitous ARP from the virtual MAC","STP sends a topology change","The virtual MAC is changed to the new router's burned-in MAC"],1,"The new active router sends an unsolicited ARP reply sourced from the virtual MAC; switches update the MAC address table.");
