@@ -2533,14 +2533,14 @@ show spanning-tree summary</pre></div></details>
         <div id="dhcp-ack" data-lesson-panel hidden><h5>Server → client</h5><p class="lesson-packet">Server IP : 67 → client / broadcast : 68</p><p>A <b>DHCPACK</b> confirms the lease and settings. The client can then configure the address. An offer alone is not the completed lease.</p></div>
       </div>
     </div>
-    <p class="sub2">The slides draw all four messages as broadcasts. In the protocol, Offer and ACK delivery depends on client state and the broadcast flag; renewal can use unicast. See <a href="https://www.rfc-editor.org/rfc/rfc2131.html#section-4.1" target="_blank" rel="noopener">RFC 2131, message delivery</a>.</p>
+    <p class="sub2">The slides draw all four messages as broadcasts. In real networks the server may send the Offer and ACK straight to the client (unicast) instead, and lease renewals are normally unicast. See <a href="https://www.rfc-editor.org/rfc/rfc2131.html#section-4.1" target="_blank" rel="noopener">RFC 2131, message delivery</a>.</p>
 
     <h4>Configure a local DHCP server</h4>
     <ol class="steps">
-      <li><b>Prepare Layer 3.</b> Configure an active gateway interface for the client subnet: an SVI on a multilayer switch or a router subinterface.</li>
-      <li><b>Exclude fixed addresses.</b> Protect gateways and statically addressed devices from dynamic allocation.</li>
-      <li><b>Create a named pool.</b> Use its subnet ID and mask, then supply the clients' gateway, DNS, and lease duration.</li>
-      <li><b>Repeat per subnet.</b> Multiple VLAN subnets need matching pools. A local server uses the receiving interface's subnet; a relayed request identifies the remote client subnet.</li>
+      <li><b>Check the gateway first.</b> The VLAN needs a working gateway interface: an SVI such as <code>interface vlan 10</code> on a multilayer switch, or a router subinterface.</li>
+      <li><b>Exclude fixed addresses.</b> Addresses already used by the gateway, servers or printers must be excluded so DHCP never hands them to a client.</li>
+      <li><b>Create a named pool.</b> Enter the subnet, then the gateway, DNS server and lease time that clients should receive.</li>
+      <li><b>One pool per VLAN.</b> Each VLAN subnet needs its own pool. The server chooses the pool whose subnet matches the interface the request arrived on; for a relayed request, it uses the relay interface address (for example 10.1.10.1).</li>
     </ol>
     <details open><summary>Example: a pool for VLAN 10</summary><div class="dbody"><pre>ip dhcp excluded-address 10.1.10.1 10.1.10.20   <span class="c">! range: .1 through .20</span>
 ip dhcp excluded-address 10.1.10.254             <span class="c">! a single address</span>
@@ -2551,20 +2551,20 @@ ip dhcp pool VLAN10
  lease 7                                         <span class="c">! 7 days; lease 0 12 = 12 hours; lease infinite</span>
  exit</pre><p class="sub2">Without a <code>lease</code> line, IOS leases for one day.</p></div></details>
     <div class="tscroll"><table><tr><th>Command</th><th>What it controls</th><th>Common mistake</th></tr>
-      <tr><td><code>excluded-address</code></td><td>Addresses the server must not lease; both range endpoints are included</td><td>An exclusion protects an address but does not bind it to a particular client.</td></tr>
+      <tr><td><code>excluded-address</code></td><td>Addresses the server must not lease; both range endpoints are included</td><td>Thinking an excluded address is reserved for one device. It is simply never handed out.</td></tr>
       <tr><td><code>network</code></td><td>The pool's client subnet and mask</td><td>Entering one host's IP instead of the subnet ID.</td></tr>
-      <tr><td><code>default-router</code></td><td>The gateway delivered to clients</td><td>Using the DHCP server's IP when it is not the client gateway.</td></tr>
-      <tr><td><code>dns-server</code></td><td>Name resolution servers delivered to clients</td><td>Expecting a correct IP lease to prove DNS works.</td></tr>
-      <tr><td><code>lease</code></td><td>How long an address allocation lasts</td><td>Confusing a lease duration with a permanent static address.</td></tr>
+      <tr><td><code>default-router</code></td><td>The gateway delivered to clients</td><td>Entering the DHCP server's address instead of the VLAN's gateway.</td></tr>
+      <tr><td><code>dns-server</code></td><td>Name resolution servers delivered to clients</td><td>Assuming that getting an IP address means name lookups will also work.</td></tr>
+      <tr><td><code>lease</code></td><td>How long an address allocation lasts</td><td>Thinking a leased address belongs to the client forever.</td></tr>
     </table></div>
     <p class="sub2">Use <code>ip dhcp excluded-address</code>, including the final <b>d</b>. This corrects the command typo in the slides; the syntax is confirmed in <a href="https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr_dhcp/configuration/15-mt/dhcp-15-mt-book/config-dhcp-server.html" target="_blank" rel="noopener">Cisco's DHCP server guide</a>.</p>
 
     <h4>DHCP relay: keep the server central</h4>
-    <p>In the supplied example, clients use <b>VLAN 10</b>, whose gateway is <b>10.1.10.1/24</b>. The DHCP server is <b>20.5.5.5</b>, across the routed network. The helper belongs on the interface that receives the client broadcast.</p>
+    <p>In the slide example, clients are in <b>VLAN 10</b> with gateway <b>10.1.10.1/24</b>, and the DHCP server is <b>20.5.5.5</b> in another network. Put <code>ip helper-address</code> on the VLAN 10 gateway interface, because that is where the client broadcast arrives.</p>
     <details open><summary>Configure the client-facing relay interface</summary><div class="dbody"><pre>interface vlan 10
  ip address 10.1.10.1 255.255.255.0
  ip helper-address 20.5.5.5</pre></div></details>
-    <p>The relay forwards the request to the server and identifies the client's subnet. The server still needs a pool for <b>10.1.10.0/24</b>, with <b>10.1.10.1</b> as its default router. Routing must work between the relay and server in both directions. The helper command itself does not create a pool or a route.</p>
+    <p>The relay turns the broadcast into a normal (unicast) packet to 20.5.5.5 and adds its own address, 10.1.10.1, so the server knows which pool to use. The server still needs a pool for <b>10.1.10.0/24</b> with <b>10.1.10.1</b> as the default router, and the two networks must be able to route to each other in both directions. The helper command does not create a pool or a route.</p>
 
     <h4>Verify the result, then isolate the failure</h4>
     <div class="tscroll"><table><tr><th>Evidence</th><th>What to check</th></tr>
@@ -2582,7 +2582,7 @@ interface vlan 10
  ipv6 address 2001:DB8:10::1/64
  ipv6 enable
  no ipv6 nd managed-config-flag
- no ipv6 nd other-config-flag</pre><p>The documentation prefix here is a separate teaching example. Keep LAB 13's original IPv6 addresses when doing that lab.</p><p><b>M flag:</b> managed address configuration through DHCPv6. <b>O flag:</b> other configuration, such as DNS, through DHCPv6. Clearing them follows the slides' SLAAC-only setup. The advertised prefix must allow autonomous configuration; DNS needs a separate mechanism such as an RA DNS option.</p></div></details>
+ no ipv6 nd other-config-flag</pre><p>The documentation prefix here is a separate teaching example. Keep LAB 13's original IPv6 addresses when doing that lab.</p><p><b>M flag:</b> get the address from DHCPv6. <b>O flag:</b> get other settings, such as DNS, from DHCPv6. Turning both off, as the slides do, means hosts use SLAAC only. SLAAC gives the host an address and gateway but not DNS; DNS must come another way, for example a DNS option inside the RA.</p></div></details>
     <details class="lesson-check"><summary>Check yourself: the server is reachable, but only VLAN 20 has no leases. What next?</summary><div class="dbody"><p>Check VLAN 20's gateway interface, helper address if the server is remote, and matching DHCP pool. A working lease in VLAN 10 does not prove that VLAN 20 has a pool or a working relay.</p></div></details>
     <div class="box trap"><b>Exam answer to remember</b>DHCP allocates an address and configuration through Discover, Offer, Request, and ACK. Broadcasts stay within the client's VLAN; a relay forwards requests to a remote server. The server's pool must match the client subnet.</div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t16"><span> mark done</span></label><button class="btn" data-drill="16">drill cards →</button></div>
@@ -2595,8 +2595,8 @@ interface vlan 10
     <div class="lesson-links" aria-label="Campus design connections"><button class="btn" data-goto="t01">Review the three layers</button><button class="btn" data-goto="t08">Review routing boundaries</button><button class="btn" data-goto="t10">Review STP</button></div>
 
     <h4>From one shared segment to a hierarchy</h4>
-    <p>The opening slide example is a <b>shared Ethernet segment</b>: hosts compete for the same bandwidth and share broadcast and collision domains. A switched Ethernet port separates collision domains; a Layer 3 boundary separates broadcast domains. Do not apply the shared-segment collision description to every modern switched LAN.</p>
-    <p>As users, switches, VLANs, and voice applications are added, an improvised network becomes hard to explain. Design around <b>traffic flows</b>, sufficient capacity, room to grow, and a known response to failures. Users should reach their required resources through consistent, understandable paths.</p>
+    <p>The first slide shows an old <b>shared Ethernet segment</b> (a hub): all hosts share the same bandwidth and are in one collision domain and one broadcast domain. A switch gives every port its own collision domain; a router or Layer 3 switch splits broadcast domains. So the collision problem on that slide does not apply to modern switched networks.</p>
+    <p>When a network grows without a plan, nobody can tell which path traffic takes. A good design knows where traffic flows, has enough capacity, has room to grow, and has a known plan for failures.</p>
 
     <h4>Three layers, three responsibilities</h4>
     <div class="tscroll"><table><tr><th>Layer</th><th>Role</th><th>Choose for</th></tr>
@@ -2604,7 +2604,7 @@ interface vlan 10
       <tr><td><b>Distribution</b><br>Building distribution switches</td><td>Aggregate access switches; route between VLANs; apply security and connectivity policy.</td><td>High Layer 3 throughput, enough fast ports, access lists, Quality of Service (QoS), and resilient links.</td></tr>
       <tr><td><b>Core</b><br>Campus backbone</td><td>Connect distribution blocks and carry aggregate campus traffic efficiently.</td><td>Very high Layer 3 throughput, redundancy, fast recovery, QoS, and a simple forwarding design.</td></tr>
     </table></div>
-    <div class="box wild"><b>Where does policy belong?</b>The distribution layer is the usual policy and routing boundary in this model. Keep unnecessary filtering and expensive packet manipulation out of the core so the backbone can move campus traffic efficiently.</div>
+    <div class="box wild"><b>Where does policy belong?</b>In this model, routing between VLANs and policy (ACLs, QoS) happen at the distribution layer. Keep ACLs and other heavy processing out of the core so it can simply forward traffic fast.</div>
 
     <h4>Classify the service before tracing the path</h4>
     <div class="tscroll"><table><tr><th>Service type</th><th>Resource location</th><th>Path in the slide model</th></tr>
@@ -2612,14 +2612,14 @@ interface vlan 10
       <tr><td><b>Remote</b></td><td>A different segment or VLAN within the local block</td><td>Access → distribution</td></tr>
       <tr><td><b>Enterprise</b></td><td>A central resource shared by campus users</td><td>Access → distribution → core</td></tr>
     </table></div>
-    <p>The table describes the deck's hierarchy. Trace the actual topology when answering a scenario: a resource in another block also needs the core, even if someone informally calls it “remote.”</p>
+    <p>In an exam scenario, trace the real path: a server in another switch block is always reached through the core.</p>
 
     <h4>A switch block limits the failure domain</h4>
-    <p>A <b>switch block</b> contains access switches and their distribution switches. The <b>core block</b> joins these modules. In the conventional design, distribution is the Layer 3 boundary: VLANs, subnets, and broadcasts terminate there, and <b>Spanning Tree Protocol (STP)</b> remains inside each block.</p>
+    <p>A <b>switch block</b> is a group of access switches plus the distribution switches they connect to. The <b>core</b> connects the switch blocks together. Usually routing starts at the distribution switches: VLANs and broadcasts stop there, so <b>Spanning Tree Protocol (STP)</b> runs only inside each block.</p>
     <p>A second cable does not protect against failure of the only upstream switch. Use a pair of distribution switches, with each access switch connected to both. A separate core also needs redundancy; one core switch would remain a single point of failure.</p>
 
     <h4>Compare three switch-block designs</h4>
-    <p>Change the design and watch where the Layer 3 boundary belongs. These redraws retain the two-distribution / two-access arrangement of the supplied figures.</p>
+    <p>Pick a design and see where routing (Layer 3) begins. All three use the slides' layout: two distribution switches above two access switches.</p>
     <div class="lesson-explorer" data-lesson-switch>
       <div class="lesson-choices" role="group" aria-label="Switch block designs"><button class="btn on" data-lesson-choice="campus-shared" aria-controls="campus-shared" aria-pressed="true">VLAN spans access switches</button><button class="btn" data-lesson-choice="campus-local" aria-controls="campus-local" aria-pressed="false">VLAN local to one access switch</button><button class="btn" data-lesson-choice="campus-routed" aria-controls="campus-routed" aria-pressed="false">Routed access</button></div>
       <div class="lesson-result" aria-live="polite">
@@ -2635,7 +2635,7 @@ interface vlan 10
       <text x="230" y="301" text-anchor="middle">Access</text><text x="490" y="301" text-anchor="middle">Access</text>
       <text x="230" y="383" text-anchor="middle">VLAN A</text><text x="490" y="383" text-anchor="middle">VLAN A</text>
       <path class="lesson-boundary" d="M65 158 H650"/><rect class="lesson-label" x="55" y="141" width="178" height="29" rx="4"/><text x="66" y="161">Layer 3 boundary</text>
-    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>VLAN A appears on both access switches and both distribution switches. It must cross the required trunks throughout the block. Redundancy works, but STP and VLAN propagation involve more links.</p></div>
+    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>VLAN A is on both access switches, so it must be carried on trunks between all four switches. That creates loops, and STP has to block some links.</p></div>
         <div id="campus-local" data-lesson-panel hidden><h5>Local VLANs · smaller Layer 2 domains</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 405" role="img" aria-label="Two distribution switches above two access switches, dual uplinks, Layer 3 link, Layer 2 uplinks">
       <title>Switch block with local VLANs</title>
       <g class="lesson-wire"><path d="M230 80 L300 26 M490 80 L420 26"/><path d="M230 130 L230 270 M230 130 L490 270 M490 130 L230 270 M490 130 L490 270"/><path d="M292 105 H428"/></g>
@@ -2648,7 +2648,7 @@ interface vlan 10
       <text x="230" y="301" text-anchor="middle">Access</text><text x="490" y="301" text-anchor="middle">Access</text>
       <text x="230" y="383" text-anchor="middle">VLAN A</text><text x="490" y="383" text-anchor="middle">VLAN B</text>
       <path class="lesson-boundary" d="M65 158 H650"/><rect class="lesson-label" x="55" y="141" width="178" height="29" rx="4"/><text x="66" y="161">Layer 3 boundary</text>
-    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>VLAN A stays on one access switch; VLAN B stays on the other. Access uplinks remain Layer 2, while the distribution interconnect is Layer 3. There is no Layer 2 connection between the access switches. This removes the loop across the two access switches shown in the shared-VLAN design.</p></div>
+    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>VLAN A exists only on the left access switch and VLAN B only on the right. The access uplinks are still Layer 2 trunks, but the link between the two distribution switches is routed (Layer 3). There is no Layer 2 path between the access switches, so there is no loop for STP to block.</p></div>
         <div id="campus-routed" data-lesson-panel hidden><h5>Routed access · Layer 3 moves down</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 405" role="img" aria-label="Two distribution switches above two access switches, dual uplinks, Layer 3 link, Layer 3 uplinks">
       <title>Switch block with routed access</title>
       <g class="lesson-wire"><path d="M230 80 L300 26 M490 80 L420 26"/><path d="M230 130 L230 270 M230 130 L490 270 M490 130 L230 270 M490 130 L490 270"/><path d="M292 105 H428"/></g>
@@ -2661,43 +2661,43 @@ interface vlan 10
       <text x="230" y="301" text-anchor="middle">Access</text><text x="490" y="301" text-anchor="middle">Access</text>
       <text x="230" y="383" text-anchor="middle">VLAN A</text><text x="490" y="383" text-anchor="middle">VLAN B</text>
       <path class="lesson-boundary" d="M65 345 H650"/><rect class="lesson-label" x="55" y="328" width="178" height="29" rx="4"/><text x="66" y="348">Layer 3 boundary</text>
-    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>The access switches now route. Their uplinks and the distribution interconnect are Layer 3. Routing protocols provide convergence and can use equal-cost uplinks together. VLANs remain at access; the Layer 2 boundary moves below the routed uplinks.</p></div>
+    </svg><figcaption>Above the boundary: Layer 3. Below it: Layer 2. Each access switch has a path to both distribution switches.</figcaption></figure><p>The access switches now route. Their uplinks and the distribution link are all Layer 3. If an uplink fails, the routing protocol (for example OSPF) switches to the other one, and both uplinks can carry traffic at the same time. VLANs exist only on each access switch.</p></div>
       </div>
     </div>
 
     <h4>Size the block by traffic, not just headcount</h4>
-    <ul class="pts"><li><b>Access capacity:</b> enough ports for users and devices, plus uplink capacity for their traffic.</li><li><b>Distribution capacity:</b> total traffic from connected access switches, inter-VLAN forwarding, and the cost of security and policy processing.</li><li><b>Domain size:</b> geographic VLAN boundaries, broadcast and multicast volume, and the extent of STP.</li><li><b>Growth pattern:</b> common workgroups, applications, and where their services are located.</li></ul>
+    <ul class="pts"><li><b>Access capacity:</b> enough ports for users and devices, plus uplink capacity for their traffic.</li><li><b>Distribution capacity:</b> all traffic from the access switches, plus routing between VLANs, plus ACL and QoS processing.</li><li><b>VLAN size:</b> how far each VLAN stretches, how much broadcast and multicast traffic it carries, and how large the STP domain becomes.</li><li><b>Growth:</b> which user groups and applications will be added, and where their servers are.</li></ul>
     <p>The slides give <b>about 2,000 users per block</b> as a historical sizing guideline. It is not a protocol limit. Traffic behavior and device capacity decide when to split a block.</p>
-    <div class="box trap"><b>Signs the block is too large</b>Distribution switches become bottlenecks because of routing or policy load, or broadcast/multicast traffic slows the block. Add capacity or divide the block; simply adding more access ports can deepen the bottleneck.</div>
+    <div class="box trap"><b>Signs the block is too large</b>The distribution switches are overloaded by routing or ACL work, or broadcast and multicast traffic slows the whole block. Fix it by adding capacity or splitting the block; adding more access ports only makes it worse.</div>
 
     <h4>Core, dual core, and collapsed core</h4>
     <div class="tscroll"><table><tr><th>Design</th><th>Structure</th><th>Reason to use it</th></tr>
       <tr><td><b>Dual core</b></td><td>Two multilayer core switches connect multiple switch blocks. Distribution has redundant Layer 3 paths into the core.</td><td>Remove the single core failure point; allow active equal-cost routing paths.</td></tr>
-      <tr><td><b>Multinode core</b></td><td>Additional core pairs are interconnected. In the slide example, each switch block attaches to one core pair, not every core switch.</td><td>Expand a very large campus while retaining identifiable modules.</td></tr>
+      <tr><td><b>Multinode core</b></td><td>Several core pairs are connected to each other. In the slide example, each switch block connects to one core pair only, not to every core switch.</td><td>Grow a very large campus while keeping it organized in blocks.</td></tr>
       <tr><td><b>Collapsed core</b></td><td>The same pair of devices performs distribution and core functions. Access switches connect redundantly to that pair.</td><td>A smaller campus can reduce cost and complexity without a separate core tier.</td></tr>
     </table></div>
-    <p><b>Collapsed core combines roles; it does not mean “remove all redundancy.”</b> Size the combined devices for both policy work and backbone traffic.</p>
+    <p><b>A collapsed core merges two layers; it does not remove redundancy.</b> The two devices must be powerful enough for both jobs.</p>
 
     <h4>Design review: explain every link</h4>
-    <ol class="steps"><li>Mark the access, distribution, and core roles.</li><li>Draw the VLAN and Layer 3 boundaries. Identify which links are trunks and which are routed.</li><li>Give each access switch two upstream paths to distinct distribution switches.</li><li>Connect the distribution pair as required by the design; do not casually connect access switches to each other. A supported logical stack or chassis is a separate case.</li><li>Check both a link failure and an upstream switch failure. Know which protocol restores forwarding.</li><li>Check aggregate capacity after a failure, when the surviving path carries more traffic.</li></ol>
-    <details class="lesson-check"><summary>Check yourself: two access uplinks end on one distribution switch. Is that enough?</summary><div class="dbody"><p>It protects against some link failures, but the distribution switch is still a single point of failure. Connect to a second distribution device and verify the intended Layer 2 or Layer 3 failover behavior.</p></div></details>
-    <div class="box wild"><b>Exam answer to remember</b>Hierarchy separates access, policy/routing, and backbone responsibilities. Modularity groups access and distribution into switch blocks, confines failures, and makes expansion predictable. Redundant devices and paths preserve connectivity when a component fails.</div>
+    <ol class="steps"><li>Mark the access, distribution, and core roles.</li><li>Draw the VLAN and Layer 3 boundaries. Identify which links are trunks and which are routed.</li><li>Give each access switch two upstream paths to distinct distribution switches.</li><li>Link the two distribution switches together. Do not link access switches to each other, unless they are stacked into one logical switch.</li><li>Test both a link failure and a switch failure, and know which protocol recovers (STP, HSRP or the routing protocol).</li><li>After a failure, the remaining link carries all the traffic. Make sure it is big enough.</li></ol>
+    <details class="lesson-check"><summary>Check yourself: two access uplinks end on one distribution switch. Is that enough?</summary><div class="dbody"><p>It protects against a cable failure, but if that distribution switch dies, the access switch is cut off. Connect the second uplink to the other distribution switch.</p></div></details>
+    <div class="box wild"><b>Exam answer to remember</b>Hierarchy gives each layer one job: access connects users, distribution routes and applies policy, core moves traffic fast. Switch blocks keep a failure inside one block and make growth predictable. Two of every device and link keep the network running when one fails.</div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t17"><span> mark done</span></label><button class="btn" data-drill="17">drill cards →</button></div>
   </article>
 
   <!-- 18 · Integrating WLAN -->
   <article class="item nd-lesson" id="t18">
     <div class="ph"><span class="badge am">18</span><h3>Integrating Wireless LAN</h3><span class="tag">RF · CAPWAP · Roaming</span></div>
-    <p class="tldr">A wireless LAN shares radio airtime. The access point connects that radio network to the campus; the architecture decides where traffic is forwarded, where policy lives, and how a moving client keeps its connection.</p>
+    <p class="tldr">In a wireless LAN, all devices on a channel share the same radio time. The access point (AP) links wireless clients to the wired network. The design you choose (autonomous or controller-based) decides where traffic goes, where settings are managed, and how a moving client stays connected.</p>
     <div class="lesson-links" aria-label="WLAN connections"><button class="btn" data-goto="t04">Review VLANs and trunks</button><button class="btn" data-goto="t16">Review DHCP</button><button class="btn" data-goto="t17">Review campus design</button></div>
 
     <h4>Shared airtime: CSMA/CA and backoff</h4>
-    <p>The slides' basic <b>IEEE 802.11</b> model is half-duplex on a shared radio channel. A station uses <b>Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA)</b>: listen before transmitting and use a random delay to reduce simultaneous transmissions.</p>
-    <ol class="steps"><li>Wait for the channel to become idle, then wait the <b>Distributed Coordination Function Interframe Space (DIFS)</b>.</li><li>Count down a random backoff while the channel stays idle.</li><li>If another station starts transmitting, pause the countdown. Resume after the medium is idle and the required interframe wait has passed.</li><li>Transmit when the counter reaches zero. Collisions can still occur, for example when two counters expire together.</li></ol>
+    <p>Wi-Fi is <b>half-duplex</b>: on one channel, only one device can transmit at a time. Devices use <b>Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA)</b>: listen first, then wait a random time before sending, so two devices are less likely to transmit together.</p>
+    <ol class="steps"><li>Wait for the channel to become idle, then wait the <b>Distributed Coordination Function Interframe Space (DIFS)</b>.</li><li>Count down a random backoff while the channel stays idle.</li><li>If another device starts transmitting, pause the countdown. Continue counting when the channel is free again.</li><li>Transmit when the counter reaches zero. Collisions can still occur, for example when two counters expire together.</li></ol>
     <p>In the slide's A/B/C example, A transmits first; B and C defer. C's shorter backoff wins the next turn, so B waits again. Collision <b>avoidance reduces the risk</b>; it does not promise that collisions never happen.</p>
 
     <h4>Wi-Fi standards: compare the slide values</h4>
-    <p><b>Physical-layer (PHY) rates are theoretical signaling limits, not application throughput.</b> Bandwidth, spatial streams, clients, signal quality, and shared airtime affect actual performance. <b>MIMO</b> means Multiple Input, Multiple Output; SU and MU mean single-user and multi-user.</p>
+    <p>The rates below are theoretical maximums. Real speed is much lower, because it depends on channel width, the number of antennas (spatial streams), the number of clients, signal quality and shared airtime. MIMO means Multiple Input, Multiple Output; SU and MU mean single-user and multi-user.</p>
     <div class="tscroll"><table><tr><th>IEEE standard</th><th>Generation</th><th>Bands in the deck</th><th>Maximum PHY rate</th><th>MIMO</th></tr>
       <tr><td>802.11</td><td>Original</td><td>2.4 GHz</td><td>2 Mbps</td><td>No</td></tr><tr><td>802.11b</td><td>—</td><td>2.4 GHz</td><td>11 Mbps</td><td>No</td></tr><tr><td>802.11a</td><td>—</td><td>5 GHz</td><td>54 Mbps</td><td>No</td></tr><tr><td>802.11g</td><td>—</td><td>2.4 GHz</td><td>54 Mbps</td><td>No</td></tr>
       <tr><td>802.11n</td><td>Wi-Fi 4</td><td>2.4 / 5 GHz</td><td>600 Mbps</td><td>SU-MIMO</td></tr><tr><td>802.11ac</td><td>Wi-Fi 5</td><td>5 GHz</td><td>6.9 Gbps</td><td>MU-MIMO in Wave 2</td></tr><tr><td>802.11ax</td><td>Wi-Fi 6</td><td>2.4 / 5 GHz</td><td>9.6 Gbps</td><td>MU-MIMO</td></tr><tr><td>802.11ax</td><td>Wi-Fi 6E</td><td>2.4 / 5 / 6 GHz</td><td>9.6 Gbps</td><td>MU-MIMO</td></tr><tr><td>802.11be</td><td>Wi-Fi 7</td><td>2.4 / 5 / 6 GHz</td><td>About 46 Gbps</td><td>MU-MIMO</td></tr>
@@ -2708,47 +2708,47 @@ interface vlan 10
       <tr><td><b>IBSS</b><br>Independent Basic Service Set</td><td>Ad hoc network without an AP</td><td>Stations communicate directly.</td></tr>
       <tr><td><b>BSS</b><br>Basic Service Set</td><td>One AP and its associated stations in the infrastructure example</td><td>The AP is the center of the cell.</td></tr>
       <tr><td><b>ESS</b><br>Extended Service Set</td><td>Connected infrastructure BSSs using a distribution system</td><td>Multiple AP cells form one extended wireless network.</td></tr>
-      <tr><td><b>SSID</b><br>Service Set Identifier</td><td>The wireless network's name</td><td>Clients select a network; AP configuration maps its traffic to the intended VLAN.</td></tr>
-      <tr><td><b>Association</b></td><td>The client's membership relationship with an AP</td><td>Compatible SSID, rates, and the required security credentials are part of joining.</td></tr>
+      <tr><td><b>SSID</b><br>Service Set Identifier</td><td>The wireless network's name</td><td>The client picks the SSID; the AP puts that SSID's traffic into a VLAN (for example SSID Staff → VLAN 10).</td></tr>
+      <tr><td><b>Association</b></td><td>The client's membership relationship with an AP</td><td>To join, the client needs the right SSID, a supported data rate, and the correct password or credentials.</td></tr>
     </table></div>
-    <p>An <b>Access Point (AP)</b> bridges wireless and wired traffic. Infrastructure clients normally exchange data through the AP, including traffic between clients on that AP. Direct-link features are a separate exception, not ordinary IBSS behavior inside an infrastructure BSS.</p>
+    <p>An <b>Access Point (AP)</b> connects wireless and wired traffic. In normal (infrastructure) mode, clients never talk directly: even two clients on the same AP send their traffic through the AP. Direct Link Setup is a special exception.</p>
 
     <h4>Cells, channel reuse, and BSS coloring</h4>
-    <p>A <b>cell</b> is an AP's coverage area. Place adjacent cells with enough overlap for roaming while checking for coverage holes. The slides compare a grid with a honeycomb arrangement and extend channel planning across floors: interference has a vertical dimension too.</p>
-    <ul class="pts"><li><b>Coverage and capacity differ.</b> Maximum transmit power covers a larger area but can place more clients on the same shared airtime.</li><li><b>Smaller cells</b> can support a denser deployment. The slides call reduced-power cells microcells and very small cells picocells.</li><li><b>Reuse channels deliberately.</b> Nearby same-channel cells still contend; overlapping coverage does not mean overlapping channels are always desirable.</li><li><b>BSS coloring</b>, introduced with Wi-Fi 6, adds a 6-bit identifier in the PHY header. It helps distinguish a neighboring BSS early, before reading the 48-bit BSSID in the MAC header.</li></ul>
-    <div class="box wild"><b>Different color is not automatic permission</b>A station may reuse airtime when a differently colored BSS's signal is weak enough under the spatial-reuse rules. It still must follow channel-access rules. A BSS color is an identifier, not encryption or a security boundary.</div>
+    <p>A <b>cell</b> is one AP's coverage area. Neighboring cells should overlap a little so clients can roam, with no gaps (coverage holes). The slides compare a grid layout with a honeycomb layout, and also plan channels between floors, because APs on the floor above and below interfere too.</p>
+    <ul class="pts"><li>Coverage is not the same as capacity. Full power covers a bigger area, but then more clients share one AP's airtime, so each client gets less.</li><li><b>Smaller cells</b> can support a denser deployment. The slides call reduced-power cells microcells and very small cells picocells.</li><li>Plan channels. Two nearby APs on the same channel share airtime and slow each other down, so neighbors should use different non-overlapping channels (1, 6 and 11 on 2.4 GHz).</li><li><b>BSS coloring</b> (Wi-Fi 6) puts a 6-bit "color" number in the frame's first part (the PHY header). A device can then tell quickly whether a frame comes from its own AP or a neighbor's, without reading the full 48-bit BSSID.</li></ul>
+    <div class="box wild"><b>Different color is not automatic permission</b>If a frame comes from a neighbor's BSS (different color) and its signal is weak, a device may transmit anyway instead of waiting. It still follows normal CSMA/CA. The color is only a label; it gives no security.</div>
 
     <h4>Autonomous AP or controller-based WLAN?</h4>
     <div class="tscroll"><table><tr><th>Decision</th><th>Autonomous architecture</th><th>Unified architecture in the slides</th></tr>
       <tr><td>Management</td><td>Each AP is configured and managed individually.</td><td>A Wireless LAN Controller (WLC) centrally manages lightweight APs (LAPs).</td></tr>
-      <tr><td>Forwarding</td><td>The AP bridges client data directly to the wired VLAN.</td><td>In central switching, the LAP tunnels client data to the WLC.</td></tr>
-      <tr><td>VLAN transport</td><td>Multiple SSIDs/VLANs normally require a trunk to the AP.</td><td>Client VLANs need not be trunked across the routed path between LAP and WLC; the WLC's switch connection carries the required VLANs.</td></tr>
-      <tr><td>Scaling</td><td>RF changes and roaming configuration become harder across many independent APs.</td><td>Central channel/power control, client management, and mobility coordination support larger deployments.</td></tr>
+      <tr><td>Forwarding</td><td>The AP sends client traffic straight onto the wired VLAN.</td><td>The LAP sends all client traffic through a tunnel to the WLC, and the WLC puts it on the wired network.</td></tr>
+      <tr><td>VLAN transport</td><td>If the AP has several SSIDs (one VLAN each), the switch port to every AP must be a trunk carrying all those VLANs.</td><td>The switch port to a LAP can be a normal access port, because client traffic travels inside the CAPWAP tunnel. Only the WLC's switch port must be a trunk with all the client VLANs.</td></tr>
+      <tr><td>Scaling</td><td>With many APs, changing channels, power or roaming settings one AP at a time becomes hard.</td><td>The WLC sets channels and power for all APs, tracks every client and handles roaming, so it scales to large networks.</td></tr>
     </table></div>
-    <p>With autonomous APs, extending the same SSID and VLAN across the roaming area resembles an end-to-end VLAN. The unified architecture carries the client traffic across the campus inside tunnels, so the client VLAN does not need to exist on every intermediate link.</p>
+    <p>With autonomous APs, roaming inside one SSID needs the same VLAN on every AP's switch port across the area, like an end-to-end VLAN. With a WLC, client traffic travels inside tunnels, so the client VLAN only needs to exist at the WLC.</p>
 
     <h4>Split-MAC: divide the work</h4>
-    <p><b>Cisco Unified Wireless Network (CUWN)</b> splits the AP's duties. The LAP retains time-sensitive radio work: transmitting and receiving frames, beacons, probes, low-level media access, and wireless encryption. The WLC manages authentication, security policy, association/roaming information, RF channels, power, and QoS policy.</p>
-    <p><b>Control and Provisioning of Wireless Access Points (CAPWAP)</b> connects the LAP and WLC over IP. It follows the earlier Lightweight Access Point Protocol (LWAPP). The deck separates two logical tunnels:</p>
+    <p><b>Split-MAC</b> means the AP's job is split in two (Cisco Unified Wireless Network, CUWN). The <b>LAP</b> keeps the real-time radio work: sending and receiving frames, beacons and probe replies, and Wi-Fi encryption. The <b>WLC</b> does everything else: authentication, security policy, association and roaming, RF channel and power, and QoS.</p>
+    <p><b>Control and Provisioning of Wireless Access Points (CAPWAP)</b> is the protocol between the LAP and the WLC. It runs over IP, so the LAP and WLC can be in different subnets. It replaced the older Lightweight Access Point Protocol (LWAPP). CAPWAP uses two tunnels:</p>
     <div class="tscroll"><table><tr><th>Tunnel</th><th>Carries</th><th>Protection in the slide model</th></tr><tr><td><b>Control</b></td><td>Configuration and AP management messages</td><td>Authenticated and encrypted</td></tr><tr><td><b>Data</b></td><td>Wireless client traffic between LAP and WLC</td><td>Encryption is optional; Datagram Transport Layer Security (DTLS) can protect it.</td></tr></table></div>
-    <p>The deck describes certificate-based mutual authentication using <b>X.509 certificates</b>. Do not confuse encryption over the wireless link with encryption inside the CAPWAP data tunnel: they protect different segments of the path.</p>
-    <p>A controller can coordinate dynamic channel assignment, transmit power, coverage recovery, client load balancing, RF monitoring, security, and wireless intrusion protection.</p>
+    <p>The LAP and WLC prove who they are to each other with X.509 certificates. Note the difference: Wi-Fi encryption (WPA2/WPA3) protects client ↔ AP, while CAPWAP DTLS protects AP ↔ WLC. They are separate.</p>
+    <p>The WLC can also choose channels and power automatically, raise power to cover a failed AP's area, spread clients across APs, monitor the radio environment, and detect wireless attacks.</p>
 
     <h4>How a lightweight AP becomes ready</h4>
-    <ol class="steps"><li><b>Get an IP address</b> from DHCP.</li><li><b>Discover available controllers</b> and learn their addresses.</li><li><b>Join a controller.</b> The slide sequence tries a controller and proceeds to another if joining fails.</li><li><b>Match the software image.</b> If needed, download the controller-provided image and reboot.</li><li><b>Establish the secure controller relationship</b> and obtain operational configuration through CAPWAP.</li></ol>
-    <p>The slides describe a dependent, centrally switched LAP: loss of its controller can disrupt associated clients and trigger rediscovery. Exact recovery depends on AP mode and controller redundancy; do not treat that example as the behavior of every deployment.</p>
+    <ol class="steps"><li><b>Get an IP address</b> from DHCP.</li><li><b>Discover available controllers</b> and learn their addresses.</li><li>Join a controller. If it cannot join the first one, it tries the next.</li><li><b>Match the software image.</b> If needed, download the controller-provided image and reboot.</li><li>Build the secure CAPWAP tunnel and download its settings (SSIDs, VLANs, channels).</li></ol>
+    <p>In the slides' model, if a LAP loses its WLC, its clients are disconnected and the LAP looks for another WLC. Some AP modes (such as FlexConnect) and backup controllers can keep clients working.</p>
 
     <h4>Trace client traffic before troubleshooting</h4>
     <div class="tscroll"><table><tr><th>Situation</th><th>Data path</th></tr><tr><td>Autonomous AP → wired resource</td><td>Client → AP → switched campus</td></tr><tr><td>Centrally switched LAP → wired resource</td><td>Client → LAP → CAPWAP data tunnel → WLC → campus</td></tr><tr><td>Two clients, central switching</td><td>Client A → LAP → WLC → LAP → client B, including the slide's same-AP example</td></tr><tr><td>Exceptions mentioned in the deck</td><td>Direct Link Setup (DLS) can allow direct client communication; FlexConnect can forward selected traffic locally at the AP.</td></tr></table></div>
-    <p>If a client associates but cannot reach resources, follow the selected forwarding path. Check the client VLAN and address, the tunnel/controller where applicable, and onward routing.</p>
+    <p>If a client is connected to Wi-Fi but cannot reach anything, follow its path: check the client's VLAN and IP address, then the CAPWAP tunnel and WLC (if used), then routing beyond the WLC.</p>
 
     <h4>Roaming: what changes and what stays?</h4>
-    <p><b>Roaming</b> changes the client's AP association. Autonomous APs each maintain their own association records; the slides show the old AP forwarding leftover frames toward the new AP. A controller-based network centralizes client state and coordinates its transfer.</p>
-    <div class="tscroll"><table><tr><th>Roam</th><th>What changes</th><th>How the client is reached</th></tr><tr><td><b>Intracontroller</b></td><td>AP changes; WLC stays the same.</td><td>The WLC updates its association entry to the new LAP's CAPWAP tunnel.</td></tr><tr><td><b>Layer 2 intercontroller</b></td><td>AP and WLC change; the client subnet stays the same.</td><td>Client state moves to the new WLC. The client retains its IP address; the slides call this local-to-local.</td></tr><tr><td><b>Layer 3 intercontroller</b></td><td>The client moves to a WLC serving a different subnet.</td><td>An anchor/foreign relationship and mobility tunnel preserve the original client IP; the slides call this local-to-foreign.</td></tr></table></div>
-    <p>The slide examples quote under 10 ms for an intracontroller roam and under 20 ms for a Layer 2 intercontroller roam. These are cited platform claims, not guaranteed end-to-end outage times. Authentication, client support, and network conditions matter.</p>
+    <p>Roaming means the client moves from one AP to another. With autonomous APs, each AP keeps its own client list, and the old AP forwards leftover frames to the new AP. With a WLC, the controller keeps the client list and moves the client for it.</p>
+    <div class="tscroll"><table><tr><th>Roam</th><th>What changes</th><th>How the client is reached</th></tr><tr><td><b>Intracontroller</b></td><td>AP changes; WLC stays the same.</td><td>The WLC just updates its client table to point to the new LAP.</td></tr><tr><td><b>Layer 2 intercontroller</b></td><td>AP and WLC change; the client subnet stays the same.</td><td>The old WLC hands the client's information to the new WLC. The client keeps its IP address; the slides call this local-to-local.</td></tr><tr><td><b>Layer 3 intercontroller</b></td><td>The client moves to a WLC serving a different subnet.</td><td>The old WLC (anchor) and new WLC (foreign) build a tunnel, so the client keeps its original IP. The slides call this local-to-foreign.</td></tr></table></div>
+    <p>The slides quote under 10 ms for an intracontroller roam and under 20 ms for a Layer 2 intercontroller roam. These are Cisco's figures, not guarantees; authentication and the client device also affect the delay.</p>
 
     <h4>Layer 3 roam: follow the same client IP</h4>
-    <p>In the supplied example, Client-1 starts at <b>192.168.100.199/24</b>. AP-1 serves the staff WLAN in <b>192.168.100.0/24</b>; AP-2's local subnet is <b>192.168.200.0/24</b>. Compare the association before and after movement.</p>
+    <p>In the slide example, Client-1 starts with <b>192.168.100.199/24</b>. AP-1 serves the staff WLAN in 192.168.100.0/24; AP-2's local subnet is 192.168.200.0/24. Switch between before and after.</p>
     <div class="lesson-explorer" data-lesson-switch>
       <div class="lesson-choices" role="group" aria-label="Layer 3 roaming stages"><button class="btn on" data-lesson-choice="roam-before" aria-controls="roam-before" aria-pressed="true">Before roaming</button><button class="btn" data-lesson-choice="roam-after" aria-controls="roam-after" aria-pressed="false">After roaming</button></div>
       <div class="lesson-result" aria-live="polite"><div id="roam-before" data-lesson-panel><h5>Associated with AP-1</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 760 395" role="img" aria-label="Before roaming: client 192.168.100.199 at AP-1 and WLC-1">
@@ -2775,15 +2775,15 @@ interface vlan 10
       <text x="215" y="205" text-anchor="middle" class="lesson-emphasis">Client IP: 192.168.100.199</text><path class="lesson-active" d="M574 144 V259"/><text x="590" y="200">EoIP</text><text x="590" y="223">mobility tunnel</text>
     </svg><figcaption>WLC-1 anchors the original subnet; WLC-2 is foreign. The client IP remains 192.168.100.199/24.</figcaption></figure><p><b>WLC-1 becomes the anchor controller; WLC-2 becomes the foreign controller.</b> Data travels via AP-2 and WLC-2, then through the mobility tunnel to WLC-1. Client-1 keeps <b>192.168.100.199</b>. The controller roles belong to WLCs, not to the APs.</p></div></div>
     </div>
-    <p>The supplied architecture uses an <b>Ethernet over IP (EoIP)</b> tunnel between controllers. The original anchor remains tied to the client's subnet across subsequent controller roams. A configured guest anchor can also force a WLAN to use a particular controller. Tunnel details vary across controller generations.</p>
+    <p>The tunnel between the two WLCs is <b>Ethernet over IP (EoIP)</b>. If the client roams again to a third WLC, the first WLC stays the anchor. A <b>guest anchor</b> uses the same idea on purpose: all guest traffic is tunneled to one chosen WLC (often in the DMZ).</p>
 
     <h4>Fast authentication and mobility groups</h4>
-    <p>Association is only part of a roam. Authentication-server exchanges and key negotiation can add delay. These techniques reduce repeated work when both client and infrastructure support them:</p>
-    <div class="tscroll"><table><tr><th>Method</th><th>What to remember</th></tr><tr><td><b>CCKM</b><br>Cisco Centralized Key Management</td><td>Central management of client key information; the slide model requires compatible Cisco client extensions (CCX).</td></tr><tr><td><b>PKC / OKC</b><br>Proactive / Opportunistic Key Caching</td><td>Reuse cached master-key material across compatible APs so roaming can avoid a full authentication-server exchange.</td></tr><tr><td><b>802.11r / FT</b><br>Fast BSS Transition</td><td>A standardized fast transition mechanism using a key hierarchy; it requires compatible client and WLAN support.</td></tr></table></div>
-    <p class="sub2">Terminology correction: the slide's “previous APs / eight entries” description matches Sticky Key Caching (SKC), not a universal PKC limit. Cisco distinguishes these mechanisms in its <a href="https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/116493-technote-technology-00.html" target="_blank" rel="noopener">fast-secure roaming explanation</a>.</p>
-    <p>A <b>mobility group</b> organizes cooperating controllers for client-state exchange and roaming. The slides describe a mobility list containing controller MAC addresses and group names: trust is configured, not inferred merely because controllers share a network. Same-group operation helps coordinated roaming; different groups can reduce the available optimizations.</p>
-    <details class="lesson-check"><summary>Check yourself: a client crosses into another controller's subnet. Must it obtain a new IP?</summary><div class="dbody"><p>Not in the Layer 3 mobility example. The foreign controller tunnels traffic back to the anchor so the client keeps its original IP and sessions. Both Layer 2 and this Layer 3 roaming mechanism can preserve the client IP; distinguish them by the subnet relationship and forwarding path.</p></div></details>
-    <div class="box trap"><b>Exam distinctions</b>SSID is a name; VLAN is a wired broadcast domain. A LAP is not a WLC. CAPWAP connects AP and controller; the illustrated mobility tunnel connects controllers. Layer 3 roaming can preserve an IP address even though the client has moved to a different local subnet.</div>
+    <p>Joining a new AP is quick, but logging in again (802.1X with a RADIUS server, then new encryption keys) is slow. These methods let a roaming client skip the full login, if both the client and the network support them:</p>
+    <div class="tscroll"><table><tr><th>Method</th><th>What to remember</th></tr><tr><td><b>CCKM</b><br>Cisco Centralized Key Management</td><td>The WLC stores the client's keys, so a roaming client does not log in again. Needs a Cisco-compatible (CCX) client.</td></tr><tr><td><b>PKC / OKC</b><br>Proactive / Opportunistic Key Caching</td><td>The client's key is saved (cached) and shared with the other APs, so the client can roam without a full login.</td></tr><tr><td><b>802.11r / FT</b><br>Fast BSS Transition</td><td>The IEEE standard for fast roaming: the client and the new AP set up keys quickly during the move. Both sides must support it.</td></tr></table></div>
+    <p class="sub2">Correction: the slide's "remembers previous APs, up to eight" describes Sticky Key Caching (SKC), not PKC. Cisco explains the difference in its <a href="https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/116493-technote-technology-00.html" target="_blank" rel="noopener">fast-secure roaming note</a>.</p>
+    <p>A <b>mobility group</b> is a set of WLCs that share client information so clients can roam between them. Each WLC has a <b>mobility list</b> of the other WLCs (MAC address, IP address and group name), configured by hand; WLCs do not trust each other automatically. Roaming works best between WLCs in the same group.</p>
+    <details class="lesson-check"><summary>Check yourself: a client crosses into another controller's subnet. Must it obtain a new IP?</summary><div class="dbody"><p>No. In this Layer 3 roam, the new (foreign) WLC tunnels the traffic back to the old (anchor) WLC, so the client keeps its IP and its sessions. Layer 2 roaming also keeps the IP. The difference: in Layer 2 the new WLC is on the same subnet; in Layer 3 it is on a different subnet, so a tunnel is needed.</p></div></details>
+    <div class="box trap"><b>Exam distinctions</b>An SSID is a network name; a VLAN is a wired broadcast domain. A LAP is not a WLC. CAPWAP connects an AP to a controller; the mobility tunnel connects two controllers. In Layer 3 roaming the client keeps its IP even though the new WLC is on a different subnet.</div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t18"><span> mark done</span></label><button class="btn" data-drill="18">drill cards →</button></div>
   </article>
 
@@ -2912,7 +2912,7 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
   <!-- 19 · High availability -->
   <article class="item nd-lesson" id="t19">
     <div class="ph"><span class="badge cy">19</span><h3>High Availability</h3><span class="tag">Logical switches · Supervisors · NSF</span></div>
-    <p class="tldr"><b>High availability (HA)</b> means a system keeps operating for long periods, measured against “always operational.” In a campus, that comes from paired devices, paired links, logical switches that remove STP-blocked paths, and redundant supervisors that take over quickly.</p>
+    <p class="tldr"><b>High availability (HA)</b> means the network keeps working almost all the time, even when a part fails. In a campus you get it from: two of every device, two of every link, joining switch pairs into one logical switch (so STP blocks nothing), and a backup supervisor that takes over quickly.</p>
     <div class="lesson-links" aria-label="High availability connections"><button class="btn" data-goto="t06">Review EtherChannel</button><button class="btn" data-goto="t10">Review STP</button><button class="btn" data-goto="t17">Review switch blocks</button><button class="btn" data-goto="t18B">Review HSRP</button></div>
 
     <h4>Pairs at every layer — and what they still waste</h4>
@@ -2953,7 +2953,7 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
       <rect class="lesson-node" x="235" y="250" width="122" height="50" rx="9"/><rect class="lesson-node" x="363" y="250" width="122" height="50" rx="9"/>
       <text x="296" y="281" text-anchor="middle">A1</text><text x="424" y="281" text-anchor="middle">A2</text>
       <text x="360" y="336" text-anchor="middle">one logical access switch (stack)</text>
-    </svg><figcaption>Each EtherChannel joins one link from A1 and one from A2. The channel to D2 can still be blocked by STP.</figcaption></figure><p>The access pair now protects each other and bundles its uplinks. But D1 and D2 are still separate switches, so the two EtherChannels form a loop through the distribution pair; STP may block one whole channel.</p></div>
+    </svg><figcaption>Each EtherChannel joins one link from A1 and one from A2. The channel to D2 can still be blocked by STP.</figcaption></figure><p>A1 and A2 now back each other up and bundle their uplinks. But D1 and D2 are still separate switches, so the two EtherChannels form a loop through them, and STP may block one whole channel.</p></div>
         <div id="ha-mec" data-lesson-panel hidden><h5>Two logical switches · one multichassis EtherChannel</h5><figure class="lesson-figure"><svg class="lesson-diagram" viewBox="0 0 720 360" role="img" aria-label="Logical distribution and logical access switch joined by one multichassis EtherChannel; all links forward">
       <title>Logical distribution and access with MEC</title>
       <g class="lesson-wire"><path d="M300 60 L330 20 M420 60 L390 20"/></g>
@@ -2983,15 +2983,15 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
 
     <h4>Virtual Switching System: two chassis, one logical switch</h4>
     <ul class="pts">
-      <li>A <b>chassis</b> switch has slots for switching modules plus a <b>supervisor</b> module that runs management and control functions such as routing updates and forwarding tables.</li>
+      <li>A <b>chassis</b> switch has slots for line cards plus a <b>supervisor</b> card: the "brain" that runs management, routing protocols and the forwarding tables.</li>
       <li><b>Virtual Switching System (VSS)</b> configures two identical chassis as one logical switch, a <b>VSS pair</b>, joined by a <b>virtual switch link (VSL)</b>.</li>
       <li>One supervisor, in one chassis, controls the logical switch; the other chassis' supervisor is the redundant standby.</li>
-      <li>VSS is typically used at distribution or core, where Fig. 3's logical distribution switch comes from.</li>
+      <li>VSS is usually used at distribution or core. It is how you build the "logical distribution" switch in the third diagram above.</li>
     </ul>
     <div class="box wild"><b>StackWise vs VSS in one line</b>StackWise stacks several fixed access switches with stack cables under a stack master. VSS pairs exactly two chassis over a VSL under one active supervisor. Both present one logical switch, enabling EtherChannels that span physical devices.</div>
 
     <h4>Supervisor redundancy modes</h4>
-    <p>A chassis may hold two supervisors. The first to boot successfully becomes <b>active</b>; the other waits as <b>standby</b>. Redundant power supplies follow the same pattern: one active, one standby. The redundancy mode decides how much work the standby has already done when the active supervisor fails.</p>
+    <p>A chassis can hold two supervisors. The first one to boot becomes <b>active</b>; the other waits as <b>standby</b>. Redundant power supplies work the same way. The redundancy mode decides how ready the standby is: the more it prepares in advance, the faster it takes over.</p>
     <div class="lesson-explorer" data-lesson-switch>
       <div class="lesson-choices" role="group" aria-label="Supervisor redundancy modes">
         <button class="btn on" data-lesson-choice="sup-rpr" aria-controls="sup-rpr" aria-pressed="true">RPR</button>
@@ -3001,7 +3001,7 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
       <div class="lesson-result" aria-live="polite">
         <div id="sup-rpr" data-lesson-panel><h5>Route Processor Redundancy · partially booted standby</h5><div class="ha-ladder"><div class="ha-pre"><b>Done before the failure</b><ol><li>Bootstrap image loaded</li><li>IOS image loaded</li><li>Startup-config synchronized</li><li>Supervisor diagnostics</li></ol></div><div class="ha-post"><b>Still to do after the failure</b><ol><li>Reload <b>all switch modules</b></li><li>Initialize route engine</li><li>Initialize Layer 2 protocols</li><li>Initialize Layer 3 protocols</li><li>Routing protocols converge</li><li>FIB flushed and re-created</li></ol></div></div><p>Failover: <b>Good — over 2 minutes</b>. Reloading every module drops all ports.</p></div>
         <div id="sup-rprplus" data-lesson-panel hidden><h5>RPR+ · booted standby, modules keep running</h5><div class="ha-ladder"><div class="ha-pre"><b>Done before the failure</b><ol><li>Bootstrap and IOS images loaded</li><li>Startup-config synchronized</li><li>Supervisor diagnostics</li><li>Route engine initialized</li></ol></div><div class="ha-post"><b>Still to do after the failure</b><ol><li>Initialize Layer 2 protocols</li><li>Initialize Layer 3 protocols</li><li>Routing protocols converge</li><li>FIB flushed and re-created</li></ol></div></div><p>Failover: <b>Better — over 30 seconds</b>. Other modules are not reloaded, so switch ports retain their state.</p></div>
-        <div id="sup-sso" data-lesson-panel hidden><h5>Stateful Switchover · fully initialized standby</h5><div class="ha-ladder"><div class="ha-pre"><b>Done before the failure</b><ol><li>Images loaded, diagnostics passed</li><li>Startup <b>and running</b> configuration synchronized</li><li>Route engine initialized</li><li>Layer 2 protocols initialized; Layer 2 state kept on both supervisors</li><li>FIB synchronized</li></ol></div><div class="ha-post"><b>Still to do after the failure</b><ol><li>Initialize Layer 3 protocols</li><li>Routing protocols converge</li><li>FIB updated (not flushed)</li></ol></div></div><p>Failover: <b>Best — about 1 second</b>. Hardware switching continues and interface state is shared, so links do not flap. <b>NSF</b> optionally speeds the remaining Layer 3 steps.</p></div>
+        <div id="sup-sso" data-lesson-panel hidden><h5>Stateful Switchover · fully initialized standby</h5><div class="ha-ladder"><div class="ha-pre"><b>Done before the failure</b><ol><li>Images loaded, diagnostics passed</li><li>Startup <b>and running</b> configuration synchronized</li><li>Route engine initialized</li><li>Layer 2 protocols initialized; Layer 2 state kept on both supervisors</li><li>FIB synchronized</li></ol></div><div class="ha-post"><b>Still to do after the failure</b><ol><li>Initialize Layer 3 protocols</li><li>Routing protocols converge</li><li>FIB updated (not flushed)</li></ol></div></div><p>Failover: <b>Best — about 1 second</b>. The switch keeps forwarding in hardware and the standby already knows every port's state, so links do not go down. <b>NSF</b> can also speed up the Layer 3 steps.</p></div>
       </div>
     </div>
     <div class="tscroll"><table><tr><th>Mode</th><th>Standby readiness</th><th>Failover time in the deck</th></tr>
@@ -3009,14 +3009,14 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
       <tr><td><b>RPR+</b></td><td>Booted with route engine ready; no Layer 2/3 protocols started</td><td>Better: more than 30 seconds</td></tr>
       <tr><td><b>SSO</b></td><td>Fully booted; configurations and Layer 2 state synchronized</td><td>Best: about 1 second</td></tr>
     </table></div>
-    <p class="sub2">The slides abbreviate RPR and RPR+ as “PRP” on one page; the modes are Route Processor Redundancy and RPR Plus. Treat the times as the deck's comparative guide, not platform guarantees.</p>
+    <p class="sub2">The slides write RPR and RPR+ as "PRP" on one page; the correct names are Route Processor Redundancy and RPR Plus. The times are the slides' rough figures for comparison.</p>
 
     <h4>Nonstop Forwarding and the RIB vs FIB question</h4>
     <div class="tscroll"><table><tr><th>Table</th><th>Built by</th><th>Used for</th></tr>
       <tr><td><b>RIB</b><br>Routing Information Base</td><td>Routing protocols and static/connected routes — the control plane's routing table</td><td>Choosing best routes</td></tr>
-      <tr><td><b>FIB</b><br>Forwarding Information Base</td><td>Cisco Express Forwarding (CEF), derived from the RIB, with an adjacency table for next-hop rewrites</td><td>Forwarding packets in hardware — the data plane</td></tr>
+      <tr><td><b>FIB</b><br>Forwarding Information Base</td><td>Cisco Express Forwarding (CEF), built from the RIB. A separate adjacency table stores the next hop's MAC address.</td><td>Forwarding packets in hardware — the data plane</td></tr>
     </table></div>
-    <p><b>Nonstop Forwarding (NSF)</b> works with SSO. The synchronized FIB keeps forwarding packets during the switchover, so the router does not need to rebuild the FIB from scratch. The new active supervisor then rebuilds its RIB quickly with help from <b>NSF-aware neighbors</b>, which resend routing information without tearing down their adjacencies. Supported routing protocols: <b>BGP, EIGRP, OSPF, and IS-IS</b>.</p>
+    <p><b>Nonstop Forwarding (NSF)</b> works together with SSO. The standby already has a copy of the FIB, so packets keep being forwarded during the switchover. The new active supervisor then rebuilds its routing table (RIB). Neighbors that support NSF ("NSF-aware") do not drop the neighbor relationship; they simply send their routes again. Supported routing protocols: <b>BGP, EIGRP, OSPF and IS-IS</b>.</p>
     <p class="sub2">The slide spells these “NFS” and “EIRP”; the correct names are NSF and EIGRP.</p>
     <details class="lesson-check"><summary>Check yourself: a network team wants links to stay up during a supervisor failure. Which mode?</summary><div class="dbody"><p>SSO. It keeps Layer 2 and interface state on both supervisors, so links do not flap; add NSF so routed forwarding continues while routing protocols recover. RPR reloads every module, and RPR+ still has to initialize Layer 2 and Layer 3 protocols.</p></div></details>
     <details class="lesson-check"><summary>Check yourself: why does a logical switch improve on two separate switches with STP?</summary><div class="dbody"><p>The redundant links become one EtherChannel to one logical device, so there is no Layer 2 loop for STP to block. All links forward, and a physical member failure only reduces channel capacity instead of waiting for STP reconvergence.</p></div></details>
@@ -3051,7 +3051,7 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
 
     <h4>What QoS is for</h4>
     <ul class="pts"><li><b>Control over resources</b> — for example, stop low-priority traffic from monopolizing a link.</li><li><b>More efficient use of resources</b> — measure traffic, then decide how each class is handled.</li><li><b>Tailored services</b> — offer different service grades to different customers or applications.</li><li><b>Coexistence of mission-critical applications</b> — critical applications get the most efficient use of the network.</li></ul>
-    <p>QoS manages <b>congestion</b>. The availability and stability problems it targets are <b>delay (latency)</b>, <b>delay variation (jitter)</b>, and <b>packet loss</b>. QoS cannot create bandwidth that does not exist; it chooses who suffers when demand exceeds the link.</p>
+    <p>QoS deals with <b>congestion</b>. It fights three problems: <b>delay</b> (latency), <b>jitter</b> (changing delay), and <b>packet loss</b>. QoS cannot add bandwidth; it decides which traffic waits or is dropped when the link is full.</p>
 
     <h4>Three service models</h4>
     <div class="tscroll"><table><tr><th>Model</th><th>Guarantee</th><th>How it works</th></tr>
@@ -3059,10 +3059,10 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
       <tr><td><b>IntServ</b><br>Integrated Services</td><td>Hard QoS</td><td>Resources for each flow are reserved explicitly along the whole path (signaled per flow, e.g. with RSVP).</td></tr>
       <tr><td><b>DiffServ</b><br>Differentiated Services</td><td>Soft QoS — no hard guarantee</td><td>Traffic is grouped into classes; some classes receive preferential treatment at each hop.</td></tr>
     </table></div>
-    <p>DiffServ is the model used in campus switching because most switches support it and it scales: each device acts on a packet's marking rather than keeping per-flow reservations.</p>
+    <p>Campus switches use DiffServ because it scales: each switch only reads the packet's marking and does not need to keep a reservation for every conversation.</p>
 
     <h4>The Cisco switch QoS pipeline</h4>
-    <ol class="steps"><li><b>Classify</b> each ingress packet: decide which class it belongs to and its internal DSCP.</li><li><b>Police:</b> check the class against a rate; out-of-profile traffic may be dropped or marked down.</li><li><b>Mark</b> (or re-mark) the packet's QoS field.</li><li><b>Choose a transmit queue</b> for the egress interface.</li><li><b>Congestion management</b> schedules the queues; <b>congestion avoidance</b> decides what to drop inside a queue before it fills.</li></ol>
+    <ol class="steps"><li><b>Classify</b> each incoming packet: decide what kind of traffic it is and give it an internal DSCP value.</li><li><b>Police:</b> compare the traffic with its allowed rate; traffic above the rate is dropped or given a lower marking.</li><li><b>Mark</b> (or re-mark) the packet's QoS field.</li><li><b>Choose a transmit queue</b> for the egress interface.</li><li><b>Congestion management</b> decides which queue sends next; <b>congestion avoidance</b> (WRED) drops some packets early, before a queue is full.</li></ol>
     <p>Without a congestion-avoidance mechanism, a queue simply drops new packets when it is full.</p>
 
     <h4>Where the markings live: CoS, IP Precedence, DSCP</h4>
@@ -3071,7 +3071,7 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
       <tr><td><b>IP Precedence</b></td><td>3</td><td>Top 3 bits of the IPv4 ToS byte (P2–P0)</td><td>3</td><td>0–7</td></tr>
       <tr><td><b>DSCP</b><br>Differentiated Services Code Point</td><td>3</td><td>Top 6 bits of the same byte (DS5–DS0)</td><td>6</td><td>0–63</td></tr>
     </table></div>
-    <p>The remaining 2 bits of that byte are <b>Explicit Congestion Notification (ECN)</b>. The slide says “the last 2 bits of DSCP”; precisely, they are the last 2 bits of the ToS/DS byte, after the 6 DSCP bits. Because IP Precedence is the top 3 bits of DSCP, padding a precedence value with three zero bits gives its DSCP: <b>DSCP = IPP × 8</b>. DSCP is the leading method in enterprise switching.</p>
+    <p>The last 2 bits of that byte are <b>Explicit Congestion Notification (ECN)</b>. (The slide says "the last 2 bits of DSCP"; they actually come after the 6 DSCP bits.) IP Precedence is just the first 3 bits of DSCP, so IPP 5 = <code>101</code> becomes DSCP <code>101000</code> = 40. In short: <b>DSCP = IPP × 8</b>. DSCP is the main marking used in enterprise networks.</p>
     <p>Worked example: a Cisco IP phone marks voice <b>DSCP 46</b> = <code>101110</code>. Its top three bits <code>101</code> are <b>IP Precedence 5</b>, and the phone also uses <b>CoS 5</b>.</p>
 
     <h4>Per-hop behaviors (the homework)</h4>
@@ -3096,38 +3096,38 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
     </div>
 
     <h4>Trust boundaries and default maps</h4>
-    <p>A switch handles every packet using an <b>internal DSCP</b>. Untrusted ports treat all ingress frames as <b>DSCP 0</b> — the default. A port configured to <b>trust</b> DSCP accepts the packet's DSCP as the internal value; trusting CoS or IP Precedence maps those values to DSCP:</p>
+    <p>Inside the switch, every packet gets an <b>internal DSCP</b>. By default, ports are <b>untrusted</b>: the switch ignores the packet's marking and uses DSCP 0. A port set to <b>trust DSCP</b> keeps the packet's own DSCP. A port that trusts CoS or IP Precedence converts that value to DSCP using this table:</p>
     <div class="tscroll"><table><tr><th>CoS or IP Precedence</th><td class="mono">0</td><td class="mono">1</td><td class="mono">2</td><td class="mono">3</td><td class="mono">4</td><td class="mono">5</td><td class="mono">6</td><td class="mono">7</td></tr>
       <tr><th>Default internal DSCP</th><td class="mono">0</td><td class="mono">8</td><td class="mono">16</td><td class="mono">24</td><td class="mono">32</td><td class="mono">40</td><td class="mono">48</td><td class="mono">56</td></tr></table></div>
-    <p>Example from the trust figure: a host sends <b>CoS 5</b>. On a port trusting CoS, the internal DSCP is <b>40</b>; on an untrusted port it is <b>0</b>. Note the default map gives 40, not voice's EF 46 — a reason to trust DSCP or change the map.</p>
-    <ul class="pts"><li><b>Classification methods:</b> per-interface trust; per-interface manual DSCP/IPP/CoS; per-packet with access lists; <b>Network-Based Application Recognition (NBAR)</b>.</li><li><b>Place classification as close to the edge as possible</b> — normally the access layer — to get end-to-end QoS that is easy to manage.</li><li><b>Marking</b> changes the DSCP, CoS, or IPP of ingress frames, per interface or through a policy map. Example: mark everything from a video server to DSCP 40, giving internal DSCP 40.</li></ul>
+    <p>Example from the slides: a host sends <b>CoS 5</b>. On a port that trusts CoS, the internal DSCP becomes <b>40</b>; on an untrusted port it becomes <b>0</b>. Note that CoS 5 becomes 40, not 46 (EF), so for voice you trust DSCP instead or change the map.</p>
+    <ul class="pts"><li><b>Ways to classify:</b> trust the marking arriving on a port; set one fixed value for everything on a port; match packets with an ACL; or recognize applications with <b>Network-Based Application Recognition (NBAR)</b>.</li><li><b>Classify as close to the user as possible</b> — normally at the access switch — so every switch after it can simply trust the marking.</li><li><b>Marking</b> means writing a new DSCP, CoS or IPP value into incoming packets, for a whole port or with a policy map. Example: mark everything from a video server as DSCP 40.</li></ul>
 
     <h4>Shaping vs policing</h4>
     <div class="tscroll"><table><tr><th></th><th>Shaping</th><th>Policing</th></tr>
       <tr><td>Excess traffic</td><td><b>Delays (buffers)</b> it to stay within the rate</td><td><b>Drops or re-marks</b> it immediately</td></tr>
       <tr><td>Effect on bursts</td><td>Smooths them into a steady flow; fewer drops downstream</td><td>Cuts them at the configured rate (burst size allows some)</td></tr>
       <tr><td>Adds delay?</td><td>Yes</td><td>No</td></tr>
-      <tr><td>Good fit</td><td>Bursty TCP, especially toward a slower provider rate at the network edge</td><td>Enforcing limits on TCP and UDP classes; protecting the network at a trust boundary</td></tr>
+      <tr><td>Good fit</td><td>Bursty TCP leaving your network toward a slower ISP link</td><td>Enforcing a hard limit, for example on traffic arriving from users at the access switch</td></tr>
       <tr><td>Poor fit</td><td>Delay-sensitive voice and video</td><td>Traffic that cannot tolerate loss when it exceeds the rate</td></tr>
     </table></div>
-    <p><b>Token bucket (the deck's “leaky token bucket”):</b> tokens proportional to each arriving packet's size are placed in a bucket whose depth is the <b>burst size</b>. At a regular interval the switch removes tokens at the configured <b>rate</b>. If a packet's tokens would overflow the full bucket, the packet is <b>out of profile</b> and is dropped or marked down, as policy says. A policer can act as a <b>dropper</b> (conform → transmit, exceed → drop at the CIR) or as a <b>marker</b> (conform AF11, exceed AF12, violate AF13 between the CIR and PIR).</p>
+    <p><b>The slides' "leaky token bucket":</b> each arriving packet pours tokens (equal to its size) into a bucket. The bucket drains at the configured rate, and its size is the burst allowed. If a packet would make the bucket overflow, traffic is arriving too fast: that packet is <b>out of profile</b> and is dropped or re-marked. A policer can act as a <b>dropper</b> (traffic within the CIR is sent, the rest dropped) or as a <b>marker</b> (within CIR = AF11, between CIR and PIR = AF12, above PIR = AF13).</p>
 
     <h4>Congestion management: queuing and scheduling</h4>
     <div class="tscroll"><table><tr><th>Mechanism</th><th>How it schedules</th><th>Key point</th></tr>
       <tr><td><b>FIFO</b></td><td>One queue, first come first served, tail drop when full</td><td>Default; no classification, not QoS-enabled</td></tr>
-      <tr><td><b>WRR</b> · Weighted Round Robin</td><td>Visits each egress queue in turn; a queue's weight sets its share</td><td>Higher weight → higher priority and more implied bandwidth</td></tr>
+      <tr><td><b>WRR</b> · Weighted Round Robin</td><td>Visits each egress queue in turn; a queue's weight sets its share</td><td>Higher weight = a bigger share of the bandwidth</td></tr>
       <tr><td><b>Priority queuing</b></td><td>The priority queue is served first; WRR weights are ignored for it</td><td>Usually one strict-priority egress queue, for voice</td></tr>
-      <tr><td><b>Custom queuing</b></td><td>Reserves a percentage of bandwidth per traffic type; unused share can be borrowed</td><td>WAN interfaces; static, not adaptive; not recommended for high-speed WAN</td></tr>
+      <tr><td><b>Custom queuing</b></td><td>Reserves a percentage of bandwidth per traffic type; unused share can be borrowed</td><td>Used on WAN links. The shares are fixed and do not adapt, so it is not recommended for fast WAN links</td></tr>
     </table></div>
-    <p><b>WRR worked example:</b> four queues weighted 50, 10, 25, 15 (sum 100) receive 50%, 10%, 25%, and 15% of the bandwidth. If weights do not sum to 100, the share is <b>weight ÷ sum of weights</b>. Buffers are split by the transmit-queue ratio: high and strict priority queues hold small, delay-sensitive flows and need little memory; low-priority queues hold delay-tolerant traffic and get more.</p>
-    <p><b>LLQ</b> (Low-Latency Queuing) is Cisco's addition of a strict priority queue to class-based weighted fair queuing (CBWFQ): voice is dequeued and sent before packets in other queues.</p>
+    <p><b>WRR example:</b> four queues with weights 50, 10, 25, 15 (total 100) get 50%, 10%, 25% and 15% of the bandwidth. If the weights do not add up to 100, a queue's share is its weight ÷ the total. Buffer memory is split too: priority queues get little (voice packets are small and leave immediately), while low-priority queues get more because their traffic waits longer.</p>
+    <p><b>LLQ</b> (Low-Latency Queuing) is Cisco's name for adding one strict-priority queue to class-based queuing (CBWFQ): voice is always sent before packets in the other queues.</p>
 
     <h4>Congestion avoidance: tail drop, RED, WRED</h4>
     <p><b>Tail drop</b>, the default, drops every arriving packet once the queue is full. That hurts TCP: many sessions lose packets together and enter slow start together (<b>TCP synchronization</b>), aggressive flows can monopolize the queue, deep queues add delay and jitter, and premium traffic is dropped just like best effort.</p>
-    <p><b>RED</b> (Random Early Detection) drops packets <b>randomly before</b> the queue fills, with a probability that rises as the average queue grows past a threshold. Individual TCP senders shrink their windows at different times, so link utilization stays close to the bandwidth. RED works while the queue is not full; once it is full, tail drop applies. RED helps <b>TCP</b>, which slows down after loss; UDP does not back off.</p>
+    <p><b>RED</b> (Random Early Detection) drops a few packets at random <b>before</b> the queue is full; the fuller the queue, the more it drops. Only some TCP senders slow down each time, at different moments, so the link stays busy instead of every flow slowing down together. Once the queue is completely full, tail drop happens anyway. RED only helps TCP, because TCP slows down after a loss; UDP does not.</p>
     <p><b>WRED</b> (Weighted RED) adds classification: each IP Precedence or DSCP value can have its own minimum threshold, maximum threshold, and drop probability. Deck example for one queue: at <b>50%</b> full, randomly drop DSCP 0–20 (best effort); at <b>80%</b>, also drop DSCP above 20 (up to 31); when full, tail drop.</p>
     <div class="box wild"><b>Best practice</b>Put high-priority, delay-sensitive traffic in a strict priority queue and use WRR for the others; apply WRED to the remaining data queues. Use WRED on highly congested interfaces, especially WAN links between data centers.</div>
-    <p><b>AutoQoS</b> generates traffic classes and policy-map templates automatically, simplifying classification, policy generation, configuration, monitoring and reporting, and consistency for converged voice and data networks.</p>
+    <p><b>AutoQoS:</b> one command makes the switch create standard QoS classes and policies (for example for voice) automatically.</p>
     <details class="lesson-check"><summary>Check yourself: a packet arrives marked DSCP 30. What is it and how is it treated?</summary><div class="dbody"><p>30 = <code>011110</code>: class <code>011</code> = 3, drop <code>11</code> = 3 → <b>AF33</b>. It uses the class 3 queue with the highest drop priority, so WRED drops it before AF31 and AF32 traffic in that queue.</p></div></details>
     <details class="lesson-check"><summary>Check yourself: voice through a shaper — good idea?</summary><div class="dbody"><p>No. Shaping buffers excess traffic, adding delay and jitter. Give voice a strict priority queue and police the priority class so it cannot starve the others.</p></div></details>
     <div class="box wild"><b>Exam answer to remember</b>DiffServ classifies and marks at the edge (DSCP 6 bits, CoS 3 bits, IPP 3 bits), trusts markings only at the trust boundary, polices or shapes rates, schedules queues (priority for voice, WRR for the rest), and uses WRED instead of tail drop so TCP flows back off gradually.</div>
@@ -3147,7 +3147,7 @@ Gi0/0       1    100   Standby 10.1.1.9        local           10.1.1.1</pre>
       <tr><td><b>Timestamp</b></td><td class="mono">00:30:39</td><td>Date/time or uptime of the event</td></tr>
       <tr><td><b>Facility</b></td><td class="mono">%SYS</td><td>The module or function that generated it</td></tr>
       <tr><td><b>Severity</b></td><td class="mono">5</td><td>0–7; a <b>lower</b> number is <b>more</b> severe</td></tr>
-      <tr><td><b>Mnemonic</b></td><td class="mono">CONFIG_I</td><td>Short code categorizing the event within the facility</td></tr>
+      <tr><td><b>Mnemonic</b></td><td class="mono">CONFIG_I</td><td>Short name for the exact event</td></tr>
       <tr><td><b>Message text</b></td><td>Configured from console…</td><td>Description of the event</td></tr>
     </table></div>
     <div class="tscroll"><table><tr><th>Level</th><th>Keyword</th><th>Typical switch events in the deck</th></tr>
@@ -3210,14 +3210,14 @@ IOU3# show ntp associations
       <tr><td><b>+</b> in associations</td><td><b>Candidate</b>: a usable server that could be selected. Here 200.1.1.240 at stratum 5.</td></tr>
       <tr><td><b>~</b></td><td>Configured with <code>ntp server</code>. <b>#</b> selected, <b>-</b> outlier, <b>x</b> falseticker (disagrees, not trusted).</td></tr>
     </table></div>
-    <p>The running configuration also marks 200.1.1.10 with <code>prefer</code>; preference and its lower stratum make it the system peer. <b>reach 377</b> (octal) means the last eight polls all succeeded.</p>
+    <p>In the running configuration, 200.1.1.10 is also marked <code>prefer</code>. Because it is preferred and has the lower stratum, the switch synchronizes to it. <b>reach 377</b> means the last eight polls all succeeded.</p>
 
     <h4>SNMP: manager, agent, MIB</h4>
     <ul class="pts"><li><b>SNMP manager</b> — a network management system, usually a central application, that polls devices and receives alerts. Examples: Cacti, Munin.</li><li><b>SNMP agent</b> — a process on the monitored device.</li><li><b>MIB</b> (Management Information Base) — the device's database of variables, kept in memory and updated in real time, organized as a tree. Each variable has an <b>OID</b> (object identifier), defined with <b>ASN.1</b>.</li></ul>
     <p>Example OID: <code>1.3.6.1.2.1.2.2.1.10</code> = iso(1).org(3).dod(6).internet(1).mgmt(2).mib-2(1).interfaces(2)… — the inbound-byte counter of an interface in the IF-MIB. Vendor MIBs live under private(4).enterprise(1): Cisco is <b>.9</b>, Microsoft .311, Juniper .2636.</p>
     <div class="tscroll"><table><tr><th>Operation</th><th>Direction</th><th>Port</th><th>Purpose</th></tr>
       <tr><td><b>Get</b></td><td>Manager → agent</td><td>UDP 161</td><td>Read one MIB variable</td></tr>
-      <tr><td><b>Get-next</b></td><td>Manager → agent</td><td>UDP 161</td><td>Read the next variable after the previous request</td></tr>
+      <tr><td><b>Get-next</b></td><td>Manager → agent</td><td>UDP 161</td><td>Read the next variable in the tree (used to walk through a table)</td></tr>
       <tr><td><b>Get-bulk</b></td><td>Manager → agent</td><td>UDP 161</td><td>Read a whole table or list (v2c and later)</td></tr>
       <tr><td><b>Set</b></td><td>Manager → agent</td><td>UDP 161</td><td>Write a MIB variable</td></tr>
       <tr><td><b>Trap</b></td><td>Agent → manager</td><td>UDP 162</td><td>Unsolicited alert, <b>not acknowledged</b></td></tr>
@@ -3266,7 +3266,7 @@ monitor session 1 destination interface gigabitethernet1/0/48
 
 <span class="c">! A VLAN as the source, received traffic only, keeping tags</span>
 monitor session 2 source vlan 10 rx
-monitor session 2 destination interface gigabitethernet1/0/47 encapsulation replicate</pre><p><b>rx</b> = traffic received on the source, <b>tx</b> = transmitted, <b>both</b> = default. Keep ports and VLANs in separate sessions. Copies are normally untagged and exclude Layer 2 protocol frames the switch sends itself (STP BPDUs, CDP, VTP, DTP, PAgP). Add <code>encapsulation replicate</code> to keep the original encapsulation and include those frames.</p></div></details>
+monitor session 2 destination interface gigabitethernet1/0/47 encapsulation replicate</pre><p><b>rx</b> = traffic received on the source, <b>tx</b> = traffic sent, <b>both</b> = default. Keep ports and VLANs in separate sessions. By default the copies lose their VLAN tags and do not include the switch's own control frames (BPDUs, CDP, VTP, DTP, PAgP). Add <code>encapsulation replicate</code> to keep the tags and include those frames.</p></div></details>
     <div class="box trap"><b>Safety and capacity</b>STP is disabled on a local SPAN destination port, so <b>never connect a SPAN destination back into an active network</b> — use RSPAN to move mirrored traffic between switches. If the sources carry more than the destination port can send, some mirrored frames are dropped and never reach the analyzer.</div>
     <details open><summary>RSPAN across switches A → B → C (VLAN 99)</summary><div class="dbody"><pre><span class="c">! Every switch, including intermediate Switch-B</span>
 vlan 99
@@ -3279,7 +3279,7 @@ monitor session 1 destination remote vlan 99
 
 <span class="c">! Switch-C: destination</span>
 monitor session 1 source remote vlan 99
-monitor session 1 destination interface gigabitethernet 1/0/48</pre><ul class="pts"><li>MAC learning is <b>disabled</b> on the RSPAN VLAN, so intermediate switches flood the mirrored frames rather than delivering them to the real destination host.</li><li>Intermediate switches know nothing about the session — only the VLAN. Allow the RSPAN VLAN on the trunks between switches, but <b>do not assign it to access ports</b>.</li><li>VTP can carry the RSPAN VLAN to every switch, and VTP pruning keeps it off unnecessary trunks.</li></ul></div></details>
+monitor session 1 destination interface gigabitethernet 1/0/48</pre><ul class="pts"><li>Switches do not learn MAC addresses in the RSPAN VLAN. The copies still carry the real hosts' MAC addresses, so with normal learning a switch could send them to the real host. Instead, they are flooded through VLAN 99 until they reach the analyzer.</li><li>The middle switch (B) needs no monitor session — only VLAN 99. Allow VLAN 99 on the trunks between the switches, but never put it on an access port.</li><li>VTP can carry the RSPAN VLAN to every switch, and VTP pruning keeps it off unnecessary trunks.</li></ul></div></details>
     <details><summary>Verify and remove sessions</summary><div class="dbody"><pre>show running-config | include monitor
 show monitor                         <span class="c">! every session</span>
 show monitor session 1 detail
@@ -3287,7 +3287,7 @@ show monitor session remote          <span class="c">! RSPAN sessions only</span
 no monitor session 1                 <span class="c">! remove one session</span>
 no monitor session all               <span class="c">! or: no monitor session local</span></pre></div></details>
     <details class="lesson-check"><summary>Check yourself: logging console 3 is configured. Will “%LINEPROTO-5-UPDOWN” appear on the console?</summary><div class="dbody"><p>No. Level 5 is less severe than the threshold 3, so only levels 0–3 appear. Lowering the number shows fewer messages.</p></div></details>
-    <details class="lesson-check"><summary>Check yourself: why must intermediate RSPAN switches also have VLAN 99 with remote-span?</summary><div class="dbody"><p>They carry the mirrored copies across their trunks in that VLAN. Without it the frames have nowhere to go; with normal MAC learning they could be forwarded to real hosts instead of flooded toward the analyzer.</p></div></details>
+    <details class="lesson-check"><summary>Check yourself: why must intermediate RSPAN switches also have VLAN 99 with remote-span?</summary><div class="dbody"><p>Because the copies travel through those switches inside VLAN 99. If VLAN 99 is missing on switch B, the copies are dropped there and never reach the analyzer.</p></div></details>
     <div class="box wild"><b>Exam answer to remember</b>Syslog = timestamp + facility-severity-mnemonic + text; lower severity number = worse, and a threshold shows itself and everything lower. NTP fixes time, with stratum counting hops from the reference. SNMP: manager polls agents on UDP 161, agents alert on UDP 162; v3 adds users, authentication, and encryption. SPAN mirrors locally; RSPAN carries mirrors in a remote-span VLAN.</div>
     <div class="foot"><label class="chk"><input type="checkbox" class="dn" data-k="t21"><span> mark done</span></label><button class="btn" data-drill="21">drill cards →</button></div>
   </article>
