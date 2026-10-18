@@ -92,3 +92,11 @@ You can also serve the folder with any static HTTP server.
 ## Accessibility
 
 The console includes keyboard navigation, visible focus states, reduced-motion handling, a light theme, a skip link, responsive navigation, scalable topology SVGs, and accessible Study/Practice controls.
+
+## Languages
+
+The header button cycles **EN / TH / MY**. Burmese (MY) covers Topics 16–22, the Final tab (including its configuration tasks, analysis cases and five-day plan), and the 111 flashcards and 64 practice questions for those topics. Commands, CLI exhibits and the printable A4 sheet stay in English to match the exam paper. Technical terms (VLAN, DHCP, HSRP, CAPWAP, DSCP…) are kept in English inside the Burmese text.
+
+- Translations live in `i18n/my.js`, loaded only when MY is selected, with the Noto Sans Myanmar font.
+- Lesson elements carry `data-i18n` keys; `scripts/validate.mjs` fails if any key, card or question lacks a Burmese string.
+- Flashcard progress stays keyed to the English card text, so switching languages does not reset "known" cards.

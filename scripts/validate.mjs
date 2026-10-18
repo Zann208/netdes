@@ -433,6 +433,28 @@ check(
   "dynamic lab counting or stale-progress filtering is missing",
 );
 
+// Burmese layer: every tagged element and every final-scope card/question needs a translation.
+const myFile = new URL("../i18n/my.js", import.meta.url);
+check(fs.existsSync(myFile), "missing i18n/my.js (Burmese layer)");
+let myKeys = 0;
+if (fs.existsSync(myFile)) {
+  const mySrc = fs.readFileSync(myFile, "utf8");
+  const MY = JSON.parse(mySrc.slice(mySrc.indexOf("=") + 1, mySrc.lastIndexOf(";")));
+  const tagged = [...html.matchAll(/data-i18n="([^"]+)"/g)].map((m) => m[1]);
+  myKeys = tagged.length;
+  check(new Set(tagged).size === tagged.length, "duplicate data-i18n keys");
+  for (const key of tagged) check(typeof MY.s[key] === "string", "Burmese string missing for " + key);
+  const finalTopics = new Set(["16", "17", "18", "18B", "19", "20", "21", "22"]);
+  for (const m of html.matchAll(/^C\("([^"]+)","((?:[^"\\]|\\.)*)"/gm)) {
+    if (finalTopics.has(m[1])) check(MY.cards[JSON.parse('"' + m[2] + '"')], "Burmese card missing: " + m[2].slice(0, 50));
+  }
+  for (const m of html.matchAll(/^Q\("([^"]+)","((?:[^"\\]|\\.)*)"/gm)) {
+    if (finalTopics.has(m[1])) check(MY.qs[JSON.parse('"' + m[2] + '"')], "Burmese question missing: " + m[2].slice(0, 50));
+  }
+  check(MY.fin && MY.fin.cfg.length === 12 && MY.fin.ana.length === 20, "Burmese final-tab tasks incomplete");
+  check(html.includes('function cardId(c){return c.t+"|"+(c.qe!==undefined?c.qe:c.q)}'), "card progress must stay keyed to English text");
+}
+
 if (failures.length) {
   console.error("NETDES validation failed (" + failures.length + ")");
   for (const failure of failures) console.error("- " + failure);
@@ -443,3 +465,4 @@ console.log("NETDES validation passed");
 console.log("- " + expectedLabs.length + " labs: " + expectedLabs.join(", "));
 console.log("- " + cardCount + " flashcards, " + questionCount + " practice questions");
 console.log("- " + ids.length + " unique IDs, " + inlineScripts.length + " inline script");
+console.log("- Burmese layer: " + myKeys + " strings");
