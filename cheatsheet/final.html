@@ -1,0 +1,487 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=1123">
+<title>CNDM Final Cheatsheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cousine&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4 landscape;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff}
+body{font-family:"PT Sans Narrow","Liberation Sans Narrow","Arial Narrow",sans-serif;font-size:6.25pt;line-height:1.15;color:#111}
+.page{width:297mm;height:210mm;padding:4mm 4.5mm;overflow:hidden;page-break-after:always;break-after:page}
+.page:last-child{page-break-after:auto;break-after:auto}
+.cols{height:100%;column-count:6;column-gap:2.6mm;column-rule:0.4pt solid #aaa;column-fill:auto}
+h2{font-size:9.6pt;color:#1f4e9c;margin:2pt 0 2pt;padding-bottom:1pt;border-bottom:0.8pt solid #1f4e9c;break-after:avoid;line-height:1.1}
+h3{font-size:7pt;margin:3pt 0 1pt;break-after:avoid;color:#000}
+p{margin:0 0 2pt}
+ul,ol{margin:0 0 2pt;padding-left:9pt}
+li{margin:0}
+b{font-weight:700}
+.r{color:#c00000}
+code,pre{font-family:"Liberation Mono","Cousine","DejaVu Sans Mono",monospace;font-size:5.2pt;letter-spacing:-0.15pt}
+pre{margin:1pt 0 2pt;padding:1.5pt 2pt;background:#f2f2f2;border:0.3pt solid #ccc;white-space:pre-wrap;line-height:1.15;break-inside:avoid}
+pre .c{color:#666;font-family:"PT Sans Narrow",sans-serif;font-size:6pt}
+table{border-collapse:collapse;width:100%;margin:1pt 0 2.5pt;break-inside:avoid;font-size:5.9pt;line-height:1.1}
+th,td{border:0.35pt solid #888;padding:0.6pt 1.6pt;vertical-align:top;text-align:left}
+th{background:#e4e8ef;font-weight:700}
+td code{font-size:5.3pt}
+.fig{margin:2pt 0 3pt;break-inside:avoid;text-align:center}
+.fig svg{width:100%;height:auto;display:block}
+svg text{font-family:"PT Sans Narrow",sans-serif;font-size:8px;fill:#111}
+svg .m{font-family:"Liberation Mono","Cousine",monospace;font-size:6.5px}
+svg rect.b{fill:#fff;stroke:#333;stroke-width:0.8}
+svg rect.y{fill:#fff7d6;stroke:#a07b00;stroke-width:0.8}
+svg rect.g{fill:#e6f3e6;stroke:#2e7d32;stroke-width:0.8}
+svg rect.bl{fill:#e7eefb;stroke:#1f4e9c;stroke-width:0.8}
+svg line,svg path.l{stroke:#333;stroke-width:0.8;fill:none}
+svg .rd{stroke:#c00000}
+svg .t{fill:#c00000}
+.nb{break-inside:avoid}
+.hl{background:#ffe9a8!important;outline:1.5pt solid #e0a100;outline-offset:1pt}
+@media screen{body{background:#e9ecf1}.page{background:#fff;margin:0 auto 8px;box-shadow:0 1px 4px rgba(0,0,0,.18)}}
+@media print{.hl{background:none!important;outline:0}}
+</style></head><body>
+
+<!-- ============================ PAGE 1 ============================ -->
+<div class="page"><div class="cols">
+
+<h2 id="c16">16. IPv4 DHCP</h2>
+<h3 id="dhcp">DHCP basics</h3>
+<p><b>DHCP</b> = Dynamic Host Configuration Protocol: gives a host an IP address <b>plus</b> the settings it needs: subnet mask, default gateway, DNS servers, lease time, other options. <b>Lease</b> = permission to use an address for a limited time (IOS default with no <code>lease</code> line = <b>1 day</b>). Server <b>UDP 67</b>, client <b>UDP 68</b>.</p>
+<table><tr><th>Setting</th><th>Role</th></tr>
+<tr><td>IP address</td><td>identifies the host</td></tr>
+<tr><td>Subnet mask</td><td>which part is the network</td></tr>
+<tr><td>Default gateway</td><td>way out of the subnet</td></tr>
+<tr><td>DNS server</td><td>name → IP lookup</td></tr></table>
+<p class="r">Gateway and DNS solve different problems: IP to remote network works but names fail → check DNS. Lease OK but remote network fails → check gateway/routing.</p>
+<p>Client's first broadcast stays <b>inside its VLAN</b>. Local DHCP server answers directly; a server across a Layer 3 boundary needs a <b>relay</b> on the client's gateway.</p>
+<h3 id="dora">Four steps (DORA)</h3>
+<table><tr><th>Msg</th><th>By</th><th>Src → Dst</th><th>Port</th></tr>
+<tr><td>Discover</td><td>client</td><td>0.0.0.0 → 255.255.255.255</td><td>68→67</td></tr>
+<tr><td>Offer</td><td>server</td><td>server IP → bcast/client</td><td>67→68</td></tr>
+<tr><td>Request</td><td>client</td><td>0.0.0.0 → 255.255.255.255</td><td>68→67</td></tr>
+<tr><td>ACK</td><td>server</td><td>server IP → bcast/client</td><td>67→68</td></tr></table>
+<div class="fig"><svg viewBox="0 0 180 74"><rect class="b" x="2" y="2" width="44" height="13"/><text x="24" y="11" text-anchor="middle">Client</text><rect class="b" x="134" y="2" width="44" height="13"/><text x="156" y="11" text-anchor="middle">Server</text>
+<line x1="24" y1="15" x2="24" y2="72"/><line x1="156" y1="15" x2="156" y2="72"/>
+<path class="l" d="M24 24H154"/><text x="90" y="22" text-anchor="middle">Discover → (bcast)</text>
+<path class="l" d="M156 37H26"/><text x="90" y="35" text-anchor="middle">← Offer (address + options)</text>
+<path class="l" d="M24 50H154"/><text x="90" y="48" text-anchor="middle">Request → (names chosen server)</text>
+<path class="l" d="M156 63H26"/><text x="90" y="61" text-anchor="middle">← ACK (lease confirmed)</text></svg></div>
+<p>Offer = proposal only; several servers may offer, client picks one. Request is broadcast so the <b>other servers know they were not chosen</b>. Only after ACK does the client configure the address.</p>
+<p class="r">Slides draw all four as broadcasts; real servers may unicast Offer/ACK, and renewals are normally unicast (RFC 2131). Initial Request ≠ lease renewal.</p>
+<h3 id="pool">DHCP server on a switch/router</h3>
+<p>Gateway first: VLAN needs an active SVI (<code>interface vlan 10</code>) or router subinterface.</p>
+<pre>ip dhcp excluded-address 10.1.10.1 10.1.10.20 <span class="c">! range, both ends incl.</span>
+ip dhcp excluded-address 10.1.10.254 <span class="c">! single address</span>
+ip dhcp pool VLAN10 <span class="c">! any name</span>
+ network 10.1.10.0 255.255.255.0 <span class="c">! subnet ID + mask</span>
+ default-router 10.1.10.1 <span class="c">! VLAN gateway (SVI)</span>
+ dns-server 8.8.8.8 8.8.4.4
+ lease 7 <span class="c">! days; lease 0 12 = 12 h; lease infinite</span>
+ exit
+show ip dhcp binding <span class="c">! who got which IP</span>
+show ip dhcp pool / show ip dhcp conflict</pre>
+<table><tr><th>Command</th><th>Common mistake</th></tr>
+<tr><td><code>excluded-address</code></td><td>with <b>d</b> (slide typo "exclude"); excluded = never handed out, not a reservation</td></tr>
+<tr><td><code>network</code></td><td>host IP instead of subnet ID</td></tr>
+<tr><td><code>default-router</code></td><td>DHCP server's IP instead of VLAN gateway</td></tr>
+<tr><td><code>dns-server</code></td><td>getting an IP ≠ names work</td></tr>
+<tr><td><code>lease</code></td><td>leased address is not permanent</td></tr></table>
+<p>Order: exclusions (global, before pool) → pool → network → default-router → dns → lease → exit → verify.</p>
+<p><b>One pool per VLAN/subnet.</b> Server picks the pool matching the subnet of the interface the request arrived on; for a relayed request it uses the relay's interface IP.</p>
+<p class="r">Ex: R1 G0/0.10 = 10.0.10.1/24, G0/0.20 = 10.0.20.1/24 → exclude 10.0.10.1 and 10.0.20.1, pool V10 (network 10.0.10.0, default-router 10.0.10.1), pool V20 (10.0.20.0, 10.0.20.1).</p>
+<h3 id="relay">DHCP relay (ip helper-address)</h3>
+<p>Routers do not forward broadcasts. Helper on the <b>client-facing</b> L3 interface turns the broadcast into a <b>unicast</b> to the server and adds the relay IP (giaddr) so the server knows which pool.</p>
+<pre>interface vlan 10 <span class="c">! client side, NOT uplink</span>
+ ip address 10.1.10.1 255.255.255.0
+ ip helper-address 20.5.5.5</pre>
+<div class="fig"><svg viewBox="0 0 180 36"><rect class="b" x="2" y="12" width="26" height="13"/><text x="15" y="21" text-anchor="middle">PC</text><rect class="bl" x="62" y="12" width="44" height="13"/><text x="84" y="21" text-anchor="middle">SVI .1</text><rect class="b" x="140" y="12" width="38" height="13"/><text x="159" y="21" text-anchor="middle">20.5.5.5</text><line x1="28" y1="18" x2="62" y2="18"/><line x1="106" y1="18" x2="140" y2="18"/><text x="45" y="10" text-anchor="middle">bcast</text><text x="123" y="10" text-anchor="middle">unicast</text><text class="t" x="84" y="34" text-anchor="middle">helper here</text></svg></div>
+<p>Server still needs: pool for <b>10.1.10.0/24</b> with default-router <b>10.1.10.1</b>, and routes both ways. Helper creates no pool or route.</p>
+<p class="r">Only VLAN 20 gets no lease while VLAN 10 works → VLAN 20 SVI missing helper, or no pool for that subnet. Client shows 169.254.x.x (APIPA) = no DHCP reply.</p>
+<table><tr><th>Symptom</th><th>Check</th></tr>
+<tr><td>No lease</td><td>VLAN membership, gateway up, pool subnet + free addresses, helper placement, server reachability</td></tr>
+<tr><td>Lease OK, remote fails</td><td>delivered gateway, routing</td></tr>
+<tr><td>IP OK, names fail</td><td>delivered DNS, DNS reachability</td></tr></table>
+<h3 id="slaac">IPv6 SLAAC</h3>
+<p><b>SLAAC</b> = Stateless Address Autoconfiguration: host builds its own IPv6 address from the /64 prefix in a <b>Router Advertisement (RA)</b>; no DHCPv6 lease. <b>M flag</b> = get address from DHCPv6; <b>O flag</b> = get other info (DNS) from DHCPv6. M=0, O=0 → SLAAC only (DNS via RA option).</p>
+<pre>ipv6 unicast-routing <span class="c">! global; without it no RA</span>
+interface vlan 10
+ ipv6 address 2001:DB8:10::1/64
+ ipv6 enable
+ no ipv6 nd managed-config-flag <span class="c">! M = 0</span>
+ no ipv6 nd other-config-flag <span class="c">! O = 0</span></pre>
+<p class="r">LAB 13 uses IPv4 DHCP and IPv6 auto together. Keep the lab's own IPv6 addresses in the lab.</p>
+
+<h2 id="c17">17. Enterprise Campus Network Design</h2>
+<h3 id="hier">Why hierarchy</h3>
+<p>Old shared Ethernet (hub): all hosts share bandwidth, one collision domain + one broadcast domain. Switch → each port own collision domain; router/L3 switch → splits broadcast domains. Network grown without a plan → nobody can tell which path traffic takes. Good design: known traffic flows, enough capacity, room to grow, known failure plan.</p>
+<div class="fig"><svg viewBox="0 0 180 52"><rect class="bl" x="60" y="2" width="60" height="12"/><text x="90" y="11" text-anchor="middle">Core</text><rect class="bl" x="45" y="20" width="90" height="12"/><text x="90" y="29" text-anchor="middle">Distribution</text><rect class="bl" x="30" y="38" width="120" height="12"/><text x="90" y="47" text-anchor="middle">Access</text><line x1="90" y1="14" x2="90" y2="20"/><line x1="90" y1="32" x2="90" y2="38"/></svg></div>
+<table><tr><th>Layer</th><th>Role</th><th>Choose for</th></tr>
+<tr><td><b>Access</b></td><td>connect end devices; VLAN membership, filtering, traffic priority</td><td>low cost/port, high port density, scalable uplinks, redundant paths up</td></tr>
+<tr><td><b>Distribution</b></td><td>aggregate access; inter-VLAN routing; security + connectivity policy (ACL, QoS); L2/L3 boundary</td><td>high L3 throughput, fast ports, ACLs, QoS, resilient links</td></tr>
+<tr><td><b>Core</b></td><td>connect distribution blocks; carry campus traffic fast</td><td>very high L3 throughput, redundancy, fast recovery, QoS, simple forwarding</td></tr></table>
+<p class="r">Keep ACLs and heavy packet processing out of the core: core just forwards fast. Policy and routing belong at distribution.</p>
+<table><tr><th>Service</th><th>Resource</th><th>Path</th></tr>
+<tr><td>Local</td><td>same segment/VLAN as user</td><td>access only</td></tr>
+<tr><td>Remote</td><td>other VLAN in same block</td><td>access → distribution</td></tr>
+<tr><td>Enterprise</td><td>central, shared by campus</td><td>access → distr. → core</td></tr></table>
+<p class="r">Server in another switch block is always reached through the core.</p>
+<h3 id="block">Switch block</h3>
+<p><b>Switch block</b> = access switches + the distribution switches they connect to. <b>Core</b> joins blocks. Routing normally starts at distribution: VLANs + broadcasts stop there, so <b>STP runs only inside each block</b> (failure stays in one block).</p>
+<p>Two cables to <b>one</b> upstream switch protect a link, not the switch. Use a pair of distribution switches; each access switch uplinks to <b>both</b>. Core also needs redundancy (one core switch = single point of failure).</p>
+<h3 id="designs">Three switch-block designs</h3>
+<table><tr><th>Design</th><th>Result</th></tr>
+<tr><td>Shared VLAN (VLAN A on both access switches)</td><td>trunks between all 4 switches → loops → STP blocks some links; larger L2 domain</td></tr>
+<tr><td>Local VLANs (A only left, B only right)</td><td>access uplinks still L2 trunks; link between distribution switches routed (L3) → no L2 loop, nothing to block</td></tr>
+<tr><td>Routed access (L3 moves down)</td><td>access switches route; all uplinks L3; routing protocol (OSPF) fails over; both uplinks carry traffic (equal-cost)</td></tr></table>
+<h3 id="sizing">Sizing a block</h3>
+<ul><li>Access: ports for users/devices + uplink capacity.</li><li>Distribution: all access traffic + inter-VLAN routing + ACL/QoS work.</li><li>VLAN size: reach, broadcast/multicast load, STP domain size.</li><li>Growth: new groups/apps and where their servers are.</li></ul>
+<p>~<b>2,000 users per block</b> = slides' historical guideline, not a protocol limit.</p>
+<p class="r">Block too large: distribution overloaded by routing/ACL work, or broadcast/multicast slows the block → add capacity or split the block; adding access ports makes it worse.</p>
+<h3 id="core">Core designs</h3>
+<table><tr><th>Design</th><th>Structure / reason</th></tr>
+<tr><td><b>Dual core</b></td><td>2 multilayer core switches; distribution has redundant L3 paths into core; no single core failure point; equal-cost paths active</td></tr>
+<tr><td><b>Multinode core</b></td><td>several core pairs joined; each block to one pair; very large campus kept modular</td></tr>
+<tr><td><b>Collapsed core</b></td><td>same device pair does distribution + core; access dual-homed to the pair; smaller campus, less cost. Merges layers, keeps redundancy</td></tr></table>
+<h3 id="review">Design review</h3>
+<ol><li>Mark access / distribution / core.</li><li>Draw VLAN and L3 boundaries; trunk vs routed links.</li><li>Each access switch → two different distribution switches.</li><li>Link the distribution pair together; do not link access switches (unless stacked).</li><li>Test link failure and switch failure; know what recovers (STP, HSRP, routing).</li><li>Remaining link must carry all traffic after a failure.</li></ol>
+
+<h2 id="c18">18. Integrating Wireless LAN</h2>
+<h3 id="csma">Half-duplex, CSMA/CA</h3>
+<p>One channel = shared airtime, only one sender at a time (half-duplex). <b>CSMA/CA</b> (Collision Avoidance):</p>
+<ol><li>Wait for idle channel + <b>DIFS</b>.</li><li>Count down random backoff while idle.</li><li>Busy → pause countdown; resume when free.</li><li>Transmit at 0. Collision still possible (two counters hit 0 together).</li></ol>
+<p class="r">Ex A/B/C: A sends first, B and C defer; C has shorter backoff → C next, B waits again. Avoidance reduces risk, does not remove it.</p>
+<h3 id="wifi">Wi-Fi standards</h3>
+<table><tr><th>IEEE</th><th>Gen</th><th>GHz</th><th>Max PHY</th><th>MIMO</th></tr>
+<tr><td>802.11</td><td>orig.</td><td>2.4</td><td>2 Mbps</td><td>no</td></tr>
+<tr><td>802.11b</td><td></td><td>2.4</td><td>11 Mbps</td><td>no</td></tr>
+<tr><td>802.11a</td><td></td><td>5</td><td>54 Mbps</td><td>no</td></tr>
+<tr><td>802.11g</td><td></td><td>2.4</td><td>54 Mbps</td><td>no</td></tr>
+<tr><td>802.11n</td><td>Wi-Fi 4</td><td>2.4/5</td><td>600 Mbps</td><td>SU-MIMO</td></tr>
+<tr><td>802.11ac</td><td>Wi-Fi 5</td><td>5</td><td>6.9 Gbps</td><td>MU (Wave 2)</td></tr>
+<tr><td>802.11ax</td><td>Wi-Fi 6</td><td>2.4/5</td><td>9.6 Gbps</td><td>MU-MIMO</td></tr>
+<tr><td>802.11ax</td><td>Wi-Fi 6E</td><td>2.4/5/6</td><td>9.6 Gbps</td><td>MU-MIMO</td></tr>
+<tr><td>802.11be</td><td>Wi-Fi 7</td><td>2.4/5/6</td><td>~46 Gbps</td><td>MU-MIMO</td></tr></table>
+<p class="r">PHY rate = theoretical; real throughput lower (width, streams, clients, signal, shared airtime).</p>
+<h3 id="bss">Service sets</h3>
+<table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>IBSS</td><td>ad hoc, no AP, stations talk directly</td></tr>
+<tr><td>BSS</td><td>one AP + its associated stations (AP = cell centre)</td></tr>
+<tr><td>ESS</td><td>several BSSs joined by a distribution system (wired)</td></tr>
+<tr><td>SSID</td><td>network name; AP maps SSID → VLAN (Staff → VLAN 10)</td></tr>
+<tr><td>Association</td><td>client membership with AP; needs SSID, supported rate, credentials</td></tr></table>
+<p>Infrastructure mode: clients never talk directly; even two clients on the same AP go through the AP (exception: Direct Link Setup). Several SSIDs on autonomous AP → switch port = trunk.</p>
+<h3 id="cells">Cells, channels, coloring</h3>
+<p>Cell = one AP's coverage. Neighbouring cells overlap a little (roaming), no coverage holes; grid vs honeycomb layout; plan channels between floors too. <b>Full power ≠ capacity</b>: bigger cell = more clients share one AP's airtime. Lower power = microcell, very small = picocell (denser). Neighbours on <b>non-overlapping channels 1, 6, 11</b> (2.4 GHz).</p>
+<p><b>BSS coloring</b> (Wi-Fi 6): 6-bit colour in PHY header → tell own vs neighbour BSS without reading 48-bit BSSID. Different colour + weak signal → may transmit (spatial reuse), still CSMA/CA. Not security.</p>
+<h3 id="auto">Autonomous vs controller-based</h3>
+<table><tr><th></th><th>Autonomous</th><th>Unified (WLC)</th></tr>
+<tr><td>Mgmt</td><td>each AP separately</td><td>WLC manages all LAPs</td></tr>
+<tr><td>Forwarding</td><td>AP bridges client traffic onto wired VLAN</td><td>LAP tunnels all traffic to WLC; WLC puts it on wired net</td></tr>
+<tr><td>VLANs</td><td>trunk with every SSID's VLAN to each AP</td><td>LAP port = access port; only WLC port is trunk</td></tr>
+<tr><td>Scale</td><td>hard to change channel/power one AP at a time</td><td>central channel/power, clients, roaming</td></tr></table>
+<p class="r">Autonomous roaming in one SSID needs the same VLAN on every AP port (end-to-end VLAN). With WLC the client VLAN only exists at the WLC.</p>
+<h3 id="split">Split-MAC (CUWN)</h3>
+<p>AP's work split between two devices. <b>LAP</b> (lightweight AP, cannot work alone) = real-time radio: tx/rx frames, beacons, probe responses, 802.11 encryption. <b>WLC</b> (separate controller for many LAPs) = authentication, security policy, association + roaming, RF channel + power, QoS. WLC also: dynamic channel/power, raise power over failed AP's area, client load balancing, RF monitoring, wireless IPS.</p>
+<h3 id="capwap">CAPWAP</h3>
+<p><b>CAPWAP</b> = Control And Provisioning of Wireless Access Points; LAP ↔ WLC over IP (can be different subnets); replaced LWAPP.</p>
+<table><tr><th>Tunnel</th><th>Carries</th><th>Protection</th></tr>
+<tr><td>Control (UDP 5246)</td><td>config, AP management</td><td>authenticated + encrypted</td></tr>
+<tr><td>Data (UDP 5247)</td><td>client traffic</td><td>optional, DTLS</td></tr></table>
+<div class="fig"><svg viewBox="0 0 180 34"><rect class="b" x="2" y="10" width="28" height="13"/><text x="16" y="19" text-anchor="middle">Client</text><rect class="bl" x="48" y="10" width="26" height="13"/><text x="61" y="19" text-anchor="middle">LAP</text><rect class="bl" x="114" y="10" width="26" height="13"/><text x="127" y="19" text-anchor="middle">WLC</text><rect class="b" x="152" y="10" width="26" height="13"/><text x="165" y="19" text-anchor="middle">Switch</text><line x1="30" y1="16" x2="48" y2="16"/><path class="l" d="M74 14H114M74 19H114"/><line x1="140" y1="16" x2="152" y2="16"/><text x="94" y="9" text-anchor="middle">CAPWAP</text><text x="94" y="31" text-anchor="middle">over IP</text><text x="146" y="31" text-anchor="middle">trunk</text></svg></div>
+<p>Mutual auth with X.509 certificates. <span class="r">WPA2/WPA3 protects client ↔ AP; CAPWAP DTLS protects AP ↔ WLC (separate).</span></p>
+<h3 id="join">LAP joins a WLC</h3>
+<ol><li>Get IP from DHCP.</li><li>Discover WLCs, learn addresses.</li><li>Join one (fail → try next).</li><li>Match image; download + reboot if needed.</li><li>Secure CAPWAP; download SSIDs, VLANs, channels.</li></ol>
+<p>LAP loses WLC → clients dropped, LAP rediscovers (FlexConnect / backup WLC can keep clients up).</p>
+<p>Central switching path: client → LAP → CAPWAP → WLC → campus; two clients on same AP: A → LAP → WLC → LAP → B. Troubleshoot: client VLAN/IP → tunnel/WLC → routing beyond WLC.</p>
+<h3 id="roam">Roaming</h3>
+<p>Autonomous: each AP keeps own client list; old AP forwards leftover frames to new AP. WLC: controller keeps list and moves client.</p>
+<table><tr><th>Roam</th><th>Change</th><th>How</th></tr>
+<tr><td>Intra-controller</td><td>AP changes, WLC same</td><td>WLC updates entry to new LAP; &lt;10 ms</td></tr>
+<tr><td>L2 inter-controller</td><td>AP + WLC change, same subnet</td><td>entry handed to new WLC; IP kept (local-to-local); &lt;20 ms</td></tr>
+<tr><td>L3 inter-controller</td><td>new WLC on different subnet</td><td>old = <b>anchor</b>, new = <b>foreign</b>; EoIP tunnel; IP kept (local-to-foreign)</td></tr></table>
+<p class="r">Ex: Client-1 192.168.100.199 roams AP-1/WLC-1 (VLAN 100) → AP-2/WLC-2 (subnet 192.168.200.0/24): WLC-1 anchor, WLC-2 foreign, keeps .100.199. Roles belong to WLCs, not APs. Anchor stays anchor on later roams. Guest anchor: guest traffic tunneled on purpose to one WLC (DMZ).</p>
+<h3 id="fast">Fast roaming + mobility groups</h3>
+<p>Joining new AP is fast; full re-login (802.1X + RADIUS + new keys) is slow. Both client + network must support:</p>
+<table><tr><th>Method</th><th>Idea</th></tr>
+<tr><td>CCKM</td><td>Cisco; WLC stores client keys; needs CCX client</td></tr>
+<tr><td>PKC / OKC</td><td>cached key shared with other APs</td></tr>
+<tr><td>802.11r (FT)</td><td>IEEE standard; keys set up during the move</td></tr></table>
+<p class="r">"Remembers previous APs, up to 8" on the slide = Sticky Key Caching (SKC).</p>
+<p><b>Mobility group</b> = WLCs sharing client info for roaming. <b>Mobility list</b> (MAC, IP, group name) configured manually; no automatic trust; best within the same group.</p>
+
+<h2 id="c19">19. High Availability</h2>
+<p><b>HA</b> = network keeps working almost all the time even when a part fails. Campus HA: two of every device, two of every link, switch pairs joined into one logical switch (STP blocks nothing), backup supervisor that takes over fast.</p>
+<h3 id="pairs">Pairs still waste capacity</h3>
+<p>Each access switch uplinks to each distribution switch: survives link/distribution failure, but (1) access switches do not back each other up; (2) redundant uplinks form loops → <b>STP blocks</b> paid-for bandwidth.</p>
+<p>Fix: two physical switches act as <b>one logical switch</b> → links to it bundle into one <b>EtherChannel</b>, STP sees one link.</p>
+<table><tr><th>Stage</th><th>Result</th></tr>
+<tr><td>4 separate switches</td><td>STP blocks uplinks; failover waits for STP</td></tr>
+<tr><td>Logical access (A1+A2), separate D1, D2</td><td>one channel to each D → loop through D1–D2 → STP may block a whole channel</td></tr>
+<tr><td>Logical access + logical distribution</td><td>one <b>MEC</b>; no loop; all links forward; losing a member only cuts capacity</td></tr></table>
+<p><b>MEC</b> = multichassis EtherChannel: member links end on different physical switches of a logical switch.</p>
+<h3 id="stack">StackWise vs VSS</h3>
+<table><tr><th></th><th>StackWise / Plus</th><th>VSS</th></tr>
+<tr><td>Joins</td><td>up to <b>9</b> fixed switches, stack cables in a ring</td><td>exactly <b>2</b> identical chassis over a <b>VSL</b></td></tr>
+<tr><td>Control</td><td>stack master; one IP</td><td>one active supervisor, other standby</td></tr>
+<tr><td>Layer</td><td>access (3750-E/X, 3850)</td><td>distribution / core</td></tr></table>
+<h3 id="sup">Supervisor redundancy</h3>
+<p><b>Supervisor</b> = brain of a chassis switch: management, routing protocols, forwarding tables. First to boot = active, other = standby (power supplies same idea).</p>
+<table><tr><th>Mode</th><th>Standby state</th><th>Failover</th></tr>
+<tr><td><b>RPR</b></td><td>partially booted; must reload <b>all modules</b>, init route engine, L2, L3, FIB flushed</td><td>&gt; 2 min (ports drop)</td></tr>
+<tr><td><b>RPR+</b></td><td>booted, route engine ready; modules not reloaded (ports keep state); L2/L3 protocols start after failure</td><td>&gt; 30 s</td></tr>
+<tr><td><b>SSO</b></td><td>fully initialized; startup <b>+ running</b> config + L2 state synced; FIB synced</td><td>≈ 1 s, links stay up</td></tr></table>
+<p class="r">Slides typo "PRP" = RPR. Log says "booted standby, ports kept, L2/L3 started after failure, ~40 s" → RPR+.</p>
+<h3 id="nsf">RIB, FIB, NSF</h3>
+<table><tr><th>Table</th><th>Built by</th><th>Used for</th></tr>
+<tr><td>RIB</td><td>routing protocols + static/connected</td><td>choosing best routes (control plane)</td></tr>
+<tr><td>FIB</td><td>CEF, from RIB (+ adjacency table = next-hop MAC)</td><td>hardware forwarding (data plane)</td></tr></table>
+<p><b>NSF</b> (Nonstop Forwarding) with SSO: standby has FIB copy → packets keep flowing during switchover; new active rebuilds RIB; <b>NSF-aware</b> neighbours keep the adjacency and resend routes. Protocols: <b>BGP, EIGRP, OSPF, IS-IS</b>. <span class="r">Slide typos "NFS", "EIRP".</span></p>
+<p class="r">Want links up during supervisor failure → SSO (+ NSF for routed traffic).</p>
+
+</div></div>
+
+<!-- ============================ PAGE 2 ============================ -->
+<div class="page"><div class="cols">
+
+<h2 id="c20">20. First Hop Redundancy: FHRP and HSRP</h2>
+<h3 id="gw">Gateway = single point of failure</h3>
+<p>Host sends every off-subnet packet to one default gateway. Ex: VLAN 10 (10.1.1.0/24) hosts use R1 10.1.1.9; R1 or its LAN interface fails → nothing leaves the subnet. Adding R2 10.1.1.129 = second exit, but hosts still point at .9. Changing every host / waiting for DHCP is not failover.</p>
+<p><b>FHRP</b>: routers keep own interface IPs and share a <b>virtual IP</b> + <b>virtual MAC</b>; hosts use the VIP as gateway; one router answers, another takes over on failure.</p>
+<table><tr><th>Protocol</th><th>Origin</th><th>Model</th><th>Balances</th></tr>
+<tr><td>HSRP</td><td>Cisco</td><td>1 active, others standby/listen</td><td>per subnet (group per VLAN)</td></tr>
+<tr><td>VRRP</td><td>RFC 5798</td><td>1 master, others backup</td><td>per subnet</td></tr>
+<tr><td>GLBP</td><td>Cisco</td><td>active/active</td><td>per host (different vMACs)</td></tr></table>
+<h3 id="elect">Election (who is active)</h3>
+<ol><li>No other HSRP router → local router active.</li><li>No active yet → highest <b>priority</b> (default <b>100</b>).</li><li>Tie → highest IP on the HSRP interface.</li><li>Active already exists → keeps role unless a higher-priority router has <b>preempt</b>.</li></ol>
+<p class="r">"Highest priority is always active" = false. Preempt is OFF by default; configure it on the router that should reclaim. HSRP = highest wins, STP = lowest wins.</p>
+<p class="r">Ex: R1 pri 110 (no P) reboots → R2 (100) active; R1 returns → R2 stays active, R1 standby. Fix: <code>standby 1 preempt</code> on R1.</p>
+<h3 id="failover">Failover</h3>
+<div class="fig"><svg viewBox="0 0 180 56"><rect class="g" x="8" y="2" width="44" height="13"/><text x="30" y="11" text-anchor="middle">R1 .2 active</text><rect class="b" x="128" y="2" width="44" height="13"/><text x="150" y="11" text-anchor="middle">R2 .3 standby</text><rect class="b" x="74" y="24" width="32" height="12"/><text x="90" y="33" text-anchor="middle">SW</text><rect class="b" x="74" y="42" width="32" height="12"/><text x="90" y="51" text-anchor="middle">hosts</text><line x1="30" y1="15" x2="76" y2="24"/><line x1="150" y1="15" x2="104" y2="24"/><line x1="90" y1="36" x2="90" y2="42"/><text class="m" x="90" y="11" text-anchor="middle">VIP .1</text><text x="140" y="50" text-anchor="middle">gw = VIP</text></svg></div>
+<p>Hello <b>3 s</b>, hold <b>10 s</b>. Standby stops hearing hellos → hold expires → becomes active, uses VIP + vMAC, sends <b>gratuitous ARP</b> (unrequested ARP reply) from the vMAC → switches update MAC tables → frames for gateway go to R2's port. <b>Hosts change nothing</b> (same gateway IP, same ARP entry).</p>
+<h3 id="hver">HSRP v1 vs v2</h3>
+<table><tr><th></th><th>v1</th><th>v2</th></tr>
+<tr><td>IPv6</td><td>no</td><td>yes</td></tr>
+<tr><td>Hello timers</td><td>seconds</td><td>milliseconds</td></tr>
+<tr><td>Groups</td><td>0–255</td><td>0–4095</td></tr>
+<tr><td>vMAC</td><td>0000.0C07.ACxx</td><td>0000.0C9F.Fxxx</td></tr>
+<tr><td>Multicast</td><td>224.0.0.2</td><td>224.0.0.102</td></tr>
+<tr><td>Unique router ID</td><td>no</td><td>yes</td></tr></table>
+<p>vMAC = fixed prefix + <b>group number in hex</b> (÷16: quotient, remainder; 10–15 = A–F).</p>
+<p class="r">Ex: group 10 = 0x0A → v1 0000.0C07.AC<b>0A</b>, v2 0000.0C9F.F<b>00A</b>. 0000.0C07.AC10 = group 16, not 10. Group 30 = 0x1E. Both routers same version.</p>
+<h3 id="hcfg">Configuring HSRP</h3>
+<pre><span class="c">! R1 (wants active)</span>
+interface g0/0
+ ip address 192.168.1.2 255.255.255.0
+ standby version 2
+ standby 10 ip 192.168.1.1 <span class="c">! group + VIP</span>
+ standby 10 priority 110 <span class="c">! &gt; default 100</span>
+ standby 10 preempt <span class="c">! take role back</span>
+ standby 10 name GW10 <span class="c">! optional</span>
+<span class="c">! R2</span>
+interface g0/0
+ ip address 192.168.1.3 255.255.255.0
+ standby version 2
+ standby 10 ip 192.168.1.1
+show standby brief   /   show standby</pre>
+<p>Must match on both: group number, VIP, version. Each keeps own interface IP. Group number does <b>not</b> have to equal VLAN number (convention only; v1 max 255).</p>
+<h3 id="hshow">Reading show standby brief</h3>
+<pre>Interface Grp Pri P State   Active      Standby     Virtual IP
+Gi0/0     1   100   Active  local       10.1.1.9    10.1.1.1</pre>
+<table><tr><th>Field</th><th>Meaning</th></tr>
+<tr><td>State</td><td>this router's own role</td></tr>
+<tr><td>Active / Standby</td><td>real IP of router in that role; <b>local</b> = this router</td></tr>
+<tr><td>P</td><td>blank = no preempt; P = preempt</td></tr>
+<tr><td>Virtual IP</td><td>hosts' gateway, same on both</td></tr></table>
+<p>Long <code>show standby</code> adds vMAC, hello/hold timers, preemption, state history, active router priority.</p>
+<p class="r">Both routers "Active", standby "unknown" → no hellos: group/version mismatch, link down, multicast filtered. Preempt is never the cause.</p>
+<p class="r">Load sharing: DSW1 active VLAN 10 (pri 110 + preempt in vlan 10 only), DSW2 active VLAN 20; one group per VLAN.</p>
+
+<h2 id="c21">21. Introduction to Quality of Service</h2>
+<p><b>QoS</b> = methods to protect and prioritize time-critical/important traffic: classify, mark, limit rate, decide what to queue, send first or drop when congested. Fights <b>delay</b>, <b>jitter</b> (delay variation), <b>packet loss</b>. Cannot add bandwidth.</p>
+<table><tr><th></th><th>Data</th><th>Voice</th><th>Video</th></tr>
+<tr><td>Bandwidth</td><td>high</td><td>low</td><td>high</td></tr>
+<tr><td>Delay</td><td>not critical</td><td>&lt;150 ms</td><td>&lt;150 ms (real-time)</td></tr>
+<tr><td>Jitter</td><td>n/a</td><td>low (&lt;30 ms)</td><td>low</td></tr>
+<tr><td>Loss</td><td>&lt;5%, TCP resends</td><td>&lt;1%</td><td>low</td></tr>
+<tr><td>Packets</td><td>~300 B avg, steady/bursty</td><td>≤480 B, steady, UDP</td><td>800–1500 B, bursty VBR, UDP</td></tr></table>
+<p>Jitter OK: VoIP &lt;30 ms, video conf 30–50, gaming &lt;30, streaming &lt;100, data ~100+. VDI: mixed sizes, TCP (RDP, ICA) or UDP (PCoIP), sensitive.</p>
+<h3 id="models">Service models</h3>
+<table><tr><th>Model</th><th>Guarantee</th><th>How</th></tr>
+<tr><td>Best effort</td><td>none</td><td>all alike, one FIFO</td></tr>
+<tr><td>IntServ</td><td>hard QoS</td><td>per-flow reservation on whole path (RSVP)</td></tr>
+<tr><td>DiffServ</td><td>soft QoS</td><td>classes; per-hop preferential treatment</td></tr></table>
+<p>Campus uses DiffServ: scales (each hop only reads marking, no per-flow state).</p>
+<h3 id="pipe">Switch QoS pipeline</h3>
+<div class="fig"><svg viewBox="0 0 180 18"><g><rect class="bl" x="1" y="3" width="30" height="12"/><text x="16" y="12" text-anchor="middle">classify</text><rect class="bl" x="37" y="3" width="26" height="12"/><text x="50" y="12" text-anchor="middle">police</text><rect class="bl" x="69" y="3" width="24" height="12"/><text x="81" y="12" text-anchor="middle">mark</text><rect class="bl" x="99" y="3" width="34" height="12"/><text x="116" y="12" text-anchor="middle">queue sel.</text><rect class="bl" x="139" y="3" width="40" height="12"/><text x="159" y="12" text-anchor="middle">schedule</text></g></svg></div>
+<p>Classify → internal DSCP; police → over-rate dropped/marked down; mark/re-mark; choose egress queue; congestion management (which queue next) + avoidance (WRED drops early). No avoidance → full queue just drops new packets.</p>
+<h3 id="marks">Markings</h3>
+<table><tr><th>Marking</th><th>Layer</th><th>Where</th><th>Bits</th><th>Values</th></tr>
+<tr><td>CoS</td><td>2</td><td>802.1Q tag (tagged frames only)</td><td>3</td><td>0–7</td></tr>
+<tr><td>IP Prec.</td><td>3</td><td>top 3 bits ToS byte</td><td>3</td><td>0–7</td></tr>
+<tr><td>DSCP</td><td>3</td><td>top 6 bits same byte</td><td>6</td><td>0–63</td></tr></table>
+<div class="fig"><svg viewBox="0 0 180 30"><rect class="y" x="2" y="2" width="66" height="12"/><text x="35" y="11" text-anchor="middle">b5 b4 b3 class</text><rect class="g" x="68" y="2" width="46" height="12"/><text x="91" y="11" text-anchor="middle">b2 b1 drop</text><rect class="b" x="114" y="2" width="20" height="12"/><text x="124" y="11" text-anchor="middle">0</text><rect class="b" x="138" y="2" width="40" height="12"/><text x="158" y="11" text-anchor="middle">ECN (2)</text><text x="68" y="25" text-anchor="middle">DSCP (6 bits) · IPP = b5–b3</text></svg></div>
+<p><b>DSCP = IPP × 8</b> (IPP 5 = 101 → 101000 = 40). Last 2 bits of the byte = ECN (slide says "last 2 bits of DSCP"). IP phone voice = <b>DSCP 46 (101110), IPP 5, CoS 5</b>.</p>
+<h3 id="phb">Per-hop behaviors</h3>
+<table><tr><th>PHB</th><th>DSCP</th><th>Treatment</th></tr>
+<tr><td>Default</td><td>0</td><td>best effort</td></tr>
+<tr><td>EF</td><td>46</td><td>low delay/jitter/loss, priority queue (voice)</td></tr>
+<tr><td>AF (RFC 2597)</td><td>AFxy = 8x + 2y</td><td>x class 1–4 (higher = better queue), y drop 1–3 (higher = dropped sooner)</td></tr>
+<tr><td>CS</td><td>CSn = 8n</td><td>IPP-compatible, only top 3 bits set</td></tr></table>
+<table><tr><th>Class</th><th>Drop 1</th><th>Drop 2</th><th>Drop 3</th></tr>
+<tr><td>4 best</td><td>AF41 34</td><td>AF42 36</td><td>AF43 38</td></tr>
+<tr><td>3</td><td>AF31 26</td><td>AF32 28</td><td>AF33 30</td></tr>
+<tr><td>2</td><td>AF21 18</td><td>AF22 20</td><td>AF23 22</td></tr>
+<tr><td>1 worst</td><td>AF11 10</td><td>AF12 12</td><td>AF13 14</td></tr></table>
+<p><b>Decode</b>: 46 → EF. Else value ÷ 8 = class, remainder ÷ 2 = drop; remainder 0 → CSn. Binary: 3 | 2 | 1 bits; drop bits 01 = 1, 10 = 2, 11 = 3.</p>
+<p class="r">Ex: 28 = 011 10 0 → AF32. 30 = 011 11 0 → AF33. 34 → AF41. 22 → AF23. 24 → CS3. 48 → CS6 (routing protocols). 56 → CS7. Class 5–7 never AF.</p>
+<h3 id="trust">Trust and classification</h3>
+<p>Every packet gets an <b>internal DSCP</b>. Default port <b>untrusted</b> → DSCP 0. <b>trust dscp</b> keeps packet's DSCP. Trust CoS/IPP → default map ×8: 0,8,16,24,32,40,48,56.</p>
+<p class="r">Ex: host sends CoS 5 → trusted CoS port = 40, untrusted = 0. CoS 5 → 40, not 46 (EF): for voice trust DSCP or change map. CoS 3 → 24.</p>
+<p>Classify by: trusted marking, port default value, ACL, <b>NBAR</b> (app recognition). Classify as close to the user as possible (access switch). Marking = write new DSCP/CoS/IPP (whole port or policy map; ex video server → DSCP 40).</p>
+<h3 id="shape">Shaping vs policing</h3>
+<table><tr><th></th><th>Shaping</th><th>Policing</th></tr>
+<tr><td>Excess</td><td>delayed (buffered)</td><td>dropped / re-marked now</td></tr>
+<tr><td>Bursts</td><td>smoothed, fewer drops later</td><td>cut at rate (burst size allows some)</td></tr>
+<tr><td>Delay?</td><td>yes</td><td>no</td></tr>
+<tr><td>Good for</td><td>bursty TCP out to slower ISP link</td><td>hard limit, user traffic at access</td></tr>
+<tr><td>Bad for</td><td>voice/video</td><td>traffic that can't lose packets</td></tr></table>
+<p><b>Leaky token bucket</b>: packet pours tokens = its size; bucket drains at configured rate; size = burst. Overflow → <b>out of profile</b> → drop/re-mark. Policer as <b>dropper</b> (≤CIR sent, rest dropped) or <b>marker</b> (≤CIR AF11, CIR–PIR AF12, &gt;PIR AF13).</p>
+<p class="r">Ex: 1 Gbps edge, provider contract 200 Mbps polices above → <b>shape</b> to 200 Mbps on your egress.</p>
+<h3 id="queue">Queuing / scheduling</h3>
+<table><tr><th>Mechanism</th><th>Key point</th></tr>
+<tr><td>FIFO</td><td>default, one queue, tail drop, no QoS</td></tr>
+<tr><td>WRR</td><td>queues in turn; share = weight ÷ total</td></tr>
+<tr><td>Priority queue</td><td>served first; WRR ignored for it (voice)</td></tr>
+<tr><td>Custom queuing</td><td>% per traffic type, unused borrowed; WAN; static, not for fast WAN</td></tr>
+<tr><td>LLQ</td><td>CBWFQ + one strict-priority queue</td></tr></table>
+<p class="r">Ex: weights 50/10/25/15 → 50/10/25/15 %. Weights 4/2/1/1 → Q1 = 4/8 = 50%, Q2 25%, Q3 = Q4 = 12.5%. Divide by the total, not 100.</p>
+<p>Buffers split too: priority queue small (voice leaves at once), low-priority queues bigger.</p>
+<h3 id="wred">Congestion avoidance</h3>
+<p><b>Tail drop</b> (default): full queue drops every arriving packet → many TCP flows lose packets and slow-start together (<b>TCP synchronization</b>), aggressive flows hog the queue, deep queues add delay/jitter, premium dropped like best effort.</p>
+<p><b>RED</b>: random drops <b>before</b> full, more as queue fills; senders back off at different times; still tail drop when full; helps only TCP. <b>WRED</b>: thresholds/drop probability per DSCP/IPP.</p>
+<p class="r">Ex: 50% full → drop DSCP 0–20 randomly; 80% → also 21–31; full → tail drop. At 60%: only DSCP 18 candidates, not 26.</p>
+<p>Best practice: voice in strict priority queue, WRR for the rest, WRED on data queues (esp. congested WAN links). <b>AutoQoS</b>: one command builds standard classes/policies.</p>
+
+<h2 id="c22">22. Monitoring Switches: Syslog, NTP, SNMP, Port Mirroring</h2>
+<h3 id="syslog">Syslog messages</h3>
+<pre>*Oct 20 15:31:07.412 ICT: %SYS-5-CONFIG_I: Configured from console by console</pre>
+<table><tr><th>Field</th><th>Example</th><th>Meaning</th></tr>
+<tr><td>Timestamp</td><td>*Oct 20 15:31:07.412 ICT</td><td>date/time or uptime</td></tr>
+<tr><td>Facility</td><td>%SYS</td><td>module that generated it</td></tr>
+<tr><td>Severity</td><td>5</td><td>0–7, lower = more severe</td></tr>
+<tr><td>Mnemonic</td><td>CONFIG_I</td><td>exact event</td></tr>
+<tr><td>Text</td><td>Configured from…</td><td>description</td></tr></table>
+<table><tr><th>Lvl</th><th>Keyword</th><th>Typical events</th></tr>
+<tr><td>0</td><td>emergencies</td><td>crash, stopped processes</td></tr>
+<tr><td>1</td><td>alerts</td><td>platform errors</td></tr>
+<tr><td>2</td><td>critical</td><td>hardware, port security, STP</td></tr>
+<tr><td>3</td><td>errors</td><td>ACL/TCAM, PAgP, interface up/down (LINK-3)</td></tr>
+<tr><td>4</td><td>warnings</td><td>DHCP snooping</td></tr>
+<tr><td>5</td><td>notifications</td><td>802.1X, DTP, EtherChannel, PoE, line protocol (LINEPROTO-5)</td></tr>
+<tr><td>6</td><td>informational</td><td>stack, DAI, VTP, UDLD, diagnostics</td></tr>
+<tr><td>7</td><td>debugging</td><td>debug output</td></tr></table>
+<p>Every Awesome Cisco Engineer Will Need Ice-cream Daily. Threshold shows <b>its level and all lower numbers</b>; keyword = number (<code>logging console 4</code> = <code>logging console warnings</code> → 0–4).</p>
+<pre>logging console 4 <span class="c">! default console = 7</span>
+logging buffered 6 <span class="c">! buffer off by default</span>
+logging buffered 16384 <span class="c">! size 4096–2147483647</span>
+logging buffered 16384 warnings <span class="c">! size + level</span>
+service timestamps log datetime msec localtime show-timezone year
+service timestamps log uptime <span class="c">! 00:12:44 style</span>
+show logging</pre>
+<p class="r">logging console warnings: LINK-3 shown, LINEPROTO-5 hidden. logging console 3: LINEPROTO-5 not shown.</p>
+<h3 id="ntp">Clock and NTP</h3>
+<p>Boot clock = <b>March 1, 1993</b>. <code>clock set 15:30:00 20 October 2026</code> = <b>privileged EXEC</b>; <code>clock timezone ICT 7</code> = <b>global config</b> (offset −23…23, min 0–59). <code>show clock</code>.</p>
+<pre>ntp server 200.1.1.10 prefer
+ntp server 200.1.1.240 version 4 <span class="c">! v4 adds IPv6</span>
+show ntp status <span class="c">! synchronized? stratum</span>
+show ntp associations</pre>
+<p><b>Stratum</b> = hops from reference clock; attached = 1; client = peer + 1; <b>16 = unsynchronized</b>. Symbols: <b>*</b> sys.peer (synced to), <b>+</b> candidate, # selected, − outlier, x falseticker, ~ configured. <b>reach 377</b> = last 8 polls OK.</p>
+<p class="r">Ex: *~10.0.0.1 st 2, +~10.0.0.2 st 4 → SW reports 3. Use the * line, not the lowest stratum.</p>
+<h3 id="snmp">SNMP</h3>
+<p><b>Manager</b> (NMS: Cacti, Munin) polls and receives alerts; <b>agent</b> = process on device; <b>MIB</b> = tree of device variables in memory; <b>OID</b> = dotted ID, ASN.1. Ex 1.3.6.1.2.1.2.2.1.10 = interface inbound bytes (IF-MIB). Vendors under 1.3.6.1.4.1: Cisco .9, Microsoft .311, Juniper .2636.</p>
+<table><tr><th>Op</th><th>Dir</th><th>Port</th><th>Purpose</th></tr>
+<tr><td>Get</td><td>M→A</td><td>161</td><td>read one variable</td></tr>
+<tr><td>Get-next</td><td>M→A</td><td>161</td><td>next variable (walk table)</td></tr>
+<tr><td>Get-bulk</td><td>M→A</td><td>161</td><td>whole table (v2c+)</td></tr>
+<tr><td>Set</td><td>M→A</td><td>161</td><td>write a variable</td></tr>
+<tr><td>Trap</td><td>A→M</td><td>162</td><td>alert, not acknowledged</td></tr>
+<tr><td>Inform</td><td>A→M</td><td>162</td><td>alert, manager acks (v2c+)</td></tr></table>
+<table><tr><th></th><th>v1</th><th>v2c</th><th>v3</th></tr>
+<tr><td>RFC</td><td>1157</td><td>1901</td><td>3410–3415</td></tr>
+<tr><td>Auth</td><td>community</td><td>community</td><td>username (in groups)</td></tr>
+<tr><td>Counters</td><td>32-bit</td><td>64-bit</td><td>64-bit</td></tr>
+<tr><td>Extra</td><td>get/set, traps</td><td>+ get-bulk, inform</td><td>HMAC SHA/MD5, DES/3DES/AES, views</td></tr></table>
+<table><tr><th>v3 level</th><th>Keyword</th><th>Auth</th><th>Encrypt</th></tr>
+<tr><td>noAuthNoPriv</td><td>noauth</td><td>no</td><td>no</td></tr>
+<tr><td>authNoPriv</td><td>auth</td><td>yes</td><td>no</td></tr>
+<tr><td>authPriv</td><td>priv</td><td>yes</td><td>yes</td></tr></table>
+<pre>access-list 10 permit 192.168.3.99
+snmp-server community PUBLIC ro 10 <span class="c">! v1/v2c</span>
+snmp-server host 192.168.3.99 PUBLIC <span class="c">! v1 trap</span>
+snmp-server host 192.168.3.99 informs version 2c PUBLIC
+snmp-server view V1 iso included <span class="c">! optional</span>
+snmp-server group NetOps v3 priv read V1
+snmp-server user mymonitor NetOps v3 auth sha AUTHPW priv aes 128 PRIVPW access 10
+snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre>
+<p>Order v3: group (level) → user (passwords) → host. No view = all MIB visible. Use v3; if v1 is a must → read-only + ACL (community is clear text).</p>
+<p class="r">Acknowledged + encrypted → informs version 3 priv. Acknowledged only → informs v2c. v1 cannot send informs.</p>
+<h3 id="span">Local SPAN</h3>
+<p>SPAN copies traffic from source ports/VLANs to a destination port with an analyzer; normal forwarding unchanged.</p>
+<pre>monitor session 1 source interface g1/0/1 both <span class="c">! rx/tx/both</span>
+monitor session 2 source vlan 10 rx <span class="c">! VLANs own session</span>
+monitor session 1 destination interface g1/0/48
+monitor session 2 destination interface g1/0/47 encapsulation replicate
+show monitor session 1 detail
+no monitor session 1 <span class="c">! or all</span></pre>
+<p>Default copies untagged, no BPDU/CDP/VTP/DTP/PAgP; <b>encapsulation replicate</b> keeps tags + those frames.</p>
+<p class="r">Destination port: STP disabled → never connect it back into the network. Sources faster than destination → mirrored frames dropped.</p>
+<h3 id="rspan">Remote SPAN (RSPAN)</h3>
+<div class="fig"><svg viewBox="0 0 180 40"><rect class="bl" x="2" y="8" width="40" height="13"/><text x="22" y="17" text-anchor="middle">Switch A</text><rect class="bl" x="70" y="8" width="40" height="13"/><text x="90" y="17" text-anchor="middle">Switch B</text><rect class="bl" x="138" y="8" width="40" height="13"/><text x="158" y="17" text-anchor="middle">Switch C</text><line x1="42" y1="14" x2="70" y2="14"/><line x1="110" y1="14" x2="138" y2="14"/><text x="56" y="6" text-anchor="middle">trunk</text><text x="124" y="6" text-anchor="middle">trunk</text><text x="22" y="31" text-anchor="middle">source</text><text x="90" y="31" text-anchor="middle">VLAN 99 only</text><text x="158" y="31" text-anchor="middle">analyzer</text></svg></div>
+<pre>vlan 99 <span class="c">! on A, B and C</span>
+ remote-span
+<span class="c">! A (source)</span>
+monitor session 1 source interface g1/0/1 both
+monitor session 1 destination remote vlan 99
+<span class="c">! C (destination)</span>
+monitor session 1 source remote vlan 99
+monitor session 1 destination interface g1/0/48</pre>
+<p>No MAC learning in RSPAN VLAN (copies keep real hosts' MACs) → flooded to analyzer. Middle switch: no session, only VLAN 99, allowed on trunks; never on access ports. VTP can carry it; pruning keeps it off extra trunks.</p>
+<p class="r">VLAN 99 missing on B → copies dropped at B. show monitor "Remote Source Session" = analyzer on another switch.</p>
+
+<h2 id="c23">23. Basic Security</h2>
+<table><tr><th>CIA</th><th>Meaning</th><th>Threat</th></tr>
+<tr><td>Availability</td><td>data/services reachable reliably, on time</td><td>DoS flood</td></tr>
+<tr><td>Integrity</td><td>only authorized can <b>change</b> data</td><td>altered config/records</td></tr>
+<tr><td>Confidentiality</td><td>only authorized can <b>access</b> data</td><td>eavesdropping</td></tr></table>
+<p>HA/HSRP → availability; SNMPv3 auth → integrity; SNMPv3 priv, SSH → confidentiality.</p>
+<h3 id="fw">Firewall</h3>
+<p><b>Inline</b> between internal and external networks; every packet crosses it. Rules match: source/destination address; transport port; text in HTTP URI; TCP state (<b>stateful</b> = remembers sessions, allows replies of inside-started sessions).</p>
+<div class="fig"><svg viewBox="0 0 180 58"><rect class="g" x="2" y="12" width="36" height="13"/><text x="20" y="21" text-anchor="middle">inside</text><rect class="y" x="72" y="12" width="36" height="13"/><text x="90" y="21" text-anchor="middle">firewall</text><rect class="b" x="142" y="12" width="36" height="13"/><text x="160" y="21" text-anchor="middle">outside</text><rect class="bl" x="72" y="42" width="36" height="13"/><text x="90" y="51" text-anchor="middle">DMZ web</text><line x1="38" y1="18" x2="72" y2="18"/><line x1="108" y1="18" x2="142" y2="18"/><line x1="90" y1="25" x2="90" y2="42"/><text x="55" y="10" text-anchor="middle">in→out ✓</text><text x="125" y="10" text-anchor="middle" class="t">out→in ✗</text><text x="132" y="44" text-anchor="middle">out→DMZ ✓</text></svg></div>
+<p>Judged by who <b>initiates</b>: inside → outside allowed; outside → DMZ allowed; outside → inside denied; replies to inside sessions allowed (stateful). DMZ → inside: denied unless explicitly permitted.</p>
+<p><b>DMZ</b> = less-secured zone for servers outside users may reach (public web for www.example.com). DMZ server compromised → attacker still has to cross the firewall to inside.</p>
+<h3 id="ips">IPS / IDS</h3>
+<p><b>IPS</b> (Intrusion Prevention System): compares traffic with <b>attack signatures</b> (DoS, DDoS, virus, worm); inline; drops matching packets or redirects to another security tool; signature DB must stay <b>updated</b>. <b>IDS</b>: usually watches a <b>copy</b> (SPAN port) and alerts; cannot block inline.</p>
+<table><tr><th></th><th>Firewall</th><th>IPS</th></tr>
+<tr><td>Decides by</td><td>admin rules: address, port, URI, state</td><td>attack signatures (+ reputation/context in NGIPS)</td></tr>
+<tr><td>Placement</td><td>inline at edge</td><td>inline at edge</td></tr>
+<tr><td>Updating</td><td>rules change with policy</td><td>signatures updated continuously</td></tr></table>
+<p class="r">New worm on an allowed port → port-based firewall lets it pass; IPS/NGIPS with updated signature stops it.</p>
+<h3 id="ngfw">NGFW / NGIPS</h3>
+<p><b>NGFW</b> = all traditional firewall functions + <b>AVC</b> (Application Visibility and Control) + advanced malware protection + URL filtering + NGIPS.</p>
+<p><b>NGIPS</b> = IPS + AVC + <b>contextual awareness</b> (host info to judge vulnerabilities) + <b>reputation-based filtering</b> (known-bad URLs/IPs) + <b>event impact levels</b> (rank alerts).</p>
+<p>Products: ASA 5500-X with FirePOWER Services; Firepower 1000/2100/4100/9000; NGIPSv (VMware); Firepower Threat Defense for ISR.</p>
+<h3 id="ports">Ports and addresses (ch 16–22)</h3>
+<table><tr><th>Protocol</th><th>Transport / address</th></tr>
+<tr><td>DHCP server / client</td><td>UDP 67 / UDP 68</td></tr>
+<tr><td>CAPWAP control / data</td><td>UDP 5246 / UDP 5247</td></tr>
+<tr><td>HSRP v1 / v2</td><td>UDP 1985, 224.0.0.2 / 224.0.0.102</td></tr>
+<tr><td>VRRP</td><td>IP protocol 112, 224.0.0.18</td></tr>
+<tr><td>SNMP get/set / trap+inform</td><td>UDP 161 / UDP 162</td></tr>
+<tr><td>Syslog to server</td><td>UDP 514</td></tr>
+<tr><td>NTP</td><td>UDP 123</td></tr>
+<tr><td>SSH / Telnet</td><td>TCP 22 / TCP 23</td></tr></table>
+
+
+</div></div>
+</body></html>

@@ -98,54 +98,12 @@ body[data-study-console="netdes"] #pal .palbox,body[data-study-console="netdes"]
 .fin-struck{opacity:.5;text-decoration:line-through}
 @media(max-width:860px){.fin-types{grid-template-columns:1fr}}
 
-/* A4 sheet: screen preview and print. */
-.a4wrap{margin-top:16px;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid var(--sc-line);border-radius:10px;background:var(--sc-surface-2);padding:14px}
-.a4sheet{display:grid;gap:14px;min-width:760px}
-.a4page{background:#fff;color:#111;border:1px solid #d5dbe5;border-radius:4px;padding:14px 16px;font-family:var(--sc-sans,var(--sans));font-size:10.5px;line-height:1.38;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.a4h{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:.04em;border-bottom:2px solid #111;padding-bottom:4px;margin-bottom:8px;color:#111}
-.a4h span{font-weight:500;color:#555}
-.a4cols{columns:3;column-gap:14px;column-rule:1px solid #e1e5ec}
-.a4b{break-inside:avoid;margin:0 0 7px}
-.a4b h6{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 2px;color:#0b5394;border-bottom:1px solid #e1e5ec}
-.a4b p{margin:2px 0 0;color:#111}
-.a4b b{color:#000}
-pre.a4c{background:#f4f6fa!important;color:#111!important;border:1px solid #e1e5ec!important;border-radius:3px;padding:4px 6px!important;margin:2px 0 0!important;font-size:9.4px!important;line-height:1.38!important;white-space:pre-wrap;overflow:visible}
-pre.a4c::before,pre.a4c .copy{display:none!important}
-.a4empty{color:#888}
-.a4notes{border:1px dashed #b6bfcc;border-radius:4px;padding:4px 6px;min-height:40px}
-
-@page{size:A4;margin:8mm}
-@media print{
-  body.print-a4 nav,body.print-a4 .sc-global-header,body.print-a4 .footer,body.print-a4 #wm,body.print-a4 #sbT,body.print-a4 #sb,body.print-a4 #sbB{display:none!important}
-  body.print-a4 section.tab{display:none!important}
-  body.print-a4 section#final{display:block!important}
-  body.print-a4 #final .wrap>*:not(#a4panel){display:none!important}
-  body.print-a4 #a4panel{border:0!important;padding:0!important;margin:0!important;box-shadow:none!important;background:#fff!important}
-  body.print-a4 #a4panel>*:not(.a4wrap){display:none!important}
-  body.print-a4 .a4wrap{border:0;padding:0;margin:0;overflow:visible;background:#fff}
-  body.print-a4 .a4sheet{display:block;min-width:0}
-  body.print-a4 .a4page{border:0;box-shadow:none;border-radius:0;padding:0;background:#fff!important;font-size:8.3pt;line-height:1.32;break-after:page;page-break-after:always}
-  body.print-a4 .a4page:last-child{break-after:auto;page-break-after:auto}
-  body.print-a4 pre.a4c{font-size:7.3pt!important}
-  body.print-a4 .a4b h6{font-size:7.2pt}
-  body.print-a4 .a4h{font-size:8pt}
-  body.print-a4 main,body.print-a4 .wrap{width:auto!important;max-width:none!important;margin:0!important;padding:0!important}
-  body.print-a4,html:has(body.print-a4),body.print-a4 main,body.print-a4 #final,body.print-a4 .a4sheet{background:#fff!important}
-}
-
 /* Code blocks take the reading surface; keep their text on the same theme tokens. */
 body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c){color:var(--sc-text)}
 body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c) .c{color:var(--sc-muted)}
 body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c) .k{color:var(--sc-ok,#16a34a)}
 body[data-study-console="netdes"].sc-reading .sc-reading-region pre:not(.a4c)::before{color:var(--sc-faint,var(--sc-muted))}
 
-/* Keep the A4 sheet dense: the reading layer's prose sizes must not apply inside it. */
-body[data-study-console="netdes"] .a4sheet .a4page :is(p,b,span,div,h6){font-size:inherit!important;line-height:inherit!important;letter-spacing:inherit}
-body[data-study-console="netdes"] .a4sheet .a4page p{margin:2px 0 0!important;max-width:none!important;color:#111!important}
-body[data-study-console="netdes"] .a4sheet .a4page b{color:#000!important;font-weight:700}
-body[data-study-console="netdes"] .a4sheet .a4b h6{font-size:10px!important;color:#0b5394!important;font-family:var(--mono)!important}
-body[data-study-console="netdes"] .a4sheet .a4h{font-size:11px!important}
-@media print{body.print-a4 .a4sheet .a4b h6{font-size:7.2pt!important}body.print-a4 .a4sheet .a4h{font-size:8pt!important}}
 
 /* Final tab: configuration task topologies and worked examples */
 .cfg-fig{margin:12px 0 0;border:1px solid var(--sc-line);border-radius:10px;background:var(--sc-surface);overflow-x:auto;overscroll-behavior-x:contain}
@@ -172,3 +130,26 @@ body[data-study-console="netdes"] .a4sheet .a4h{font-size:11px!important}
 .cfg-topo .cfg-bar.hot{fill:var(--sc-warn,#d97706)}
 .cfg-topo .cfg-mark{stroke:var(--sc-danger,#dc2626);stroke-width:2;stroke-dasharray:4 4}
 .cfg-topo .cfg-sub.em{fill:var(--sc-warn,#b45309);font-weight:700}
+
+/* Final cheat sheet viewer and Master the cheat sheet */
+.sheet-wrap{position:relative;margin-top:12px}
+.sheet-box{max-height:78vh;overflow:auto;overscroll-behavior:contain;border:1px solid var(--sc-line);border-radius:10px;background:#e9ecf1}
+.sheet-scale{position:relative;overflow:hidden}
+#sheetFrame{border:0;display:block;transform-origin:0 0;background:#e9ecf1}
+.sheet-cover{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center;border-radius:10px;border:1px solid var(--sc-line);background:color-mix(in srgb,var(--sc-surface) 86%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.sheet-cover.on{display:flex}
+.sheet-cover b{font-size:1.15em}
+.sheet-cover span{color:var(--sc-muted);max-width:420px}
+.mst-bars{margin:12px 0 4px}
+.mst-tabs{margin-top:14px}
+.mst-q{margin-top:12px}
+.mst-qt{font-size:16.5px;font-weight:650;margin:12px 0 6px}
+.mst-clock{font-family:var(--mono);font-size:1.25em;color:var(--sc-accent)}
+.mst-clock.slow{color:var(--sc-warn)}
+.mst-reb{margin-top:10px}
+.mst-reb td,.mst-reb th{vertical-align:middle}
+.mst-in{min-width:110px;width:100%;max-width:300px;font-family:var(--mono);padding:6px 8px}
+.mst-in.right{border-color:var(--sc-ok);box-shadow:0 0 0 1px var(--sc-ok);background:var(--sc-ok-soft)}
+.mst-in.wrong{border-color:var(--sc-danger);box-shadow:0 0 0 1px var(--sc-danger);background:var(--sc-danger-soft)}
+.mst-in.shown{border-style:dashed}
+#masterPanel .pts .btn{padding:2px 8px;margin-left:4px}

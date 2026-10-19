@@ -292,8 +292,10 @@ for (const fragment of [
   'id="finMockPanel"',
   'id="finCfgPanel"',
   'id="finAnaPanel"',
-  'id="a4sheet"',
-  'classList.add("print-a4")',
+  'id="sheetPanel"',
+  'id="sheetFrame"',
+  'id="masterPanel"',
+  'cheatsheet/CNDM_Final_Cheatsheet.pdf',
 ]) {
   check(html.includes(fragment), "final exam center is missing: " + fragment);
 }
@@ -302,7 +304,29 @@ const anaCount = (html.match(/\{t:"(?:16|17|18|18B|19|20|21|22)",title:"[^"]+",x
 check(cfgCount === 12, "expected 12 configuration tasks, found " + cfgCount);
 check(anaCount === 20, "expected 20 analysis cases, found " + anaCount);
 const adapterCss = fs.readFileSync(path.join(root, "study-console-adapter.css"), "utf8");
-check(adapterCss.includes("@media print") && adapterCss.includes("body.print-a4 .a4page"), "A4 print styles are missing");
+check(adapterCss.includes(".sheet-cover.on") && adapterCss.includes(".mst-in.right"), "cheat sheet viewer styles are missing");
+for (const f of ["cheatsheet/final.html", "cheatsheet/CNDM_Final_Cheatsheet.pdf"]) {
+  check(fs.existsSync(path.join(root, f)), "missing " + f);
+}
+{
+  const sheet = fs.readFileSync(path.join(root, "cheatsheet/final.html"), "utf8");
+  const sheetIds = new Set([...sheet.matchAll(/<h[23] id="([^"]+)"/g)].map((m) => m[1]));
+  check(sheetIds.size >= 50, "cheat sheet headings need ids, found " + sheetIds.size);
+  const locM = html.match(/var SHEETLOC=(\{.*?\});/);
+  check(!!locM, "SHEETLOC map is missing");
+  const loc = locM ? JSON.parse(locM[1]) : {};
+  for (const id of sheetIds) check(id in loc, "SHEETLOC has no entry for sheet heading " + id);
+  const refs = [...html.matchAll(/\{t:"[0-9B]+",s:"([a-z0-9]+)",q:"/g)].map((m) => m[1]);
+  const refs2 = [...html.matchAll(/\{k:"[a-z0-9]+",title:"[^"]+",s:"([a-z0-9]+)",t:"/g)].map((m) => m[1]);
+  for (const id of refs.concat(refs2)) check(sheetIds.has(id), "mastery item points at unknown sheet heading " + id);
+  const look = (html.match(/\{t:"(?:16|17|18|18B|19|20|21|22)",s:"[a-z0-9]+",q:"[^"]+",o:\[[^\]]+\],n:/g) || []).length;
+  const und = (html.match(/\{t:"(?:16|17|18|18B|19|20|21|22)",s:"[a-z0-9]+",q:"[^"]+",o:\[[^\]]+\],w:/g) || []).length;
+  const reb = (html.match(/\{k:"[a-z0-9]+",title:"[^"]+",s:"[a-z0-9]+",t:"[0-9B]+",h:\[/g) || []).length;
+  check(look >= 30, "expected at least 30 Find it fast items, found " + look);
+  check(und >= 25, "expected at least 25 Beyond the sheet cases, found " + und);
+  check(reb >= 10, "expected at least 10 Rebuild tables, found " + reb);
+  console.log("Cheat sheet mastery: " + look + " lookups, " + und + " cases, " + reb + " tables, " + sheetIds.size + " sheet headings");
+}
 
 const anchors = {
   L01: [

@@ -12,7 +12,7 @@ The app is intentionally lightweight: the console is a single `index.html` page 
 |---|---|
 | **Blueprint** | Connects the switching and routing concepts as one system |
 | **Flow** | Shows the prepare → configure → verify → troubleshoot workflow |
-| **Final** | Final exam brief and countdown, final-scope readiness, a final-only timed mock, configuration writing, system analysis cases, a five-day plan, and a printable two-sided A4 sheet |
+| **Final** | Final exam brief and countdown, final-scope readiness, a final-only timed mock, configuration writing, system analysis cases, a five-day plan, the final cheat sheet (PDF + preview), and Master the cheat sheet drills |
 | **Topics** | Twenty-four technical explanations with IOS commands and failure modes |
 | **Labs** | LAB 01 through LAB 13 with original numbering and source-matched details |
 | **Drills** | 262 flashcards, 151 practice questions, and generated exercises |
@@ -25,7 +25,9 @@ The IPv4 subnetting Review is intentionally unnumbered and does not affect the 1
 
 Topics 18B–22 complete the final scope: first hop redundancy (HSRP), high availability, Quality of Service, monitoring, and basic security. They add an HSRP failover explorer, a logical-switch and supervisor-redundancy comparison, a DSCP decoder, a syslog threshold checker, a security-zone diagram, 66 flashcards, 40 scenario questions, 16 command-recall tasks, and 37 glossary entries.
 
-The **Final** tab collects the exam brief (20 October, 15:30–18:30, closed book with one A4 sheet), readiness for the eight final-scope topics (16, 17, 18, 18B, 19, 20, 21, 22), a final-only timed mock with an optional midterm mix, 12 configuration-writing tasks with mark checklists, 20 output-analysis cases, a five-day plan, and a two-sided A4 summary that prints on exactly two pages.
+The **Final** tab collects the exam brief (20 October, 15:30–18:30, closed book with one A4 sheet), readiness for the eight final-scope topics (16, 17, 18, 18B, 19, 20, 21, 22), a final-only timed mock with an optional midterm mix, 12 configuration-writing tasks with mark checklists, 20 output-analysis cases, a five-day plan, the final cheat sheet, and the Master the cheat sheet drills.
+
+The **final cheat sheet** lives in `cheatsheet/`: `CNDM_Final_Cheatsheet.pdf` (one A4 sheet, landscape, both sides, chapters 16–23) and `final.html`, the same sheet as a page, which the Final tab shows in a zoomable preview. **Master the cheat sheet** has three drills: *Find it fast* (32 timed lookups with the sheet in hand; every answer names the side, column and heading), *Beyond the sheet* (28 scenarios answered with the sheet covered), and *Rebuild from memory* (12 key tables, 111 blanks). A mastery score combines the three.
 
 Topics 16–18 cover DHCP and relay, enterprise campus design, and integrating WLANs. Existing card/question indices and LAB 01–LAB 13 content remain stable.
 
@@ -95,7 +97,7 @@ The console includes keyboard navigation, visible focus states, reduced-motion h
 
 ## Languages
 
-The header button switches between **EN / MY**. Burmese (MY) covers Topics 16–22, the Final tab (including its configuration tasks, analysis cases and five-day plan), and the 111 flashcards and 64 practice questions for those topics. Commands, CLI exhibits and the printable A4 sheet stay in English to match the exam paper. Technical terms (VLAN, DHCP, HSRP, CAPWAP, DSCP…) are kept in English inside the Burmese text.
+The header button switches between **EN / MY**. Burmese (MY) covers Topics 16–22, the Final tab (including its configuration tasks, analysis cases and five-day plan), and the 111 flashcards and 64 practice questions for those topics. Commands, CLI exhibits, the cheat sheet and its drill questions stay in English to match the exam paper. Technical terms (VLAN, DHCP, HSRP, CAPWAP, DSCP…) are kept in English inside the Burmese text.
 
 - Translations live in `i18n/my.js`, loaded only when MY is selected, with the Noto Sans Myanmar font.
 - Lesson elements carry `data-i18n` keys; `scripts/validate.mjs` fails if any key, card or question lacks a Burmese string.

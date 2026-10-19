@@ -825,93 +825,39 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div id="anaBody"></div>
   </div>
 
-  <div class="panel" id="a4panel">
-    <div class="ph"><h2>Printable A4 sheet</h2><span class="badge cy right">both sides</span></div>
-    <p class="sub2">A dense two-sided summary of the final scope. Print it as it is, or use it as the plan for your handwritten sheet. Add your own lines in the box; they print at the end of side 2.</p>
-    <div class="row"><button class="btn go" id="a4Print">print A4 sheet</button><span class="sub2">In the print dialog choose A4, scale 100%, two-sided.</span></div>
-    <label class="fin-label" for="a4Notes">My additions</label>
-    <textarea id="a4Notes" class="fld fin-draft" rows="4" placeholder="Anything you keep forgetting…"></textarea>
-    <div class="a4wrap"><div class="a4sheet" id="a4sheet">
-      <div class="a4page">
-        <div class="a4h">FINAL · SIDE 1 · CONFIGURE AND VERIFY <span>DHCP · HSRP · syslog · NTP · SNMP · SPAN</span></div>
-        <div class="a4cols">
-          <div class="a4b"><h6>DHCP server (16)</h6><pre class="a4c">ip dhcp excluded-address 10.1.10.1 10.1.10.20
-ip dhcp pool VLAN10
- network 10.1.10.0 255.255.255.0
- default-router 10.1.10.1
- dns-server 8.8.8.8
- lease 1          ! 1 day; lease 0 12 = 12 hours; lease infinite
-show ip dhcp binding</pre><p>Exclusions are inclusive; keyword is <b>excluded</b>. One pool per client subnet. Pools must match the gateway subnet (SVI or subinterface).</p></div>
-          <div class="a4b"><h6>DHCP relay + SLAAC</h6><pre class="a4c">interface vlan 10            ! client-facing
- ip address 10.1.10.1 255.255.255.0
- ip helper-address 20.5.5.5
-ipv6 unicast-routing
-interface vlan 10
- ipv6 address 2001:DB8:10::1/64
- ipv6 enable
- no ipv6 nd managed-config-flag   ! M=0
- no ipv6 nd other-config-flag     ! O=0</pre><p>Server still needs a pool for 10.1.10.0/24 and a route back. M = address via DHCPv6; O = other info (DNS) via DHCPv6.</p></div>
-          <div class="a4b"><h6>HSRP (18B)</h6><pre class="a4c">interface g0/0                ! R1
- ip address 10.1.1.9 255.255.255.0
- standby version 2
- standby 1 ip 10.1.1.1
- standby 1 priority 110         ! default 100
- standby 1 preempt              ! off by default
- standby 1 name GRP
-! R2: same group+VIP, own IP, default priority
-show standby brief
-show standby          ! full detail: vMAC, timers</pre><p>Active = highest priority → highest interface IP. Existing active stays unless the better router has <b>preempt</b>. Hello 3 s, hold 10 s.</p></div>
-          <div class="a4b"><h6>Syslog + time (21)</h6><pre class="a4c">logging console 4         ! shows 0–4 (default 7)
-logging buffered 6        ! buffer off by default
-logging buffered 16384    ! size 4096–2147483647
-service timestamps log datetime msec localtime show-timezone year
-service timestamps log uptime
-show logging
-clock set 15:30:00 20 October 2026   ! EXEC
-clock timezone ICT 7                 ! config
-ntp server 200.1.1.10 prefer
-ntp server 200.1.1.240 version 4
-show clock / show ntp status / show ntp associations</pre></div>
-          <div class="a4b"><h6>SNMP v1 / v2c</h6><pre class="a4c">access-list 10 permit 192.168.3.99
-snmp-server community PUBLIC ro 10
-snmp-server host 192.168.3.99 PUBLIC          ! v1 trap
-snmp-server host 192.168.3.99 informs version 2c PUBLIC</pre></div>
-          <div class="a4b"><h6>SNMPv3</h6><pre class="a4c">snmp-server view V1 iso included           ! optional
-snmp-server group NetOps v3 priv read V1
-snmp-server user mymonitor NetOps v3 auth sha AUTHPW priv aes 128 PRIVPW 10
-snmp-server host 192.168.3.99 informs version 3 priv mymonitor</pre><p>noauth = noAuthNoPriv · auth = authNoPriv · priv = authPriv.</p></div>
-          <div class="a4b"><h6>Local SPAN</h6><pre class="a4c">monitor session 1 source interface g1/0/1 both
-monitor session 2 source vlan 10 rx     ! VLAN source, own session
-monitor session 1 destination interface g1/0/48
-monitor session 2 destination interface g1/0/47 encapsulation replicate
-show monitor session 1 detail
-no monitor session 1        ! or: no monitor session all</pre><p>Destination port: STP off — never connect it back into the network. replicate = keep tags + L2 protocol frames.</p></div>
-          <div class="a4b"><h6>RSPAN (A → B → C)</h6><pre class="a4c">vlan 99                 ! A, B and C
- remote-span
-! A (source)
-monitor session 1 source interface g1/0/1 both
-monitor session 1 destination remote vlan 99
-! C (destination)
-monitor session 1 source remote vlan 99
-monitor session 1 destination interface g1/0/48</pre><p>No MAC learning in RSPAN VLAN; allow on trunks only, never on access ports.</p></div>
-          <div class="a4b"><h6>Verify checklist</h6><p><b>DHCP</b> show ip dhcp binding · client IP/mask/GW/DNS · <b>HSRP</b> show standby brief (State, Active, Standby, VIP, P) · <b>NTP</b> * = sys.peer, stratum = peer + 1 · <b>Syslog</b> show logging · <b>SPAN</b> show monitor · show run | include monitor.</p></div>
-        </div>
-      </div>
-      <div class="a4page">
-        <div class="a4h">FINAL · SIDE 2 · RECALL AND ANALYZE <span>campus · WLAN · FHRP · HA · QoS · monitoring · security</span></div>
-        <div class="a4cols">
-          <div class="a4b"><h6>DHCP (16)</h6><p><b>DORA</b>: Discover (0.0.0.0:68 → 255.255.255.255:67) · Offer · Request (names chosen server) · ACK. Server UDP 67, client 68. Broadcast stays in VLAN → relay needed for remote server. Lease default 1 day.</p></div>
-          <div class="a4b"><h6>Campus (17)</h6><p><b>Access</b>: ports, VLAN, filtering, QoS, dual uplinks. <b>Distribution</b>: aggregate, L3 boundary, policy/ACL, QoS. <b>Core</b>: fast, no costly filtering, redundant. <b>Service paths</b>: local = access · remote = access→dist · enterprise = access→dist→core. <b>Switch block</b> = access + its distribution pair; STP and VLANs stay inside; ~2,000 users guideline. Best: pairs, two uplinks to different switches, link the distribution pair, don't link access switches, VLANs end at distribution. <b>Dual core</b> · <b>multinode core</b> (each block → one core pair) · <b>collapsed core</b> = dist + core in same devices.</p></div>
-          <div class="a4b"><h6>WLAN (18)</h6><p>Half-duplex, <b>CSMA/CA</b>: DIFS + random backoff. <b>IBSS</b> ad hoc · <b>BSS</b> AP · <b>ESS</b> APs on wired DS. Association needs SSID, data rate, credentials. AP maps SSID↔VLAN (trunk for many). 2.4 GHz non-overlap <b>1/6/11</b>, honeycomb, small overlap. <b>BSS color</b> 6-bit in PHY (Wi-Fi 6) vs 48-bit BSSID. Microcell / picocell = reduced power. Wi-Fi 4 n · 5 ac · 6 ax · 6E ax+6 GHz · 7 be.</p><p><b>Autonomous</b>: each AP alone, VLANs trunked everywhere. <b>Split-MAC</b>: LAP = RF, MAC mgmt, encryption · WLC = RF mgmt, association/roaming, auth, security, QoS. <b>CAPWAP</b> control UDP 5246 (encrypted) · data 5247 (DTLS optional); X.509 mutual auth; trunk only at WLC. LAP join: DHCP → find WLCs → join → image check → tunnel. Client-to-client goes via WLC (except DLS/FlexConnect).</p><p><b>Intra-controller</b> roam &lt; 10 ms. <b>L2 inter-controller</b> same VLAN, &lt; 20 ms. <b>L3</b> different VLAN: anchor (original WLC) ↔ foreign via <b>EoIP</b>, client keeps IP. Fast auth: CCKM (CCX), PKC/OKC, 802.11r. Mobility group = trusted WLC list.</p></div>
-          <div class="a4b"><h6>FHRP / HSRP (18B)</h6><p>HSRP Cisco active/standby per subnet · VRRP RFC 5798 master/backup per subnet · GLBP Cisco active/active per host. v1: groups 0–255, MAC 0000.0C07.ACxx, 224.0.0.2, hello in s. v2: 0–4095, 0000.0C9F.Fxxx, 224.0.0.102, ms, IPv6, unique ID. Failover: standby takes VIP + vMAC, sends <b>gratuitous ARP</b>; hosts unchanged.</p></div>
-          <div class="a4b"><h6>High availability (19)</h6><p>Pairs of switches + links; logical switch → EtherChannel, no STP block; <b>MEC</b> between two logical switches. <b>StackWise</b>: ≤ 9 switches, stack cables ring, stack master, one IP. <b>VSS</b>: 2 chassis, VSL, one active supervisor. <b>RPR</b> &gt; 2 min (reload modules) · <b>RPR+</b> &gt; 30 s (route engine ready, ports keep state) · <b>SSO</b> ≈ 1 s (configs + L2 state synced, FIB synced). <b>NSF</b> + SSO: FIB keeps forwarding, NSF-aware neighbors help rebuild RIB (BGP, EIGRP, OSPF, IS-IS). RIB = routing table (control) · FIB = CEF table (data).</p></div>
-          <div class="a4b"><h6>QoS (20)</h6><p>Voice: delay &lt; 150 ms, jitter &lt; 30 ms, loss &lt; 1%; data loss &lt; 5%. Best effort · <b>IntServ</b> hard, per-flow reservation · <b>DiffServ</b> soft, classes. Pipeline: classify → police → mark → queue → schedule. <b>CoS</b> 3 bits in 802.1Q · <b>IPP</b> top 3 of ToS · <b>DSCP</b> top 6, last 2 = ECN. CoS/IPP → DSCP = ×8. EF 46 (101110), IPP 5, CoS 5. <b>AFxy = 8x + 2y</b> (x class 1–4 better ↑, y drop 1–3 drops sooner ↑): AF11 10 · 12 · 14 · AF21 18 · 20 · 22 · AF31 26 · 28 · 30 · AF41 34 · 36 · 38. CSn = 8n. Untrusted → DSCP 0. Classify at access edge.</p><p><b>Shaping</b> buffers/delays (TCP, egress to slower SP) · <b>policing</b> drops/re-marks, no delay (token bucket, CIR/PIR conform-exceed-violate). FIFO · WRR share = weight ÷ Σ · priority queue (voice, LLQ) · custom queuing (WAN %). Tail drop → TCP sync. <b>RED</b> random early drop (TCP). <b>WRED</b> per-DSCP thresholds, e.g. 50% drop DSCP 0–20, 80% also &gt; 20. Best: strict PQ + WRR + WRED. AutoQoS templates.</p></div>
-          <div class="a4b"><h6>Monitoring (21)</h6><p>Syslog: timestamp %FAC-<b>SEV</b>-MNEMONIC: text. 0 emergencies · 1 alerts · 2 critical · 3 errors · 4 warnings · 5 notifications · 6 informational · 7 debugging. Threshold shows ≤ N. Clock starts 1 Mar 1993. Stratum: hops from reference (16 = unsynced). * sys.peer · + candidate · # selected · - outlier · x falseticker · ~ configured.</p><p><b>SNMP</b>: manager polls agent; MIB tree, OID (ASN.1), 1.3.6.1.2.1.2.2.1.10 = ifInOctets, Cisco = 1.3.6.1.4.1.9. Get/get-next/get-bulk/set UDP <b>161</b>; trap (no ACK) / inform (ACK) UDP <b>162</b>. v1 community, 32-bit · v2c + bulk, inform, 64-bit · v3 users, auth + encryption, views.</p></div>
-          <div class="a4b"><h6>Security (22)</h6><p><b>CIA</b>: availability reliable/timely · integrity only authorized change · confidentiality only authorized access. <b>Firewall</b> inline; filters address, port, URI, TCP state (stateful). <b>DMZ</b>: public servers; outside → DMZ allowed, outside → inside denied, inside → outside allowed. <b>IPS</b> inline, signatures (DoS, DDoS, worms), keep updated; IDS = monitor copy. <b>NGFW</b>: + AVC, malware protection, URL filtering, NGIPS. <b>NGIPS</b>: + AVC, contextual awareness, reputation filtering, event impact.</p></div>
-          <div class="a4b a4notes"><h6>My additions</h6><div id="a4NotesOut"></div></div>
-        </div>
-      </div>
-    </div></div>
+  <div class="panel" id="sheetPanel">
+    <div class="ph"><h2 data-i18n="sht.001">Final cheat sheet</h2><span class="badge cy right">A4 · 2 sides · ch 16–23</span></div>
+    <p class="sub2" data-i18n="sht.002">The sheet you take into the exam: one A4 sheet, landscape, both sides, chapters 16–23. Print the PDF at 100% (not “fit to page”) and flip on the short edge. Topics 01–15 stay on your midterm sheet.</p>
+    <div class="row">
+      <a class="btn go" id="sheetPdf" href="cheatsheet/CNDM_Final_Cheatsheet.pdf" download="CNDM_Final_Cheatsheet.pdf">download PDF</a>
+      <a class="btn" href="cheatsheet/CNDM_Final_Cheatsheet.pdf" target="_blank" rel="noopener">open PDF to print</a>
+      <a class="btn" href="cheatsheet/final.html" target="_blank" rel="noopener">open full size</a>
+      <span class="badge" data-i18n="sht.003">ZOOM</span>
+      <button class="btn" data-szoom="fit">fit</button><button class="btn" data-szoom="1">100%</button><button class="btn" data-szoom="1.5">150%</button>
+    </div>
+    <div class="sheet-wrap"><div class="sheet-box" id="sheetBox"><div class="sheet-scale" id="sheetScale"><iframe id="sheetFrame" src="cheatsheet/final.html" title="Final cheat sheet, both sides" scrolling="no"></iframe></div></div>
+      <div class="sheet-cover" id="sheetCover"><b data-i18n="sht.004">Sheet covered</b><span data-i18n="sht.005">Answer from understanding first. The sheet opens again after you answer.</span><button class="btn" id="sheetUncover">uncover anyway</button></div>
+    </div>
+  </div>
+
+  <div class="panel pv" id="masterPanel">
+    <div class="ph"><h2 data-i18n="sht.006">Master the cheat sheet</h2><span class="badge vi right" id="mstBadge">mastery 0%</span></div>
+    <p class="sub2" data-i18n="sht.007">Last preparation. Three drills: find any fact on the sheet in seconds, answer questions the sheet cannot answer for you, and rebuild its key tables from memory. Results are saved on this device.</p>
+    <div class="bars mst-bars">
+      <div class="bar"><span class="bl" data-i18n="sht.008">LOOKUP</span><span class="bt"><i id="mbLook"></i></span><span class="bv" id="mvLook">0</span></div>
+      <div class="bar"><span class="bl" data-i18n="sht.009">UNDERSTAND</span><span class="bt"><i id="mbUnd"></i></span><span class="bv" id="mvUnd">0</span></div>
+      <div class="bar"><span class="bl" data-i18n="sht.010">REBUILD</span><span class="bt"><i id="mbReb"></i></span><span class="bv" id="mvReb">0</span></div>
+    </div>
+    <div class="row mst-tabs" role="tablist">
+      <button class="btn on" data-mst="look" data-i18n="sht.011">1 · Find it fast</button>
+      <button class="btn" data-mst="und" data-i18n="sht.012">2 · Beyond the sheet</button>
+      <button class="btn" data-mst="reb" data-i18n="sht.013">3 · Rebuild from memory</button>
+      <button class="btn" id="mstReset">reset results</button>
+    </div>
+    <div class="mst-mode" data-mm="look"><p class="sub2" data-i18n="sht.014"><b>Sheet in hand.</b> Rounds of 10 lookups against the clock. Each answer shows where the fact sits on the sheet (side, column, heading). Aim for under 20 seconds each, so the exam time goes to thinking, not searching.</p></div>
+    <div class="mst-mode" data-mm="und" hidden><p class="sub2" data-i18n="sht.015"><b>Sheet covered.</b> Scenarios where the sheet only gives the facts and you have to apply them. After each answer the supporting line opens on the sheet.</p></div>
+    <div class="mst-mode" data-mm="reb" hidden><p class="sub2" data-i18n="sht.016"><b>Sheet covered.</b> Fill the blanks of the tables the exam leans on. Spelling counts for keywords; spaces, units and capital letters do not.</p></div>
+    <div id="mstBody"></div>
   </div>
 
   <div class="panel pg">
@@ -4938,6 +4884,12 @@ end</pre></div></details>
   <h1><span class="pre">// QUICK REFERENCE</span>Cheatsheet</h1>
   <p class="lede">Every number and table in one place. This is your last-hour page.</p>
 
+  <div class="panel pv">
+    <div class="ph"><h2>Final sheet · chapters 16–23</h2><span class="badge vi right">final exam</span></div>
+    <p class="sub2">This page is the midterm quick reference (STP, VLANs, EtherChannel). The final sheet, its preview, and the drills to master it are in the FINAL tab.</p>
+    <div class="row"><button class="btn go" data-sheet-go>open final sheet + drills</button><a class="btn" href="cheatsheet/CNDM_Final_Cheatsheet.pdf" download="CNDM_Final_Cheatsheet.pdf">download PDF</a></div>
+  </div>
+
   <div class="panel">
     <div class="ph"><h2>Numbers</h2><span class="badge rd right">memorize</span></div>
     <div class="tscroll"><table>
@@ -7386,25 +7338,13 @@ function boom(){
   $("anaReset").addEventListener("click",function(){if(!confirm("Clear your analysis results?"))return;ANA_RES={};store.set("finAna",ANA_RES);anaPaint();anaMeta();refresh()});
   anaPaint();anaMeta();
 
-  /* ---------- A4 sheet ---------- */
-  var notes=$("a4Notes"),nout=$("a4NotesOut");
-  function paintNotes(){nout.innerHTML=esc(notes.value||"").replace(/\n/g,"<br>")||'<span class="a4empty">Add your own lines above.</span>'}
-  notes.value=store.get("a4Notes","");paintNotes();
-  notes.addEventListener("input",function(){store.set("a4Notes",notes.value);paintNotes()});
-  $("a4Print").addEventListener("click",function(){
-    document.body.classList.add("print-a4");
-    var done=function(){document.body.classList.remove("print-a4");window.removeEventListener("afterprint",done)};
-    window.addEventListener("afterprint",done);
-    setTimeout(function(){window.print();setTimeout(done,1500)},50);
-  });
-
   /* ---------- five-day plan ---------- */
   var PLAN=[
     ["Thu 15 Oct","2026-10-15",["Topic 16 DHCP — write a pool and a relay from memory","Topic 17 campus — explain the three switch-block designs aloud","Final mock: 20 questions, then review every miss"]],
     ["Fri 16 Oct","2026-10-16",["Topic 18 WLAN — split-MAC, CAPWAP, and the three roaming cases","Topic 18B HSRP — run the failover explorer and write both router configs","Analysis cases for HSRP and WLAN"]],
     ["Sat 17 Oct","2026-10-17",["Topic 19 HA — StackWise vs VSS, RPR / RPR+ / SSO, NSF, RIB vs FIB","Topic 20 QoS — decode ten DSCP values with the decoder","Flashcards 19 and 20 until the WEAK pile is empty"]],
     ["Sun 18 Oct","2026-10-18",["Topic 21 monitoring — syslog, NTP, SNMP, SPAN and RSPAN","Topic 22 security — CIA, zones, IPS vs firewall","Print or hand-write the A4 sheet"]],
-    ["Mon 19 Oct","2026-10-19",["Final mock: 40 questions with midterm topics mixed in","Every configuration task without looking","Every analysis case; repeat the misses","Skim the midterm sheet: STP, VLAN/DTP, EtherChannel"]],
+    ["Mon 19 Oct","2026-10-19",["Final mock: 40 questions with midterm topics mixed in","Every configuration task without looking","Every analysis case; repeat the misses","Skim the midterm sheet: STP, VLAN/DTP, EtherChannel","Master the cheat sheet: two Find it fast rounds, every Beyond the sheet case, every Rebuild table"]],
     ["Tue 20 Oct","2026-10-20",["Morning: read the A4 sheet once and do one rapid fire","Pack pencil, eraser, pen, and both A4 sheets","15:30 — final exam, room 620"]]
   ];
   var pd=store.get("finPlan",{});
@@ -7452,6 +7392,305 @@ function boom(){
   if(document.documentElement.lang==="my")finLang();
   ["bKnow","bAgain"].forEach(function(id){var b=$(id);if(b)b.addEventListener("click",function(){setTimeout(refresh,0)})});
   refresh();
+})();
+
+/* ============ FINAL CHEAT SHEET VIEWER + MASTER THE SHEET ============ */
+(function(){
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+  var fr=$("sheetFrame"),box=$("sheetBox"),wrap=$("sheetScale"),cover=$("sheetCover");
+  if(!fr||!$("masterPanel"))return;
+  var W=1123,H=1604,zoom=store.get("sheetZoom","fit"),scale=1;
+  function doc(){try{var d=fr.contentDocument;return d&&d.querySelector(".page")?d:null}catch(e){return null}}
+  function measure(){var d=doc();if(d)H=Math.max(d.documentElement.scrollHeight,d.body.scrollHeight)||H}
+  function layout(){
+    var avail=Math.max(280,box.clientWidth-2);
+    scale=zoom==="fit"?Math.min(1,avail/W):parseFloat(zoom)||1;
+    fr.style.width=W+"px";fr.style.height=H+"px";fr.style.transform="scale("+scale+")";
+    wrap.style.width=Math.round(W*scale)+"px";wrap.style.height=Math.round(H*scale)+"px";
+    document.querySelectorAll("[data-szoom]").forEach(function(b){b.classList.toggle("on",b.dataset.szoom===zoom)});
+  }
+  fr.addEventListener("load",function(){measure();layout()});
+  window.addEventListener("resize",layout);
+  if(window.ResizeObserver){var lastW=0;new ResizeObserver(function(){var w=box.clientWidth;if(w&&w!==lastW){lastW=w;layout()}}).observe(box)}
+  document.querySelectorAll("[data-szoom]").forEach(function(b){b.addEventListener("click",function(){zoom=b.dataset.szoom;store.set("sheetZoom",zoom);layout()})});
+  document.querySelectorAll("[data-sheet-go]").forEach(function(b){b.addEventListener("click",function(){jump("sheetPanel","final");setTimeout(layout,120)})});
+  document.querySelectorAll('.tabbtn[data-tab="final"]').forEach(function(b){b.addEventListener("click",function(){setTimeout(layout,60)})});
+  layout();
+
+  function setCover(on){cover.classList.toggle("on",!!on)}
+  $("sheetUncover").addEventListener("click",function(){setCover(false)});
+
+  /* where each heading sits on the printed sheet: [side, column, heading, chapter] (measured from cheatsheet/final.html) */
+  var SHEETLOC={"c16":[1,1,"16. IPv4 DHCP","16. IPv4 DHCP"],"dhcp":[1,1,"DHCP basics","16. IPv4 DHCP"],"dora":[1,1,"Four steps (DORA)","16. IPv4 DHCP"],"pool":[1,1,"DHCP server on a switch/router","16. IPv4 DHCP"],"relay":[1,2,"DHCP relay (ip helper-address)","16. IPv4 DHCP"],"slaac":[1,2,"IPv6 SLAAC","16. IPv4 DHCP"],"c17":[1,2,"17. Enterprise Campus Network Design","17. Enterprise Campus Network Design"],"hier":[1,2,"Why hierarchy","17. Enterprise Campus Network Design"],"block":[1,3,"Switch block","17. Enterprise Campus Network Design"],"designs":[1,3,"Three switch-block designs","17. Enterprise Campus Network Design"],"sizing":[1,3,"Sizing a block","17. Enterprise Campus Network Design"],"core":[1,3,"Core designs","17. Enterprise Campus Network Design"],"review":[1,3,"Design review","17. Enterprise Campus Network Design"],"c18":[1,4,"18. Integrating Wireless LAN","18. Integrating Wireless LAN"],"csma":[1,4,"Half-duplex, CSMA/CA","18. Integrating Wireless LAN"],"wifi":[1,4,"Wi-Fi standards","18. Integrating Wireless LAN"],"bss":[1,4,"Service sets","18. Integrating Wireless LAN"],"cells":[1,4,"Cells, channels, coloring","18. Integrating Wireless LAN"],"auto":[1,4,"Autonomous vs controller-based","18. Integrating Wireless LAN"],"split":[1,5,"Split-MAC (CUWN)","18. Integrating Wireless LAN"],"capwap":[1,5,"CAPWAP","18. Integrating Wireless LAN"],"join":[1,5,"LAP joins a WLC","18. Integrating Wireless LAN"],"roam":[1,5,"Roaming","18. Integrating Wireless LAN"],"fast":[1,5,"Fast roaming + mobility groups","18. Integrating Wireless LAN"],"c19":[1,5,"19. High Availability","19. High Availability"],"pairs":[1,6,"Pairs still waste capacity","19. High Availability"],"stack":[1,6,"StackWise vs VSS","19. High Availability"],"sup":[1,6,"Supervisor redundancy","19. High Availability"],"nsf":[1,6,"RIB, FIB, NSF","19. High Availability"],"c20":[2,1,"20. First Hop Redundancy: FHRP and HSRP","20. First Hop Redundancy"],"gw":[2,1,"Gateway = single point of failure","20. First Hop Redundancy"],"elect":[2,1,"Election (who is active)","20. First Hop Redundancy"],"failover":[2,1,"Failover","20. First Hop Redundancy"],"hver":[2,1,"HSRP v1 vs v2","20. First Hop Redundancy"],"hcfg":[2,1,"Configuring HSRP","20. First Hop Redundancy"],"hshow":[2,2,"Reading show standby brief","20. First Hop Redundancy"],"c21":[2,2,"21. Introduction to Quality of Service","21. Introduction to Quality of Service"],"models":[2,2,"Service models","21. Introduction to Quality of Service"],"pipe":[2,2,"Switch QoS pipeline","21. Introduction to Quality of Service"],"marks":[2,2,"Markings","21. Introduction to Quality of Service"],"phb":[2,3,"Per-hop behaviors","21. Introduction to Quality of Service"],"trust":[2,3,"Trust and classification","21. Introduction to Quality of Service"],"shape":[2,3,"Shaping vs policing","21. Introduction to Quality of Service"],"queue":[2,3,"Queuing / scheduling","21. Introduction to Quality of Service"],"wred":[2,3,"Congestion avoidance","21. Introduction to Quality of Service"],"c22":[2,4,"22. Monitoring Switches: Syslog, NTP, SNMP, Port Mirroring","22. Monitoring Switches"],"syslog":[2,4,"Syslog messages","22. Monitoring Switches"],"ntp":[2,4,"Clock and NTP","22. Monitoring Switches"],"snmp":[2,4,"SNMP","22. Monitoring Switches"],"span":[2,5,"Local SPAN","22. Monitoring Switches"],"rspan":[2,5,"Remote SPAN (RSPAN)","22. Monitoring Switches"],"c23":[2,6,"23. Basic Security","23. Basic Security"],"fw":[2,6,"Firewall","23. Basic Security"],"ips":[2,6,"IPS / IDS","23. Basic Security"],"ngfw":[2,6,"NGFW / NGIPS","23. Basic Security"],"ports":[2,6,"Ports and addresses (ch 16–22)","23. Basic Security"]};
+  function whereTxt(id){
+    var w=SHEETLOC[id];if(!w)return "";
+    return "Side "+w[0]+" · column "+w[1]+" · "+(w[3]&&w[3]!==w[2]?w[3]+" → ":"")+w[2];
+  }
+  function showOnSheet(id){
+    var d=doc();if(!d)return;var el=d.getElementById(id);if(!el)return;
+    setCover(false);
+    d.querySelectorAll(".hl").forEach(function(x){x.classList.remove("hl")});
+    el.classList.add("hl");
+    var n=el.nextElementSibling,k=0;
+    while(n&&!/^H[23]$/.test(n.tagName)&&k<14){n.classList.add("hl");n=n.nextElementSibling;k++}
+    var r=el.getBoundingClientRect(),hdr=document.querySelector(".sc-global-header,nav"),off=(hdr?hdr.getBoundingClientRect().height:60)+12;
+    window.scrollTo({top:Math.max(0,box.getBoundingClientRect().top+window.pageYOffset-off),behavior:"smooth"});
+    box.scrollTo({top:Math.max(0,r.top*scale-box.clientHeight/3),left:Math.max(0,r.left*scale-24),behavior:"smooth"});
+  }
+
+  /* ---------- data ---------- */
+  /* o[0] is the correct option; options are shuffled on display */
+  var LOOK=[
+    {t:"18B",s:"hver",q:"HSRP version 2, group 30: virtual MAC?",o:["0000.0C9F.F01E","0000.0C07.AC1E","0000.0C9F.F030","0000.0C07.AC30"],n:"30 = 0x1E (30 ÷ 16 = 1 r 14 → 1E). v2 prefix 0000.0C9F.F + three hex digits."},
+    {t:"20",s:"phb",q:"DSCP 36 is which PHB?",o:["AF42","AF41","AF43","CS4"],n:"36 = 8×4 + 2×2 → class 4, drop 2."},
+    {t:"21",s:"syslog",q:"Syslog severity 4 keyword?",o:["warnings","errors","notifications","critical"],n:"0 emergencies · 1 alerts · 2 critical · 3 errors · 4 warnings · 5 notifications · 6 informational · 7 debugging."},
+    {t:"19",s:"sup",q:"Which supervisor mode reloads every module on failover (over 2 minutes)?",o:["RPR","RPR+","SSO","NSF"],n:"RPR+ keeps modules (over 30 s); SSO is about 1 s with links up."},
+    {t:"18",s:"capwap",q:"CAPWAP data tunnel port?",o:["UDP 5247","UDP 5246","TCP 5247","UDP 1985"],n:"Control 5246 (always secured), data 5247 (DTLS optional)."},
+    {t:"21",s:"snmp",q:"Traps and informs arrive at the manager on which port?",o:["UDP 162","UDP 161","UDP 514","UDP 123"],n:"Agent listens on 161 for get/set; manager listens on 162."},
+    {t:"18",s:"wifi",q:"802.11ac: band and maximum PHY rate?",o:["5 GHz · 6.9 Gbps","2.4/5 GHz · 600 Mbps","2.4/5 GHz · 9.6 Gbps","5 GHz · 54 Mbps"],n:"Wi-Fi 5. 600 Mbps is 802.11n; 9.6 Gbps is 802.11ax; 54 Mbps 5 GHz is 802.11a."},
+    {t:"16",s:"dora",q:"DHCP Discover: addresses and ports?",o:["0.0.0.0:68 → 255.255.255.255:67","0.0.0.0:67 → 255.255.255.255:68","client IP:68 → server IP:67","0.0.0.0:68 → 224.0.0.2:67"],n:"Client has no address yet, so source 0.0.0.0; server port 67, client port 68."},
+    {t:"21",s:"ntp",q:"NTP stratum 16 means…",o:["unsynchronized","the reference clock itself","16 hops away but valid","a local master clock"],n:"Stratum 1 is attached to the reference clock; each client is its peer + 1."},
+    {t:"19",s:"stack",q:"Maximum switches in a StackWise stack, and chassis in a VSS?",o:["9 and 2","8 and 2","9 and 4","2 and 9"],n:"StackWise: ring of stack cables, one master. VSS: two identical chassis joined by the VSL."},
+    {t:"18B",s:"failover",q:"Default HSRP hello and hold timers?",o:["3 s and 10 s","2 s and 6 s","1 s and 3 s","10 s and 30 s"],n:"Standby takes over when the hold timer expires, then sends gratuitous ARP from the virtual MAC."},
+    {t:"20",s:"phb",q:"AF23 in decimal?",o:["22","20","26","30"],n:"8×2 + 2×3 = 22."},
+    {t:"20",s:"trust",q:"CoS 3 arrives on a port that trusts CoS. Internal DSCP?",o:["24","26","0","3"],n:"Default CoS-to-DSCP map is CoS × 8. 26 would be AF31, which the map never produces."},
+    {t:"21",s:"snmp",q:"SNMPv3 keyword for authentication without encryption?",o:["auth","noauth","priv","authpriv"],n:"noauth = noAuthNoPriv · auth = authNoPriv · priv = authPriv."},
+    {t:"21",s:"span",q:"Keyword that keeps VLAN tags and BPDU/CDP frames on a SPAN destination?",o:["encapsulation replicate","both","remote-span","ingress vlan"],n:"Without it the copies leave untagged and without layer 2 protocol frames."},
+    {t:"17",s:"hier",q:"Inter-VLAN routing and ACL policy belong at which layer?",o:["Distribution","Access","Core","All three equally"],n:"Core forwards fast with no heavy filtering; access connects devices."},
+    {t:"18",s:"roam",q:"Client keeps its IP after moving to a WLC on another subnet. The original WLC is the…",o:["anchor","foreign","master","mobility peer"],n:"New WLC = foreign; traffic is tunnelled (EoIP) back to the anchor."},
+    {t:"18",s:"fast",q:"IEEE standard for fast roaming?",o:["802.11r","802.11ax","802.1X","802.11e"],n:"CCKM is Cisco; OKC/PKC share a cached key; 802.11r sets up keys during the move."},
+    {t:"19",s:"nsf",q:"Which protocol is NOT on the NSF list?",o:["RIP","OSPF","EIGRP","IS-IS"],n:"NSF: BGP, EIGRP, OSPF, IS-IS. Neighbours must be NSF-aware."},
+    {t:"21",s:"ntp",q:"clock timezone ICT 7 is entered in which mode?",o:["Global configuration","Privileged EXEC","Interface configuration","User EXEC"],n:"clock set is privileged EXEC; clock timezone is global config."},
+    {t:"21",s:"ntp",q:"Date a switch shows after boot with no clock set?",o:["March 1, 1993","January 1, 1970","January 1, 2000","March 1, 2002"],n:"That is why log timestamps are wrong until NTP or clock set fixes the time."},
+    {t:"18B",s:"gw",q:"Which FHRP balances load per host using different virtual MACs?",o:["GLBP","HSRP","VRRP","HSRP version 2"],n:"HSRP and VRRP balance per subnet (one group per VLAN)."},
+    {t:"22",s:"fw",q:"An outside host starts a session to an inside host. Default decision?",o:["Denied","Allowed","Allowed if the firewall is stateful","Redirected to the DMZ"],n:"Stateful inspection only allows replies to sessions that inside started."},
+    {t:"22",s:"ngfw",q:"NGIPS feature that ranks alerts by importance?",o:["Event impact levels","Reputation-based filtering","Contextual awareness","AVC"],n:"Reputation = known-bad URLs/IPs; context = host information; AVC = application visibility."},
+    {t:"20",s:"c21",q:"Voice limits for one-way delay and jitter?",o:["Under 150 ms delay, under 30 ms jitter","Under 30 ms delay, under 150 ms jitter","Under 100 ms delay, under 50 ms jitter","Under 150 ms delay, under 100 ms jitter"],n:"Voice loss under 1%; data tolerates loss under 5% because TCP resends."},
+    {t:"20",s:"shape",q:"Policer used as a marker: traffic between CIR and PIR is marked…",o:["AF12","AF11","AF13","dropped"],n:"Up to CIR AF11, between CIR and PIR AF12, above PIR AF13."},
+    {t:"18",s:"roam",q:"Typical intra-controller roam time?",o:["Under 10 ms","Under 20 ms","Under 50 ms","About 1 s"],n:"Layer 2 inter-controller roam: under 20 ms."},
+    {t:"17",s:"core",q:"One device pair does both distribution and core:",o:["Collapsed core","Dual core","Multinode core","Routed access"],n:"Smaller campus, lower cost; the layers merge but redundancy stays."},
+    {t:"21",s:"syslog",q:"Default console logging level?",o:["7 (debugging)","6 (informational)","4 (warnings)","0 (emergencies)"],n:"The buffer is off by default; logging buffered 6 turns it on at level 6."},
+    {t:"16",s:"slaac",q:"Which RA flag at 0 means hosts do NOT take their address from DHCPv6?",o:["M flag","O flag","R flag","S flag"],n:"M = managed (address via DHCPv6); O = other information (DNS) via DHCPv6."},
+    {t:"18B",s:"hver",q:"HSRP version 2 hello multicast address?",o:["224.0.0.102","224.0.0.2","224.0.0.18","224.0.0.10"],n:"v1 uses 224.0.0.2; VRRP uses 224.0.0.18."},
+    {t:"16",s:"pool",q:"Default DHCP lease on IOS when the pool has no lease line?",o:["1 day","8 hours","7 days","infinite"],n:"lease 7 = 7 days; lease 0 12 = 12 hours; lease infinite."}
+  ];
+  var UND=[
+    {t:"18B",s:"elect",q:"R1 has priority 120 without preempt; R2 has priority 100 with preempt. R2 booted first and became active, then R1 came up. Who is active?",o:["R2, because R1 cannot take over without preempt","R1, because 120 is higher","R2 only until its hold timer expires","Both, until one is shut down"],w:"Priority only decides when there is no active router, or when the better router has preempt. R2's preempt does not help R1. Fix: standby 1 preempt on R1."},
+    {t:"16",s:"relay",q:"VLAN 10 and VLAN 30 SVIs both have ip helper-address 20.5.5.5. VLAN 10 clients get leases; VLAN 30 clients show 169.254.x.x. Most likely cause?",o:["The server has no pool for the VLAN 30 subnet","The helper should be on the uplink instead","DHCP broadcasts cannot leave VLAN 30","VLAN 30 needs its own DHCP server"],w:"The relay writes the VLAN 30 SVI address into the request; the server looks for a pool in that subnet. No pool, no Offer, so the client falls back to APIPA."},
+    {t:"16",s:"dhcp",q:"A client can ping 8.8.8.8 but cannot open www.example.com. Which DHCP setting is wrong or missing?",o:["dns-server","default-router","network","lease"],w:"Reaching a remote IP proves address and gateway work. Names failing points at DNS."},
+    {t:"16",s:"relay",q:"Client VLAN 20 has SVI 10.1.20.1 on DSW1. DSW1's routed uplink g1/0/1 faces the core; the DHCP server 20.5.5.5 is beyond the core. Where does ip helper-address go?",o:["interface vlan 20","interface g1/0/1 (the uplink)","On the DHCP server","On every access port in VLAN 20"],w:"The helper goes on the interface that receives the client broadcast: the client-facing gateway."},
+    {t:"17",s:"designs",q:"VLAN 10 spans both access switches and both distribution switches over layer 2 trunks. What does STP do?",o:["Blocks one or more uplinks, wasting paid-for bandwidth","Nothing, because no loop exists","Load-balances across every uplink","Shuts the link between the distribution switches"],w:"Shared VLANs make loops, so STP blocks. Fixes: local VLANs with a routed distribution link, routed access, or a logical switch (VSS) with MEC."},
+    {t:"17",s:"hier",q:"A user in switch block A opens a server attached in switch block B. Which layers does the traffic cross?",o:["Access → distribution → core → distribution → access","Access → core → access","Access → distribution → access","Distribution only"],w:"Enterprise services in another block are always reached through the core."},
+    {t:"18",s:"cells",q:"One AP at full power serves 90 clients in a hall and users report slow Wi-Fi. Best fix?",o:["More APs at lower power on non-overlapping channels","Raise the AP power further","Put every AP on channel 6","Switch the clients to ad hoc mode"],w:"Capacity is airtime per cell. Smaller cells (lower power, more APs) split the clients across cells; channels 1, 6, 11 keep neighbours from sharing airtime."},
+    {t:"18",s:"auto",q:"With central switching through a WLC, two clients on the same LAP exchange a file. What path do the frames take?",o:["A → LAP → WLC → LAP → B","A → B directly","A → LAP → B","A → LAP → access switch → LAP → B"],w:"The LAP tunnels all client traffic over CAPWAP to the WLC, which forwards it, even between clients on the same AP."},
+    {t:"18",s:"roam",q:"Client 192.168.100.199 roams from WLC-1 (VLAN 100) to WLC-2 (subnet 192.168.200.0/24) and keeps its IP. Where does its traffic enter the wired network?",o:["At WLC-1, tunnelled from WLC-2 (anchor and foreign)","At WLC-2, with a new IP","At WLC-2, routing the old IP directly","At the new AP"],w:"Layer 3 inter-controller roam: WLC-2 is foreign and tunnels the traffic (EoIP) to WLC-1, the anchor, where the client's subnet lives."},
+    {t:"18",s:"auto",q:"Autonomous APs broadcast one SSID across the building, but each floor's AP ports are in a different VLAN. Users lose sessions when changing floors. Fix?",o:["Put the SSID's VLAN on every AP port (end-to-end VLAN) or move to a WLC","Raise AP power so clients roam less","Use a different SSID per floor","Put every AP on channel 1"],w:"With autonomous APs, roaming within an SSID only keeps the IP if the same VLAN exists at every AP. With a WLC the client VLAN only needs to exist at the WLC."},
+    {t:"19",s:"pairs",q:"An access stack connects to a VSS pair with one multichassis EtherChannel. One member link fails. Result?",o:["Capacity drops; traffic continues on the remaining links with no STP change","STP reconverges for 30–50 s","The VSS switches supervisors","The access stack loses its uplink"],w:"With logical switches at both ends STP sees one link; losing a member only removes bandwidth."},
+    {t:"19",s:"nsf",q:"Requirement: a supervisor failure must not flap links, and routed traffic must keep flowing. Choose.",o:["SSO with NSF, with NSF-aware neighbours","RPR+","RPR with HSRP","SSO alone, running RIP"],w:"SSO keeps links up (state synchronized); NSF keeps forwarding from the FIB copy while the new active rebuilds the RIB, and neighbours keep the adjacency."},
+    {t:"19",s:"sup",q:"Log: the standby was already booted, ports stayed up, layer 2 and layer 3 protocols started after the failure, about 40 seconds. Which mode?",o:["RPR+","RPR","SSO","NSF"],w:"RPR reloads modules (over 2 min). SSO would be about 1 s with protocols already synchronized."},
+    {t:"21",s:"syslog",q:"logging console warnings is configured. Which message still appears on the console?",o:["%LINK-3-UPDOWN","%LINEPROTO-5-UPDOWN","%SYS-5-CONFIG_I","%SYS-6-LOGGINGHOST_STARTSTOP"],w:"warnings = 4, so levels 0–4 show. LINK-3 is level 3; the others are 5 and 6."},
+    {t:"21",s:"ntp",q:"show ntp associations lists *~10.0.0.1 st 3 and +~10.0.0.2 st 2. What stratum does this switch report?",o:["4","3","2","1"],w:"The switch is synchronized to the * peer (stratum 3), so it is 3 + 1. The lower-stratum candidate is not the one in use."},
+    {t:"20",s:"trust",q:"An IP phone sends voice with CoS 5 / DSCP 46. The access port trusts CoS. What internal DSCP results?",o:["40, so trust DSCP or change the CoS-to-DSCP map","46, nothing to fix","0, because ports are untrusted by default","5, copied directly"],w:"The default map is CoS × 8, so CoS 5 → 40, not EF (46). Trusting DSCP keeps 46."},
+    {t:"20",s:"shape",q:"Your 1 Gbps edge connects to a provider that polices at 200 Mbps. Bursty TCP traffic loses packets. What do you configure on your egress?",o:["Shape to 200 Mbps","Police to 200 Mbps","WRR with equal weights","A priority queue for all traffic"],w:"Shaping buffers the bursts and sends at the contract rate, so the provider's policer has nothing to drop. Policing on your side would drop them anyway."},
+    {t:"20",s:"queue",q:"WRR weights 3 / 1 / 2 / 2 on four queues. Share of Q1 under congestion?",o:["37.5%","30%","3%","25%"],w:"Weight ÷ total: 3 ÷ 8 = 37.5%."},
+    {t:"20",s:"wred",q:"A class 3 queue holds DSCP 26 and DSCP 30 traffic. As it fills, WRED starts dropping. Which goes first?",o:["DSCP 30 (AF33)","DSCP 26 (AF31)","Both equally","Neither; WRED only drops when the queue is full"],w:"Same class, higher drop precedence is dropped sooner: AF33 before AF31."},
+    {t:"20",s:"wred",q:"Many TCP flows on a congested WAN link speed up and slow down together, and throughput saw-tooths. Cause and fix?",o:["Tail drop causes TCP synchronization; apply WRED","Policing; replace it with shaping","Priority queue starvation; remove the PQ","Jitter; enlarge the buffers"],w:"A full queue drops from every flow at once, so they all back off together. RED/WRED drops early and randomly so flows back off at different times."},
+    {t:"21",s:"snmp",q:"The manager must confirm every alert and the data must be encrypted. Which command?",o:["snmp-server host 192.168.3.99 informs version 3 priv mymonitor","snmp-server host 192.168.3.99 version 3 auth mymonitor","snmp-server host 192.168.3.99 informs version 2c PUBLIC","snmp-server host 192.168.3.99 traps version 3 priv mymonitor"],w:"Confirmation = informs (traps are not acknowledged). Encryption = v3 priv (auth only authenticates)."},
+    {t:"21",s:"rspan",q:"RSPAN runs from switch A through B to C. A and C are configured correctly, but the analyzer on C sees nothing. What is missing on B?",o:["vlan 99 with remote-span, allowed on both trunks","A monitor session on B","A SPAN destination port on B","ip helper-address on B"],w:"The middle switch needs no session, only the RSPAN VLAN carried on its trunks. Without it the copies are dropped at B."},
+    {t:"21",s:"span",q:"Someone connects the SPAN destination port to another switch so others can capture too. What is the risk?",o:["The destination port has STP disabled, so a loop can form","None; SPAN is read-only","The copies become encrypted","The session turns into RSPAN"],w:"A SPAN destination never takes part in STP; connect only an analyzer to it."},
+    {t:"22",s:"fw",q:"The DMZ web server is compromised. Can the attacker open sessions from it to the inside database?",o:["No; DMZ to inside is denied unless explicitly permitted","Yes; the DMZ is a trusted zone","Yes, because outside to DMZ was allowed","Only over UDP"],w:"That is the point of the DMZ: a compromised public server still has to cross the firewall to reach inside."},
+    {t:"22",s:"ips",q:"A new worm spreads over TCP 443, which the firewall allows. What stops it?",o:["An IPS/NGIPS with an updated signature","The stateful firewall","Moving the servers to the DMZ","SNMPv3"],w:"A port-based rule cannot tell the worm from normal HTTPS. Signature matching can, as long as the signatures stay updated."},
+    {t:"18B",s:"hshow",q:"show standby brief on both routers shows State Active and Standby unknown. Most likely cause?",o:["Hellos are not received: group or version mismatch, or a link or multicast problem","Preempt is missing","The priorities are equal","Both routers use the same virtual IP"],w:"Each router thinks it is alone. Preempt never causes two actives; equal priority is broken by the highest IP; the same VIP is required."},
+    {t:"18",s:"csma",q:"Two stations follow CSMA/CA correctly and still collide. Why?",o:["Their random backoff counters reached zero at the same time","CSMA/CA turns off carrier sense","The radios are full-duplex","DIFS was too long"],w:"Collision avoidance lowers the chance; it cannot remove it. Wi-Fi is half-duplex shared airtime."},
+    {t:"22",s:"c23",q:"Which CIA goal does SNMPv3 priv protect, and which does HSRP protect?",o:["Confidentiality; availability","Integrity; availability","Availability; confidentiality","Confidentiality; integrity"],w:"Encryption keeps data private (confidentiality). A redundant gateway keeps service reachable (availability). SNMPv3 auth protects integrity."}
+  ];
+  /* blanks: "?answer|alternative" */
+  var REB=[
+    {k:"syslog",title:"Syslog severity levels",s:"syslog",t:"21",h:["Level","Keyword"],r:[["0","?emergencies|emergency"],["1","?alerts|alert"],["2","?critical"],["3","?errors|error"],["4","?warnings|warning"],["5","?notifications|notification"],["6","?informational"],["7","?debugging"]]},
+    {k:"af",title:"AF values (decimal DSCP)",s:"phb",t:"20",h:["Class","Drop 1","Drop 2","Drop 3"],r:[["AF4x","?34","?36","?38"],["AF3x","?26","?28","?30"],["AF2x","?18","?20","?22"],["AF1x","?10","?12","?14"]]},
+    {k:"named",title:"Named DSCP values",s:"phb",t:"20",h:["Name","Decimal","Binary"],r:[["EF","?46","?101110"],["CS3","?24","?011000"],["CS6","?48","?110000"],["Default","?0","?000000"]]},
+    {k:"mark",title:"Markings",s:"marks",t:"20",h:["Marking","Layer","Bits","Range"],r:[["CoS","?2","?3","?0-7"],["IP Precedence","?3","?3","?0-7"],["DSCP","?3","?6","?0-63"]]},
+    {k:"hsrp",title:"HSRP version 1 vs version 2",s:"hver",t:"18B",h:["","v1","v2"],r:[["Groups","?0-255","?0-4095"],["Virtual MAC","?0000.0C07.ACxx|0000.0c07.ac","?0000.0C9F.Fxxx|0000.0c9f.f"],["Multicast","?224.0.0.2","?224.0.0.102"],["Hello timers in","?seconds|s","?milliseconds|ms"],["Default priority","?100","?100"]]},
+    {k:"sup",title:"Supervisor redundancy",s:"sup",t:"19",h:["Mode","Failover time","Links stay up?"],r:[["RPR","?2 min|2 minutes|>2 min","?no"],["RPR+","?30 s|30 sec|30 seconds|>30 s","?yes"],["SSO","?1 s|1 sec|1 second|about 1 s","?yes"]]},
+    {k:"snmpops",title:"SNMP operations",s:"snmp",t:"21",h:["Operation","Port","Acknowledged?","First version"],r:[["Get","?161","?yes","?v1|1"],["Get-bulk","?161","?yes","?v2c|2c"],["Trap","?162","?no","?v1|1"],["Inform","?162","?yes","?v2c|2c"]]},
+    {k:"v3",title:"SNMPv3 security levels",s:"snmp",t:"21",h:["Level","Keyword","Authenticates","Encrypts"],r:[["noAuthNoPriv","?noauth","?no","?no"],["authNoPriv","?auth","?yes","?no"],["authPriv","?priv","?yes","?yes"]]},
+    {k:"ports",title:"Ports and addresses",s:"ports",t:"21",h:["Protocol","Port / address"],r:[["DHCP server","?67|udp 67"],["DHCP client","?68|udp 68"],["CAPWAP control","?5246"],["CAPWAP data","?5247"],["HSRP","?1985"],["SNMP agent (get/set)","?161"],["SNMP manager (trap/inform)","?162"],["Syslog server","?514"],["NTP","?123"],["VRRP multicast","?224.0.0.18"]]},
+    {k:"dora",title:"DHCP four steps",s:"dora",t:"16",h:["Step","Message","Sent by","Destination port"],r:[["1","?discover","?client","?67"],["2","?offer","?server","?68"],["3","?request","?client","?67"],["4","?ack|acknowledgement|acknowledge","?server","?68"]]},
+    {k:"layers",title:"Campus layers",s:"hier",t:"17",h:["Role","Layer"],r:[["Connects end devices; VLAN membership, port security, traffic priority","?access"],["Aggregates access; inter-VLAN routing; ACL and QoS policy; L2/L3 boundary","?distribution"],["Joins switch blocks; very fast forwarding, no heavy filtering","?core"]]},
+    {k:"wifi",title:"Wi-Fi standards",s:"wifi",t:"18",h:["IEEE","Band (GHz)","Max PHY"],r:[["802.11b","?2.4","?11 mbps|11"],["802.11a","?5","?54 mbps|54"],["802.11g","?2.4","?54 mbps|54"],["802.11n (Wi-Fi 4)","?2.4/5|2.4 and 5|2.4,5","?600 mbps|600"],["802.11ac (Wi-Fi 5)","?5","?6.9 gbps|6.9"],["802.11ax (Wi-Fi 6)","?2.4/5|2.4 and 5|2.4,5","?9.6 gbps|9.6"]]}
+  ];
+  var TOT_REB=0;REB.forEach(function(t){t.r.forEach(function(r){r.forEach(function(c){if(c.charAt(0)==="?")TOT_REB++})})});
+
+  /* ---------- state ---------- */
+  var RL=store.get("mstLook",{}),RU=store.get("mstUnd",{}),RR=store.get("mstReb",{});
+  function save(){store.set("mstLook",RL);store.set("mstUnd",RU);store.set("mstReb",RR)}
+  function cnt(o){return Object.keys(o).filter(function(k){return o[k]&&o[k].ok}).length}
+  function rebCnt(){var n=0;Object.keys(RR).forEach(function(k){if(RR[k])n++});return n}
+  function meta(){
+    var l=cnt(RL),u=cnt(RU),r=rebCnt();
+    var pl=l/LOOK.length,pu=u/UND.length,pr=r/TOT_REB,all=Math.round((pl+pu+pr)/3*100);
+    $("mbLook").style.width=Math.round(pl*100)+"%";$("mvLook").textContent=l+"/"+LOOK.length;
+    $("mbUnd").style.width=Math.round(pu*100)+"%";$("mvUnd").textContent=u+"/"+UND.length;
+    $("mbReb").style.width=Math.round(pr*100)+"%";$("mvReb").textContent=r+"/"+TOT_REB;
+    $("mstBadge").textContent="mastery "+all+"%";
+    $("mstBadge").className="badge right "+(all>=85?"gr":all>=50?"am":"vi");
+  }
+  function norm(v){
+    return String(v).toLowerCase().replace(/[–—−]/g,"-").replace(/\s+/g,"")
+      .replace(/^(about|over|morethan|under|approx\.?|~|≈|>|<)+/,"").replace(/^(udp|tcp)/,"").replace(/[~≈>]/g,"");
+  }
+  function okAns(v,spec){
+    var n=norm(v);if(!n)return false;
+    return spec.slice(1).split("|").some(function(a){return norm(a)===n});
+  }
+
+  /* ---------- mode switch ---------- */
+  var mode=store.get("mstMode","look");
+  function setMode(m){
+    mode=m;store.set("mstMode",m);
+    document.querySelectorAll("[data-mst]").forEach(function(b){b.classList.toggle("on",b.dataset.mst===m)});
+    document.querySelectorAll("[data-mm]").forEach(function(d){d.hidden=d.dataset.mm!==m});
+    setCover(m!=="look");
+    if(m==="look")lookStart();else if(m==="und")undPaint();else rebPaint();
+  }
+  document.querySelectorAll("[data-mst]").forEach(function(b){b.addEventListener("click",function(){setMode(b.dataset.mst)})});
+  $("mstReset").addEventListener("click",function(){
+    if(!confirm("Clear all Master the cheat sheet results?"))return;
+    RL={};RU={};RR={};save();meta();setMode(mode);
+  });
+
+  function opts(o){return shuf(o.map(function(x,i){return i}))}
+  function locBtn(s){return '<button class="btn" data-show="'+s+'">show on sheet</button>'}
+  function wireShow(root){root.querySelectorAll("[data-show]").forEach(function(b){b.addEventListener("click",function(){showOnSheet(b.dataset.show)})})}
+
+  /* ---------- 1. Find it fast ---------- */
+  var round=null,timer=null;
+  function lookStart(){
+    clearInterval(timer);
+    var idx=LOOK.map(function(x,i){return i});
+    var todo=shuf(idx.filter(function(i){return !(RL[i]&&RL[i].ok)})),done=shuf(idx.filter(function(i){return RL[i]&&RL[i].ok}));
+    done.sort(function(a,b){return (RL[b].ms||0)-(RL[a].ms||0)});
+    round={q:todo.concat(done).slice(0,10),i:0,ok:0,ms:[],res:[]};
+    lookPaint();
+  }
+  function fmt(ms){return (ms/1000).toFixed(1)+" s"}
+  function lookPaint(){
+    clearInterval(timer);
+    var body=$("mstBody");
+    if(round.i>=round.q.length){
+      var avg=round.ms.reduce(function(a,b){return a+b},0)/Math.max(1,round.ms.length),n=round.q.length;
+      var verdict=round.ok<n?(n-round.ok)+" missed: open each one on the sheet below and note where it lives.":avg<=20000?"all correct and fast: the sheet is working for you.":"all correct; now get the average under 20 s.";
+      var list=round.q.map(function(qi,j){return {qi:qi,ms:round.ms[j],ok:round.res[j]}});
+      var show=list.filter(function(x){return !x.ok}).concat(list.filter(function(x){return x.ok}).sort(function(a,b){return b.ms-a.ms})).slice(0,Math.max(3,n-round.ok));
+      var h='<div class="why"><b>Round done · '+round.ok+' / '+n+' correct · average '+fmt(avg)+'</b> — '+verdict+'</div>';
+      h+='<p class="sub2" style="margin-top:10px">Missed, then slowest:</p><ul class="pts">';
+      show.forEach(function(x){var L=LOOK[x.qi];h+='<li>'+(x.ok?'':'<span class="no">✗</span> ')+fmt(x.ms)+' · '+esc(L.q)+' <b>'+esc(L.o[0])+'</b> — <span class="mono">'+esc(whereTxt(L.s))+'</span> '+locBtn(L.s)+'</li>'});
+      h+='</ul><div class="row"><button class="btn on" id="lookAgain">▶ next round</button></div>';
+      body.innerHTML=h;wireShow(body);
+      $("lookAgain").addEventListener("click",lookStart);
+      return;
+    }
+    var qi=round.q[round.i],L=LOOK[qi],ord=opts(L.o),t0=Date.now();
+    var h='<div class="mst-q"><div class="row" style="justify-content:space-between"><span class="badge">LOOKUP '+(round.i+1)+' / '+round.q.length+'</span><span class="mst-clock" id="lookClock">0.0 s</span></div>'+
+      '<p class="mst-qt">'+esc(L.q)+'</p>';
+    ord.forEach(function(o){h+='<button class="qopt" data-lo="'+o+'">'+esc(L.o[o])+'</button>'});
+    h+='<div id="lookAfter"></div></div>';
+    body.innerHTML=h;
+    timer=setInterval(function(){var c=$("lookClock");if(!c){clearInterval(timer);return}var ms=Date.now()-t0;c.textContent=fmt(ms);c.classList.toggle("slow",ms>20000)},100);
+    var answered=false;
+    body.querySelectorAll(".qopt").forEach(function(b){b.addEventListener("click",function(){
+      if(answered)return;answered=true;clearInterval(timer);
+      var ms=Date.now()-t0,o=parseInt(b.dataset.lo,10),ok=o===0;
+      var prev=RL[qi]||{};
+      RL[qi]={ok:ok||!!prev.ok,ms:ok?(prev.ms&&prev.ok?Math.min(prev.ms,ms):ms):(prev.ms||0)};save();meta();
+      if(window.recordAns)window.recordAns(L.t,ok);
+      round.ms.push(ms);round.res.push(ok);if(ok)round.ok++;
+      body.querySelectorAll(".qopt").forEach(function(x){var i=parseInt(x.dataset.lo,10);if(i===0)x.classList.add("right");else if(i===o)x.classList.add("wrong");x.disabled=true});
+      $("lookAfter").innerHTML='<div class="why"><b>'+(ok?"✓ ":"✗ ")+fmt(ms)+'</b> · <span class="mono">'+esc(whereTxt(L.s))+'</span><br>'+esc(L.n)+'</div><div class="row">'+locBtn(L.s)+'<button class="btn on" id="lookNext">next →</button></div>';
+      wireShow(body);
+      $("lookNext").addEventListener("click",function(){round.i++;lookPaint()});
+    })});
+  }
+
+  /* ---------- 2. Beyond the sheet ---------- */
+  var ui=store.get("mstUndI",0);if(ui>=UND.length)ui=0;
+  function undPaint(){
+    clearInterval(timer);setCover(true);
+    var c=UND[ui],ord=opts(c.o),r=RU[ui];
+    var h='<div class="mst-q"><div class="row" style="justify-content:space-between"><span class="badge">CASE '+(ui+1)+' / '+UND.length+'</span>'+(r&&r.ok?'<span class="ok">solved</span>':r?'<span class="no">missed before</span>':'')+
+      '<span><button class="btn" id="undPrev">← prev</button> <button class="btn" id="undNext">next →</button> <button class="btn" id="undMiss">next unsolved</button></span></div>'+
+      '<p class="mst-qt">'+esc(c.q)+'</p>';
+    ord.forEach(function(o){h+='<button class="qopt" data-uo="'+o+'">'+esc(c.o[o])+'</button>'});
+    h+='<div id="undAfter"></div></div>';
+    $("mstBody").innerHTML=h;
+    function go(i){ui=(i+UND.length)%UND.length;store.set("mstUndI",ui);undPaint()}
+    $("undPrev").addEventListener("click",function(){go(ui-1)});
+    $("undNext").addEventListener("click",function(){go(ui+1)});
+    $("undMiss").addEventListener("click",function(){for(var k=1;k<=UND.length;k++){var j=(ui+k)%UND.length;if(!(RU[j]&&RU[j].ok)){go(j);return}}go(ui+1)});
+    var answered=false;
+    document.querySelectorAll("#mstBody .qopt").forEach(function(b){b.addEventListener("click",function(){
+      if(answered)return;answered=true;
+      var o=parseInt(b.dataset.uo,10),ok=o===0;
+      RU[ui]={ok:ok||!!(RU[ui]&&RU[ui].ok)};save();meta();
+      if(window.recordAns)window.recordAns(c.t,ok);
+      document.querySelectorAll("#mstBody .qopt").forEach(function(x){var i=parseInt(x.dataset.uo,10);if(i===0)x.classList.add("right");else if(i===o)x.classList.add("wrong");x.disabled=true});
+      setCover(false);
+      $("undAfter").innerHTML='<div class="why"><b>'+(ok?"✓ correct":"✗ not quite")+'</b> — '+esc(c.w)+'<br><span class="mono">Supporting line: '+esc(whereTxt(c.s))+'</span></div><div class="row">'+locBtn(c.s)+'<button class="btn on" id="undGo">next case →</button></div>';
+      wireShow($("undAfter"));
+      $("undGo").addEventListener("click",function(){go(ui+1)});
+    })});
+  }
+
+  /* ---------- 3. Rebuild from memory ---------- */
+  var rk=store.get("mstRebK",REB[0].k);
+  function rebPaint(){
+    clearInterval(timer);setCover(true);
+    var T=REB.filter(function(x){return x.k===rk})[0]||REB[0];rk=T.k;
+    var h='<div class="row"><select class="fld" id="rebSel" style="width:auto;max-width:100%" aria-label="Table to rebuild">';
+    REB.forEach(function(x){
+      var tot=0,ok=0;x.r.forEach(function(r,ri){r.forEach(function(c,ci){if(c.charAt(0)==="?"){tot++;if(RR[x.k+"_"+ri+"_"+ci])ok++}})});
+      h+='<option value="'+x.k+'"'+(x.k===rk?" selected":"")+'>'+esc(x.title)+' · '+ok+'/'+tot+'</option>';
+    });
+    h+='</select><button class="btn" id="rebNext">next table →</button></div>';
+    h+='<div class="tscroll"><table class="mst-reb"><tr>'+T.h.map(function(x){return '<th>'+esc(x)+'</th>'}).join("")+'</tr>';
+    T.r.forEach(function(r,ri){
+      h+='<tr>';
+      r.forEach(function(c,ci){
+        if(c.charAt(0)==="?"){var id=T.k+"_"+ri+"_"+ci;h+='<td><input class="fld mst-in" data-cell="'+id+'" data-spec="'+esc(c)+'" autocomplete="off" spellcheck="false" aria-label="'+esc(T.h[ci]+" for "+r[0])+'"></td>'}
+        else h+='<td>'+esc(c)+'</td>';
+      });
+      h+='</tr>';
+    });
+    h+='</table></div><div class="row"><button class="btn go" id="rebCheck">check</button><button class="btn" id="rebReveal">reveal answers</button><button class="btn" id="rebClear">clear</button>'+locBtn(T.s)+'</div><div id="rebOut"></div>';
+    $("mstBody").innerHTML=h;
+    wireShow($("mstBody"));
+    $("rebSel").addEventListener("change",function(){rk=this.value;store.set("mstRebK",rk);rebPaint()});
+    $("rebNext").addEventListener("click",function(){var i=REB.indexOf(T);rk=REB[(i+1)%REB.length].k;store.set("mstRebK",rk);rebPaint()});
+    var ins=[].slice.call(document.querySelectorAll("#mstBody .mst-in"));
+    if(ins[0]&&window.innerWidth>760)ins[0].focus({preventScroll:true});
+    ins.forEach(function(inp,i){inp.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();if(ins[i+1])ins[i+1].focus();else $("rebCheck").click()}})});
+    $("rebCheck").addEventListener("click",function(){
+      var ok=0;
+      ins.forEach(function(inp){
+        var good=okAns(inp.value,inp.dataset.spec);
+        inp.classList.toggle("right",good);inp.classList.toggle("wrong",!good);
+        inp.title=good?"":"Answer: "+inp.dataset.spec.slice(1).split("|")[0];
+        RR[inp.dataset.cell]=good;if(good)ok++;
+      });
+      save();meta();
+      if(window.recordAns)window.recordAns(T.t,ok===ins.length);
+      var miss=ins.filter(function(x){return x.classList.contains("wrong")});
+      $("rebOut").innerHTML='<div class="why"><b>'+ok+' / '+ins.length+' correct</b>'+(miss.length?' — wrong or empty: '+miss.map(function(x){return '<span class="mono">'+esc(x.getAttribute("aria-label"))+' = '+esc(x.dataset.spec.slice(1).split("|")[0])+'</span>'}).join(" · "):' — the whole table from memory.')+'</div>';
+      setCover(false);
+      var sel=$("rebSel").selectedOptions[0];if(sel){var tot=ins.length;sel.textContent=T.title+" · "+ok+"/"+tot}
+    });
+    $("rebReveal").addEventListener("click",function(){ins.forEach(function(inp){if(!inp.classList.contains("right")){inp.value=inp.dataset.spec.slice(1).split("|")[0];inp.classList.remove("wrong");inp.classList.add("shown")}});setCover(false)});
+    $("rebClear").addEventListener("click",function(){ins.forEach(function(inp){inp.value="";inp.classList.remove("right","wrong","shown");inp.title=""});$("rebOut").innerHTML="";setCover(true)});
+  }
+
+  meta();setMode(mode);
+  if(mode!=="look")setCover(true);
 })();
 
 /* ============ DSCP DECODER & SYSLOG THRESHOLD ============ */
