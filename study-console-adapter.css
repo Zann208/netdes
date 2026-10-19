@@ -146,3 +146,22 @@ body[data-study-console="netdes"] .a4sheet .a4page b{color:#000!important;font-w
 body[data-study-console="netdes"] .a4sheet .a4b h6{font-size:10px!important;color:#0b5394!important;font-family:var(--mono)!important}
 body[data-study-console="netdes"] .a4sheet .a4h{font-size:11px!important}
 @media print{body.print-a4 .a4sheet .a4b h6{font-size:7.2pt!important}body.print-a4 .a4sheet .a4h{font-size:8pt!important}}
+
+/* Final tab: configuration task topologies and worked examples */
+.cfg-fig{margin:12px 0 0;border:1px solid var(--sc-line);border-radius:10px;background:var(--sc-surface);overflow-x:auto;overscroll-behavior-x:contain}
+.cfg-fig figcaption{padding:6px 12px 8px;font-size:12px;color:var(--sc-muted);border-top:1px solid var(--sc-line)}
+.cfg-topo{display:block;width:100%;min-width:560px;height:auto}
+.cfg-topo .cfg-l{stroke:var(--sc-muted);stroke-width:1.6}
+.cfg-topo .cfg-l.hot{stroke:var(--sc-accent);stroke-width:2.6}
+.cfg-topo .cfg-l.dim{stroke-dasharray:5 5;opacity:.5}
+.cfg-topo .cfg-n{fill:var(--sc-accent-soft);stroke:var(--sc-accent);stroke-width:1.5}
+.cfg-topo .cfg-n.alt{fill:var(--sc-surface-2);stroke:var(--sc-line-strong,var(--sc-muted))}
+.cfg-topo .cfg-n.hot{fill:var(--sc-warn-soft,rgba(217,119,6,.15));stroke:var(--sc-warn,#d97706)}
+.cfg-topo .cfg-ic{fill:none;stroke:var(--sc-accent);stroke-width:1.6;stroke-linecap:round}
+.cfg-topo text{font-family:var(--mono);text-anchor:middle;fill:var(--sc-text);paint-order:stroke;stroke:var(--sc-surface);stroke-width:4px;stroke-linejoin:round}
+.cfg-topo .cfg-nm{font-size:13px;font-weight:700}
+.cfg-topo .cfg-sub,.cfg-topo .cfg-el,.cfg-topo .cfg-mid,.cfg-topo .cfg-note{font-size:11.5px}
+.cfg-topo .cfg-el,.cfg-topo .cfg-mid{fill:var(--sc-accent)}
+.cfg-topo .cfg-note.hint{fill:var(--sc-warn,#b45309);font-weight:700}
+.cfg-ex{margin-top:10px}
+.cfg-ex .cfg-code{margin-top:8px}

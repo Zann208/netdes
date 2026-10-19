@@ -7074,12 +7074,104 @@ function boom(){
      ans:"! SW-A, SW-B and SW-C\nvlan 500\n remote-span\n exit\n! SW-A\nmonitor session 1 source interface gigabitethernet1/0/3 both\nmonitor session 1 destination remote vlan 500\n! SW-C\nmonitor session 1 source remote vlan 500\nmonitor session 1 destination interface gigabitethernet1/0/48",
      marks:["VLAN 500 with remote-span on all three switches, including SW-B","SW-A: source interface + destination remote vlan 500","SW-C: source remote vlan 500 + destination interface","SW-B: no monitor session — only the VLAN, allowed on its trunks","RSPAN VLAN not assigned to access ports"]}
   ];
+  /* ---------- configuration tasks: topology diagrams + worked examples ---------- */
+  function topo(s){
+    var W=s.w||660,H=s.h||230,N={},h='<svg class="cfg-topo" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(s.alt||"Topology")+'">';
+    s.n.forEach(function(n){N[n.id]=n});
+    (s.l||[]).forEach(function(l){
+      var a=N[l[0]],b=N[l[1]],o=l[4]||"";
+      h+='<line class="cfg-l '+o+'" x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'"/>';
+      function lab(t,f){if(!t)return;var x=a.x+(b.x-a.x)*f,y=a.y+(b.y-a.y)*f;h+='<text class="cfg-el" x="'+x+'" y="'+(y-7)+'">'+esc(t)+'</text>'}
+      lab(l[2],l[5]||0.3);lab(l[3],l[6]||0.7);
+      if(l[7]){var mx=(a.x+b.x)/2,my=(a.y+b.y)/2;h+='<text class="cfg-mid" x="'+mx+'" y="'+(my-8)+'">'+esc(l[7])+'</text>'}
+    });
+    s.n.forEach(function(n){
+      var k=n.k||"sw",x=n.x,y=n.y;
+      if(k==="r")h+='<circle class="cfg-n" cx="'+x+'" cy="'+y+'" r="25"/><path class="cfg-ic" d="M'+(x-11)+' '+y+'h22M'+x+' '+(y-11)+'v22"/>';
+      else if(k==="sw")h+='<rect class="cfg-n" x="'+(x-38)+'" y="'+(y-19)+'" width="76" height="38" rx="6"/><path class="cfg-ic" d="M'+(x-22)+' '+(y-5)+'h44M'+(x-22)+' '+(y+5)+'h44"/>';
+      else if(k==="srv")h+='<rect class="cfg-n alt" x="'+(x-20)+'" y="'+(y-26)+'" width="40" height="52" rx="4"/><path class="cfg-ic" d="M'+(x-11)+' '+(y-12)+'h22M'+(x-11)+' '+(y-2)+'h22M'+(x-11)+' '+(y+8)+'h22"/>';
+      else if(k==="pc")h+='<rect class="cfg-n alt" x="'+(x-22)+'" y="'+(y-17)+'" width="44" height="30" rx="3"/><path class="cfg-ic" d="M'+(x-12)+' '+(y+19)+'h24"/>';
+      else if(k==="an")h+='<rect class="cfg-n hot" x="'+(x-24)+'" y="'+(y-18)+'" width="48" height="36" rx="5"/><path class="cfg-ic" d="M'+(x-14)+' '+(y+4)+'l7-9 6 7 5-6 10 10"/>';
+      else if(k==="box")h+='<rect class="cfg-n alt" x="'+(x-(n.bw||60))+'" y="'+(y-18)+'" width="'+2*(n.bw||60)+'" height="36" rx="6"/>';
+      if(n.name)h+='<text class="cfg-nm" x="'+x+'" y="'+(k==="box"?y+4:(k==="r"?y-32:y-(k==="srv"?33:26)))+'">'+esc(n.name)+'</text>';
+      (n.sub||[]).forEach(function(t,i){h+='<text class="cfg-sub" x="'+x+'" y="'+(y+(k==="srv"?44:(k==="r"?42:36))+i*15)+'">'+esc(t)+'</text>'});
+    });
+    (s.t||[]).forEach(function(t){h+='<text class="cfg-note'+(t[3]?" "+t[3]:"")+'" x="'+t[0]+'" y="'+t[1]+'">'+esc(t[2])+'</text>'});
+    return h+'</svg>';
+  }
+  var CFG_FIG=[
+    {alt:"SW1 VLAN 20 SVI serving DHCP to PCs",n:[{id:"s",x:330,y:70,name:"SW1 (multilayer)",sub:["interface vlan 20","192.168.20.1/24"]},{id:"p1",x:120,y:180,k:"pc",name:"PC",sub:["DHCP client"]},{id:"p2",x:330,y:180,k:"pc",name:"PC",sub:["DHCP client"]},{id:"d",x:540,y:180,k:"srv",name:"DNS",sub:["192.168.20.5"]}],
+     l:[["s","p1","","",""],["s","p2","","",""],["s","d","","",""]],t:[[60,26,"VLAN 20 · 192.168.20.0/24",""],[600,26,"pool: .11 – .254","hint"]]},
+    {alt:"R1 router-on-a-stick with two subinterfaces",n:[{id:"r",x:330,y:55,k:"r",name:"R1",sub:[]},{id:"s",x:330,y:150,name:"SW"},{id:"a",x:130,y:180,k:"pc",name:"VLAN 10",sub:["10.0.10.0/24"]},{id:"b",x:530,y:180,k:"pc",name:"VLAN 20",sub:["10.0.20.0/24"]}],
+     l:[["r","s","G0/0 (trunk)","","hot",0.45],["s","a","","",""],["s","b","","",""]],t:[[70,40,"G0/0.10 = 10.0.10.1",""],[590,40,"G0/0.20 = 10.0.20.1",""]],h:240},
+    {alt:"DHCP relay from VLAN 30 to a central server",n:[{id:"p",x:80,y:120,k:"pc",name:"PC",sub:["VLAN 30"]},{id:"d",x:300,y:120,name:"DSW1",sub:["SVI vlan 30","172.16.30.1/24"]},{id:"c",x:470,y:120,k:"r",name:"core"},{id:"v",x:600,y:120,k:"srv",name:"DHCP",sub:["10.10.10.10"]}],
+     l:[["p","d","","","",0,0,"broadcast"],["d","c","","","hot",0,0,"unicast"],["c","v","","","hot"]],t:[[300,30,"ip helper-address goes HERE (client side)","hint"]]},
+    {alt:"SLAAC on VLAN 10",n:[{id:"s",x:330,y:70,name:"SW1",sub:["interface vlan 10","2001:DB8:10::1/64"]},{id:"a",x:180,y:185,k:"pc",name:"host",sub:["2001:DB8:10::xxxx"]},{id:"b",x:480,y:185,k:"pc",name:"host",sub:["2001:DB8:10::yyyy"]}],
+     l:[["s","a","","RA: prefix /64","hot",0,0.72],["s","b","","M = 0 · O = 0","hot",0,0.72]],t:[[330,20,"hosts build their own address from the RA prefix","hint"]],h:240},
+    {alt:"HSRP pair R1 and R2 sharing 192.168.1.1",n:[{id:"r1",x:150,y:95,k:"r",name:"R1 · active"},{id:"r2",x:510,y:95,k:"r",name:"R2 · standby"},{id:"s",x:330,y:175,name:"SW"},{id:"p",x:330,y:245,k:"pc",name:"",sub:[]}],
+     l:[["r1","s","G0/0 .2","","hot",0.5],["r2","s","G0/0 .3","","",0.5],["s","p","","",""]],t:[[330,24,"VIP 192.168.1.1 · group 10 · v2","hint"],[500,240,"hosts: gateway 192.168.1.1",""],[500,256,"vMAC 0000.0C9F.F00A",""]],h:275},
+    {alt:"Two distribution switches sharing VLAN 10 and VLAN 20 gateways",n:[{id:"d1",x:170,y:60,name:"DSW1",sub:["active VLAN 10"]},{id:"d2",x:490,y:60,name:"DSW2",sub:["active VLAN 20"]},{id:"a",x:170,y:190,k:"pc",name:"VLAN 10",sub:["gw 10.1.10.1"]},{id:"b",x:490,y:190,k:"pc",name:"VLAN 20",sub:["gw 10.1.20.1"]}],
+     l:[["d1","d2","","",""],["d1","a","","","hot"],["d2","b","","","hot"],["d1","b","","","dim"],["d2","a","","","dim"]],t:[[330,252,".2 = DSW1 · .3 = DSW2 in each VLAN","hint"]],h:265},
+    {alt:"Syslog destinations",n:[{id:"s",x:150,y:115,name:"SW1",sub:["log events 0–7"]},{id:"c",x:470,y:60,k:"box",name:"console · errors (0–3)",bw:110},{id:"b",x:470,y:170,k:"box",name:"buffer 16384 · warnings (0–4)",bw:135}],
+     l:[["s","c","","","hot"],["s","b","","","hot"]],t:[[330,222,"lower number = more severe · threshold shows itself and everything below","hint"]],h:235},
+    {alt:"Switch synchronizing to two NTP servers",n:[{id:"s",x:330,y:170,name:"SW1",sub:["clock timezone ICT 7"]},{id:"a",x:150,y:60,k:"srv",name:"10.0.0.1",sub:["prefer"]},{id:"b",x:510,y:60,k:"srv",name:"10.0.0.2",sub:[]}],
+     l:[["s","a","","","hot",0,0,"NTP v4"],["s","b","","","",0,0,"NTP v4"]],t:[[330,30,"stratum = server stratum + 1","hint"]],h:240},
+    {alt:"SNMP manager and agent",n:[{id:"m",x:130,y:110,k:"srv",name:"manager",sub:["10.0.0.50"]},{id:"s",x:520,y:110,name:"SW1 (agent)",sub:["community NETRO ro","ACL: only 10.0.0.50"]}],
+     l:[["m","s","get → UDP 161","← inform UDP 162","hot",0.32,0.68]],t:[[330,30,"inform = acknowledged (v2c / v3)","hint"]],h:200},
+    {alt:"SNMPv3 authPriv between manager and switch",n:[{id:"m",x:130,y:110,k:"srv",name:"manager",sub:["10.0.0.50"]},{id:"s",x:520,y:110,name:"SW1 (agent)",sub:["group ADMINS (priv)","user nms · ACL 30"]}],
+     l:[["m","s","SHA auth + AES-256","traps (v3 priv)","hot",0.3,0.72]],t:[[330,30,"group → user → host, all at priv (authPriv)","hint"]],h:200},
+    {alt:"Local SPAN to an analyzer",n:[{id:"s",x:330,y:110,name:"SW1",sub:["monitor session 1"]},{id:"a",x:110,y:60,k:"pc",name:"Gi1/0/1"},{id:"b",x:110,y:175,k:"pc",name:"Gi1/0/2"},{id:"z",x:560,y:110,k:"an",name:"analyzer",sub:["Gi1/0/24"]}],
+     l:[["a","s","source (both)","","",0.45],["b","s","source (both)","","",0.45],["s","z","","","hot",0,0,"copies + tags"]],h:230},
+    {alt:"RSPAN across SW-A, SW-B and SW-C on VLAN 500",n:[{id:"x",x:60,y:170,k:"pc",name:"Gi1/0/3",sub:["source"]},{id:"a",x:170,y:95,name:"SW-A",sub:["source session"]},{id:"b",x:340,y:95,name:"SW-B",sub:["VLAN 500 only"]},{id:"c",x:510,y:95,name:"SW-C",sub:["dest. session"]},{id:"z",x:615,y:170,k:"an",name:"analyzer",sub:["Gi1/0/48"]}],
+     l:[["x","a","","",""],["a","b","","","hot",0,0,"VLAN 500"],["b","c","","","hot",0,0,"VLAN 500"],["c","z","","","hot"]],t:[[340,26,"vlan 500 + remote-span on ALL three switches · trunks allow 500","hint"]],h:225}
+  ];
+  var CFG_EX=[
+    {s:"VLAN 30 on SW2 (gateway 10.30.0.1/24). Exclude .1–.5, DNS 10.30.0.53, lease 8 hours.",sm:"SW2 ပေါ်က VLAN 30 (gateway 10.30.0.1/24)။ .1–.5 ကို exclude လုပ်၊ DNS 10.30.0.53၊ lease ၈ နာရီ။",
+     c:"ip dhcp excluded-address 10.30.0.1 10.30.0.5   ! global config, range is inclusive\nip dhcp pool V30                               ! any pool name\n network 10.30.0.0 255.255.255.0               ! subnet ID + mask, not a host IP\n default-router 10.30.0.1                      ! the SVI address\n dns-server 10.30.0.53\n lease 0 8                                     ! days hours → 8 hours\n exit\nshow ip dhcp binding                           ! privileged EXEC: who got what",
+     w:"Exclusions are global and come before the pool. Inside the pool you only describe the subnet and what clients receive.",wm:"Exclusion တွေက global ဖြစ်ပြီး pool မတိုင်ခင် ရေးပါတယ်။ Pool ထဲမှာ subnet နဲ့ client တွေရမယ့်အရာကိုသာ ဖော်ပြပါ။"},
+    {s:"R2 routes VLAN 30 on G0/1.30 (172.16.30.1/24) and VLAN 40 on G0/1.40 (172.16.40.1/24).",sm:"R2 က G0/1.30 (172.16.30.1/24) ပေါ်မှာ VLAN 30 နဲ့ G0/1.40 (172.16.40.1/24) ပေါ်မှာ VLAN 40 ကို route လုပ်ပါတယ်။",
+     c:"ip dhcp excluded-address 172.16.30.1\nip dhcp excluded-address 172.16.40.1\nip dhcp pool V30\n network 172.16.30.0 255.255.255.0\n default-router 172.16.30.1      ! = G0/1.30\nip dhcp pool V40\n network 172.16.40.0 255.255.255.0\n default-router 172.16.40.1      ! = G0/1.40",
+     w:"One pool per subnet. A request arriving on G0/1.30 has source subnet 172.16.30.0, so the router answers from pool V30 automatically.",wm:"Subnet တစ်ခုကို pool တစ်ခု။ G0/1.30 ပေါ် ရောက်လာတဲ့ request က 172.16.30.0 subnet ဖြစ်လို့ router က pool V30 ကနေ အလိုအလျောက် ဖြေပါတယ်။"},
+    {s:"VLAN 50 on DSW2 (gateway 10.50.0.1/24); the DHCP server is 192.168.100.10.",sm:"DSW2 ပေါ်က VLAN 50 (gateway 10.50.0.1/24)၊ DHCP server က 192.168.100.10။",
+     c:"! on DSW2 (relay)\ninterface vlan 50\n ip address 10.50.0.1 255.255.255.0\n ip helper-address 192.168.100.10   ! on the CLIENT-facing SVI\n\n! on the server (what it must have)\nip dhcp pool V50\n network 10.50.0.0 255.255.255.0\n default-router 10.50.0.1",
+     w:"The relay puts its own SVI address (10.50.0.1) in the request, so the server picks the matching pool and replies by unicast. Both directions must be routable.",wm:"Relay က ကိုယ်ပိုင် SVI address (10.50.0.1) ကို request ထဲ ထည့်လို့ server က ကိုက်ညီတဲ့ pool ကို ရွေးပြီး unicast နဲ့ ပြန်ဖြေပါတယ်။ နှစ်ဘက်လုံး route ရရပါမယ်။"},
+    {s:"VLAN 20 SVI with 2001:DB8:20::1/64, SLAAC only.",sm:"2001:DB8:20::1/64 ပါတဲ့ VLAN 20 SVI၊ SLAAC သာ။",
+     c:"ipv6 unicast-routing                     ! global: lets the switch send RAs\ninterface vlan 20\n ipv6 address 2001:DB8:20::1/64\n ipv6 enable\n no ipv6 nd managed-config-flag          ! M = 0 → no DHCPv6 address\n no ipv6 nd other-config-flag            ! O = 0 → no DHCPv6 other info",
+     w:"Without ipv6 unicast-routing the switch sends no Router Advertisements, so hosts never learn the prefix.",wm:"ipv6 unicast-routing မရှိရင် switch က Router Advertisement မပို့လို့ host တွေ prefix ကို ဘယ်တော့မှ မသိပါ။"},
+    {s:"Group 5, version 2, VIP 10.1.1.1. R1 = 10.1.1.2 must be active and reclaim the role; R2 = 10.1.1.3.",sm:"Group 5, version 2, VIP 10.1.1.1။ R1 = 10.1.1.2 က active ဖြစ်ပြီး တာဝန်ပြန်ယူရမယ်၊ R2 = 10.1.1.3။",
+     c:"! R1\ninterface g0/0\n ip address 10.1.1.2 255.255.255.0\n standby version 2\n standby 5 ip 10.1.1.1\n standby 5 priority 120     ! > 100 default\n standby 5 preempt          ! take the role back\n! R2\ninterface g0/0\n ip address 10.1.1.3 255.255.255.0\n standby version 2\n standby 5 ip 10.1.1.1      ! same group + VIP\nshow standby brief",
+     w:"vMAC for v2 group 5 = 0000.0C9F.F005 (group in hex). In v1 it would be 0000.0C07.AC05. Group 10 is 0x0A, so the task's answer ends in F00A.",wm:"v2 group 5 အတွက် vMAC = 0000.0C9F.F005 (group ကို hex နဲ့)။ v1 ဆိုရင် 0000.0C07.AC05။ Group 10 က 0x0A ဖြစ်လို့ task ရဲ့ အဖြေက F00A နဲ့ ဆုံးပါတယ်။"},
+    {s:"DSW3/DSW4 for VLAN 30 (10.3.30.0/24) and VLAN 40 (10.3.40.0/24); DSW3 active for 30, DSW4 for 40.",sm:"VLAN 30 (10.3.30.0/24) နဲ့ VLAN 40 (10.3.40.0/24) အတွက် DSW3/DSW4၊ DSW3 က 30 အတွက်၊ DSW4 က 40 အတွက် active။",
+     c:"! DSW3\ninterface vlan 30\n ip address 10.3.30.2 255.255.255.0\n standby 30 ip 10.3.30.1\n standby 30 priority 110\n standby 30 preempt\ninterface vlan 40\n ip address 10.3.40.2 255.255.255.0\n standby 40 ip 10.3.40.1          ! default 100 here\n! DSW4: mirror image (.3 addresses, priority 110 + preempt on vlan 40)",
+     w:"HSRP balances per subnet: each switch wins one VLAN, so both uplinks carry traffic.",wm:"HSRP က subnet အလိုက် balance လုပ်ပါတယ်: switch တစ်ခုစီက VLAN တစ်ခုကို နိုင်လို့ uplink နှစ်ခုလုံး traffic သယ်ပါတယ်။"},
+    {s:"Buffer 32768 bytes at notifications (5), console only critical (2), timestamps with msec.",sm:"Buffer 32768 bytes ကို notifications (5) နဲ့၊ console မှာ critical (2) သာ၊ msec ပါ timestamp။",
+     c:"logging buffered 32768 notifications   ! size + level in one line (0–5)\nlogging console critical               ! shows 0–2 only\nservice timestamps log datetime msec localtime show-timezone\nclock timezone ICT 7\nshow logging",
+     w:"Each keyword equals a number: emergencies 0, alerts 1, critical 2, errors 3, warnings 4, notifications 5, informational 6, debugging 7.",wm:"Keyword တစ်ခုစီက နံပါတ်တစ်ခုနဲ့ ညီပါတယ်: emergencies 0, alerts 1, critical 2, errors 3, warnings 4, notifications 5, informational 6, debugging 7။"},
+    {s:"Set 08:00 on 21 October 2026, zone ICT +7; NTP servers 172.16.0.1 (preferred) and 172.16.0.2, version 4.",sm:"21 October 2026, 08:00၊ zone ICT +7 သတ်မှတ်ပါ၊ NTP server 172.16.0.1 (prefer) နဲ့ 172.16.0.2, version 4။",
+     c:"configure terminal\n clock timezone ICT 7                 ! global config\n ntp server 172.16.0.1 version 4 prefer\n ntp server 172.16.0.2 version 4\n end\nclock set 08:00:00 21 October 2026     ! privileged EXEC, NOT config mode\nshow ntp associations                  ! * = sys.peer",
+     w:"clock set is the one command people put in the wrong mode: it is EXEC. If the server is stratum 2, the switch reports stratum 3.",wm:"clock set ကို mode မှားပြီး ရေးတတ်ကြပါတယ်: EXEC ပါ။ Server က stratum 2 ဆိုရင် switch က stratum 3 လို့ ပြပါတယ်။"},
+    {s:"Read-only community MONRO, only from 172.16.5.20; send v2c informs there.",sm:"Read-only community MONRO ကို 172.16.5.20 ကနေသာ၊ အဲဒီကို v2c inform ပို့ပါ။",
+     c:"access-list 20 permit 172.16.5.20\nsnmp-server community MONRO ro 20                       ! ro + ACL number\nsnmp-server host 172.16.5.20 informs version 2c MONRO",
+     w:"Without the word informs the host line sends traps (unacknowledged). v1 cannot send informs.",wm:"informs စကားလုံး မပါရင် host line က trap (acknowledge မလုပ်) ပို့ပါတယ်။ v1 က inform မပို့နိုင်ပါ။"},
+    {s:"Group OPS at authPriv; user mon1 with SHA Hash2026 and AES-128 Enc2026, ACL 40 for 172.16.5.20; v3 informs.",sm:"Group OPS ကို authPriv နဲ့၊ user mon1 ကို SHA Hash2026 နဲ့ AES-128 Enc2026၊ 172.16.5.20 အတွက် ACL 40၊ v3 inform။",
+     c:"access-list 40 permit 172.16.5.20\nsnmp-server group OPS v3 priv                          ! priv = authPriv\nsnmp-server user mon1 OPS v3 auth sha Hash2026 priv aes 128 Enc2026 access 40\nsnmp-server host 172.16.5.20 informs version 3 priv mon1   ! username, not a community",
+     w:"Order to remember: group (security level) → user (passwords) → host (where to send). noauth / auth / priv = noAuthNoPriv / authNoPriv / authPriv.",wm:"မှတ်ရမယ့် အစဉ်: group (security level) → user (password များ) → host (ဘယ်ပို့မလဲ)။ noauth / auth / priv = noAuthNoPriv / authNoPriv / authPriv။"},
+    {s:"Mirror only traffic received on Gi1/0/5 to an analyzer on Gi1/0/20, session 2.",sm:"Gi1/0/5 ပေါ် လက်ခံရတဲ့ traffic ကိုသာ Gi1/0/20 ပေါ်က analyzer ဆီ session 2 နဲ့ mirror လုပ်ပါ။",
+     c:"monitor session 2 source interface gi1/0/5 rx\nmonitor session 2 destination interface gi1/0/20\nshow monitor session 2",
+     w:"Add encapsulation replicate to the destination line only when the analyzer needs the original tags and BPDU/CDP/VTP/DTP/PAgP frames.",wm:"Analyzer က မူလ tag နဲ့ BPDU/CDP/VTP/DTP/PAgP frame တွေ လိုမှသာ destination line မှာ encapsulation replicate ထည့်ပါ။"},
+    {s:"VLAN 600; source Gi1/0/7 on SW-1, analyzer on SW-3 Gi1/0/24, SW-2 in the middle.",sm:"VLAN 600၊ SW-1 ပေါ်က source Gi1/0/7၊ SW-3 Gi1/0/24 ပေါ်မှာ analyzer၊ SW-2 က ကြားမှာ။",
+     c:"! SW-1, SW-2 and SW-3\nvlan 600\n remote-span\n! SW-1 (source)\nmonitor session 1 source interface gi1/0/7 both\nmonitor session 1 destination remote vlan 600\n! SW-3 (destination)\nmonitor session 1 source remote vlan 600\nmonitor session 1 destination interface gi1/0/24\n! SW-2: nothing else; just allow VLAN 600 on its trunks",
+     w:"The middle switch only carries VLAN 600. Never put the RSPAN VLAN on an access port.",wm:"အလယ် switch က VLAN 600 ကိုသာ သယ်ပါတယ်။ RSPAN VLAN ကို access port ပေါ်မှာ ဘယ်တော့မှ မထည့်ပါနဲ့။"}
+  ];
   var ci=Math.min(store.get("finCfgI",0),CFG.length-1),drafts=store.get("finDrafts",{});
   var sel=$("cfgSel");
   CFG.forEach(function(c,i){sel.add(new Option((i+1)+" · "+c.t+" · "+c.title,i))});
   function cfgPaint(){
     var c=CFG[ci];sel.value=ci;store.set("finCfgI",ci);
-    $("cfgTask").innerHTML='<div class="why" style="margin-top:10px;font-size:15.5px"><b>TASK · topic '+c.t+' · '+TOPICS[c.t][0]+'</b><br>'+esc(c.task)+'</div>';
+    var my=document.documentElement.lang==="my",ex=CFG_EX[ci];
+    $("cfgTask").innerHTML='<div class="why" style="margin-top:10px;font-size:15.5px"><b>TASK · topic '+c.t+' · '+TOPICS[c.t][0]+'</b><br>'+esc(c.task)+'</div>'+
+      (CFG_FIG[ci]?'<figure class="cfg-fig">'+topo(CFG_FIG[ci])+'<figcaption>'+(my?"Task ရဲ့ topology":"Topology for this task")+'</figcaption></figure>':'')+
+      (ex?'<details class="cfg-ex"><summary>'+(my?"ဥပမာ (ဂဏန်းမတူ) — အဖြေ မကြည့်ခင် ပုံစံကို ကြည့်ပါ":"Worked example (different numbers) — see the pattern without the answer")+'</summary><div class="dbody"><p><b>'+(my?"အခြေအနေ: ":"Scenario: ")+'</b>'+esc(my?ex.sm:ex.s)+'</p><pre class="cfg-code">'+esc(ex.c).replace(/(![^\n]*)/g,'<span class="c">$1</span>')+'</pre><p class="sub2">'+esc(my?ex.wm:ex.w)+'</p></div></details>':'');
     $("cfgDraft").value=drafts[ci]||"";
     $("cfgAns").innerHTML="";
     var n=Object.keys(CFG_DONE).filter(function(k){return CFG_DONE[k]}).length;
