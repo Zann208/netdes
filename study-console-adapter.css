@@ -165,3 +165,10 @@ body[data-study-console="netdes"] .a4sheet .a4h{font-size:11px!important}
 .cfg-topo .cfg-note.hint{fill:var(--sc-warn,#b45309);font-weight:700}
 .cfg-ex{margin-top:10px}
 .cfg-ex .cfg-code{margin-top:8px}
+.cfg-topo .cfg-n.on{fill:var(--sc-ok-soft,rgba(22,163,74,.14));stroke:var(--sc-ok,#16a34a)}
+.cfg-topo .cfg-n.bad{fill:var(--sc-danger-soft,rgba(220,38,38,.12));stroke:var(--sc-danger,#dc2626)}
+.cfg-topo .cfg-l.bad{stroke:var(--sc-danger,#dc2626);stroke-width:2.2;stroke-dasharray:6 5}
+.cfg-topo .cfg-bar{fill:var(--sc-accent);opacity:.75}
+.cfg-topo .cfg-bar.hot{fill:var(--sc-warn,#d97706)}
+.cfg-topo .cfg-mark{stroke:var(--sc-danger,#dc2626);stroke-width:2;stroke-dasharray:4 4}
+.cfg-topo .cfg-sub.em{fill:var(--sc-warn,#b45309);font-weight:700}

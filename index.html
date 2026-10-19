@@ -7087,12 +7087,13 @@ function boom(){
     });
     s.n.forEach(function(n){
       var k=n.k||"sw",x=n.x,y=n.y;
-      if(k==="r")h+='<circle class="cfg-n" cx="'+x+'" cy="'+y+'" r="25"/><path class="cfg-ic" d="M'+(x-11)+' '+y+'h22M'+x+' '+(y-11)+'v22"/>';
-      else if(k==="sw")h+='<rect class="cfg-n" x="'+(x-38)+'" y="'+(y-19)+'" width="76" height="38" rx="6"/><path class="cfg-ic" d="M'+(x-22)+' '+(y-5)+'h44M'+(x-22)+' '+(y+5)+'h44"/>';
+      var cl=n.cls?" "+n.cls:"";
+      if(k==="r")h+='<circle class="cfg-n'+cl+'" cx="'+x+'" cy="'+y+'" r="25"/><path class="cfg-ic" d="M'+(x-11)+' '+y+'h22M'+x+' '+(y-11)+'v22"/>';
+      else if(k==="sw")h+='<rect class="cfg-n'+cl+'" x="'+(x-38)+'" y="'+(y-19)+'" width="76" height="38" rx="6"/><path class="cfg-ic" d="M'+(x-22)+' '+(y-5)+'h44M'+(x-22)+' '+(y+5)+'h44"/>';
       else if(k==="srv")h+='<rect class="cfg-n alt" x="'+(x-20)+'" y="'+(y-26)+'" width="40" height="52" rx="4"/><path class="cfg-ic" d="M'+(x-11)+' '+(y-12)+'h22M'+(x-11)+' '+(y-2)+'h22M'+(x-11)+' '+(y+8)+'h22"/>';
       else if(k==="pc")h+='<rect class="cfg-n alt" x="'+(x-22)+'" y="'+(y-17)+'" width="44" height="30" rx="3"/><path class="cfg-ic" d="M'+(x-12)+' '+(y+19)+'h24"/>';
       else if(k==="an")h+='<rect class="cfg-n hot" x="'+(x-24)+'" y="'+(y-18)+'" width="48" height="36" rx="5"/><path class="cfg-ic" d="M'+(x-14)+' '+(y+4)+'l7-9 6 7 5-6 10 10"/>';
-      else if(k==="box")h+='<rect class="cfg-n alt" x="'+(x-(n.bw||60))+'" y="'+(y-18)+'" width="'+2*(n.bw||60)+'" height="36" rx="6"/>';
+      else if(k==="box")h+='<rect class="cfg-n '+(n.cls||"alt")+'" x="'+(x-(n.bw||60))+'" y="'+(y-18)+'" width="'+2*(n.bw||60)+'" height="36" rx="6"/>';
       if(n.name)h+='<text class="cfg-nm" x="'+x+'" y="'+(k==="box"?y+4:(k==="r"?y-32:y-(k==="srv"?33:26)))+'">'+esc(n.name)+'</text>';
       (n.sub||[]).forEach(function(t,i){h+='<text class="cfg-sub" x="'+x+'" y="'+(y+(k==="srv"?44:(k==="r"?42:36))+i*15)+'">'+esc(t)+'</text>'});
     });
@@ -7262,6 +7263,94 @@ function boom(){
      q:"Which flow should be denied?",o:["Flow 3","Flow 2","Flow 4","Flow 1"],a:0,
      w:"Outside may initiate only to the DMZ. Flow 4 is return traffic of an inside-initiated session, allowed by the stateful firewall."}
   ];
+  /* ---------- analysis cases: diagrams + worked examples ---------- */
+  function row(items,o){
+    o=o||{};var x=10,cw=o.cw||9,H=o.h||110,y=o.y||34,h='',tw=0;
+    items.forEach(function(it){it.w=Math.max(o.min||34,String(it.t).length*cw+18);tw+=it.w+(o.gap||6)});
+    var W=Math.max(o.w||0,tw+20);x=(W-tw)/2+3;
+    items.forEach(function(it){
+      h+='<rect class="cfg-n '+(it.c||"alt")+'" x="'+x+'" y="'+y+'" width="'+it.w+'" height="34" rx="5"/>';
+      h+='<text class="cfg-nm" x="'+(x+it.w/2)+'" y="'+(y+22)+'">'+esc(it.t)+'</text>';
+      if(it.s)h+='<text class="cfg-sub'+(it.c==="hot"||it.c==="bad"?" em":"")+'" x="'+(x+it.w/2)+'" y="'+(y+54)+'">'+esc(it.s)+'</text>';
+      if(it.s2)h+='<text class="cfg-sub" x="'+(x+it.w/2)+'" y="'+(y+69)+'">'+esc(it.s2)+'</text>';
+      x+=it.w+(o.gap||6);
+    });
+    if(o.top)h+='<text class="cfg-note hint" x="'+W/2+'" y="20">'+esc(o.top)+'</text>';
+    if(o.foot)h+='<text class="cfg-note hint" x="'+W/2+'" y="'+(H-8)+'">'+esc(o.foot)+'</text>';
+    return '<svg class="cfg-topo" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(o.alt||"diagram")+'">'+h+'</svg>';
+  }
+  function bars(items,o){
+    o=o||{};var W=660,bx=170,bw=420,rh=34,H=(o.top?34:14)+items.length*rh+(o.marks?34:0)+(o.foot?24:6),y=o.top?34:14,h='';
+    if(o.top)h+='<text class="cfg-note hint" x="'+W/2+'" y="20">'+esc(o.top)+'</text>';
+    items.forEach(function(it){
+      h+='<text class="cfg-nm" style="text-anchor:end" x="'+(bx-10)+'" y="'+(y+18)+'">'+esc(it[0])+'</text>';
+      h+='<rect class="cfg-n alt" x="'+bx+'" y="'+(y+3)+'" width="'+bw+'" height="22" rx="4"/>';
+      h+='<rect class="cfg-bar '+(it[3]||"")+'" x="'+bx+'" y="'+(y+3)+'" width="'+Math.max(2,bw*it[1])+'" height="22" rx="4"/>';
+      h+='<text class="cfg-sub" style="text-anchor:start" x="'+(bx+Math.max(2,bw*it[1])+8)+'" y="'+(y+19)+'">'+esc(it[2])+'</text>';
+      y+=rh;
+    });
+    (o.marks||[]).forEach(function(m){var mx=bx+bw*m[0];h+='<line class="cfg-mark" x1="'+mx+'" y1="'+(o.top?30:10)+'" x2="'+mx+'" y2="'+(y+4)+'"/><text class="cfg-sub em" x="'+mx+'" y="'+(y+20)+'">'+esc(m[1])+'</text>'});
+    if(o.foot)h+='<text class="cfg-note hint" x="'+W/2+'" y="'+(H-6)+'">'+esc(o.foot)+'</text>';
+    return '<svg class="cfg-topo" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(o.alt||"chart")+'">'+h+'</svg>';
+  }
+  var SEV=["0 emerg","1 alert","2 crit","3 err","4 warn","5 notif","6 info","7 debug"];
+  var ANA_FIG=[
+    function(){return topo({alt:"R2 active because R1 has no preempt",n:[{id:"r1",x:150,y:90,k:"r",name:"R1 · STANDBY",sub:["pri 110 · P blank","10.1.1.9"]},{id:"r2",x:510,y:90,k:"r",name:"R2 · ACTIVE",sub:["pri 100","10.1.1.129"],cls:"hot"},{id:"s",x:330,y:190,name:"SW"}],
+      l:[["r1","s","","",""],["r2","s","","","hot"]],t:[[330,24,"R2 became active while R1 was down · no preempt → R2 keeps it","hint"]],h:240})},
+    function(){return row([{t:"group 10",s:"decimal"},{t:"→"},{t:"0x0A",s:"hex",c:"hot"},{t:"→"},{t:"0000.0C07.AC",s:"v1 prefix"},{t:"0A",s:"group",c:"hot"}],{alt:"group to virtual MAC",top:"v1 = 0000.0C07.ACxx · v2 = 0000.0C9F.Fxxx",min:22})},
+    function(){return topo({alt:"Two routers both active because hellos are lost",n:[{id:"r1",x:150,y:90,k:"r",name:"R1 · ACTIVE",sub:["group 1 · v1?"],cls:"hot"},{id:"r2",x:510,y:90,k:"r",name:"R2 · ACTIVE",sub:["group 1 · v2?"],cls:"hot"},{id:"s",x:330,y:90,name:"SW"}],
+      l:[["r1","s","hello ✗","","bad",0.5],["r2","s","hello ✗","","bad",0.5]],t:[[330,24,"no hellos heard → each thinks it is alone → standby = unknown","hint"]],h:180})},
+    function(){return topo({alt:"After failover R2 owns the virtual MAC",n:[{id:"r1",x:150,y:80,k:"r",name:"R1 · failed",cls:"bad"},{id:"r2",x:510,y:80,k:"r",name:"R2 · now ACTIVE",cls:"hot"},{id:"s",x:330,y:165,name:"SW",sub:["vMAC → R2 port"]},{id:"h",x:330,y:250,k:"pc",name:"",sub:[]}],
+      l:[["r1","s","","","bad"],["r2","s","gratuitous ARP","","hot",0.5],["s","h","","",""]],t:[[500,252,"host: gw 10.1.1.1, ARP unchanged",""]],h:280})},
+    function(){return topo({alt:"NTP stratum adds one",n:[{id:"a",x:150,y:70,k:"srv",name:"10.0.0.1",sub:["stratum 2 · *"]},{id:"b",x:510,y:70,k:"srv",name:"10.0.0.2",sub:["stratum 4 · +"]},{id:"s",x:330,y:175,name:"SW1",sub:["stratum 2 + 1 = 3"],cls:"hot"}],
+      l:[["s","a","","sys.peer","hot",0,0.55],["s","b","","candidate","dim",0,0.55]],h:240})},
+    function(){return row(SEV.map(function(s,i){return {t:s,c:i<=4?"on":"alt",s:i===3?"LINK-3 ✓":i===5?"LINEPROTO-5 ✗":""}}),{alt:"Severity ladder with threshold 4",top:"logging console warnings (4) → shows 0–4",cw:8,min:60,gap:4})},
+    function(){return row([{t:"*Oct 20 15:31:07.412 ICT",s:"timestamp",s2:"datetime msec tz"},{t:"%SYS",s:"facility"},{t:"-5",s:"severity",c:"hot"},{t:"-CONFIG_I",s:"mnemonic"},{t:": Configured from…",s:"text"}],{alt:"Parts of a syslog message",cw:8.2,min:74,gap:4})},
+    function(){return topo({alt:"RSPAN source on SW2",n:[{id:"x",x:70,y:170,k:"pc",name:"Gi1/0/1",sub:["source (both)"]},{id:"a",x:200,y:90,name:"SW2",sub:["remote SOURCE"],cls:"hot"},{id:"b",x:420,y:90,name:"other switch",sub:["remote DEST"]},{id:"z",x:590,y:170,k:"an",name:"analyzer"}],
+      l:[["x","a","","",""],["a","b","","","hot",0,0,"VLAN 99 (trunk)"],["b","z","","","hot"]],h:225})},
+    function(){return topo({alt:"SNMP informs with v3 priv",n:[{id:"m",x:130,y:100,k:"srv",name:"manager",sub:["10.0.0.50"]},{id:"s",x:520,y:100,name:"SW1 (agent)",sub:["user nms"]}],
+      l:[["s","m","inform → (needs ack)","encrypted = priv","hot",0.3,0.7]],t:[[330,26,"acknowledged → informs · encrypted → v3 priv","hint"]],h:190})},
+    function(){return row([{t:"1",c:"hot"},{t:"0",c:"hot"},{t:"0",c:"hot"},{t:"0",c:"on"},{t:"1",c:"on"},{t:"0"}],{alt:"DSCP 34 bits",top:"34 = 100 | 01 | 0",foot:"class 100 = 4 · drop 01 = 1 → AF41  (8×4 + 2×1 = 34)",min:44,h:120,w:660})},
+    function(){return topo({alt:"Trust CoS versus untrusted",n:[{id:"p",x:90,y:120,k:"pc",name:"IP phone",sub:["CoS 5"]},{id:"a",x:420,y:60,k:"box",name:"A · trust cos → DSCP 40",bw:120},{id:"b",x:420,y:180,k:"box",name:"B · untrusted → DSCP 0",bw:120}],
+      l:[["p","a","","","hot"],["p","b","","","dim"]],t:[[420,232,"CoS × 8 = DSCP · 5 × 8 = 40 (not 46)","hint"]],h:245})},
+    function(){return bars([["Q1 · w4",0.5,"50%","hot"],["Q2 · w2",0.25,"25%"],["Q3 · w1",0.125,"12.5%"],["Q4 · w1",0.125,"12.5%"]],{alt:"WRR shares",top:"share = weight ÷ total (4+2+1+1 = 8)"})},
+    function(){return bars([["queue fill",0.6,"60% now","hot"]],{alt:"WRED thresholds",top:"random drops start when the fill passes a class threshold",marks:[[0.5,"0–20 @ 50%"],[0.8,"21–31 @ 80%"]]})},
+    function(){return topo({alt:"Shaping to the provider rate",n:[{id:"e",x:110,y:100,k:"r",name:"Edge",sub:["1 Gbps port"]},{id:"q",x:310,y:100,k:"box",name:"shaper buffer",bw:68,cls:"hot"},{id:"p",x:560,y:100,k:"r",name:"Provider",sub:["polices at 200 Mbps"]}],
+      l:[["e","q","","","",0,0,"bursts"],["q","p","","","hot",0,0,"steady 200M"]],t:[[330,26,"shape (delay) on your side so the provider does not drop","hint"]],h:180})},
+    function(){return bars([["RPR",1,"> 2 min"],["RPR+",0.32,"> 30 s  ← 40 s here","hot"],["SSO",0.03,"≈ 1 s"]],{alt:"Failover time by mode",top:"booted standby, ports kept, L2/L3 start after failure = RPR+"})},
+    function(){return topo({alt:"Second EtherChannel blocked by STP",n:[{id:"st",x:330,y:200,name:"A1+A2 stack"},{id:"d1",x:170,y:70,name:"D1"},{id:"d2",x:490,y:70,name:"D2"}],
+      l:[["st","d1","Po1 FWD","","hot",0.45],["st","d2","Po2 BLK","","bad",0.45],["d1","d2","L2 link","","",0.5]],t:[[330,26,"two separate D switches → loop → STP blocks one channel","hint"]],h:250})},
+    function(){return topo({alt:"DSW1 single point of failure",n:[{id:"d1",x:220,y:70,name:"DSW1",sub:[],cls:"bad"},{id:"d2",x:470,y:70,name:"DSW2"},{id:"a1",x:150,y:190,name:"AS1"},{id:"a2",x:330,y:190,name:"AS2"}],
+      l:[["a1","d1","","","hot"],["a2","d1","","","hot"],["d1","d2","","",""]],t:[[470,140,"no access uplinks to DSW2","hint"],[220,26,"everything depends on DSW1","hint"]],h:240})},
+    function(){return topo({alt:"Layer 3 roam with anchor and foreign WLC",n:[{id:"w1",x:150,y:70,name:"WLC-1",sub:["VLAN 100 · ANCHOR"],cls:"hot"},{id:"w2",x:510,y:70,name:"WLC-2",sub:["VLAN 200 · FOREIGN"]},{id:"ap",x:510,y:190,name:"AP-2"},{id:"c",x:330,y:200,k:"pc",name:"Client-1",sub:["192.168.100.199"]}],
+      l:[["w1","w2","","","hot",0,0,"EoIP tunnel"],["w2","ap","","",""],["ap","c","","","dim"]],h:250})},
+    function(){return topo({alt:"VLAN 20 has no helper",n:[{id:"v",x:560,y:120,k:"srv",name:"DHCP",sub:["10.10.10.10"]},{id:"d",x:330,y:120,name:"DSW",sub:[]},{id:"a",x:110,y:60,k:"pc",name:"VLAN 10",sub:[]},{id:"b",x:110,y:190,k:"pc",name:"VLAN 20",sub:["169.254.x.x"]}],
+      l:[["a","d","helper ✓","","hot",0.5],["b","d","no helper ✗","","bad",0.5],["d","v","","","hot"]],h:240})},
+    function(){return topo({alt:"Three-zone firewall flows",n:[{id:"f",x:330,y:120,k:"box",name:"FIREWALL",bw:55,cls:"hot"},{id:"i",x:90,y:120,k:"box",name:"inside",bw:50},{id:"d",x:330,y:220,k:"box",name:"DMZ · web",bw:60},{id:"o",x:570,y:120,k:"box",name:"outside",bw:50}],
+      l:[["i","f","1 ✓ →","← 4 ✓","hot",0.35,0.75],["o","f","3 ✗","","bad",0.4],["o","d","2 ✓","","hot",0.45]],t:[[330,40,"outside may START only to the DMZ · replies are allowed (stateful)","hint"]],h:260})}
+  ];
+  var ANA_EX=[
+    {x:"R3# show standby brief\nGi0/1  5  150 P Active  local  10.2.2.3  10.2.2.1",e:"Read the P column first. Here R3 shows P, so it preempts: with the highest priority (150) it will always take the active role back. Rule: highest priority wins only at election time or when the better router has P.",em:"P column ကို အရင်ဖတ်ပါ။ ဒီမှာ R3 မှာ P ရှိလို့ preempt လုပ်ပါတယ်: priority အမြင့်ဆုံး (150) ဖြစ်လို့ active တာဝန်ကို အမြဲ ပြန်ယူပါမယ်။ စည်းမျဉ်း: priority အမြင့်ဆုံးက election အချိန် ဒါမှမဟုတ် ပိုကောင်းတဲ့ router မှာ P ရှိမှသာ နိုင်ပါတယ်။"},
+    {x:"standby version 2\nstandby 30 ip 10.3.30.1",e:"Convert the group to hex: 30 = 16 + 14 = 0x1E. Version 2 prefix 0000.0C9F.F, then three hex digits: 0000.0C9F.F01E. (Version 1 would be 0000.0C07.AC1E.)",em:"Group ကို hex ပြောင်းပါ: 30 = 16 + 14 = 0x1E။ Version 2 prefix 0000.0C9F.F ပြီးရင် hex ဂဏန်း သုံးလုံး: 0000.0C9F.F01E။ (Version 1 ဆိုရင် 0000.0C07.AC1E။)"},
+    {x:"R1: Gi0/0 1 Active local unknown\nR2: Gi0/0 2 Active local unknown",e:"Two Actives always means the routers cannot hear each other. Compare the Grp column first: here 1 vs 2, a group mismatch. Other causes: version mismatch, link down, multicast hellos filtered. Preempt is never the cause.",em:"Active နှစ်ခုဆိုတာ router တွေ အချင်းချင်း မကြားရဘူးလို့ အမြဲ ဆိုလိုပါတယ်။ Grp column ကို အရင် နှိုင်းယှဉ်ပါ: ဒီမှာ 1 နဲ့ 2၊ group မကိုက်ပါ။ တခြားအကြောင်းများ: version မကိုက်၊ link down၊ multicast hello ကို filter လုပ်ထား။ Preempt က ဘယ်တော့မှ အကြောင်းရင်း မဟုတ်ပါ။"},
+    {x:"Hosts: gw 192.168.5.1 → ARP 0000.0C9F.F005\nR-A fails, R-B takes over",e:"After failover the host's gateway IP and ARP entry are exactly the same. Only the switch MAC table changes: R-B's gratuitous ARP moves 0000.0C9F.F005 to R-B's port.",em:"Failover ပြီးနောက် host ရဲ့ gateway IP နဲ့ ARP entry လုံးဝ မပြောင်းပါ။ Switch ရဲ့ MAC table ကသာ ပြောင်းပါတယ်: R-B ရဲ့ gratuitous ARP က 0000.0C9F.F005 ကို R-B ရဲ့ port ဆီ ရွှေ့ပါတယ်။"},
+    {x:"*~172.16.0.1  st 3\n+~172.16.0.2  st 1",e:"Find the * line (sys.peer), not the lowest stratum: 172.16.0.1 at stratum 3, so the switch reports 3 + 1 = 4. The + server is only a candidate.",em:"Stratum အနိမ့်ဆုံးကို မဟုတ်ဘဲ * line (sys.peer) ကို ရှာပါ: 172.16.0.1 က stratum 3 ဖြစ်လို့ switch က 3 + 1 = 4 လို့ ပြပါတယ်။ + server က candidate သာ ဖြစ်ပါတယ်။"},
+    {x:"logging console errors\n%SPANTREE-2-BLOCK…\n%LINK-3-UPDOWN…\n%SYS-5-CONFIG_I…",e:"errors = 3, so the console shows levels 0–3. SPANTREE-2 (2) and LINK-3 (3) appear; SYS-5 (5) is hidden. Read the digit between the two dashes.",em:"errors = 3 ဖြစ်လို့ console က level 0–3 ကို ပြပါတယ်။ SPANTREE-2 (2) နဲ့ LINK-3 (3) ပေါ်ပြီး SYS-5 (5) ကို ဖုံးထားပါတယ်။ Dash နှစ်ခုကြားက ဂဏန်းကို ဖတ်ပါ။"},
+    {x:"00:12:44: %LINEPROTO-5-UPDOWN: Line protocol…",e:"Facility LINEPROTO, severity 5 (notifications), mnemonic UPDOWN. The timestamp 00:12:44 is uptime (no date), so the switch uses service timestamps log uptime.",em:"Facility LINEPROTO, severity 5 (notifications), mnemonic UPDOWN။ Timestamp 00:12:44 က uptime (ရက်စွဲ မပါ) ဖြစ်လို့ switch က service timestamps log uptime ကို သုံးပါတယ်။"},
+    {x:"SW5# show monitor\nType: Remote Destination Session\nSource RSPAN VLAN: 77\nDestination Ports: Gi1/0/24",e:"\"Remote Destination\" means this switch receives from RSPAN VLAN 77, and the analyzer is on Gi1/0/24 here. The source port is on another switch.",em:"\"Remote Destination\" ဆိုတာ ဒီ switch က RSPAN VLAN 77 ကနေ လက်ခံပြီး analyzer က ဒီမှာ Gi1/0/24 မှာ ရှိတာပါ။ Source port က တခြား switch ပေါ်မှာ ရှိပါတယ်။"},
+    {x:"Requirement: alerts must be acknowledged; plain text is acceptable.",e:"Acknowledged → informs. Encryption not needed → v2c is enough: snmp-server host 10.0.0.50 informs version 2c NETRO. Encryption would require v3 priv.",em:"Acknowledge လုပ်ရမယ် → informs။ Encryption မလို → v2c လုံလောက်: snmp-server host 10.0.0.50 informs version 2c NETRO။ Encryption လိုရင် v3 priv လိုပါတယ်။"},
+    {x:"DSCP 22",e:"22 ÷ 8 = 2 remainder 6 → class 2, drop 6 ÷ 2 = 3 → AF23. Binary check: 010 11 0.",em:"22 ÷ 8 = 2 အကြွင်း 6 → class 2, drop 6 ÷ 2 = 3 → AF23။ Binary နဲ့ စစ်ပါ: 010 11 0။"},
+    {x:"PC sends CoS 3; port trusts CoS (default map)",e:"Default map multiplies by 8: CoS 3 → DSCP 24 (CS3). If the port were untrusted the internal DSCP would be 0.",em:"Default map က 8 နဲ့ မြှောက်ပါတယ်: CoS 3 → DSCP 24 (CS3)။ Port က untrusted ဆိုရင် internal DSCP က 0 ဖြစ်ပါမယ်။"},
+    {x:"WRR weights Q1 = 3, Q2 = 1, Q3 = 1",e:"Total = 5. Q1 = 3 ÷ 5 = 60%, Q2 = 20%, Q3 = 20%. Always divide by the total, not by 100.",em:"စုစုပေါင်း = 5။ Q1 = 3 ÷ 5 = 60%, Q2 = 20%, Q3 = 20%။ 100 နဲ့ မဟုတ်ဘဲ စုစုပေါင်းနဲ့ အမြဲ စားပါ။"},
+    {x:"Thresholds: AF13 at 40%, AF11 at 70%; queue 75% full",e:"Both thresholds are passed (40% and 70% < 75%), so AF13 and AF11 packets are both candidates; AF13 has been dropping longer and with higher probability.",em:"Threshold နှစ်ခုလုံး ကျော်ပြီ (40% နဲ့ 70% < 75%) ဖြစ်လို့ AF13 နဲ့ AF11 packet နှစ်မျိုးလုံး candidate ဖြစ်ပါတယ်။ AF13 က ပိုကြာကြာ၊ probability ပိုမြင့်နဲ့ drop ခံနေရပါတယ်။"},
+    {x:"Users at the access switch must never exceed 50 Mbps each.",e:"A hard limit on arriving traffic = police (drop or re-mark immediately, no delay). Shaping is for your own egress toward a slower link.",em:"ဝင်လာတဲ့ traffic အပေါ် hard limit = police (ချက်ချင်း drop ဒါမှမဟုတ် re-mark၊ delay မရှိ)။ Shaping က နှေးတဲ့ link ဆီ ကိုယ့် egress အတွက်ပါ။"},
+    {x:"Failover log: links stayed up, Layer 2 state was already synchronized, ~1 s",e:"Links up + L2 state synchronized + about 1 second = SSO. (Over 2 minutes with module reloads = RPR.)",em:"Link up + L2 state sync + ၁ စက္ကန့်ခန့် = SSO။ (Module reload နဲ့ ၂ မိနစ်ကျော် = RPR။)"},
+    {x:"D1 and D2 are now a VSS pair; one Po from the stack to both",e:"Logical switch to logical switch: one multichassis EtherChannel, no Layer 2 loop, STP blocks nothing, all links forward.",em:"Logical switch ကနေ logical switch: multichassis EtherChannel တစ်ခု၊ Layer 2 loop မရှိ၊ STP ဘာမှ block မလုပ်၊ link အားလုံး forward။"},
+    {x:"AS3: one uplink to DSW1, one uplink to DSW2",e:"This is the correct pattern: losing either distribution switch still leaves a path. Ask for each failure: which link or device, and what is left?",em:"ဒါက မှန်ကန်တဲ့ ပုံစံပါ: distribution switch တစ်လုံးလုံး ပျက်လည်း လမ်းကြောင်း ကျန်ပါသေးတယ်။ ချို့ယွင်းချက်တိုင်းအတွက် မေးပါ: ဘယ် link ဒါမှမဟုတ် device လဲ၊ ဘာကျန်လဲ?"},
+    {x:"WLC-1 (VLAN 100) and WLC-2 (VLAN 100); client moves AP-1 → AP-3",e:"Same VLAN on both controllers → Layer 2 intercontroller roam: client data moves to WLC-2, no anchor/foreign tunnel, IP unchanged.",em:"Controller နှစ်ခုလုံး VLAN တူ → Layer 2 intercontroller roam: client data က WLC-2 ဆီ ရွှေ့တယ်၊ anchor/foreign tunnel မရှိ၊ IP မပြောင်း။"},
+    {x:"VLAN 30 has a helper, but the server has no pool for 10.1.30.0/24",e:"Helper present but still no lease → check the server: it needs a pool for the relayed subnet with that VLAN's gateway, and a route back.",em:"Helper ရှိပေမယ့် lease မရ → server ကို စစ်ပါ: relay လုပ်ထားတဲ့ subnet အတွက် အဲဒီ VLAN ရဲ့ gateway ပါတဲ့ pool နဲ့ ပြန်လမ်းကြောင်း လိုပါတယ်။"},
+    {x:"DMZ web server → inside database (new connection)",e:"Denied by default: DMZ is less trusted than inside. Only specific, explicitly permitted flows from the DMZ to inside should exist.",em:"Default အားဖြင့် ငြင်းပယ်: DMZ က inside ထက် ယုံကြည်မှုနည်းပါတယ်။ DMZ ကနေ inside ဆီ ရှင်းရှင်းလင်းလင်း ခွင့်ပြုထားတဲ့ flow သီးသန့်ပဲ ရှိသင့်ပါတယ်။"}
+  ];
   var ai=Math.min(store.get("finAnaI",0),ANA.length-1);
   var asel=$("anaSel");
   ANA.forEach(function(c,i){asel.add(new Option((i+1)+" · "+c.t+" · "+c.title,i))});
@@ -7269,7 +7358,9 @@ function boom(){
     var c=ANA[ai],ord=shuf([0,1,2,3]);asel.value=ai;store.set("finAnaI",ai);
     var r=ANA_RES[ai];
     var h='<div class="why" style="margin-top:10px"><b>CASE '+(ai+1)+' · topic '+c.t+' · '+TOPICS[c.t][0]+'</b>'+(r===1?' <span class="ok">· solved</span>':r===0?' <span class="no">· missed before</span>':'')+'</div>'+
-      '<pre class="fin-exhibit">'+esc(c.x)+'</pre><p style="font-size:16.5px;font-weight:650;margin-top:10px">'+esc(c.q)+'</p>';
+      '<pre class="fin-exhibit">'+esc(c.x)+'</pre>'+
+      (ANA_EX[ai]?(function(ex,my){return '<details class="cfg-ex"><summary>'+(my?"ဥပမာ (ဂဏန်းမတူ) — ဖတ်နည်း":"Worked example (different numbers) — how to read it")+'</summary><div class="dbody"><pre class="fin-exhibit">'+esc(ex.x)+'</pre><p>'+esc(my?ex.em:ex.e)+'</p></div></details>'})(ANA_EX[ai],document.documentElement.lang==="my"):'')+
+      '<p style="font-size:16.5px;font-weight:650;margin-top:10px">'+esc(c.q)+'</p>';
     ord.forEach(function(o){h+='<button class="qopt" data-ao="'+o+'">'+esc(c.o[o])+'</button>'});
     h+='<div id="anaAfter"></div>';
     $("anaBody").innerHTML=h;
@@ -7281,7 +7372,7 @@ function boom(){
         ANA_RES[ai]=ok?1:(ANA_RES[ai]===1?1:0);store.set("finAna",ANA_RES);
         if(window.recordAns)window.recordAns(c.t,ok);
         document.querySelectorAll("#anaBody .qopt").forEach(function(x){var i=parseInt(x.dataset.ao,10);if(i===c.a)x.classList.add("right");else if(i===o)x.classList.add("wrong");x.disabled=true});
-        $("anaAfter").innerHTML='<div class="why"><b>'+(ok?"✓ correct":"✗ not quite")+'</b> — '+esc(c.w)+'</div><div class="row"><button class="btn on" id="anaGo">next case →</button><button class="btn" data-ago="t'+c.t+'">open topic '+c.t+'</button></div>';
+        $("anaAfter").innerHTML='<div class="why"><b>'+(ok?"✓ correct":"✗ not quite")+'</b> — '+esc(c.w)+'</div>'+(ANA_FIG[ai]?'<figure class="cfg-fig">'+ANA_FIG[ai]()+'<figcaption>'+(document.documentElement.lang==="my"?"အဖြေကို ပုံနဲ့ ရှင်းပြချက်":"The answer as a picture")+'</figcaption></figure>':'')+'<div class="row"><button class="btn on" id="anaGo">next case →</button><button class="btn" data-ago="t'+c.t+'">open topic '+c.t+'</button></div>';
         $("anaGo").addEventListener("click",function(){ai=(ai+1)%ANA.length;anaPaint()});
         document.querySelector("#anaAfter [data-ago]").addEventListener("click",function(){jump(this.dataset.ago,"notes")});
         anaMeta();refresh();
