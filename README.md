@@ -29,6 +29,8 @@ The **Final** tab collects the exam brief (20 October, 15:30–18:30, closed boo
 
 The **final cheat sheet** lives in `cheatsheet/`: `CNDM_Final_Cheatsheet.pdf` (one A4 sheet, landscape, both sides, chapters 16–23) and `final.html`, the same sheet as a page, which the Final tab shows in a zoomable preview. **Master the cheat sheet** has three drills: *Find it fast* (32 timed lookups with the sheet in hand; every answer names the side, column and heading), *Beyond the sheet* (28 scenarios answered with the sheet covered), and *Rebuild from memory* (12 key tables, 111 blanks). A mastery score combines the three.
 
+**Midterm in the final** covers midterm topics that may reappear: *Rapid midterm* (15 questions per round from the midterm question bank, weighted toward VLANs, EtherChannel, inter-VLAN routing and STP), *Midterm inside final* (20 questions joining a midterm idea to a final topic), and *Numbers from memory* (8 tables: STP timers and costs, bridge priority, DTP, EtherChannel modes, VLAN ranges, RSTP, VTP).
+
 Topics 16–18 cover DHCP and relay, enterprise campus design, and integrating WLANs. Existing card/question indices and LAB 01–LAB 13 content remain stable.
 
 [Topic source audit](docs/TOPIC-SOURCE-AUDIT.md) records slide coverage and technical clarifications.

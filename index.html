@@ -781,6 +781,7 @@ body.light .bpmap .hot text{fill:#4f6180}
       <button class="btn" data-goto="t10" data-i18n="fin.028">10 STP — why logical switches remove blocking</button>
       <button class="btn" data-goto="t13" data-i18n="fin.029">13 RSTP — convergence comparisons</button>
       <button class="btn" data-goto="L13" data-i18n="fin.030">LAB 13 — DHCP pools and SLAAC</button>
+      <button class="btn go" data-fin-jump="midPanel" data-i18n="mid.010">Practice midterm carry-over →</button>
     </div>
   </div>
 
@@ -858,6 +859,24 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div class="mst-mode" data-mm="und" hidden><p class="sub2" data-i18n="sht.015"><b>Sheet covered.</b> Scenarios where the sheet only gives the facts and you have to apply them. After each answer the supporting line opens on the sheet.</p></div>
     <div class="mst-mode" data-mm="reb" hidden><p class="sub2" data-i18n="sht.016"><b>Sheet covered.</b> Fill the blanks of the tables the exam leans on. Spelling counts for keywords; spaces, units and capital letters do not.</p></div>
     <div id="mstBody"></div>
+  </div>
+
+  <div class="panel pa" id="midPanel">
+    <div class="ph"><h2 data-i18n="mid.001">Midterm in the final</h2><span class="badge am right" id="midBadge">0%</span></div>
+    <p class="sub2" data-i18n="mid.002">The paper may include some midterm topics. Your midterm sheet comes back in the exam, so this drill is for speed and for the places where midterm ideas show up inside final questions: VLANs and trunks under WLAN and RSPAN, EtherChannel under high availability, SVIs under DHCP and HSRP, STP under campus design.</p>
+    <div class="bars mst-bars">
+      <div class="bar"><span class="bl" data-i18n="mid.003">RAPID</span><span class="bt"><i id="mdbQ"></i></span><span class="bv" id="mdvQ">0</span></div>
+      <div class="bar"><span class="bl" data-i18n="mid.004">BRIDGES</span><span class="bt"><i id="mdbB"></i></span><span class="bv" id="mdvB">0</span></div>
+      <div class="bar"><span class="bl" data-i18n="mid.005">NUMBERS</span><span class="bt"><i id="mdbN"></i></span><span class="bv" id="mdvN">0</span></div>
+    </div>
+    <div class="row mst-tabs">
+      <button class="btn on" data-mid="q" data-i18n="mid.006">1 · Rapid midterm</button>
+      <button class="btn" data-mid="b" data-i18n="mid.007">2 · Midterm inside final</button>
+      <button class="btn" data-mid="n" data-i18n="mid.008">3 · Numbers from memory</button>
+      <button class="btn" id="midReset">reset results</button>
+    </div>
+    <p class="sub2" data-i18n="mid.009">Rapid: 15 midterm questions, weighted toward VLANs, EtherChannel, inter-VLAN routing and STP. Midterm inside final: questions that join a midterm idea to a final topic. Numbers: STP timers and costs, DTP, EtherChannel modes, VLAN ranges, RSTP, VTP.</p>
+    <div id="midBody"></div>
   </div>
 
   <div class="panel pg">
@@ -7691,6 +7710,149 @@ function boom(){
 
   meta();setMode(mode);
   if(mode!=="look")setCover(true);
+})();
+
+/* ============ MIDTERM IN THE FINAL ============ */
+(function(){
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+  if(!$("midPanel"))return;
+  var MIDT=["01","02","03","04","05","06","07","08","09","10","10B","11","12","13","14","15"];
+  var HOT={"04":1,"06":1,"07":1,"08":1,"10":1,"11":1,"13":1};
+  /* o[0] is correct; shuffled on display */
+  var BR=[
+    {t:"04",f:"18",q:"An autonomous AP broadcasts SSID Staff (VLAN 10) and SSID Guest (VLAN 20). How is its switch port configured?",o:["Trunk allowing VLANs 10 and 20","Access port in VLAN 10","Access port in VLAN 20","Routed port with two IP addresses"],w:"One SSID maps to one VLAN; several SSIDs on one autonomous AP need an 802.1Q trunk carrying each SSID's VLAN."},
+    {t:"04",f:"18",q:"With a WLC, how are the lightweight AP's switch port and the WLC's switch port usually configured?",o:["LAP port access; WLC port trunk","LAP port trunk; WLC port access","Both trunks","Both access ports in VLAN 1"],w:"The LAP tunnels client traffic in CAPWAP over its management VLAN, so an access port is enough; the WLC puts client traffic on the client VLANs, so its port is a trunk."},
+    {t:"04",f:"21",q:"Where must the RSPAN VLAN be allowed?",o:["On every trunk between the source and destination switches","On the analyzer's access port","Only on the source switch","On every access port in the building"],w:"RSPAN copies travel in the remote-span VLAN across trunks; never put it on access ports."},
+    {t:"04",f:"20",q:"Frames sent on the native VLAN of an 802.1Q trunk carry no CoS value. Why?",o:["CoS sits in the 802.1Q tag, and native VLAN frames are untagged","CoS only exists on access ports","The native VLAN strips DSCP","CoS needs VTP"],w:"CoS is the 3-bit priority field inside the 802.1Q tag. No tag, no CoS; DSCP in the IP header is still there."},
+    {t:"07",f:"16",q:"An L3 switch is the DHCP server for VLAN 10 with default-router 10.1.10.1. What must exist for clients to reach that gateway?",o:["interface vlan 10 with 10.1.10.1, up, and ip routing enabled","A router-on-a-stick subinterface","VTP server mode","A trunk to the DHCP server"],w:"The SVI is the VLAN's gateway. It comes up only when VLAN 10 exists with an active port in it; ip routing lets the switch route between VLANs."},
+    {t:"08",f:"18B",q:"Router-on-a-stick: R1 G0/0.10 serves VLAN 10 and runs HSRP. Which line must come before the IP address on the subinterface?",o:["encapsulation dot1Q 10","switchport mode trunk","standby 10 ip 10.1.10.1","ip helper-address 10.1.10.1"],w:"A subinterface needs encapsulation dot1Q with the VLAN ID before it accepts an IP address; HSRP lines come after."},
+    {t:"06",f:"19",q:"Two uplinks from an access switch to a VSS pair become one multichassis EtherChannel. Why does STP stop blocking one of them?",o:["The bundle is one logical port, so STP sees a single link and no loop","STP is disabled on VSS","LACP blocks BPDUs","The second link becomes a backup only"],w:"EtherChannel presents the members as one port. With both ends logical switches, there is no loop for STP to break."},
+    {t:"06",f:"19",q:"Which mode pair forms an LACP bundle?",o:["active + passive","passive + passive","auto + desirable","on + active"],w:"LACP: active initiates, passive waits. Two passive ends never start. auto/desirable is PAgP; on only bundles with on."},
+    {t:"10",f:"18B",q:"DSW1 is STP root for VLAN 10. Which DSW should be HSRP active for VLAN 10, and why?",o:["DSW1, so traffic to the gateway follows the forwarding STP path","DSW2, to spread the load","Either; STP and HSRP are unrelated","Whichever has the lower IP"],w:"Aligning the STP root and the HSRP active per VLAN avoids frames crossing the inter-distribution link to reach the gateway. Load sharing = DSW1 for VLAN 10, DSW2 for VLAN 20."},
+    {t:"10",f:"17",q:"In the local-VLAN switch block, why is nothing blocked by STP?",o:["The link between the distribution switches is routed, so no layer 2 loop exists","STP is turned off","Both access switches use PortFast","The core blocks the loop instead"],w:"Routed ports carry no VLANs or BPDUs. Each VLAN lives on one access switch with two uplinks to different distribution switches, which are not joined at layer 2."},
+    {t:"11",f:"16",q:"PCs on ports without PortFast sometimes show 169.254.x.x right after boot. Why?",o:["The port spends about 30 s in listening and learning, and DHCP gives up first","PortFast blocks DHCP","The helper address is missing","The DHCP lease expired"],w:"Without PortFast an access port waits 15 s + 15 s before forwarding. PortFast on host ports lets DORA finish."},
+    {t:"11",f:"22",q:"A PortFast port with BPDU Guard receives a BPDU because someone plugged in a switch. Result?",o:["The port goes err-disabled","The port becomes root","The port moves to blocking for 20 s","Nothing; PortFast ignores BPDUs"],w:"BPDU Guard protects the topology (availability) by shutting the port in err-disabled."},
+    {t:"03",f:"22",q:"Port security with maximum 1 MAC and violation shutdown. A hub with two PCs is connected. Result?",o:["Second MAC triggers a violation and the port goes err-disabled","Both PCs work","The second PC gets a different VLAN","The switch learns both and alerts only"],w:"Default maximum is 1 MAC and default violation is shutdown."},
+    {t:"03",f:"22",q:"Managing switches with SSH instead of Telnet protects which CIA goal?",o:["Confidentiality","Availability","Integrity only","None; both are clear text"],w:"SSH (TCP 22) encrypts the session; Telnet (TCP 23) sends passwords in clear text."},
+    {t:"02",f:"16",q:"With SLAAC and EUI-64, how is the 64-bit interface ID built from MAC 0011.2233.4455?",o:["0211:22FF:FE33:4455","0011:22FF:FE33:4455","0011:2233:4455:FFFE","FFFE:0011:2233:4455"],w:"Split the MAC, insert FFFE in the middle, and flip the 7th bit of the first byte (00 → 02)."},
+    {t:"05",f:"21",q:"Can VTP carry the RSPAN VLAN to the other switches?",o:["Yes; it is a normal VLAN marked remote-span","No; RSPAN VLANs are local only","Only in transparent mode","Only with VTP pruning off"],w:"VTP can propagate it; pruning keeps it off trunks that do not need it."},
+    {t:"10",f:"19",q:"Bridge priority values must be:",o:["A multiple of 4096 between 0 and 61440","Any value 0–65535","A multiple of 1024","The VLAN number"],w:"The extended system ID uses the low 12 bits for the VLAN, so priority moves in steps of 4096. Default 32768; root primary sets 24576."},
+    {t:"13",f:"19",q:"RSTP alternate port vs backup port:",o:["Alternate = path to the root through another switch; backup = second link to the same segment","They are the same role","Backup leads to the root; alternate is designated","Alternate is used only in MST"],w:"Both are discarding standby roles; alternate replaces the root port, backup replaces a designated port on a shared segment."},
+    {t:"15",f:"19",q:"Two MST switches are in the same region only if they match on:",o:["Region name, revision number, and VLAN-to-instance map","Bridge priority","VTP domain","Native VLAN"],w:"Any difference puts them in different regions."},
+    {t:"12",f:"21",q:"UDLD detects which fault?",o:["A unidirectional link (one fiber direction dead)","A duplex mismatch only","A missing native VLAN","A loop on an access port"],w:"UDLD messages every 15 s; the port is shut after about 45 s without echo in aggressive mode. Loop Guard covers missing BPDUs."}
+  ];
+  var NUM=[
+    {k:"stpt",title:"STP timers and downtime",t:"10",h:["Item","Value"],r:[["Hello time (s)","?2"],["Forward delay (s)","?15"],["Max age (s)","?20"],["Direct failure downtime (s)","?30"],["Indirect failure downtime (s)","?50|52"]]},
+    {k:"cost",title:"STP port cost (short)",t:"10",h:["Speed","Cost"],r:[["10 Mbps","?100"],["100 Mbps","?19"],["1 Gbps","?4"],["10 Gbps","?2"]]},
+    {k:"prio",title:"Bridge priority",t:"11",h:["Item","Value"],r:[["Default priority","?32768"],["Step","?4096"],["root primary sets","?24576"],["Lowest or highest wins root?","?lowest"]]},
+    {k:"dtp",title:"DTP: trunk or access?",t:"04",h:["Side A","Side B","Result"],r:[["dynamic auto","dynamic auto","?access"],["dynamic auto","dynamic desirable","?trunk"],["trunk","dynamic auto","?trunk"],["access","dynamic desirable","?access"],["Default mode on most switches","","?dynamic auto|auto"]]},
+    {k:"ec",title:"EtherChannel modes",t:"06",h:["Protocol","Starts negotiation","Waits"],r:[["PAgP (Cisco)","?desirable","?auto"],["LACP (802.3ad)","?active","?passive"],["No protocol","?on","?on"]]},
+    {k:"vlan",title:"VLAN ranges",t:"04",h:["Range","VLANs"],r:[["Default VLAN","?1"],["Normal, user-created","?2-1001"],["Reserved (token ring / FDDI)","?1002-1005"],["Extended","?1006-4094|1025-4094"],["802.1Q VLAN ID bits","?12"]]},
+    {k:"rstp",title:"RSTP",t:"13",h:["Item","Answer"],r:[["Port states (3)","?discarding, learning, forwarding|discarding learning forwarding|discarding,learning,forwarding"],["Standby role to the root","?alternate"],["Standby role on a shared segment","?backup"],["Neighbour lost after","?3 hellos|6 s|6|3 hellos (6 s)"]]},
+    {k:"vtp",title:"VTP modes",t:"05",h:["Mode","Creates VLANs?","Forwards updates?"],r:[["Server","?yes","?yes"],["Client","?no","?yes"],["Transparent","?local only|yes, local only|local","?yes"]]}
+  ];
+  var NTOT=0;NUM.forEach(function(T){T.r.forEach(function(r){r.forEach(function(c){if(c.charAt(0)==="?")NTOT++})})});
+  var midQB=QB.filter(function(q){return MIDT.indexOf(q.t)>=0});
+  function qid(q){return q.t+"|"+q.q}
+  var RQ=store.get("midQ",{}),RB=store.get("midB",{}),RN=store.get("midN",{});
+  function save(){store.set("midQ",RQ);store.set("midB",RB);store.set("midN",RN)}
+  function okc(o){return Object.keys(o).filter(function(k){return o[k]}).length}
+  function meta(){
+    var q=okc(RQ),b=okc(RB),n=okc(RN);
+    var pq=q/Math.max(1,midQB.length),pb=b/BR.length,pn=n/NTOT,all=Math.round((pq+pb+pn)/3*100);
+    $("mdbQ").style.width=Math.round(pq*100)+"%";$("mdvQ").textContent=q+"/"+midQB.length;
+    $("mdbB").style.width=Math.round(pb*100)+"%";$("mdvB").textContent=b+"/"+BR.length;
+    $("mdbN").style.width=Math.round(pn*100)+"%";$("mdvN").textContent=n+"/"+NTOT;
+    $("midBadge").textContent=all+"%";$("midBadge").className="badge right "+(all>=85?"gr":all>=50?"am":"vi");
+  }
+  function norm(v){return String(v).toLowerCase().replace(/[–—−]/g,"-").replace(/\s+/g,"").replace(/[~≈>]/g,"")}
+  function okAns(v,spec){var n=norm(v);if(!n)return false;return spec.slice(1).split("|").some(function(a){return norm(a)===n})}
+  var mode=store.get("midMode","q");
+  function setMode(m){
+    mode=m;store.set("midMode",m);
+    document.querySelectorAll("[data-mid]").forEach(function(b){b.classList.toggle("on",b.dataset.mid===m)});
+    if(m==="q")qStart();else if(m==="b")bPaint();else nPaint();
+  }
+  document.querySelectorAll("[data-mid]").forEach(function(b){b.addEventListener("click",function(){setMode(b.dataset.mid)})});
+  $("midReset").addEventListener("click",function(){if(!confirm("Clear Midterm in the final results?"))return;RQ={};RB={};RN={};save();meta();setMode(mode)});
+
+  /* 1 · rapid midterm from the existing question bank */
+  var rnd=null;
+  function qStart(){
+    var pool=midQB.map(function(q){return {q:q,s:Math.random()+(HOT[q.t]?0.5:0)+(RQ[qid(q)]?-0.6:0)}}).sort(function(a,b){return b.s-a.s}).slice(0,15).map(function(x){return x.q});
+    rnd={q:pool,i:0,ok:0,miss:[]};qPaint();
+  }
+  function qPaint(){
+    var body=$("midBody");
+    if(rnd.i>=rnd.q.length){
+      var h='<div class="why"><b>Done · '+rnd.ok+' / '+rnd.q.length+'</b> — '+(rnd.miss.length?"misses below; check each on your midterm sheet.":"clean round.")+'</div>';
+      if(rnd.miss.length){h+='<ul class="pts">';rnd.miss.forEach(function(q){h+='<li><span class="mono">'+esc(q.t)+' '+esc(TOPICS[q.t][0])+'</span> · '+esc(q.q)+' <b>'+esc(q.o[q.a])+'</b></li>'});h+='</ul>'}
+      h+='<div class="row"><button class="btn on" id="midAgain">▶ another 15</button></div>';
+      body.innerHTML=h;$("midAgain").addEventListener("click",qStart);return;
+    }
+    var q=rnd.q[rnd.i],ord=shuf(q.o.map(function(x,i){return i}));
+    var h='<div class="mst-q"><div class="row" style="justify-content:space-between"><span class="badge">'+(rnd.i+1)+' / '+rnd.q.length+' · '+esc(q.t)+' '+esc(TOPICS[q.t][0])+'</span></div><p class="mst-qt">'+esc(q.q)+'</p>';
+    ord.forEach(function(o){h+='<button class="qopt" data-mo="'+o+'">'+esc(q.o[o])+'</button>'});
+    h+='<div id="midAfter"></div></div>';body.innerHTML=h;
+    var done=false;
+    body.querySelectorAll(".qopt").forEach(function(b){b.addEventListener("click",function(){
+      if(done)return;done=true;var o=parseInt(b.dataset.mo,10),ok=o===q.a;
+      if(ok){rnd.ok++;RQ[qid(q)]=1}else{rnd.miss.push(q);if(!RQ[qid(q)])RQ[qid(q)]=0}
+      save();meta();if(window.recordAns)window.recordAns(q.t,ok);
+      body.querySelectorAll(".qopt").forEach(function(x){var i=parseInt(x.dataset.mo,10);if(i===q.a)x.classList.add("right");else if(i===o)x.classList.add("wrong");x.disabled=true});
+      $("midAfter").innerHTML='<div class="why"><b>'+(ok?"✓ correct":"✗ not quite")+'</b> — '+esc(q.w)+'</div><div class="row"><button class="btn on" id="midNext">next →</button></div>';
+      $("midNext").addEventListener("click",function(){rnd.i++;qPaint()});
+    })});
+  }
+
+  /* 2 · midterm inside final */
+  var bi=store.get("midBi",0);if(bi>=BR.length)bi=0;
+  function bPaint(){
+    var c=BR[bi],ord=shuf(c.o.map(function(x,i){return i})),r=RB[bi];
+    var h='<div class="mst-q"><div class="row" style="justify-content:space-between"><span class="badge">'+(bi+1)+' / '+BR.length+' · '+esc(c.t)+' '+esc(TOPICS[c.t][0])+' → '+esc(c.f)+' '+esc(TOPICS[c.f][0])+'</span>'+(r?'<span class="ok">solved</span>':r===0?'<span class="no">missed before</span>':'')+
+      '<span><button class="btn" id="midPrev">← prev</button> <button class="btn" id="midNx">next →</button> <button class="btn" id="bMiss">next unsolved</button></span></div><p class="mst-qt">'+esc(c.q)+'</p>';
+    ord.forEach(function(o){h+='<button class="qopt" data-bo="'+o+'">'+esc(c.o[o])+'</button>'});
+    h+='<div id="bAfter"></div></div>';$("midBody").innerHTML=h;
+    function go(i){bi=(i+BR.length)%BR.length;store.set("midBi",bi);bPaint()}
+    $("midPrev").addEventListener("click",function(){go(bi-1)});$("midNx").addEventListener("click",function(){go(bi+1)});
+    $("bMiss").addEventListener("click",function(){for(var k=1;k<=BR.length;k++){var j=(bi+k)%BR.length;if(!RB[j]){go(j);return}}go(bi+1)});
+    var done=false;
+    document.querySelectorAll("#midBody .qopt").forEach(function(b){b.addEventListener("click",function(){
+      if(done)return;done=true;var o=parseInt(b.dataset.bo,10),ok=o===0;
+      RB[bi]=ok?1:(RB[bi]?1:0);save();meta();if(window.recordAns)window.recordAns(c.t,ok);
+      document.querySelectorAll("#midBody .qopt").forEach(function(x){var i=parseInt(x.dataset.bo,10);if(i===0)x.classList.add("right");else if(i===o)x.classList.add("wrong");x.disabled=true});
+      $("bAfter").innerHTML='<div class="why"><b>'+(ok?"✓ correct":"✗ not quite")+'</b> — '+esc(c.w)+'</div><div class="row"><button class="btn" data-goto2="t'+c.t+'">open topic '+esc(c.t)+'</button><button class="btn on" id="bGo">next →</button></div>';
+      $("bGo").addEventListener("click",function(){go(bi+1)});
+      document.querySelector("#bAfter [data-goto2]").addEventListener("click",function(){jump(this.dataset.goto2,"notes")});
+    })});
+  }
+
+  /* 3 · numbers from memory */
+  var nk=store.get("midNk",NUM[0].k);
+  function nPaint(){
+    var T=NUM.filter(function(x){return x.k===nk})[0]||NUM[0];nk=T.k;
+    var h='<div class="row"><select class="fld" id="nSel" style="width:auto;max-width:100%" aria-label="Table">';
+    NUM.forEach(function(x){var tot=0,ok=0;x.r.forEach(function(r,ri){r.forEach(function(c,ci){if(c.charAt(0)==="?"){tot++;if(RN[x.k+"_"+ri+"_"+ci])ok++}})});h+='<option value="'+x.k+'"'+(x.k===nk?" selected":"")+'>'+esc(x.title)+' · '+ok+'/'+tot+'</option>'});
+    h+='</select><button class="btn" id="nNext">next table →</button></div><div class="tscroll"><table class="mst-reb"><tr>'+T.h.map(function(x){return '<th>'+esc(x)+'</th>'}).join("")+'</tr>';
+    T.r.forEach(function(r,ri){h+='<tr>';r.forEach(function(c,ci){if(c.charAt(0)==="?")h+='<td><input class="fld mst-in" data-cell="'+T.k+"_"+ri+"_"+ci+'" data-spec="'+esc(c)+'" autocomplete="off" spellcheck="false" aria-label="'+esc((T.h[ci]||"")+" for "+r[0])+'"></td>';else h+='<td>'+esc(c)+'</td>'});h+='</tr>'});
+    h+='</table></div><div class="row"><button class="btn go" id="nCheck">check</button><button class="btn" id="nReveal">reveal answers</button><button class="btn" id="nClear">clear</button></div><div id="nOut"></div>';
+    $("midBody").innerHTML=h;
+    $("nSel").addEventListener("change",function(){nk=this.value;store.set("midNk",nk);nPaint()});
+    $("nNext").addEventListener("click",function(){var i=NUM.indexOf(T);nk=NUM[(i+1)%NUM.length].k;store.set("midNk",nk);nPaint()});
+    var ins=[].slice.call(document.querySelectorAll("#midBody .mst-in"));
+    ins.forEach(function(inp,i){inp.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();if(ins[i+1])ins[i+1].focus();else $("nCheck").click()}})});
+    $("nCheck").addEventListener("click",function(){
+      var ok=0;ins.forEach(function(inp){var g=okAns(inp.value,inp.dataset.spec);inp.classList.toggle("right",g);inp.classList.toggle("wrong",!g);RN[inp.dataset.cell]=g;if(g)ok++});
+      save();meta();if(window.recordAns)window.recordAns(T.t,ok===ins.length);
+      var miss=ins.filter(function(x){return x.classList.contains("wrong")});
+      $("nOut").innerHTML='<div class="why"><b>'+ok+' / '+ins.length+' correct</b>'+(miss.length?' — '+miss.map(function(x){return '<span class="mono">'+esc(x.getAttribute("aria-label"))+' = '+esc(x.dataset.spec.slice(1).split("|")[0])+'</span>'}).join(" · "):' — all from memory.')+'</div>';
+      var sel=$("nSel").selectedOptions[0];if(sel)sel.textContent=T.title+" · "+ok+"/"+ins.length;
+    });
+    $("nReveal").addEventListener("click",function(){ins.forEach(function(inp){if(!inp.classList.contains("right")){inp.value=inp.dataset.spec.slice(1).split("|")[0];inp.classList.remove("wrong");inp.classList.add("shown")}})});
+    $("nClear").addEventListener("click",function(){ins.forEach(function(inp){inp.value="";inp.classList.remove("right","wrong","shown")});$("nOut").innerHTML=""});
+  }
+  meta();setMode(mode);
 })();
 
 /* ============ DSCP DECODER & SYSLOG THRESHOLD ============ */
