@@ -47,15 +47,28 @@ check(
   "shared Study Console body contract is incomplete",
 );
 for (const asset of [
-  "https://zann208.github.io/study/shared/v2/theme-init.js",
-  "https://zann208.github.io/study/shared/v2/study-system.css",
-  "https://zann208.github.io/study/shared/v2/legacy-console.css",
+  "https://zann208.github.io/study/shared/v3/boot.js",
+  'data-console="netdes"',
+  'data-v2="index.v2.html"',
   "./study-console-adapter.css",
   "./lab-workbench.css",
-  "https://zann208.github.io/study/shared/v2/study-system.js",
   "./lab-workbench.js",
+  "./study-console.v3.js",
 ]) {
-  check(html.includes(asset), "missing shared Study Console asset: " + asset);
+  check(html.includes(asset), "missing Study Console v3 asset: " + asset);
+}
+check(!html.includes("shared/v2/"), "index.html still loads Study Console v2 assets");
+check(fs.existsSync(path.join(root, "index.v2.html")), "missing the frozen v2 page used by ?ui=v2");
+{
+  const manifest = fs.readFileSync(path.join(root, "study-console.v3.js"), "utf8");
+  try { new Function(manifest); } catch (error) { failures.push("study-console.v3.js has invalid JavaScript: " + error.message); }
+  for (const tab of ["home", "final", "blueprint", "flow", "notes", "labs", "terms", "drills", "intensive", "cheat", "author"]) {
+    check(manifest.includes("id: '" + tab + "'"), "v3 manifest is missing view " + tab);
+    check(html.includes('<section class="tab' + (tab === "home" ? " on" : "") + '" id="' + tab + '">'), "missing section for view " + tab);
+  }
+  for (const legacy of ['<nav><div class="navin">', 'id="sb"', 'id="pal"', 'id="csWrap"', 'id="fx"', 'id="rail"']) {
+    check(!html.includes(legacy), "legacy navigation chrome is still in index.html: " + legacy);
+  }
 }
 
 for (const [label, file] of [
@@ -277,7 +290,7 @@ for (const [id, required] of Object.entries(topicAnchors)) {
 }
 
 // Final exam center: tab, exam facts, practice tools, and printable sheet.
-check(html.includes('data-tab="final">FINAL</button>') && html.includes('<section class="tab" id="final">'), "FINAL tab or section is missing");
+check(html.includes('<section class="tab" id="final">'), "FINAL section is missing");
 for (const fragment of [
   "Tuesday 20 October 2026",
   "15:30–18:30",
