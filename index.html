@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NETDES // Network Engineering Study Console</title>
+<title>Network Design &amp; Troubleshooting</title>
 <meta name="theme-color" content="#070b14">
-<script src="https://zann208.github.io/study/shared/v3/boot.js?v=20261025-2" data-console="netdes" data-v2="index.v2.html"></script>
+<script src="https://zann208.github.io/study/shared/v3/boot.js?v=20261026-1" data-console="netdes" data-v2="index.v2.html"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -192,9 +192,6 @@ body.light .chip.on{color:#fff}
   border-radius:5px;padding:3px 8px;color:var(--cy);white-space:nowrap;text-align:center}
 
 /* footer nav */
-.fnav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
-.fnav button{border:0;background:none;color:var(--faint);font-family:var(--mono);font-size:11px;cursor:pointer;padding:4px 8px;border-radius:5px}
-.fnav button:hover{color:var(--cy);background:var(--panel)}
 /* INTENSIVE */
 .wpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:7px;margin-top:12px}
 .wp{border:1px solid var(--line);background:var(--panel2);border-radius:9px;padding:9px 6px;cursor:pointer;
@@ -312,24 +309,6 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 
 
-<div id="welcome" class="mod" role="dialog" aria-label="Welcome">
-  <div class="modbox">
-    <span class="badge cy">NETWORK ENGINEERING</span>
-    <h2 style="margin-top:11px">Your NETDES study console</h2>
-    <p style="color:var(--dim);margin-top:8px;font-size:15px">Twenty-four technical topics, all thirteen original labs, verified walkthroughs, and focused practice in one console. Progress saves in this browser.</p>
-    <div class="pathgrid">
-      <button class="path" data-w="blueprint"><span class="ic">[1]</span><b>Understand</b><span>See the switching system as one network and connect the concepts</span></button>
-      <button class="path" data-w="notes"><span class="ic">[2]</span><b>Study</b><span>Review 24 technical topics and every numbered lab</span></button>
-      <button class="path" data-w="intensive"><span class="ic">[3]</span><b>Perform</b><span>Timed exams, a weak-point radar and the port-role solver</span></button>
-    </div>
-    <div class="row" style="margin-top:18px">
-      <button class="btn on" id="wStart">▶ Start with the Blueprint</button>
-      <button class="btn" id="wSkip">Skip</button>
-    </div>
-    <p style="color:var(--faint);font-size:12px;margin-top:12px;font-family:var(--mono)">Press <b style="color:var(--cy)">?</b> any time for shortcuts · <b style="color:var(--cy)">Ctrl K</b> to search</p>
-  </div>
-</div>
-
 <div id="keys" class="mod" role="dialog" aria-label="Keyboard shortcuts">
   <div class="modbox" style="max-width:440px">
     <h2>Keyboard shortcuts</h2>
@@ -350,8 +329,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 <main id="main">
 <!-- ============ HOME ============ -->
 <section class="tab on" id="home"><div class="wrap">
-  <h1><span class="pre">// NETWORK ENGINEERING STUDY CONSOLE</span>Build, verify, troubleshoot. One console.</h1>
-  <p class="lede">An independent switching and routing workspace with 24 study topics, the authoritative LAB 01–LAB 13 sequence, 262 flashcards, and 151 practice questions.</p>
+  <h1>Network Design and Troubleshooting</h1>
 
   <div class="stats">
     <div class="stat"><b>24</b><span>Topics</span></div>
@@ -363,16 +341,15 @@ body.light .bpmap .hot text{fill:#4f6180}
   <div class="panel lesson-update fin-banner">
     <div class="ph"><h2>Final exam · 20 October, 15:30–18:30</h2><span class="badge cy right" id="homeFinBadge">room 620</span></div>
     <p class="sub2">Written paper: multiple choice and written answers on theory, device configuration, and system analysis. Closed book with one A4 sheet (both sides); your midterm sheet is returned during the exam. Scope runs from DHCP to the end of the slides.</p>
-    <div class="row"><button class="btn go" data-tabgo="final">Open the final exam center →</button></div>
+    <div class="row"><button class="btn go" data-tabgo="final">Final exam</button></div>
   </div>
 
   <div class="panel lesson-update">
     <div class="ph"><h2>New study material</h2><span class="badge cy right">Topics 18B–22</span></div>
-    <p class="sub2">Finish the final scope: keep the gateway alive, survive device failures, prioritize traffic, watch the network, and secure its edge.</p>
     <div class="pathgrid">
-      <button class="path" data-goto="t18B"><span class="ic">18B</span><b>First Hop Redundancy</b><span>Share a virtual gateway with HSRP and follow a failover.</span></button>
+      <button class="path" data-goto="t18B"><span class="ic">18B</span><b>First Hop Redundancy</b><span>HSRP virtual gateway and failover.</span></button>
       <button class="path" data-goto="t19"><span class="ic">19</span><b>High Availability</b><span>Logical switches, StackWise, VSS, RPR/RPR+/SSO, and NSF.</span></button>
-      <button class="path" data-goto="t20"><span class="ic">20</span><b>Quality of Service</b><span>Decode DSCP, compare shaping and policing, and queue traffic.</span></button>
+      <button class="path" data-goto="t20"><span class="ic">20</span><b>Quality of Service</b><span>DSCP, shaping and policing, queuing.</span></button>
       <button class="path" data-goto="t21"><span class="ic">21</span><b>Monitoring</b><span>Syslog levels, NTP stratum, SNMP versions, SPAN and RSPAN.</span></button>
       <button class="path" data-goto="t22"><span class="ic">22</span><b>Basic Security</b><span>CIA, firewalls and zones, DMZ, IPS, NGFW and NGIPS.</span></button>
     </div>
@@ -380,10 +357,10 @@ body.light .bpmap .hot text{fill:#4f6180}
   </div>
 
   <div class="panel pv">
-    <div class="ph"><h2>Start here</h2><span class="badge vi right">three paths</span></div>
+    <div class="ph"><h2>Course outline</h2></div>
 
   <div class="panel pg">
-    <div class="ph"><h2>Readiness</h2><span class="badge gr right" id="rStatus">STANDBY</span></div>
+    <div class="ph"><h2>Readiness</h2></div>
     <div class="row" style="align-items:flex-start;gap:24px">
       <div class="ringwrap"><svg class="ring" viewBox="0 0 110 110"><circle class="rbg" cx="55" cy="55" r="50"/><circle class="rfg" id="ringFg" cx="55" cy="55" r="50"/></svg><div class="rtx" id="readyPct">0%</div></div>
       <div class="bars">
@@ -396,17 +373,11 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div class="row"><span class="badge">TARGET DATE</span><input type="date" id="examDate" class="fld" style="width:auto"><span class="badge cy" id="examLeft">—</span></div>
   </div>
 
-    <p class="sub2">Not sure where to begin? Pick the one that matches where you are right now.</p>
-    <div class="pathgrid">
-      <button class="path" data-tabgo="blueprint"><span class="ic">[1]</span><b>Understand</b><span>See the switching system as one network and connect the concepts</span></button>
-      <button class="path" data-tabgo="notes"><span class="ic">[2]</span><b>Study</b><span>Review 24 technical topics, then perform LAB 01–LAB 13</span></button>
-      <button class="path" data-tabgo="intensive"><span class="ic">[3]</span><b>Perform</b><span>Timed exams, a weak-point radar and the port-role solver</span></button>
-    </div>
-    <p style="margin-top:15px">The short version of the syllabus: address the network (<b>IPv6</b>) → power the switch (<b>ports, SSH, security</b>) → split it (<b>VLANs, trunks, VTP</b>) → widen it (<b>EtherChannel</b>) → route it (<b>L3 switch</b>) → isolate it (<b>Private VLAN</b>) → and stop the loops (<b>STP → RSTP → MST</b>).</p>
+    <p style="margin-top:15px">Address the network (<b>IPv6</b>) → power the switch (<b>ports, SSH, security</b>) → split it (<b>VLANs, trunks, VTP</b>) → widen it (<b>EtherChannel</b>) → route it (<b>L3 switch</b>) → isolate it (<b>Private VLAN</b>) → and stop the loops (<b>STP → RSTP → MST</b>).</p>
   </div>
 
   <div class="panel pv">
-    <div class="ph"><h2>Topics</h2><span class="badge right">click to open</span></div>
+    <div class="ph"><h2>Topics</h2></div>
     <div class="grid" id="gridTopics"></div>
   </div>
 
@@ -425,7 +396,6 @@ body.light .bpmap .hot text{fill:#4f6180}
       <tr><td class="mono">D6</td><td>Topics 13–15 · LAB 11–12</td><td>RSTP states and MST regions.</td></tr>
       <tr><td class="mono">D7</td><td>LAB 13 · Cheatsheet · drills</td><td>DHCP pools, exclusions, final review.</td></tr>
     </table></div>
-    <p class="sub2" style="margin-top:10px">Daily: 20 min notes → 15 min cards → 20 min typing commands in Packet Tracer. For the final, follow the five-day plan in the FINAL tab.</p>
   </div>
     <div class="grid" id="gridLabs"></div>
   </div>
@@ -434,8 +404,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 <!-- ============ FINAL ============ -->
 <section class="tab" id="final"><div class="wrap">
-  <h1 data-i18n="fin.001"><span class="pre">// FINAL EXAM</span>Final exam command center</h1>
-  <p class="lede" data-i18n="fin.002">Everything for the final in one place: the exam brief, the eight topics in scope, a final-only mock exam, configuration writing, output analysis, and a printable A4 sheet.</p>
+  <h1 data-i18n="fin.001">Final exam</h1>
 
   <div class="panel fin-brief">
     <div class="ph"><h2 data-i18n="fin.003">Exam brief</h2><span class="badge cy right" id="finCountBadge">—</span></div>
@@ -458,7 +427,7 @@ body.light .bpmap .hot text{fill:#4f6180}
   </div>
 
   <div class="panel pv">
-    <div class="ph"><h2 data-i18n="fin.015">Scope and readiness</h2><span class="badge vi right" id="finStatus">STANDBY</span></div>
+    <div class="ph"><h2 data-i18n="fin.015">Scope and readiness</h2></div>
     <p class="sub2" data-i18n="fin.016">Coverage runs <b>from DHCP to the end of the slides</b>, and the paper may include some midterm topics. Readiness combines topics marked done, final-scope cards mastered, your best final mock, configuration tasks practiced, and analysis cases solved.</p>
     <div class="row" style="align-items:flex-start;gap:24px">
       <div class="ringwrap"><svg class="ring" viewBox="0 0 110 110"><circle class="rbg" cx="55" cy="55" r="50"/><circle class="rfg" id="finRing" cx="55" cy="55" r="50"/></svg><div class="rtx" id="finPct">0%</div></div>
@@ -473,7 +442,6 @@ body.light .bpmap .hot text{fill:#4f6180}
     <h4 data-i18n="fin.022">Final topics</h4>
     <div class="grid fin-grid" id="finGrid"></div>
     <h4 data-i18n="fin.023">Midterm carry-over</h4>
-    <p class="sub2" data-i18n="fin.024">The midterm sheet comes back to you, so review these for speed, not from scratch. They are the midterm topics most likely to reappear inside final-scope questions.</p>
     <div class="lesson-links" aria-label="Midterm topics to refresh">
       <button class="btn" data-goto="t04" data-i18n="fin.025">04 VLANs &amp; trunks — SSID/VLAN mapping, RSPAN VLAN</button>
       <button class="btn" data-goto="t06" data-i18n="fin.026">06 EtherChannel — multichassis bundles</button>
@@ -488,7 +456,6 @@ body.light .bpmap .hot text{fill:#4f6180}
 
   <div class="panel pg" id="recapPanel">
     <div class="ph"><h2 data-i18n="rc.001">Quick recap</h2><span class="badge gr right">last read</span></div>
-    <p class="sub2" data-i18n="rc.002">One pass through everything before the paper: the midterm topics that may come back, then the final topics. Bold lines show where a midterm idea appears inside a final question.</p>
     <div class="row"><button class="btn on" data-rc="mid">Midterm 01–15</button><button class="btn" data-rc="fin">Final 16–22</button><button class="btn" data-rc="all">both</button></div>
     <div class="rc-grid" data-rcs="mid">
 <div class="rc-card">
@@ -710,7 +677,6 @@ body.light .bpmap .hot text{fill:#4f6180}
 
   <div class="panel pa" id="finMockPanel">
     <div class="ph"><h2 data-i18n="fin.059">Final mock exam</h2><span class="badge am right">best <b id="finBest">—</b></span></div>
-    <p class="sub2" data-i18n="fin.060">Questions drawn only from the final scope. A running clock, no feedback until you submit, and a per-topic report at the end. Answers also feed the weak-point radar.</p>
     <div class="row">
       <span class="badge" data-i18n="fin.061">LENGTH</span>
       <button class="btn on" data-flen="20">20 Q · 30 min</button>
@@ -724,7 +690,6 @@ body.light .bpmap .hot text{fill:#4f6180}
 
   <div class="panel pg" id="finCfgPanel">
     <div class="ph"><h2 data-i18n="fin.063">Configuration writing</h2><span class="badge gr right" id="cfgMeta">0 practiced</span></div>
-    <p class="sub2" data-i18n="fin.064">Write the full answer as you would on paper, then compare with the model and tick the marks you earned. Your drafts are saved on this device.</p>
     <div class="row"><select id="cfgSel" class="fld" style="width:auto;max-width:100%" aria-label="Configuration task"></select><button class="btn" id="cfgPrev">← prev</button><button class="btn" id="cfgNext">next →</button></div>
     <div id="cfgTask"></div>
     <label class="fin-label" for="cfgDraft" data-i18n="fin.065">Your answer</label>
@@ -735,7 +700,6 @@ body.light .bpmap .hot text{fill:#4f6180}
 
   <div class="panel pv" id="finAnaPanel">
     <div class="ph"><h2 data-i18n="fin.066">System analysis</h2><span class="badge vi right" id="anaMeta">0 solved</span></div>
-    <p class="sub2" data-i18n="fin.067">Each case gives an exhibit or a situation. Decide, then read why. Your answers are recorded per case.</p>
     <div class="row"><select id="anaSel" class="fld" style="width:auto;max-width:100%" aria-label="Analysis case"></select><button class="btn" id="anaPrev">← prev</button><button class="btn" id="anaNext">next →</button><button class="btn" id="anaReset">reset cases</button></div>
     <div id="anaBody"></div>
   </div>
@@ -757,7 +721,6 @@ body.light .bpmap .hot text{fill:#4f6180}
 
   <div class="panel pv" id="masterPanel">
     <div class="ph"><h2 data-i18n="sht.006">Master the cheat sheet</h2><span class="badge vi right" id="mstBadge">mastery 0%</span></div>
-    <p class="sub2" data-i18n="sht.007">Last preparation. Three drills: find any fact on the sheet in seconds, answer questions the sheet cannot answer for you, and rebuild its key tables from memory. Results are saved on this device.</p>
     <div class="bars mst-bars">
       <div class="bar"><span class="bl" data-i18n="sht.008">LOOKUP</span><span class="bt"><i id="mbLook"></i></span><span class="bv" id="mvLook">0</span></div>
       <div class="bar"><span class="bl" data-i18n="sht.009">UNDERSTAND</span><span class="bt"><i id="mbUnd"></i></span><span class="bv" id="mvUnd">0</span></div>
@@ -795,7 +758,6 @@ body.light .bpmap .hot text{fill:#4f6180}
 
   <div class="panel pg">
     <div class="ph"><h2 data-i18n="fin2.001">Five-day plan</h2><span class="badge gr right" id="planMeta">0 done</span></div>
-    <p class="sub2" data-i18n="fin2.002">One focused block per day, ending with the exam afternoon. Tick each step; progress is saved.</p>
     <div id="finPlan" class="fin-plan"></div>
   </div>
 
@@ -814,8 +776,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 <!-- ============ BLUEPRINT ============ -->
 <section class="tab" id="blueprint"><div class="wrap">
-  <h1><span class="pre">// SYSTEM VIEW</span>The whole switching system as one network</h1>
-  <p class="lede">Connect the switching diagram with addressing, campus architecture, and wireless integration. Use the numbered tags and topic links to open the notes.</p>
+  <h1>Blueprint</h1>
 
   <div class="lesson-links" aria-label="Campus service topics"><button class="btn" data-goto="t16">16 · DHCP &amp; Relay</button><button class="btn" data-goto="t17">17 · Campus design</button><button class="btn" data-goto="t18">18 · WLAN integration</button><button class="btn" data-goto="t18B">18B · HSRP</button><button class="btn" data-goto="t19">19 · High availability</button><button class="btn" data-goto="t20">20 · QoS</button><button class="btn" data-goto="t21">21 · Monitoring</button><button class="btn" data-goto="t22">22 · Security</button></div>
   <div class="panel pv">
@@ -1001,8 +962,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 
 <!-- ============ FLOW ============ -->
 <section class="tab" id="flow"><div class="wrap">
-  <h1><span class="pre">// LAB PATH</span>Prepare → configure → verify → troubleshoot</h1>
-  <p class="lede">Use the same evidence-driven loop for every lab. The numbered sequence below matches the supplied lab files exactly.</p>
+  <h1>Lab flow</h1>
 
   <div class="panel">
     <div class="pipe">
@@ -1047,8 +1007,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 </div></section>
 <!-- ============ TOPICS ============ -->
 <section class="tab" id="notes"><div class="wrap">
-  <h1><span class="pre">// TECHNICAL TOPICS</span>24 connected network-engineering topics</h1>
-  <p class="lede">Concepts, IOS commands, failure modes, and verification evidence arranged as one study path. Use <b>‹ ›</b> or <b>J / K</b> to move.</p>
+  <h1>Topics</h1>
 
   <!-- 01 -->
   <article class="item" id="t01">
@@ -2313,7 +2272,7 @@ spanning-tree mode pvst                   <span class="c">! back to classic</spa
       <tr><td>Refusals</td><td>—</td><td>Switch D refuses C's proposal because it knows a better path, so that link stays blocked</td></tr>
       <tr><td class="ok">Time to forwarding</td><td class="mono no">≈ 30 s (15 + 15)</td><td class="mono ok">handshake + BPDU travel</td></tr>
     </table></div>
-    <div class="box wild"><b>Say this out loud before the exam</b>"In 802.1D the port waits out Listening and Learning while the news spreads. In RSTP the root proposes, the switch isolates its downstream ports, agrees, and forwards — then repeats the same handshake with its own neighbours, creating a wave of synchronisation." That single paragraph answers any RSTP-vs-STP question.</div>
+    <div class="box wild"><b>Summary</b>"In 802.1D the port waits out Listening and Learning while the news spreads. In RSTP the root proposes, the switch isolates its downstream ports, agrees, and forwards — then repeats the same handshake with its own neighbours, creating a wave of synchronisation." That single paragraph answers any RSTP-vs-STP question.</div>
 
     <div class="box trap"><b>Exam traps</b><ul>
       <li>Be ready to narrate <b>both</b> protocols for the same picture — the slides deliberately show them side by side.</li>
@@ -3233,9 +3192,8 @@ no monitor session all               <span class="c">! or: no monitor session lo
 
 <!-- ============ LABS ============ -->
 <section class="tab" id="labs"><div class="wrap">
-  <h1><span class="pre">// LAB WORKBENCH</span>LAB 01–LAB 13, original numbering</h1>
-  <div class="box wild" style="margin-top:14px"><b>How to use the worked reasoning</b>Build each topology and record your own output first. Then compare the root election, path cost, tie-breaks, verification evidence, and troubleshooting notes here.</div>
-  <p class="lede">Each lab keeps its source number, devices, ports, addresses, required platform, configuration order, verification commands, expected behavior, and questions. The IPv4 subnetting material is a separate Review and does not count as a lab.</p>
+  <h1>Labs</h1>
+  <p class="lede">LAB 01–LAB 13 in original numbering. IPv4 subnetting is a separate review, not a numbered lab.</p>
 
   <div class="tscroll" style="margin-top:16px"><table>
     <tr><th>Lab</th><th>Title</th><th>Platform / kit</th><th>Technical focus</th></tr>
@@ -4672,8 +4630,7 @@ end</pre></div></details>
 </div></section>
 <!-- ============ DRILLS ============ -->
 <section class="tab" id="drills"><div class="wrap">
-  <h1><span class="pre">// TRAINING RANGE</span>Drills</h1>
-  <p class="lede">Cards, mock exam, and three generators that never run out of questions.</p>
+  <h1>Drills</h1>
 
   <div class="panel">
     <div class="ph"><h2>Flashcards</h2><span class="badge cy right" id="cardCount"></span></div>
@@ -4730,8 +4687,7 @@ end</pre></div></details>
 
 <!-- ============ INTENSIVE ============ -->
 <section class="tab" id="intensive"><div class="wrap">
-  <h1><span class="pre">// INTENSIVE PREP</span>Exam conditions, not comfort</h1>
-  <p class="lede">Drills build recall. This builds performance under time pressure — and shows you exactly where you are weak.</p>
+  <h1>Intensive</h1>
 
   <div class="panel pv">
     <div class="ph"><h2>Weak point radar</h2><span class="badge vi right" id="wpMeta">no data yet</span></div>
@@ -4793,7 +4749,6 @@ end</pre></div></details>
 
   <div class="panel pg">
     <div class="ph"><h2>Command recall</h2><span class="badge gr right">type it from memory</span></div>
-    <p class="sub2">Read the task, say the command out loud or type it, then reveal. Configuration questions are free marks if you drilled these.</p>
     <div class="row">
       <button class="btn" id="cmdNew">next task</button>
       <button class="btn go" id="cmdShow">reveal</button>
@@ -4814,8 +4769,7 @@ end</pre></div></details>
 
 <!-- ============ CHEATSHEET ============ -->
 <section class="tab" id="cheat"><div class="wrap">
-  <h1><span class="pre">// QUICK REFERENCE</span>Cheatsheet</h1>
-  <p class="lede">Every number and table in one place. This is your last-hour page.</p>
+  <h1>Cheatsheet</h1>
 
   <div class="panel pv">
     <div class="ph"><h2>Final sheet · chapters 16–23</h2><span class="badge vi right">final exam</span></div>
@@ -5086,8 +5040,7 @@ show monitor</pre></div></details>
 
 <!-- ============ TERMS ============ -->
 <section class="tab" id="terms"><div class="wrap">
-  <h1><span class="pre">// GLOSSARY</span>Acronyms</h1>
-  <p class="lede">Short → long → what it actually means.</p>
+  <h1>Acronyms</h1>
   <input class="fld" id="acroF" placeholder="search… e.g. BPDU, guard, trunk" style="margin-top:14px">
   <div class="panel"><div class="tscroll"><table id="acroT">
     <tr><th style="width:96px">Short</th><th style="width:250px">Long</th><th>Meaning</th></tr>
@@ -5203,12 +5156,12 @@ show monitor</pre></div></details>
 
 <!-- ============ ABOUT ============ -->
 <section class="tab" id="author"><div class="wrap">
-  <h1><span class="pre">// ABOUT NETDES</span>Network Engineering Study Console</h1>
+  <h1>About</h1>
 
   <div class="panel pg">
-    <div class="ph"><h2>Purpose</h2><span class="badge gr right">independent study workspace</span></div>
-    <p>NETDES connects network-engineering concepts to repeatable lab work. The application shell provides navigation, progress, drills, search, and verification aids; the supplied original lab files control every numbered lab's technical details.</p>
-    <div class="box wild"><b>Numbering contract</b>LAB 01 through LAB 13 always retain their source numbers. The subnetting Review is useful preparation, but it is not a numbered lab and is excluded from lab progress.</div>
+    <div class="ph"><h2>Purpose</h2></div>
+    <p>Switching and routing topics with the LAB 01–LAB 13 sequence. Lab details follow the original lab files.</p>
+    <div class="box wild"><b>Lab numbering</b>LAB 01 through LAB 13 always retain their source numbers. The subnetting Review is useful preparation, but it is not a numbered lab and is excluded from lab progress.</div>
   </div>
 
   <div class="panel pv">
@@ -5218,8 +5171,7 @@ show monitor</pre></div></details>
   </div>
 
   <div class="panel pa">
-    <div class="ph"><h2>Build inventory</h2><span class="badge am right">offline-capable</span></div>
-    <p style="margin-top:6px">A focused single-page workspace for switching, routing, redundancy, addressing, and service configuration. Progress is kept locally in the browser.</p>
+    <div class="ph"><h2>Contents</h2></div>
     <div class="buildgrid">
       <div class="bstat"><b id="bs1">24</b><span>Topics</span></div>
       <div class="bstat"><b id="bs2">13</b><span>Labs mapped</span></div>
@@ -5243,7 +5195,6 @@ show monitor</pre></div></details>
 
   <div class="panel">
     <div class="ph"><h2>Progress snapshot</h2></div>
-    <p class="sub2">Live from your own study data on this device.</p>
     <div class="buildgrid">
       <div class="bstat"><b id="as1">0%</b><span>Readiness</span></div>
       <div class="bstat"><b id="as2">0</b><span>Topics done</span></div>
@@ -5256,17 +5207,7 @@ show monitor</pre></div></details>
 </div></section>
 
 </main>
-<div class="footer">
-  <div class="fnav">
-    <button data-tabgo="home">Home</button><button data-tabgo="final">Final</button><button data-tabgo="blueprint">Blueprint</button>
-    <button data-tabgo="notes">Topics</button><button data-tabgo="labs">Labs</button>
-    <button data-tabgo="drills">Drills</button><button data-tabgo="intensive">Practice</button>
-    <button data-tabgo="cheat">Cheatsheet</button><button data-tabgo="terms">Terms</button>
-    <button data-tabgo="author">About</button><button id="fHelp">Shortcuts</button>
-  </div>
-  // 24 technical topics · 13 original-numbered labs · 262 cards · 151 practice questions<br>
-  NETDES study console · built for repeatable configuration and verification
-</div>
+<div class="footer">Network Design and Troubleshooting</div>
 <script>
 var store={get:function(k,d){try{var v=localStorage.getItem("nd_"+k);return v?JSON.parse(v):d}catch(e){return d}},
            set:function(k,v){try{localStorage.setItem("nd_"+k,JSON.stringify(v))}catch(e){}}};
@@ -5802,9 +5743,6 @@ function refreshReady(){
   document.getElementById("vCard").textContent=kn+"/"+CARDS.length;
   document.getElementById("bQuiz").style.width=(q*100)+"%";
   document.getElementById("vQuiz").textContent=best<0?"—":best+"/20";
-  var st=document.getElementById("rStatus");
-  st.textContent=pct>=90?"EXAM READY":pct>=60?"ON TRACK":pct>=25?"WARMING UP":"STANDBY";
-  st.className="badge right "+(pct>=90?"gr":pct>=60?"cy":"am");
 }
 document.querySelectorAll(".dn").forEach(function(c){
   c.checked=doneSet.indexOf(c.dataset.k)>-1;
@@ -5980,7 +5918,7 @@ function qEnd(){
     h+='<p style="margin-top:10px;font-weight:650">Review these:</p><div class="row">';
     ks.forEach(function(t){h+='<button class="btn" data-rv="'+t+'">'+t+' '+TOPICS[t][0]+' ('+per[t]+')</button>'});
     h+='</div>';
-  } else h+='<p class="ok" style="margin-top:10px;font-weight:650">Perfect run. You are ready.</p>';
+  } else h+='<p class="ok" style="margin-top:10px;font-weight:650">All correct.</p>';
   h+='<div class="row">';
   if(qz.wrong.length)h+='<button class="btn no2" id="qRv">review misses</button>';
   h+='<button class="btn on" id="qAg">new run</button></div>';
@@ -6760,9 +6698,6 @@ function boom(){
     [["fbTop","fvTop",p[0],doneT+"/"+FKEYS.length],["fbCard","fvCard",p[1],kn+"/"+fc.length],
      ["fbMock","fvMock",p[2],best<0?"—":best+"%"],["fbCfg","fvCfg",p[3],cfgN+"/"+CFG.length],
      ["fbAna","fvAna",p[4],anaOk+"/"+ANA.length]].forEach(function(r){$(r[0]).style.width=(r[2]*100)+"%";$(r[1]).textContent=r[3]});
-    var st=$("finStatus");
-    st.textContent=pct>=85?"EXAM READY":pct>=60?"ON TRACK":pct>=25?"WARMING UP":"STANDBY";
-    st.className="badge right "+(pct>=85?"gr":pct>=60?"cy":"am");
     paintGrid();
   }
   window.finRefresh=refresh;
@@ -7796,15 +7731,6 @@ function boom(){
   }
 })();
 
-/* ============ FOOTER NAV ============ */
-(function(){
-  document.querySelectorAll(".fnav [data-tabgo]").forEach(function(b){
-    b.addEventListener("click",function(){showTab(b.dataset.tabgo,true);store.set("lastTab",b.dataset.tabgo)});
-  });
-  var fh=document.getElementById("fHelp");
-  if(fh)fh.addEventListener("click",function(){document.getElementById("keys").classList.add("on")});
-})();
-
 /* ============ CONNECTED LESSON EXPLORERS ============ */
 (function(){
   document.querySelectorAll("[data-lesson-switch]").forEach(function(explorer){
@@ -7829,22 +7755,11 @@ function boom(){
   /* Search is the Study Console frame search; keep the old entry point for buttons that call it. */
   window.openPalette=function(){if(window.StudyShell)StudyShell.openSearch()};
 
-  /* ---- welcome + shortcuts ---- */
-  var wel=document.getElementById("welcome"),keys=document.getElementById("keys");
-  function shut(){wel.classList.remove("on");keys.classList.remove("on")}
-  document.querySelectorAll("#welcome .path").forEach(function(b){
-    b.addEventListener("click",function(){
-      shut();store.set("seen",1);
-      showTab(b.dataset.w,true);store.set("lastTab",b.dataset.w);
-    });
-  });
-  document.getElementById("wStart").addEventListener("click",function(){
-    shut();store.set("seen",1);showTab("blueprint",true);store.set("lastTab","blueprint");
-  });
-  document.getElementById("wSkip").addEventListener("click",function(){shut();store.set("seen",1)});
+  /* ---- shortcuts ---- */
+  var keys=document.getElementById("keys");
+  function shut(){keys.classList.remove("on")}
   document.getElementById("keysClose").addEventListener("click",shut);
-  [wel,keys].forEach(function(m){m.addEventListener("click",function(e){if(e.target===m)shut()})});
-  window.showWelcome=function(){wel.classList.add("on")};
+  keys.addEventListener("click",function(e){if(e.target===keys)shut()});
 
   document.addEventListener("keydown",function(e){
     var tag=(e.target.tagName||"").toLowerCase();
@@ -7854,7 +7769,6 @@ function boom(){
     if(e.key==="?"||(e.shiftKey&&e.key==="/")){e.preventDefault();keys.classList.add("on")}
   });
 
-  if(!store.get("seen",0))setTimeout(function(){wel.classList.add("on")},450);
 })();
 
 /* ============ LANGUAGE ============ */
@@ -7865,7 +7779,7 @@ function boom(){
     if(!document.getElementById("myFont")){var l=document.createElement("link");l.id="myFont";l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600;700&display=swap";document.head.appendChild(l)}
     if(window.ND_MY){cb();return}
     if(loading)return;loading=true;
-    var s=document.createElement("script");s.src="i18n/my.js?v=1";
+    var s=document.createElement("script");s.src="i18n/my.js?v=2";
     s.onload=function(){loading=false;cb()};
     s.onerror=function(){loading=false;LANG="en";store.set("lang","en");cb()};
     document.head.appendChild(s);

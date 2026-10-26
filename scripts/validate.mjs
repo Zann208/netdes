@@ -37,8 +37,8 @@ const expectedLabs = Array.from(
 );
 
 check(
-  html.includes("<title>NETDES // Network Engineering Study Console</title>"),
-  "document title is not the independent NETDES title",
+  html.includes("<title>Network Design &amp; Troubleshooting</title>"),
+  "document title is not the console title",
 );
 check(
   html.includes('data-study-console="netdes"') &&
