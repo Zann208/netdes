@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Network Design &amp; Troubleshooting</title>
 <meta name="theme-color" content="#070b14">
-<script src="https://zann208.github.io/study/shared/v3/boot.js?v=20261026-1" data-console="netdes" data-v2="index.v2.html"></script>
+<script src="https://zann208.github.io/study/shared/v3/boot.js?v=20261028-1" data-console="netdes" data-v2="index.v2.html"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -109,7 +109,7 @@ summary::marker{color:var(--gr)}
 pre{background:#050810;color:#cfe3ff;border:1px solid var(--line2);border-radius:8px;padding:30px 15px 14px;font-size:12.8px;line-height:1.72;overflow-x:auto;font-family:var(--mono);margin-top:11px;position:relative}
 body.light pre{background:#0b1120;color:#cfe3ff}
 pre::before{content:"● ● ●";position:absolute;top:7px;left:13px;font-size:9px;letter-spacing:2px;color:#3a4a66}
-pre .c{color:#5d7a9e;font-style:italic}
+pre .c{color:var(--sc-tok-comment,#5d7a9e);font-style:italic}
 pre .k{color:#34d399}
 .copy{position:absolute;top:5px;right:6px;border:1px solid var(--line2);background:#0d1626;color:#7b90b0;border-radius:5px;padding:3px 9px;font-size:10.5px;cursor:pointer;font-family:var(--mono)}
 .copy:hover{color:var(--cy);border-color:var(--cy)}
@@ -296,7 +296,7 @@ body.light .bpmap .hot text{fill:#4f6180}
 .r-no{background:color-mix(in srgb,var(--rd) 12%,var(--panel));color:var(--rd)}
 .mm{display:flex;gap:10px;align-items:center;margin-top:12px}
 .mmx{font-family:var(--mono);color:var(--faint)}
-.macbox{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:1px;color:var(--gr);background:#050810;border:1px solid var(--line2);border-radius:8px;padding:11px 17px;display:inline-block;margin-top:11px}
+.macbox{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:1px;color:var(--gr);background:var(--sc-code-bg,#050810);border:1px solid var(--line2);border-radius:8px;padding:11px 17px;display:inline-block;margin-top:11px}
 .tnav{display:flex;gap:8px;margin-top:15px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
 .footer{text-align:center;color:var(--faint);font-family:var(--mono);font-size:11px;padding:26px 0 46px;letter-spacing:.5px}
 @media(max-width:600px){.panel,.item{padding:16px}.tag{display:none}}
@@ -1809,7 +1809,7 @@ show interface Fa0/1 switchport</pre></div></details>
     <div class="row" style="gap:3px;margin-top:12px">
       <div style="flex:20;background:#64748b;border-radius:7px;padding:9px 4px;text-align:center;color:#fff;font-size:11.5px"><b>Blocking</b><br>Max Age 20s</div>
       <div style="flex:15;background:#fbbf24;border-radius:7px;padding:9px 4px;text-align:center;color:#1c2333;font-size:11.5px"><b>Listening</b><br>15s</div>
-      <div style="flex:15;background:#a78bfa;border-radius:7px;padding:9px 4px;text-align:center;color:#fff;font-size:11.5px"><b>Learning</b><br>15s</div>
+      <div style="flex:15;background:#a78bfa;border-radius:7px;padding:9px 4px;text-align:center;color:#1c1533;font-size:11.5px"><b>Learning</b><br>15s</div>
       <div style="flex:14;background:#34d399;border-radius:7px;padding:9px 4px;text-align:center;color:#07260f;font-size:11.5px"><b>Forwarding</b><br>data flows</div>
     </div>
 
@@ -5945,7 +5945,7 @@ function scene(k){
     var g=document.getElementById(id);if(!g)return;
     var r=s.roles[id];
     g.querySelector("circle").setAttribute("fill",COL[r]);
-    var t=g.querySelector("text");t.textContent=r;t.setAttribute("fill",TXC[r]);
+    var t=g.querySelector("text");t.textContent=r;t.setAttribute("fill",TXC[r]);t.style.fill=r==="R"?"":"var(--sc-surface)";
   });
   ["L1","L2","L3","L4","L5"].forEach(function(l){
     var e=document.getElementById(l);if(!e)return;
