@@ -344,6 +344,13 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div class="row"><button class="btn go" data-tabgo="final">Final exam</button></div>
   </div>
 
+
+  <div class="panel lesson-update">
+    <div class="ph"><h2>Campus project: EB1-EB2 network design</h2><span class="badge gr right">new</span></div>
+    <p class="sub2">The course topics applied to a real two-building campus: 722 users, 14 VLANs, LACP, Rapid-PVST+, HSRP, DHCP and 57 Wi-Fi 6 APs, with generated configs and a Packet Tracer lab.</p>
+    <div class="row"><button class="btn go" data-tabgo="project">Open the project</button></div>
+  </div>
+
   <div class="panel lesson-update">
     <div class="ph"><h2>New study material</h2><span class="badge cy right">Topics 18B–22</span></div>
     <div class="pathgrid">
@@ -400,6 +407,67 @@ body.light .bpmap .hot text{fill:#4f6180}
     <div class="grid" id="gridLabs"></div>
   </div>
 
+</div></section>
+
+<!-- ============ CAMPUS PROJECT ============ -->
+<section class="tab" id="project"><div class="wrap">
+  <h1>Campus Project: EB1-EB2 Network Design</h1>
+  <p class="sub2">Group 2 design project for two academic buildings, rebuilt as code with automated checks, generated configs and a Packet Tracer replica.</p>
+
+  <div class="stats">
+    <div class="stat"><b>722</b><span>Peak users</span></div>
+    <div class="stat g"><b>1,668</b><span>Devices</span></div>
+    <div class="stat v"><b>57</b><span>Wi-Fi 6 APs</span></div>
+    <div class="stat"><b>14</b><span>VLANs</span></div>
+    <div class="stat g"><b>143</b><span>Design checks</span></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><h2>Open the project</h2><span class="badge cy right">live</span></div>
+    <p class="sub2">The project console has the topology, an IP-to-VLAN lookup, an AP sizing calculator, every generated config and the live check results.</p>
+    <div class="row">
+      <a class="btn go" href="https://zann208.github.io/NETDES-EB1-EB2-Campus-Design/" target="_blank" rel="noopener">Project console</a>
+      <a class="btn" href="https://github.com/Zann208/NETDES-EB1-EB2-Campus-Design" target="_blank" rel="noopener">GitHub repository</a>
+      <a class="btn" href="https://github.com/Zann208/NETDES-EB1-EB2-Campus-Design/raw/main/lab/NETDES-EB1-EB2.pkt">Packet Tracer file (.pkt)</a>
+    </div>
+  </div>
+
+  <div class="panel pv">
+    <div class="ph"><h2>Hierarchical physical topology</h2></div>
+    <img src="projects/eb1-eb2/topology.png" alt="EB1-EB2 hierarchical physical topology: ITSC, FortiGate HA pair, faculty core, EB1 core, distribution and access stacks" loading="lazy" style="width:100%;height:auto;margin-top:12px;border-radius:10px;background:#fff">
+  </div>
+
+  <div class="panel pg">
+    <div class="ph"><h2>Packet Tracer lab</h2><span class="badge gr right">15 devices configured</span></div>
+    <img src="projects/eb1-eb2/pt-topology.jpg" alt="Packet Tracer replica with zones for ITSC, the EB2 server room, building EB1 and building EB2" loading="lazy" style="width:100%;height:auto;margin-top:12px;border-radius:10px;background:#fff">
+    <p class="sub2" style="margin-top:10px">ISR4331 pair with HSRP stands in for the FortiGate HA pair; 3650s for the core and distribution; one 2960 per access stack. Cabled, addressed and renamed through the Packet Tracer scripting API.</p>
+  </div>
+
+  <div class="panel pa">
+    <div class="ph"><h2>Where the course topics show up</h2></div>
+    <div class="tscroll"><table>
+      <tr><th>Topic</th><th>In this design</th></tr>
+      <tr><td class="mono">VLANs, 802.1Q</td><td>14 VLANs by user group and building; native VLAN 999; unused ports parked in 999</td></tr>
+      <tr><td class="mono">EtherChannel</td><td>2x10G LACP on every core, distribution and access uplink</td></tr>
+      <tr><td class="mono">Rapid-PVST+</td><td>Faculty core is root (4096), EB1 core secondary (8192); 1G backups on EB2 floors 2-3 sit in alternate</td></tr>
+      <tr><td class="mono">Inter-VLAN routing</td><td>One L3 point: the firewall pair routes all 14 VLANs over a single trunk</td></tr>
+      <tr><td class="mono">DHCP</td><td>Pools on the firewalls, split in halves so either can fail; option 43 points APs at the WLC</td></tr>
+      <tr><td class="mono">HSRP</td><td>Shared .1 gateway in every VLAN; FW01 active, FW02 standby</td></tr>
+      <tr><td class="mono">Campus design</td><td>3-tier with a core in each building; EB1 needs 2 inter-building links instead of 6</td></tr>
+      <tr><td class="mono">WLAN</td><td>57 C9115AXI on a C9800-L-F; APs sized by max(coverage, capacity)</td></tr>
+      <tr><td class="mono">Security</td><td>Zone policy, DHCP snooping, BPDU Guard, Root Guard, sticky port security on camera ports</td></tr>
+    </table></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><h2>Design as code</h2></div>
+    <div class="pathgrid">
+      <a class="path" href="https://github.com/Zann208/NETDES-EB1-EB2-Campus-Design/blob/main/design/network.yaml" target="_blank" rel="noopener"><span class="ic">YAML</span><b>Source of truth</b><span>Users, VLANs, links, PoE and devices in one file.</span></a>
+      <a class="path" href="https://github.com/Zann208/NETDES-EB1-EB2-Campus-Design/blob/main/tools/validate.py" target="_blank" rel="noopener"><span class="ic">PY</span><b>Validator</b><span>143 checks run on every push; found 3 errors in the submitted report.</span></a>
+      <a class="path" href="https://github.com/Zann208/NETDES-EB1-EB2-Campus-Design/tree/main/lab/configs" target="_blank" rel="noopener"><span class="ic">IOS</span><b>Generated configs</b><span>15 device configs rendered with Jinja2.</span></a>
+      <a class="path" href="https://github.com/Zann208/NETDES-EB1-EB2-Campus-Design/blob/main/docs/design.md" target="_blank" rel="noopener"><span class="ic">DOC</span><b>Design write-up</b><span>Requirements, architecture, addressing, wireless, security, budget.</span></a>
+    </div>
+  </div>
 </div></section>
 
 <!-- ============ FINAL ============ -->
@@ -7950,6 +8018,6 @@ showTab(store.get("lastTab","home"));
 tabs.forEach(function(b){b.addEventListener("click",function(){store.set("lastTab",b.dataset.tab)})});
 </script>
 <script src="./lab-workbench.js"></script>
-<script src="./study-console.v3.js?v=20261025-1"></script>
+<script src="./study-console.v3.js?v=20261030-5"></script>
 </body>
 </html>

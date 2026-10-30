@@ -48,6 +48,7 @@
     },
     groups: [
       { label: 'Start', views: [{ id: 'home', title: 'Home', titles: { my: 'ပင်မ' } }, { id: 'final', title: 'Final', titles: { my: 'ဖိုင်နယ်' } }] },
+      { label: 'Project', views: [{ id: 'project', title: 'Campus Project', badge: 'NEW' }] },
       { label: 'Understand', views: [{ id: 'blueprint', title: 'Blueprint', titles: { my: 'ခြုံငုံ' } }, { id: 'flow', title: 'Flow', titles: { my: 'အစဉ်' } }] },
       { label: 'Study', views: [
         { id: 'notes', title: 'Topics', badge: '24', titles: { my: 'ခေါင်းစဉ်များ' }, children: topics },
