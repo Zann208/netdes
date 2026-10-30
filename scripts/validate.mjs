@@ -37,13 +37,13 @@ const expectedLabs = Array.from(
 );
 
 check(
-  html.includes("<title>Network Design &amp; Troubleshooting</title>"),
+  html.includes("<title>Network Design &amp; Management</title>"),
   "document title is not the console title",
 );
 check(
   html.includes('data-study-console="netdes"') &&
     html.includes('data-console-id="netdes"') &&
-    html.includes('data-console-name="Network Design & Troubleshooting"'),
+    html.includes('data-console-name="Network Design & Management"'),
   "shared Study Console body contract is incomplete",
 );
 for (const asset of [

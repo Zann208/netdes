@@ -24,8 +24,7 @@
   }
   (window.StudyConsole = window.StudyConsole || []).push({
     id: 'netdes',
-    title: 'Network Design & Troubleshooting',
-    subtitle: '24 topics, 13 labs, practice · EN / MY',
+    title: 'Network Design & Management',
     content: '#main',
     defaultView: 'home',
     restore: function () { return store.get('lastTab', 'home'); },
